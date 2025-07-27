@@ -1,6 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { TruckIcon, BeakerIcon, HandshakeIcon } from "@heroicons/react/24/outline";
+import { TruckIcon, BeakerIcon, HandRaisedIcon } from "@heroicons/react/24/outline";
 import AddToCartButton from "../components/AddToCartButton";
 import products from "../data/products";
 import formatCurrency from "../utils/formatCurrency";
@@ -66,7 +66,7 @@ export default function Home() {
             
             <div className="flex flex-col items-center">
               <div className="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mb-4">
-                <HandshakeIcon className="w-8 h-8 text-blue-600" />
+                <HandRaisedIcon className="w-8 h-8 text-blue-600" />
               </div>
               <h3 className="text-xl font-bold mb-2 text-gray-800">Fair Trade</h3>
               <p className="text-gray-600">Supports Local Farmers</p>
