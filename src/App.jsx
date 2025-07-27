@@ -3,6 +3,7 @@ import { HashRouter as Router, Routes, Route } from "react-router-dom";
 import Navbar from "./components/Navbar";
 import Sidebar from "./components/Sidebar";
 import Home from "./pages/Home";
+import Shop from "./pages/Shop";
 import ProductDetail from "./pages/ProductDetail";
 import Cart from "./pages/Cart";
 import Login from "./pages/Login";
@@ -28,11 +29,10 @@ function App() {
     <Router>
       <div className="min-h-screen bg-gradient-to-br from-himalaya-light to-blue-200">
         <Navbar />
-        <div className="flex">
-          <Sidebar />
-          <main className="flex-1 lg:ml-64">
+        <main>
             <Routes>
               <Route path="/" element={<Home />} />
+              <Route path="/shop" element={<Shop />} />
               <Route path="/products/:id" element={<ProductDetail />} />
               <Route path="/cart" element={<Cart />} />
               <Route path="/login" element={<Login />} />
@@ -41,8 +41,7 @@ function App() {
               <Route path="/checkout" element={<CheckoutPage />} />
               <Route path="/admin" element={<AdminPage />} />
             </Routes>
-          </main>
-        </div>
+        </main>
       </div>
     </Router>
   );

@@ -17,6 +17,7 @@ export default function Navbar() {
       </Link>
       <div className="flex gap-6 items-center">
         <Link to="/" className="hover:underline">Home</Link>
+        <Link to="/shop" className="hover:underline">Shop</Link>
         <Link to="/#/cart" className="relative">
           <CartIcon count={cart.reduce((a, b) => a + b.quantity, 0)} />
         </Link>
