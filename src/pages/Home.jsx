@@ -1,8 +1,14 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { BeakerIcon, UsersIcon, GlobeAltIcon } from "@heroicons/react/24/outline";
+import { TruckIcon, BeakerIcon, HandshakeIcon } from "@heroicons/react/24/outline";
+import AddToCartButton from "../components/AddToCartButton";
+import products from "../data/products";
+import formatCurrency from "../utils/formatCurrency";
 
 export default function Home() {
+  // Get featured products (first 2 products)
+  const featuredProducts = products.slice(0, 2);
+
   return (
     <div className="min-h-screen">
       {/* Hero Section */}
@@ -15,145 +21,157 @@ export default function Home() {
         }}
       >
         <div className="text-center max-w-4xl px-6">
-          <h1 className="text-5xl md:text-7xl font-bold mb-6 tracking-wide">
-            WHY LOCAL & ORGANIC?
+          <h1 className="text-4xl md:text-6xl font-bold mb-4 tracking-wide">
+            Experience Pure<br />Local Goodness
           </h1>
-          <p className="text-xl md:text-2xl mb-8 font-light">
-            Discover the Ramro Difference.
+          <p className="text-lg md:text-xl mb-8 font-light">
+            Handpicked, Organically Grown in the Himalayas
           </p>
-          <Link 
-            to="/shop" 
-            className="inline-block bg-himalaya hover:bg-himalaya-dark text-white font-semibold px-8 py-4 rounded-lg text-lg transition-all duration-300 transform hover:scale-105"
-          >
-            Shop Now
-          </Link>
+          <div className="flex flex-col sm:flex-row gap-4 justify-center">
+            <Link 
+              to="/shop" 
+              className="inline-block bg-orange-600 hover:bg-orange-700 text-white font-semibold px-8 py-3 rounded-lg text-lg transition-all duration-300"
+            >
+              Shop Now
+            </Link>
+            <Link 
+              to="/about" 
+              className="inline-block bg-white bg-opacity-20 hover:bg-opacity-30 text-white font-semibold px-8 py-3 rounded-lg text-lg transition-all duration-300 border border-white border-opacity-50"
+            >
+              Learn More
+            </Link>
+          </div>
         </div>
       </section>
 
-      {/* Why Choose Us Section */}
-      <section className="py-20 bg-white">
+      {/* Benefits Section */}
+      <section className="py-16 bg-gray-50">
         <div className="max-w-6xl mx-auto px-6">
-          <div className="grid md:grid-cols-3 gap-12 text-center">
+          <div className="grid md:grid-cols-3 gap-8 text-center">
             <div className="flex flex-col items-center">
-              <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mb-6">
+              <div className="w-16 h-16 bg-orange-100 rounded-full flex items-center justify-center mb-4">
+                <TruckIcon className="w-8 h-8 text-orange-600" />
+              </div>
+              <h3 className="text-xl font-bold mb-2 text-gray-800">Free Delivery</h3>
+              <p className="text-gray-600">On all orders</p>
+            </div>
+            
+            <div className="flex flex-col items-center">
+              <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mb-4">
                 <BeakerIcon className="w-8 h-8 text-green-600" />
               </div>
-              <h3 className="text-2xl font-bold mb-4 text-gray-800">Better for Health</h3>
-              <p className="text-gray-600 leading-relaxed">
-                No chemicals, just nature. Our organic products are grown without harmful pesticides or artificial additives.
-              </p>
+              <h3 className="text-xl font-bold mb-2 text-gray-800">100% Organic</h3>
+              <p className="text-gray-600">Pure & chemical free</p>
             </div>
             
             <div className="flex flex-col items-center">
-              <div className="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mb-6">
-                <UsersIcon className="w-8 h-8 text-blue-600" />
+              <div className="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mb-4">
+                <HandshakeIcon className="w-8 h-8 text-blue-600" />
               </div>
-              <h3 className="text-2xl font-bold mb-4 text-gray-800">Supports Local Farmers</h3>
-              <p className="text-gray-600 leading-relaxed">
-                Your food empowers communities. Every purchase directly supports small-scale farmers in the Himalayas.
-              </p>
-            </div>
-            
-            <div className="flex flex-col items-center">
-              <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mb-6">
-                <GlobeAltIcon className="w-8 h-8 text-green-600" />
-              </div>
-              <h3 className="text-2xl font-bold mb-4 text-gray-800">Sustainable Future</h3>
-              <p className="text-gray-600 leading-relaxed">
-                Eco-friendly practices all the way. We're committed to preserving our planet for future generations.
-              </p>
+              <h3 className="text-xl font-bold mb-2 text-gray-800">Fair Trade</h3>
+              <p className="text-gray-600">Supports Local Farmers</p>
             </div>
           </div>
         </div>
       </section>
 
-      {/* Signature Products Section */}
-      <section className="py-20 bg-gray-50">
+      {/* Featured Products Section */}
+      <section className="py-16 bg-white">
         <div className="max-w-6xl mx-auto px-6">
-          <h2 className="text-4xl font-bold text-center mb-16 text-gray-800">
-            Our Signature Local Products
+          <h2 className="text-3xl font-bold text-center mb-12 text-gray-800">
+            Featured Products
           </h2>
           
-          <div className="grid md:grid-cols-2 gap-12">
-            <div className="bg-white rounded-lg shadow-lg overflow-hidden">
-              <div className="relative">
-                <img 
-                  src="https://images.pexels.com/photos/33239/wheat-field-wheat-cereals-grain.jpg?auto=compress&cs=tinysrgb&w=800" 
-                  alt="Organic Red Rice" 
-                  className="w-full h-64 object-cover"
-                />
-                <span className="absolute top-4 left-4 bg-green-600 text-white px-3 py-1 rounded-full text-sm font-semibold">
-                  100% Organic
-                </span>
+          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+            {products.slice(0, 4).map((product) => (
+              <div key={product.id} className="bg-white rounded-lg shadow-lg overflow-hidden hover:shadow-xl transition-shadow">
+                <div className="relative">
+                  <img 
+                    src={product.image} 
+                    alt={product.name} 
+                    className="w-full h-48 object-cover"
+                  />
+                  {product.category === 'grains' && (
+                    <span className="absolute top-3 left-3 bg-green-600 text-white px-2 py-1 rounded-full text-xs font-semibold">
+                      100% Organic
+                    </span>
+                  )}
+                  {product.category === 'honey' && (
+                    <span className="absolute top-3 left-3 bg-blue-600 text-white px-2 py-1 rounded-full text-xs font-semibold">
+                      Local
+                    </span>
+                  )}
+                </div>
+                <div className="p-4">
+                  <h3 className="text-lg font-bold mb-2 text-gray-800">{product.name}</h3>
+                  <p className="text-2xl font-bold text-gray-800 mb-3">{formatCurrency(product.price)}</p>
+                  <AddToCartButton product={product} className="w-full" />
+                </div>
               </div>
-              <div className="p-6">
-                <h3 className="text-2xl font-bold mb-3 text-gray-800">Organic Red Rice</h3>
-                <p className="text-gray-600">Nutrient-rich, farm to table. Grown in the pristine valleys of the Himalayas.</p>
-              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Why Ramro Section */}
+      <section className="py-16 bg-gray-50">
+        <div className="max-w-6xl mx-auto px-6">
+          <div className="grid md:grid-cols-2 gap-12 items-center">
+            <div>
+              <img 
+                src="https://images.pexels.com/photos/1222271/pexels-photo-1222271.jpeg?auto=compress&cs=tinysrgb&w=800" 
+                alt="Local farmers" 
+                className="w-full rounded-lg shadow-lg"
+              />
             </div>
-            
-            <div className="bg-white rounded-lg shadow-lg overflow-hidden">
-              <div className="relative">
-                <img 
-                  src="https://images.pexels.com/photos/4198015/pexels-photo-4198015.jpeg?auto=compress&cs=tinysrgb&w=800" 
-                  alt="Himalayan Buckwheat" 
-                  className="w-full h-64 object-cover"
-                />
-                <span className="absolute top-4 left-4 bg-blue-600 text-white px-3 py-1 rounded-full text-sm font-semibold">
-                  Local
-                </span>
-              </div>
-              <div className="p-6">
-                <h3 className="text-2xl font-bold mb-3 text-gray-800">Himalayan Buckwheat</h3>
-                <p className="text-gray-600">Gluten-free, sustainably harvested. A traditional superfood from high altitudes.</p>
-              </div>
+            <div>
+              <h2 className="text-3xl font-bold mb-6 text-gray-800">Why Ramro?</h2>
+              <ul className="space-y-4 text-lg text-gray-700">
+                <li className="flex items-start">
+                  <span className="w-2 h-2 bg-himalaya rounded-full mt-3 mr-3 flex-shrink-0"></span>
+                  Locally sourced & sustainably grown
+                </li>
+                <li className="flex items-start">
+                  <span className="w-2 h-2 bg-himalaya rounded-full mt-3 mr-3 flex-shrink-0"></span>
+                  No chemical pesticides or fertilizers
+                </li>
+                <li className="flex items-start">
+                  <span className="w-2 h-2 bg-himalaya rounded-full mt-3 mr-3 flex-shrink-0"></span>
+                  Promotes healthy communities
+                </li>
+              </ul>
             </div>
           </div>
         </div>
       </section>
 
-      {/* Meet Our Farmers Section */}
-      <section className="py-20 bg-white">
+      {/* Testimonials Section */}
+      <section className="py-16 bg-white">
         <div className="max-w-6xl mx-auto px-6">
-          <h2 className="text-4xl font-bold text-center mb-16 text-gray-800">
-            Meet Our Farmers
+          <h2 className="text-3xl font-bold text-center mb-12 text-gray-800">
+            Testimonials
           </h2>
           
-          <div className="grid md:grid-cols-3 gap-8">
+          <div className="grid md:grid-cols-2 gap-8">
             <div className="text-center">
-              <img 
-                src="https://images.pexels.com/photos/1222271/pexels-photo-1222271.jpeg?auto=compress&cs=tinysrgb&w=400" 
-                alt="Deepak" 
-                className="w-48 h-48 rounded-lg mx-auto mb-4 object-cover"
-              />
-              <h3 className="text-xl font-bold mb-2 text-gray-800">Deepak</h3>
-              <p className="text-gray-600">
-                Pradhan dedication to organic farming ensures the highest quality products for our customers.
-              </p>
+              <p className="text-xl italic text-gray-700 mb-4">"Best rice ever!"</p>
+              <div className="flex justify-center">
+                <div className="flex space-x-1">
+                  {[...Array(5)].map((_, i) => (
+                    <span key={i} className="w-2 h-2 bg-orange-400 rounded-full"></span>
+                  ))}
+                </div>
+              </div>
             </div>
-            
             <div className="text-center">
-              <img 
-                src="https://images.pexels.com/photos/1181690/pexels-photo-1181690.jpeg?auto=compress&cs=tinysrgb&w=400" 
-                alt="Laxmi" 
-                className="w-48 h-48 rounded-lg mx-auto mb-4 object-cover"
-              />
-              <h3 className="text-xl font-bold mb-2 text-gray-800">Laxmi</h3>
-              <p className="text-gray-600">
-                Growing for Ramro helps us support our families and villages through sustainable agriculture.
-              </p>
-            </div>
-            
-            <div className="text-center">
-              <img 
-                src="https://images.pexels.com/photos/1181686/pexels-photo-1181686.jpeg?auto=compress&cs=tinysrgb&w=400" 
-                alt="Ashok" 
-                className="w-48 h-48 rounded-lg mx-auto mb-4 object-cover"
-              />
-              <h3 className="text-xl font-bold mb-2 text-gray-800">Ashok</h3>
-              <p className="text-gray-600">
-                With Ramro, our work is valued and respected. We're proud to share our harvest with the world.
-              </p>
+              <p className="text-xl italic text-gray-700 mb-4">"Healthier for my family."</p>
+              <div className="flex justify-center">
+                <div className="flex space-x-1">
+                  {[...Array(5)].map((_, i) => (
+                    <span key={i} className="w-2 h-2 bg-orange-400 rounded-full"></span>
+                  ))}
+                </div>
+              </div>
             </div>
           </div>
         </div>

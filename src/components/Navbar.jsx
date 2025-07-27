@@ -1,15 +1,16 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useAuthStore } from "../store/authStore";
-import CartIcon from "./CartIcon";
-import { UserCircleIcon, Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
 import { useCartStore } from "../store/cartStore";
+import { UserCircleIcon, Bars3Icon, XMarkIcon, ShoppingCartIcon } from "@heroicons/react/24/outline";
 
 export default function Navbar() {
   const { currentUser, logout } = useAuthStore();
-  const { cart } = useCartStore();
+  const { getTotalItems } = useCartStore();
   const navigate = useNavigate();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+
+  const totalItems = getTotalItems();
 
   const toggleMobileMenu = () => {
     setIsMobileMenuOpen(!isMobileMenuOpen);
@@ -17,6 +18,12 @@ export default function Navbar() {
 
   const closeMobileMenu = () => {
     setIsMobileMenuOpen(false);
+  };
+
+  const handleLogout = () => {
+    logout();
+    navigate("/login");
+    closeMobileMenu();
   };
 
   return (
@@ -42,27 +49,39 @@ export default function Navbar() {
 
         {/* Desktop Navigation */}
         <div className="hidden md:flex gap-6 items-center">
-          <Link to="/" className="hover:underline">Home</Link>
-          <Link to="/shop" className="hover:underline">Shop</Link>
-          <Link to="/cart" className="relative">
-            <CartIcon count={cart.reduce((a, b) => a + b.quantity, 0)} />
+          <Link to="/" className="hover:text-himalaya-light transition-colors">Home</Link>
+          <Link to="/shop" className="hover:text-himalaya-light transition-colors">Shop</Link>
+          <Link to="/cart" className="relative hover:text-himalaya-light transition-colors">
+            <div className="flex items-center gap-1">
+              <ShoppingCartIcon className="w-6 h-6" />
+              {totalItems > 0 && (
+                <span className="absolute -top-2 -right-2 bg-red-600 text-white rounded-full px-2 py-1 text-xs font-bold min-w-[1.25rem] h-5 flex items-center justify-center">
+                  {totalItems}
+                </span>
+              )}
+            </div>
           </Link>
           {currentUser ? (
             <>
-              <Link to="/account">
-                <UserCircleIcon className="w-7 h-7 inline" />
+              <Link to="/account" className="hover:text-himalaya-light transition-colors">
+                <UserCircleIcon className="w-7 h-7" />
               </Link>
               <button
-                className="ml-2 px-3 py-1 bg-white text-himalaya-dark rounded hover:bg-blue-100"
-                onClick={() => { logout(); navigate("/login"); }}
+                className="px-4 py-2 bg-white text-himalaya-dark rounded hover:bg-gray-100 transition-colors font-medium"
+                onClick={handleLogout}
               >
                 Logout
               </button>
             </>
           ) : (
             <>
-              <Link to="/login" className="hover:underline">Login</Link>
-              <Link to="/signup" className="hover:underline">Signup</Link>
+              <Link to="/login" className="hover:text-himalaya-light transition-colors">Login</Link>
+              <Link 
+                to="/signup" 
+                className="px-4 py-2 bg-white text-himalaya-dark rounded hover:bg-gray-100 transition-colors font-medium"
+              >
+                Sign Up
+              </Link>
             </>
           )}
         </div>
@@ -70,7 +89,12 @@ export default function Navbar() {
         {/* Mobile Cart Icon */}
         <div className="md:hidden">
           <Link to="/cart" className="relative">
-            <CartIcon count={cart.reduce((a, b) => a + b.quantity, 0)} />
+            <ShoppingCartIcon className="w-6 h-6" />
+            {totalItems > 0 && (
+              <span className="absolute -top-2 -right-2 bg-red-600 text-white rounded-full px-2 py-1 text-xs font-bold min-w-[1.25rem] h-5 flex items-center justify-center">
+                {totalItems}
+              </span>
+            )}
           </Link>
         </div>
       </nav>
@@ -107,7 +131,14 @@ export default function Navbar() {
                   className="block py-3 px-4 hover:bg-himalaya rounded-md transition-colors"
                   onClick={closeMobileMenu}
                 >
-                  Cart ({cart.reduce((a, b) => a + b.quantity, 0)})
+                  <div className="flex items-center justify-between">
+                    <span>Cart</span>
+                    {totalItems > 0 && (
+                      <span className="bg-red-600 text-white rounded-full px-2 py-1 text-xs font-bold">
+                        {totalItems}
+                      </span>
+                    )}
+                  </div>
                 </Link>
                 
                 <hr className="border-himalaya my-4" />
@@ -126,11 +157,7 @@ export default function Navbar() {
                     </Link>
                     <button
                       className="w-full text-left py-3 px-4 hover:bg-himalaya rounded-md transition-colors"
-                      onClick={() => { 
-                        logout(); 
-                        navigate("/login"); 
-                        closeMobileMenu(); 
-                      }}
+                      onClick={handleLogout}
                     >
                       Logout
                     </button>
@@ -149,7 +176,7 @@ export default function Navbar() {
                       className="block py-3 px-4 hover:bg-himalaya rounded-md transition-colors"
                       onClick={closeMobileMenu}
                     >
-                      Signup
+                      Sign Up
                     </Link>
                   </>
                 )}
