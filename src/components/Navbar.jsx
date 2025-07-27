@@ -32,13 +32,13 @@ export default function Navbar() {
         {/* Mobile Hamburger Menu Button */}
         <button
           onClick={toggleMobileMenu}
-          className="md:hidden p-2 rounded-md hover:bg-himalayan transition-colors duration-200"
+          className="md:hidden p-2 rounded-md hover:bg-himalayan transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-white focus:ring-opacity-50"
           aria-label="Toggle menu"
         >
           {isMobileMenuOpen ? (
-            <XMarkIcon className="w-6 h-6" />
+            <XMarkIcon className="w-6 h-6 text-white" />
           ) : (
-            <Bars3Icon className="w-6 h-6" />
+            <Bars3Icon className="w-6 h-6 text-white" />
           )}
         </button>
 
@@ -49,13 +49,13 @@ export default function Navbar() {
 
         {/* Desktop Navigation */}
         <div className="hidden md:flex gap-6 items-center">
-          <Link to="/" className="hover:text-himalayan-light transition-colors duration-200 font-medium">Home</Link>
-          <Link to="/shop" className="hover:text-himalayan-light transition-colors duration-200 font-medium">Shop</Link>
-          <Link to="/cart" className="relative hover:text-himalayan-light transition-colors duration-200">
+          <Link to="/" className="text-white hover:text-himalayan-light transition-colors duration-200 font-medium">Home</Link>
+          <Link to="/shop" className="text-white hover:text-himalayan-light transition-colors duration-200 font-medium">Shop</Link>
+          <Link to="/cart" className="relative text-white hover:text-himalayan-light transition-colors duration-200">
             <div className="flex items-center gap-1">
-              <ShoppingCartIcon className="w-6 h-6" />
+              <ShoppingCartIcon className="w-6 h-6 text-white" />
               {totalItems > 0 && (
-                <span className="absolute -top-2 -right-2 bg-status-error text-white rounded-full px-2 py-1 text-xs font-bold min-w-[1.25rem] h-5 flex items-center justify-center shadow-md">
+                <span className="absolute -top-2 -right-2 bg-red-600 text-white rounded-full px-2 py-1 text-xs font-bold min-w-[1.25rem] h-5 flex items-center justify-center shadow-md">
                   {totalItems}
                 </span>
               )}
@@ -63,8 +63,8 @@ export default function Navbar() {
           </Link>
           {currentUser ? (
             <>
-              <Link to="/account" className="hover:text-himalayan-light transition-colors duration-200">
-                <UserCircleIcon className="w-7 h-7" />
+              <Link to="/account" className="text-white hover:text-himalayan-light transition-colors duration-200">
+                <UserCircleIcon className="w-7 h-7 text-white" />
               </Link>
               <button
                 className="px-4 py-2 bg-white text-himalayan-dark rounded-md hover:bg-himalayan-light transition-all duration-200 font-medium shadow-sm hover:shadow-md"
@@ -75,7 +75,7 @@ export default function Navbar() {
             </>
           ) : (
             <>
-              <Link to="/login" className="hover:text-himalayan-light transition-colors duration-200 font-medium">Login</Link>
+              <Link to="/login" className="text-white hover:text-himalayan-light transition-colors duration-200 font-medium">Login</Link>
               <Link 
                 to="/signup" 
                 className="px-4 py-2 bg-white text-himalayan-dark rounded-md hover:bg-himalayan-light transition-all duration-200 font-medium shadow-sm hover:shadow-md"
@@ -89,7 +89,7 @@ export default function Navbar() {
         {/* Mobile Cart Icon */}
         <div className="md:hidden">
           <Link to="/cart" className="relative">
-            <ShoppingCartIcon className="w-6 h-6" />
+            <ShoppingCartIcon className="w-6 h-6 text-white" />
             {totalItems > 0 && (
               <span className="absolute -top-2 -right-2 bg-red-600 text-white rounded-full px-2 py-1 text-xs font-bold min-w-[1.25rem] h-5 flex items-center justify-center">
                 {totalItems}
@@ -101,38 +101,41 @@ export default function Navbar() {
 
       {/* Mobile Menu Overlay */}
       {isMobileMenuOpen && (
-        <div className="fixed inset-0 bg-black bg-opacity-50 z-40 md:hidden" onClick={closeMobileMenu}>
-          <div className="fixed left-0 top-0 h-full w-64 bg-himalaya-dark text-white shadow-lg z-50" onClick={(e) => e.stopPropagation()}>
+        <div className="fixed inset-0 bg-black bg-opacity-60 z-40 md:hidden" onClick={closeMobileMenu}>
+          <div className="fixed left-0 top-0 h-full w-64 bg-himalaya-dark shadow-2xl z-50 transform transition-transform duration-300 ease-in-out" onClick={(e) => e.stopPropagation()}>
             <div className="p-4">
               <div className="flex items-center justify-between mb-8">
-                <span className="text-xl font-bold">Menu</span>
-                <button onClick={closeMobileMenu} className="p-2">
-                  <XMarkIcon className="w-6 h-6" />
+                <span className="text-xl font-bold text-white">Menu</span>
+                <button 
+                  onClick={closeMobileMenu} 
+                  className="p-2 rounded-md hover:bg-himalayan transition-colors focus:outline-none focus:ring-2 focus:ring-white focus:ring-opacity-50"
+                >
+                  <XMarkIcon className="w-6 h-6 text-white" />
                 </button>
               </div>
               
               <div className="space-y-4">
                 <Link 
                   to="/" 
-                  className="block py-3 px-4 hover:bg-himalaya rounded-md transition-colors"
+                  className="block py-3 px-4 text-white hover:bg-himalayan hover:text-white rounded-md transition-colors duration-200"
                   onClick={closeMobileMenu}
                 >
                   Home
                 </Link>
                 <Link 
                   to="/shop" 
-                  className="block py-3 px-4 hover:bg-himalaya rounded-md transition-colors"
+                  className="block py-3 px-4 text-white hover:bg-himalayan hover:text-white rounded-md transition-colors duration-200"
                   onClick={closeMobileMenu}
                 >
                   Shop
                 </Link>
                 <Link 
                   to="/cart" 
-                  className="block py-3 px-4 hover:bg-himalaya rounded-md transition-colors"
+                  className="block py-3 px-4 text-white hover:bg-himalayan hover:text-white rounded-md transition-colors duration-200"
                   onClick={closeMobileMenu}
                 >
                   <div className="flex items-center justify-between">
-                    <span>Cart</span>
+                    <span className="text-white">Cart</span>
                     {totalItems > 0 && (
                       <span className="bg-red-600 text-white rounded-full px-2 py-1 text-xs font-bold">
                         {totalItems}
@@ -141,22 +144,22 @@ export default function Navbar() {
                   </div>
                 </Link>
                 
-                <hr className="border-himalaya my-4" />
+                <hr className="border-himalayan border-opacity-30 my-4" />
                 
                 {currentUser ? (
                   <>
                     <Link 
                       to="/account" 
-                      className="block py-3 px-4 hover:bg-himalaya rounded-md transition-colors"
+                      className="block py-3 px-4 text-white hover:bg-himalayan hover:text-white rounded-md transition-colors duration-200"
                       onClick={closeMobileMenu}
                     >
                       <div className="flex items-center gap-2">
-                        <UserCircleIcon className="w-5 h-5" />
-                        Account
+                        <UserCircleIcon className="w-5 h-5 text-white" />
+                        <span className="text-white">Account</span>
                       </div>
                     </Link>
                     <button
-                      className="w-full text-left py-3 px-4 hover:bg-himalaya rounded-md transition-colors"
+                      className="w-full text-left py-3 px-4 text-white hover:bg-himalayan hover:text-white rounded-md transition-colors duration-200"
                       onClick={handleLogout}
                     >
                       Logout
@@ -166,14 +169,14 @@ export default function Navbar() {
                   <>
                     <Link 
                       to="/login" 
-                      className="block py-3 px-4 hover:bg-himalaya rounded-md transition-colors"
+                      className="block py-3 px-4 text-white hover:bg-himalayan hover:text-white rounded-md transition-colors duration-200"
                       onClick={closeMobileMenu}
                     >
                       Login
                     </Link>
                     <Link 
                       to="/signup" 
-                      className="block py-3 px-4 hover:bg-himalaya rounded-md transition-colors"
+                      className="block py-3 px-4 text-white hover:bg-himalayan hover:text-white rounded-md transition-colors duration-200"
                       onClick={closeMobileMenu}
                     >
                       Sign Up

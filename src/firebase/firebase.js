@@ -2,8 +2,10 @@
 import { initializeApp } from "firebase/app";
 import { getAuth } from "firebase/auth";
 import { getFirestore } from "firebase/firestore";
+import { getStorage } from "firebase/storage";
+import { getFunctions } from "firebase/functions";
 
-// Your .env file should provide these (VITE_... for Vite)
+// Firebase configuration from environment variables
 const firebaseConfig = {
   apiKey: import.meta.env.VITE_FIREBASE_API_KEY,
   authDomain: import.meta.env.VITE_FIREBASE_AUTH_DOMAIN,
@@ -14,6 +16,19 @@ const firebaseConfig = {
   measurementId: import.meta.env.VITE_FIREBASE_MEASUREMENT_ID,
 };
 
+// Initialize Firebase
 const app = initializeApp(firebaseConfig);
+
+// Initialize Firebase services
 export const auth = getAuth(app);
 export const db = getFirestore(app);
+export const storage = getStorage(app);
+export const functions = getFunctions(app);
+
+// Enable offline persistence for Firestore
+import { enableNetwork, disableNetwork } from "firebase/firestore";
+
+export const enableOffline = () => disableNetwork(db);
+export const enableOnline = () => enableNetwork(db);
+
+export default app;
