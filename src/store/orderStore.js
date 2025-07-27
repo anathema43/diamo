@@ -1,38 +1,100 @@
 import { create } from "zustand";
-import { collection, getDocs, addDoc, doc, updateDoc, query, where } from "firebase/firestore";
+import { 
+  collection, 
+  getDocs, 
+  addDoc, 
+  doc, 
+  updateDoc, 
+  query, 
+  where, 
+  orderBy,
+  getDoc
+} from "firebase/firestore";
 import { db } from "../firebase/firebase";
 import { useAuthStore } from "./authStore";
 
 export const useOrderStore = create((set, get) => ({
   orders: [],
+  userOrders: [],
   loading: false,
   error: null,
 
+  // Fetch all orders (admin only)
   fetchOrders: async (userId = null) => {
     set({ loading: true, error: null });
     try {
-      let q = collection(db, "orders");
+      let q;
       if (userId) {
-        q = query(q, where("userId", "==", userId));
+        q = query(
+          collection(db, "orders"),
+          where("userId", "==", userId),
+          orderBy("createdAt", "desc")
+        );
+      } else {
+        q = query(collection(db, "orders"), orderBy("createdAt", "desc"));
       }
+      
       const snapshot = await getDocs(q);
       const orders = snapshot.docs.map(doc => ({
         id: doc.id,
         ...doc.data(),
       }));
-      set({ orders, loading: false });
+      
+      if (userId) {
+        set({ userOrders: orders, loading: false });
+      } else {
+        set({ orders, loading: false });
+      }
     } catch (error) {
       set({ error: error.message, loading: false });
     }
   },
 
+  // Fetch user-specific orders
+  fetchUserOrders: async () => {
+    const { currentUser } = useAuthStore.getState();
+    if (!currentUser) return;
+    
+    await get().fetchOrders(currentUser.uid);
+  },
+
+  // Get single order by ID
+  getOrderById: async (orderId) => {
+    try {
+      const docRef = doc(db, "orders", orderId);
+      const docSnap = await getDoc(docRef);
+      
+      if (docSnap.exists()) {
+        return { id: docSnap.id, ...docSnap.data() };
+      } else {
+        return null;
+      }
+    } catch (error) {
+      set({ error: error.message });
+      return null;
+    }
+  },
   addOrder: async (order) => {
     set({ error: null });
     try {
-      const docRef = await addDoc(collection(db, "orders"), order);
-      set({ orders: [...get().orders, { ...order, id: docRef.id }] });
+      const orderData = {
+        ...order,
+        createdAt: new Date().toISOString(),
+        updatedAt: new Date().toISOString()
+      };
+      
+      const docRef = await addDoc(collection(db, "orders"), orderData);
+      const newOrder = { ...orderData, id: docRef.id };
+      
+      set({ 
+        orders: [...get().orders, newOrder],
+        userOrders: [...get().userOrders, newOrder]
+      });
+      
+      return docRef.id;
     } catch (error) {
       set({ error: error.message });
+      throw error;
     }
   },
 
@@ -45,23 +107,58 @@ export const useOrderStore = create((set, get) => ({
       userId: currentUser.uid,
       userEmail: currentUser.email,
       status: "processing",
-      createdAt: Date.now(),
+      orderNumber: `ORD-${Date.now()}`,
+      createdAt: new Date().toISOString(),
     };
     
-    return await get().addOrder(order);
+    try {
+      const orderId = await get().addOrder(order);
+      return { ...order, id: orderId };
+    } catch (error) {
+      throw error;
+    }
   },
 
   updateOrderStatus: async (id, status) => {
     set({ error: null });
     try {
-      await updateDoc(doc(db, "orders", id), { status });
+      const updateData = {
+        status,
+        updatedAt: new Date().toISOString()
+      };
+      
+      await updateDoc(doc(db, "orders", id), updateData);
+      
       set({
         orders: get().orders.map(order =>
-          order.id === id ? { ...order, status } : order
+          order.id === id ? { ...order, ...updateData } : order
+        ),
+        userOrders: get().userOrders.map(order =>
+          order.id === id ? { ...order, ...updateData } : order
         ),
       });
     } catch (error) {
       set({ error: error.message });
     }
   },
+
+  // Calculate order statistics (for admin)
+  getOrderStats: () => {
+    const { orders } = get();
+    
+    const stats = {
+      total: orders.length,
+      processing: orders.filter(o => o.status === 'processing').length,
+      shipped: orders.filter(o => o.status === 'shipped').length,
+      delivered: orders.filter(o => o.status === 'delivered').length,
+      cancelled: orders.filter(o => o.status === 'cancelled').length,
+      totalRevenue: orders
+        .filter(o => o.status !== 'cancelled')
+        .reduce((sum, o) => sum + (o.total || 0), 0)
+    };
+    
+    return stats;
+  },
+
+  clearError: () => set({ error: null }),
 }));
