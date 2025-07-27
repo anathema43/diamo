@@ -29,6 +29,7 @@ export default function Navbar() {
   return (
     <>
       <nav className="flex items-center justify-between bg-himalaya-dark p-4 text-white shadow-md relative">
+      </nav>
       <nav className="flex items-center justify-between bg-organic-text p-4 text-organic-white shadow-md relative">
         {/* Mobile Hamburger Menu Button */}
         <button
