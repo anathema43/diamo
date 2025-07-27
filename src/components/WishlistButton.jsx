@@ -1,21 +1,24 @@
 import React from "react";
-import { useProductStore } from "../store/productStore";
+import { useUserStore } from "../store/userStore";
 
-export default function WishlistButton({ productId }) {
-  const { wishlist, addToWishlist, removeFromWishlist } = useProductStore();
+const WishlistButton = ({ product }) => {
+  const wishlist = useUserStore((state) => state.wishlist) || [];
+  const toggleWishlist = useUserStore((state) => state.toggleWishlist);
 
-  const inWishlist = wishlist.includes(productId);
+  if (!product || !product.id) return null; // 💡 Early return, avoid error
+
+  const isWishlisted = wishlist.includes(product.id);
 
   return (
     <button
-      className={`rounded-full p-2 border ${inWishlist ? "bg-pink-100 text-pink-600" : "bg-white text-gray-400"}`}
-      onClick={() => {
-        inWishlist ? removeFromWishlist(productId) : addToWishlist(productId);
-      }}
-      aria-label={inWishlist ? "Remove from wishlist" : "Add to wishlist"}
-      title={inWishlist ? "Remove from wishlist" : "Add to wishlist"}
+      className={`px-2 py-1 rounded ${
+        isWishlisted ? "bg-red-500 text-white" : "bg-gray-200"
+      }`}
+      onClick={() => toggleWishlist(product.id)}
     >
-      {inWishlist ? "♥" : "♡"}
+      {isWishlisted ? "♥" : "♡"}
     </button>
   );
-}
+};
+
+export default WishlistButton;

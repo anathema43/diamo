@@ -1,18 +1,51 @@
 import { create } from "zustand";
+import { collection, getDocs, addDoc, doc, updateDoc, query, where } from "firebase/firestore";
+import { db } from "../firebase/firebase";
 
-export const useOrderStore = create((set) => ({
+export const useOrderStore = create((set, get) => ({
   orders: [],
-  placeOrder: (cart, total, address) =>
-    set((state) => ({
-      orders: [
-        ...state.orders,
-        {
-          id: Date.now().toString(),
-          cart,
-          total,
-          address,
-          date: new Date().toLocaleString(),
-        },
-      ],
-    })),
+  loading: false,
+  error: null,
+
+  fetchOrders: async (userId = null) => {
+    set({ loading: true, error: null });
+    try {
+      let q = collection(db, "orders");
+      if (userId) {
+        q = query(q, where("userId", "==", userId));
+      }
+      const snapshot = await getDocs(q);
+      const orders = snapshot.docs.map(doc => ({
+        id: doc.id,
+        ...doc.data(),
+      }));
+      set({ orders, loading: false });
+    } catch (error) {
+      set({ error: error.message, loading: false });
+    }
+  },
+
+  addOrder: async (order) => {
+    set({ error: null });
+    try {
+      const docRef = await addDoc(collection(db, "orders"), order);
+      set({ orders: [...get().orders, { ...order, id: docRef.id }] });
+    } catch (error) {
+      set({ error: error.message });
+    }
+  },
+
+  updateOrderStatus: async (id, status) => {
+    set({ error: null });
+    try {
+      await updateDoc(doc(db, "orders", id), { status });
+      set({
+        orders: get().orders.map(order =>
+          order.id === id ? { ...order, status } : order
+        ),
+      });
+    } catch (error) {
+      set({ error: error.message });
+    }
+  },
 }));

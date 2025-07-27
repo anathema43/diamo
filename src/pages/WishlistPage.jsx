@@ -1,22 +1,21 @@
 import React from "react";
-import { useProductStore } from "../store/productStore";
-import products from "../data/products";
-import ProductCard from "../components/ProductCard";
+import { useUserStore } from "../store/userStore"; // adjust path
 
-export default function WishlistPage() {
-  const { wishlist } = useProductStore();
-  const items = products.filter((p) => wishlist.includes(p.id));
+const WishlistButton = ({ product }) => {
+  // get wishlist from store, fallback to []
+  const wishlist = useUserStore((s) => s.wishlist) || [];
+  const toggleWishlist = useUserStore((s) => s.toggleWishlist);
+
+  const isWishlisted = wishlist.includes(product.id);
 
   return (
-    <div className="mt-8">
-      <h2 className="text-2xl font-bold mb-2">My Wishlist</h2>
-      {items.length === 0 ? (
-        <div className="bg-gray-100 rounded p-4">No items in wishlist.</div>
-      ) : (
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-          {items.map((product) => <ProductCard key={product.id} product={product} />)}
-        </div>
-      )}
-    </div>
+    <button
+      className={`px-2 py-1 rounded ${isWishlisted ? "bg-pink-400 text-white" : "bg-gray-100"}`}
+      onClick={() => toggleWishlist(product.id)}
+    >
+      {isWishlisted ? "♥ Wishlisted" : "♡ Wishlist"}
+    </button>
   );
-}
+};
+
+export default WishlistButton;

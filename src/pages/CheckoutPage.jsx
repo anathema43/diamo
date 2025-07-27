@@ -1,98 +1,144 @@
-import React from "react";
-import { useCartStore } from "../store/cartStore";
-import { Link } from "react-router-dom";
-
-export default function CheckoutPage() {
-  const { cart, clearCart } = useCartStore();
-  const total = cart.reduce((sum, item) => sum + item.price * item.quantity, 0);
-
-  if (cart.length === 0)
-    return (
-      <div className="max-w-lg mx-auto p-6 text-center">
-        <h2 className="text-2xl font-bold mb-3">Checkout</h2>
-        <p className="text-gray-600 mb-4">No items in cart.</p>
-        <Link to="/" className="text-himalaya hover:underline">Shop Now</Link>
-      </div>
-    );
-
-  return (
-    <div className="max-w-xl mx-auto p-8 bg-white rounded shadow mt-8">
-      <h2 className="text-2xl font-bold mb-4">Checkout</h2>
-      <ul>
-        {cart.map((item) => (
-          <li key={item.id} className="mb-2 flex justify-between">
-            <span>{item.name} x {item.quantity}</span>
-            <span>₹{item.price * item.quantity}</span>
-          </li>
-        ))}
-      </ul>
-      <div className="flex justify-between font-bold text-lg mt-6">
-        <span>Total:</span>
-        <span>₹{total}</span>
-      </div>
-      <button
-        className="mt-8 w-full bg-himalaya text-white py-3 rounded hover:bg-himalaya-dark"
-        onClick={() => {
-          clearCart();
-          alert("Thank you for your purchase! (Integrate Stripe for payments)");
-        }}
-      >
-        Pay Now (Demo)
-      </button>
-    </div>
-  );
-}import React, { useState } from "react";
+import React, { useState } from "react";
 import { useCartStore } from "../store/cartStore";
 import { useOrderStore } from "../store/orderStore";
 import formatCurrency from "../utils/formatCurrency";
-import { useNavigate } from "react-router-dom";
 
-export default function CheckoutPage() {
-  const { cart, clearCart } = useCartStore();
-  const { placeOrder } = useOrderStore();
-  const [address, setAddress] = useState("");
-  const [processing, setProcessing] = useState(false);
-  const navigate = useNavigate();
+function CheckoutPage() {
+  const cart = useCartStore((state) => state.cart);
+  const clearCart = useCartStore((state) => state.clearCart);
+  const createOrder = useOrderStore((state) => state.createOrder);
 
-  const total = cart.reduce((sum, item) => sum + item.price * item.quantity, 0);
+  const [shipping, setShipping] = useState({
+    name: "",
+    address: "",
+    city: "",
+    zip: "",
+    phone: "",
+  });
+  const [submitting, setSubmitting] = useState(false);
+  const [success, setSuccess] = useState("");
+  const [error, setError] = useState("");
 
-  const handleOrder = async (e) => {
-    e.preventDefault();
-    setProcessing(true);
-    await placeOrder(cart, total, address);
-    clearCart();
-    setProcessing(false);
-    navigate("/orders");
+  const total = cart.reduce(
+    (sum, item) => sum + item.price * item.quantity,
+    0
+  );
+
+  const handleInput = (e) => {
+    setShipping({ ...shipping, [e.target.name]: e.target.value });
   };
 
-  if (!cart.length) {
-    return (
-      <div className="max-w-xl mx-auto p-8 text-center">
-        <h2 className="text-2xl font-bold mb-4">No items in cart</h2>
-      </div>
-    );
-  }
+  const handleCheckout = async (e) => {
+    e.preventDefault();
+    setSubmitting(true);
+    setError("");
+    setSuccess("");
+
+    // Simple validation
+    if (!shipping.name || !shipping.address || !shipping.city || !shipping.zip || !shipping.phone) {
+      setError("All fields are required.");
+      setSubmitting(false);
+      return;
+    }
+    if (cart.length === 0) {
+      setError("Your cart is empty.");
+      setSubmitting(false);
+      return;
+    }
+
+    try {
+      // This creates an order in Firestore (or wherever your store/orderStore.js is hooked)
+      await createOrder({
+        items: cart,
+        shipping,
+        total,
+        createdAt: Date.now(),
+      });
+      setSuccess("Order placed! Thank you for shopping Ramro 🏔️");
+      clearCart();
+    } catch (err) {
+      setError("Something went wrong. Please try again.");
+    } finally {
+      setSubmitting(false);
+    }
+  };
 
   return (
-    <div className="max-w-xl mx-auto p-8 bg-white rounded shadow mt-8">
-      <h1 className="text-2xl font-bold mb-4">Checkout</h1>
-      <form onSubmit={handleOrder} className="space-y-4">
-        <div>
-          <label className="block mb-1 font-semibold">Shipping Address</label>
-          <textarea
-            className="w-full border rounded p-2"
-            required
-            value={address}
-            onChange={(e) => setAddress(e.target.value)}
-            placeholder="Enter your full shipping address"
-          />
+    <div className="max-w-2xl mx-auto mt-12 p-6 bg-white shadow-xl rounded-lg">
+      <h1 className="text-3xl font-bold text-himalaya-dark mb-4">Checkout</h1>
+      <form className="space-y-4" onSubmit={handleCheckout}>
+        <input
+          name="name"
+          placeholder="Full Name"
+          className="w-full p-2 border rounded"
+          value={shipping.name}
+          onChange={handleInput}
+        />
+        <input
+          name="address"
+          placeholder="Shipping Address"
+          className="w-full p-2 border rounded"
+          value={shipping.address}
+          onChange={handleInput}
+        />
+        <input
+          name="city"
+          placeholder="City"
+          className="w-full p-2 border rounded"
+          value={shipping.city}
+          onChange={handleInput}
+        />
+        <input
+          name="zip"
+          placeholder="ZIP Code"
+          className="w-full p-2 border rounded"
+          value={shipping.zip}
+          onChange={handleInput}
+        />
+        <input
+          name="phone"
+          placeholder="Phone Number"
+          className="w-full p-2 border rounded"
+          value={shipping.phone}
+          onChange={handleInput}
+        />
+
+        <div className="flex justify-between items-center mt-4">
+          <span className="font-semibold text-lg">Total:</span>
+          <span className="font-bold text-green-700 text-xl">{formatCurrency(total)}</span>
         </div>
-        <div className="font-bold mb-2">Order Total: {formatCurrency(total)}</div>
-        <button type="submit" className="w-full bg-himalaya text-white py-2 rounded hover:bg-himalaya-dark" disabled={processing}>
-          {processing ? "Placing Order..." : "Place Order"}
+
+        {error && <p className="text-red-600">{error}</p>}
+        {success && <p className="text-green-700 font-bold">{success}</p>}
+
+        <button
+          type="submit"
+          className="w-full py-2 bg-himalaya-dark text-white rounded hover:bg-himalaya transition"
+          disabled={submitting}
+        >
+          {submitting ? "Processing..." : "Place Order"}
         </button>
       </form>
+
+      <div className="mt-8">
+        <h2 className="text-xl font-bold mb-2">Order Summary</h2>
+        {cart.length === 0 ? (
+          <p className="text-gray-500">Your cart is empty.</p>
+        ) : (
+          <ul>
+            {cart.map((item) => (
+              <li key={item.id} className="flex justify-between mb-2">
+                <span>
+                  {item.name} x {item.quantity}
+                </span>
+                <span>{formatCurrency(item.price * item.quantity)}</span>
+              </li>
+            ))}
+          </ul>
+        )}
+      </div>
     </div>
   );
 }
 
+export default CheckoutPage;
