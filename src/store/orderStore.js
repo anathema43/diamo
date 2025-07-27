@@ -1,6 +1,7 @@
 import { create } from "zustand";
 import { collection, getDocs, addDoc, doc, updateDoc, query, where } from "firebase/firestore";
 import { db } from "../firebase/firebase";
+import { useAuthStore } from "./authStore";
 
 export const useOrderStore = create((set, get) => ({
   orders: [],
@@ -33,6 +34,21 @@ export const useOrderStore = create((set, get) => ({
     } catch (error) {
       set({ error: error.message });
     }
+  },
+
+  createOrder: async (orderData) => {
+    const { currentUser } = useAuthStore.getState();
+    if (!currentUser) throw new Error("User not authenticated");
+    
+    const order = {
+      ...orderData,
+      userId: currentUser.uid,
+      userEmail: currentUser.email,
+      status: "processing",
+      createdAt: Date.now(),
+    };
+    
+    return await get().addOrder(order);
   },
 
   updateOrderStatus: async (id, status) => {
