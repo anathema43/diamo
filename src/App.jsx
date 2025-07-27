@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { HashRouter as Router, Routes, Route } from "react-router-dom";
 import Navbar from "./components/Navbar";
 import Sidebar from "./components/Sidebar";
 import Home from "./pages/Home";
@@ -14,26 +14,35 @@ import { useAuthStore } from "./store/authStore";
 
 function App() {
   const { fetchUser } = useAuthStore();
+  
   useEffect(() => {
-    const unsub = fetchUser();
-    return () => unsub && unsub();
+    try {
+      const unsub = fetchUser();
+      return () => unsub && unsub();
+    } catch (error) {
+      console.log("Auth not configured yet");
+    }
   }, [fetchUser]);
 
   return (
     <Router>
       <div className="min-h-screen bg-gradient-to-br from-himalaya-light to-blue-200">
         <Navbar />
-        <Sidebar />
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/products/:id" element={<ProductDetail />} />
-          <Route path="/cart" element={<Cart />} />
-          <Route path="/login" element={<Login />} />
-          <Route path="/signup" element={<Signup />} />
-          <Route path="/account" element={<AccountPage />} />
-          <Route path="/checkout" element={<CheckoutPage />} />
-          <Route path="/admin" element={<AdminPage />} />
-        </Routes>
+        <div className="flex">
+          <Sidebar />
+          <main className="flex-1 lg:ml-64">
+            <Routes>
+              <Route path="/" element={<Home />} />
+              <Route path="/products/:id" element={<ProductDetail />} />
+              <Route path="/cart" element={<Cart />} />
+              <Route path="/login" element={<Login />} />
+              <Route path="/signup" element={<Signup />} />
+              <Route path="/account" element={<AccountPage />} />
+              <Route path="/checkout" element={<CheckoutPage />} />
+              <Route path="/admin" element={<AdminPage />} />
+            </Routes>
+          </main>
+        </div>
       </div>
     </Router>
   );

@@ -17,25 +17,25 @@ export default function Navbar() {
       </Link>
       <div className="flex gap-6 items-center">
         <Link to="/" className="hover:underline">Home</Link>
-        <Link to="/cart" className="relative">
+        <Link to="/#/cart" className="relative">
           <CartIcon count={cart.reduce((a, b) => a + b.quantity, 0)} />
         </Link>
         {currentUser ? (
           <>
-            <Link to="/account">
+            <Link to="/#/account">
               <UserCircleIcon className="w-7 h-7 inline" />
             </Link>
             <button
               className="ml-2 px-3 py-1 bg-white text-himalaya-dark rounded hover:bg-blue-100"
-              onClick={() => { logout(); navigate("/login"); }}
+              onClick={() => { logout(); navigate("/#/login"); }}
             >
               Logout
             </button>
           </>
         ) : (
           <>
-            <Link to="/login" className="hover:underline">Login</Link>
-            <Link to="/signup" className="hover:underline">Signup</Link>
+            <Link to="/#/login" className="hover:underline">Login</Link>
+            <Link to="/#/signup" className="hover:underline">Signup</Link>
           </>
         )}
       </div>
