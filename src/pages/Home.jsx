@@ -173,14 +173,14 @@ export default function Home() {
           <div className="grid lg:grid-cols-2 gap-16 items-center">
             <div className="animate-slide-up">
               <img 
-                src="https://res.cloudinary.com/dj4kdlwzo/image/upload/v1752940186/darjeeling_qicpwi.avif" 
-                alt="Darjeeling tea gardens in the Himalayas" 
+                src="https://res.cloudinary.com/dj4kdlwzo/image/upload/v1753654806/Gemini_Generated_Image_32y8mu32y8mu32y8_x9aecd.png" 
+                alt="Himalayan landscape with traditional architecture" 
                 className="w-full rounded-3xl shadow-2xl transform hover:scale-105 transition-transform duration-500"
               />
             </div>
             <div className="animate-slide-up" style={{ animationDelay: '0.3s' }}>
               <h2 className="font-display text-4xl md:text-5xl font-bold mb-8 text-organic-text">
-                Why Choose Ramro?
+                Why Choose Ramro - From the Hearts of Himalayas
               </h2>
               <div className="space-y-6">
                 <div className="flex items-start">
@@ -202,6 +202,13 @@ export default function Home() {
                   <div>
                     <h4 className="font-semibold text-lg text-organic-text mb-1">Promotes Healthy Communities</h4>
                     <p className="text-organic-text opacity-75">Every purchase supports local artisans and their families</p>
+                  </div>
+                </div>
+                <div className="flex items-start">
+                  <div className="w-3 h-3 bg-organic-highlight rounded-full mt-2 mr-4 flex-shrink-0"></div>
+                  <div>
+                    <h4 className="font-semibold text-lg text-organic-text mb-1">Authentic. Sustainable. Pure.</h4>
+                    <p className="text-organic-text opacity-75">Connecting you with the timeless traditions of the Himalayas</p>
                   </div>
                 </div>
               </div>
@@ -315,33 +322,6 @@ export default function Home() {
             >
               Join Our Community
             </Link>
-          </div>
-        </div>
-      </section>
-
-      {/* Bottom Image Section */}
-      <section className="py-16 bg-organic-background">
-        <div className="max-w-7xl mx-auto px-6">
-          <div className="text-center mb-8">
-            <h2 className="font-display text-3xl md:text-4xl font-bold text-organic-text mb-4">
-              From the Heart of the Himalayas
-            </h2>
-            <p className="text-lg text-organic-text opacity-75 max-w-2xl mx-auto">
-              Every product tells a story of tradition, craftsmanship, and the pristine beauty of mountain life.
-            </p>
-          </div>
-          <div className="relative rounded-3xl overflow-hidden shadow-2xl">
-            <img 
-              src="https://res.cloudinary.com/dj4kdlwzo/image/upload/v1753654806/Gemini_Generated_Image_32y8mu32y8mu32y8_x9aecd.png" 
-              alt="Himalayan landscape with traditional architecture" 
-              className="w-full h-96 md:h-[500px] object-cover"
-            />
-            <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent flex items-end">
-              <div className="p-8 text-white">
-                <h3 className="text-2xl md:text-3xl font-bold mb-2">Authentic. Sustainable. Pure.</h3>
-                <p className="text-lg opacity-90">Connecting you with the timeless traditions of the Himalayas</p>
-              </div>
-            </div>
           </div>
         </div>
       </section>
