@@ -2,7 +2,85 @@
 @tailwind components;
 @tailwind utilities;
 
-body {
-  background: linear-gradient(to bottom right, #E3F6FC, #BEE9E8 60%, #AEE1F9 100%);
-  font-family: 'Inter', sans-serif;
+/* Import Google Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@400;500;600;700&family=Noto+Sans+Devanagari:wght@400;500;600;700&display=swap');
+
+@layer base {
+  body {
+    font-family: 'Inter', sans-serif;
+    background: linear-gradient(to bottom right, #F8FFFE, #E3F6FC 60%, #87CEEB 100%);
+    min-height: 100vh;
+  }
+  
+  html {
+    scroll-behavior: smooth;
+  }
+}
+
+@layer components {
+  /* Custom scrollbar */
+  ::-webkit-scrollbar {
+    width: 8px;
+  }
+  
+  ::-webkit-scrollbar-track {
+    background: #f1f1f1;
+  }
+  
+  ::-webkit-scrollbar-thumb {
+    background: #4FB0C6;
+    border-radius: 4px;
+  }
+  
+  ::-webkit-scrollbar-thumb:hover {
+    background: #165067;
+  }
+
+  /* Custom button styles */
+  .btn-himalayan {
+    @apply bg-gradient-to-r from-himalayan to-himalayan-dark text-white font-semibold px-6 py-3 rounded-full hover:shadow-lg transition-all duration-300 transform hover:scale-105;
+  }
+  
+  .btn-outline-himalayan {
+    @apply border-2 border-himalayan text-himalayan font-semibold px-6 py-3 rounded-full hover:bg-himalayan hover:text-white transition-all duration-300;
+  }
+
+  /* Card hover effects */
+  .card-hover {
+    @apply transition-all duration-300 hover:shadow-xl hover:-translate-y-1;
+  }
+
+  /* Text gradient */
+  .text-gradient-himalayan {
+    @apply bg-gradient-to-r from-himalayan to-himalayan-dark bg-clip-text text-transparent;
+  }
+
+  /* Loading animation */
+  .loading-spinner {
+    @apply animate-spin rounded-full h-8 w-8 border-b-2 border-himalayan;
+  }
+}
+
+@layer utilities {
+  /* Animation delays */
+  .animate-delay-100 {
+    animation-delay: 0.1s;
+  }
+  
+  .animate-delay-200 {
+    animation-delay: 0.2s;
+  }
+  
+  .animate-delay-300 {
+    animation-delay: 0.3s;
+  }
+  
+  .animate-delay-400 {
+    animation-delay: 0.4s;
+  }
+
+  /* Backdrop blur utilities */
+  .backdrop-blur-xs {
+    backdrop-filter: blur(2px);
+  }
 }
