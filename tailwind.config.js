@@ -7,26 +7,20 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        // Improved Himalayan Color Palette
-        himalayan: {
-          snow: '#F8F9FA',
-          stone: '#6C757D',
-          earth: '#8B4513',
-          light: '#E9ECEF',
-          DEFAULT: '#2D5A27',
-          dark: '#1B4332'
+        // Natural Organic Color Palette
+        organic: {
+          background: '#FDFBF6',    // Soft off-white beige
+          primary: '#B97D4B',       // Warm earthy brown
+          text: '#333333',          // Dark charcoal grey
+          highlight: '#5E8C31',     // Muted natural green
+          white: '#FFFFFF',         // Pure white for contrast
         },
-        accent: {
-          sandstone: '#CD853F',
-          pine: '#1B4332',
-          sage: '#87A96B',
-          terracotta: '#D2691E'
-        },
+        // Status colors maintaining organic feel
         status: {
-          success: '#27AE60',
-          warning: '#F39C12',
-          error: '#E74C3C',
-          info: '#3498DB'
+          success: '#5E8C31',       // Using highlight green
+          warning: '#D2691E',       // Warm orange
+          error: '#C53030',         // Muted red
+          info: '#4A90A4'           // Soft blue-grey
         }
       },
       fontFamily: {
@@ -35,7 +29,7 @@ module.exports = {
         'cultural': ['Noto Sans Devanagari', 'sans-serif']
       },
       backgroundImage: {
-        'hero-gradient': 'linear-gradient(135deg, rgba(75, 176, 198, 0.9) 0%, rgba(22, 80, 103, 0.9) 100%)',
+        'hero-gradient': 'linear-gradient(135deg, rgba(185, 125, 75, 0.9) 0%, rgba(94, 140, 49, 0.9) 100%)',
         'mountain-pattern': "url('data:image/svg+xml,%3Csvg width=\"60\" height=\"60\" viewBox=\"0 0 60 60\" xmlns=\"http://www.w3.org/2000/svg\"%3E%3Cg fill=\"none\" fill-rule=\"evenodd\"%3E%3Cg fill=\"%23f8fffe\" fill-opacity=\"0.1\"%3E%3Cpath d=\"M30 30l15-15v30l-15-15zm-15 0l15 15v-30l-15 15z\"/%3E%3C/g%3E%3C/g%3E%3C/svg%3E')"
       },
       animation: {

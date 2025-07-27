@@ -30,7 +30,7 @@ export default function Cart() {
   return (
     <div className="max-w-4xl mx-auto p-6">
       <div className="flex items-center justify-between mb-8">
-        <h1 className="text-3xl font-bold text-gray-800">Shopping Cart</h1>
+        <h1 className="text-3xl font-bold text-organic-text">Shopping Cart</h1>
         <button
           onClick={clearCart}
           className="text-red-600 hover:text-red-800 text-sm font-medium"
@@ -39,7 +39,7 @@ export default function Cart() {
         </button>
       </div>
 
-      <div className="bg-white rounded-lg shadow-lg overflow-hidden">
+      <div className="bg-organic-white rounded-lg shadow-lg overflow-hidden">
         {/* Cart Items */}
         <div className="divide-y divide-gray-200">
           {cart.map((item) => (
@@ -53,10 +53,10 @@ export default function Cart() {
               
               {/* Product Details */}
               <div className="flex-1 min-w-0">
-                <h3 className="text-lg font-semibold text-gray-800 mb-1">
+                <h3 className="text-lg font-semibold text-organic-text mb-1">
                   <Link 
                     to={`/products/${item.id}`}
-                    className="hover:text-himalayan transition-colors line-clamp-2"
+                    className="hover:text-organic-primary transition-colors line-clamp-2"
                   >
                     {item.name}
                   </Link>
@@ -73,8 +73,8 @@ export default function Cart() {
               <div className="flex items-center gap-4">
                 <AddToCartButton product={item} />
                 <div className="text-right">
-                  <p className="text-sm text-gray-600">Subtotal</p>
-                  <p className="text-lg font-semibold text-gray-800">
+                  <p className="text-sm text-organic-text opacity-75">Subtotal</p>
+                  <p className="text-lg font-semibold text-organic-text">
                     {formatCurrency(item.price * item.quantity)}
                   </p>
                 </div>
@@ -91,26 +91,26 @@ export default function Cart() {
         </div>
 
         {/* Cart Summary */}
-        <div className="bg-gray-50 p-6 border-t">
+        <div className="bg-organic-background p-6 border-t">
           <div className="flex items-center justify-between mb-4">
             <div>
-              <p className="text-sm text-gray-600">
+              <p className="text-sm text-organic-text opacity-75">
                 Total Items: {cart.reduce((sum, item) => sum + item.quantity, 0)}
               </p>
-              <p className="text-2xl font-bold text-gray-800">
+              <p className="text-2xl font-bold text-organic-text">
                 Total: {formatCurrency(getTotalPrice())}
               </p>
             </div>
             <div className="flex gap-3">
               <Link
                 to="/shop"
-                className="px-6 py-3 border border-himalaya text-himalaya rounded-lg hover:bg-himalaya-light transition-colors font-semibold"
+                className="btn-secondary px-6 py-3 rounded-lg font-semibold"
               >
                 Continue Shopping
               </Link>
               <button
                 onClick={() => navigate("/checkout")}
-                className="px-8 py-3 bg-himalaya text-white rounded-lg hover:bg-himalaya-dark transition-colors font-semibold"
+                className="btn-primary px-8 py-3 rounded-lg font-semibold"
               >
                 Proceed to Checkout
               </button>
@@ -118,7 +118,7 @@ export default function Cart() {
           </div>
           
           {/* Shipping Info */}
-          <div className="text-sm text-gray-600 space-y-1">
+          <div className="text-sm text-organic-text opacity-75 space-y-1">
             <p>• Free shipping on orders over ₹500</p>
             <p>• Secure checkout with multiple payment options</p>
             <p>• 7-day return policy on all items</p>
