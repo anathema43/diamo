@@ -174,7 +174,7 @@ export default function Home() {
             <div className="animate-slide-up">
               <img 
                 src="https://res.cloudinary.com/dj4kdlwzo/image/upload/v1752940186/darjeeling_qicpwi.avif" 
-                alt="Himalayan farmers" 
+                alt="Darjeeling tea gardens in the Himalayas" 
                 className="w-full rounded-3xl shadow-2xl transform hover:scale-105 transition-transform duration-500"
               />
             </div>
