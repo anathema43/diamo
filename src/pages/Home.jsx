@@ -1,6 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { LeafIcon, UsersIcon, GlobeAltIcon } from "@heroicons/react/24/outline";
+import { BeakerIcon, UsersIcon, GlobeAltIcon } from "@heroicons/react/24/outline";
 
 export default function Home() {
   return (
@@ -36,7 +36,7 @@ export default function Home() {
           <div className="grid md:grid-cols-3 gap-12 text-center">
             <div className="flex flex-col items-center">
               <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mb-6">
-                <LeafIcon className="w-8 h-8 text-green-600" />
+                <BeakerIcon className="w-8 h-8 text-green-600" />
               </div>
               <h3 className="text-2xl font-bold mb-4 text-gray-800">Better for Health</h3>
               <p className="text-gray-600 leading-relaxed">
