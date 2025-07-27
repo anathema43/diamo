@@ -173,7 +173,7 @@ export default function Home() {
           <div className="grid lg:grid-cols-2 gap-16 items-center">
             <div className="animate-slide-up">
               <img 
-                src="https://images.pexels.com/photos/1222271/pexels-photo-1222271.jpeg?auto=compress&cs=tinysrgb&w=800" 
+                src="https://res.cloudinary.com/dj4kdlwzo/image/upload/v1752940186/darjeeling_qicpwi.avif" 
                 alt="Himalayan farmers" 
                 className="w-full rounded-3xl shadow-2xl transform hover:scale-105 transition-transform duration-500"
               />
