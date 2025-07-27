@@ -56,13 +56,17 @@ export default function Cart() {
                 <h3 className="text-lg font-semibold text-gray-800 mb-1">
                   <Link 
                     to={`/products/${item.id}`}
-                    className="hover:text-himalaya transition-colors"
+                    className="hover:text-himalayan transition-colors line-clamp-2"
                   >
                     {item.name}
                   </Link>
                 </h3>
-                <p className="text-gray-600 text-sm mb-2">{item.description}</p>
                 <p className="text-lg font-semibold text-green-700">{formatCurrency(item.price)}</p>
+                {item.quantityAvailable <= 5 && item.quantityAvailable > 0 && (
+                  <p className="text-orange-600 text-xs mt-1">
+                    Only {item.quantityAvailable} left in stock
+                  </p>
+                )}
               </div>
               
               {/* Quantity Controls */}

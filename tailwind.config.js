@@ -7,28 +7,26 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        // Himalayan Color Palette
+        // Improved Himalayan Color Palette
         himalayan: {
-          snow: '#F8FFFE',
-          sky: '#87CEEB',
-          stone: '#708090',
-          earth: '#8B7355',
-          light: '#E3F6FC',
-          DEFAULT: '#4FB0C6',
-          dark: '#165067'
+          snow: '#F8F9FA',
+          stone: '#6C757D',
+          earth: '#8B4513',
+          light: '#E9ECEF',
+          DEFAULT: '#2D5A27',
+          dark: '#1B4332'
         },
-        prayer: {
-          red: '#DC143C',
-          blue: '#4169E1',
-          yellow: '#FFD700',
-          green: '#228B22',
-          white: '#FFFFFF'
+        accent: {
+          sandstone: '#CD853F',
+          pine: '#1B4332',
+          sage: '#87A96B',
+          terracotta: '#D2691E'
         },
-        mountain: {
-          rhododendron: '#FF69B4',
-          gold: '#DAA520',
-          forest: '#2F4F2F',
-          sunset: '#FF8C00'
+        status: {
+          success: '#27AE60',
+          warning: '#F39C12',
+          error: '#E74C3C',
+          info: '#3498DB'
         }
       },
       fontFamily: {

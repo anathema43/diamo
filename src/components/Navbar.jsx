@@ -32,7 +32,7 @@ export default function Navbar() {
         {/* Mobile Hamburger Menu Button */}
         <button
           onClick={toggleMobileMenu}
-          className="md:hidden p-2 rounded-md hover:bg-himalaya"
+          className="md:hidden p-2 rounded-md hover:bg-himalayan transition-colors duration-200"
           aria-label="Toggle menu"
         >
           {isMobileMenuOpen ? (
@@ -43,19 +43,19 @@ export default function Navbar() {
         </button>
 
         {/* Logo */}
-        <Link to="/" className="flex items-center gap-2 font-bold text-xl tracking-wide">
+        <Link to="/" className="flex items-center gap-2 font-bold text-xl tracking-wide hover:text-himalayan-light transition-colors">
           <span role="img" aria-label="mountain">🏔️</span> Ramro
         </Link>
 
         {/* Desktop Navigation */}
         <div className="hidden md:flex gap-6 items-center">
-          <Link to="/" className="hover:text-himalaya-light transition-colors">Home</Link>
-          <Link to="/shop" className="hover:text-himalaya-light transition-colors">Shop</Link>
-          <Link to="/cart" className="relative hover:text-himalaya-light transition-colors">
+          <Link to="/" className="hover:text-himalayan-light transition-colors duration-200 font-medium">Home</Link>
+          <Link to="/shop" className="hover:text-himalayan-light transition-colors duration-200 font-medium">Shop</Link>
+          <Link to="/cart" className="relative hover:text-himalayan-light transition-colors duration-200">
             <div className="flex items-center gap-1">
               <ShoppingCartIcon className="w-6 h-6" />
               {totalItems > 0 && (
-                <span className="absolute -top-2 -right-2 bg-red-600 text-white rounded-full px-2 py-1 text-xs font-bold min-w-[1.25rem] h-5 flex items-center justify-center">
+                <span className="absolute -top-2 -right-2 bg-status-error text-white rounded-full px-2 py-1 text-xs font-bold min-w-[1.25rem] h-5 flex items-center justify-center shadow-md">
                   {totalItems}
                 </span>
               )}
@@ -63,11 +63,11 @@ export default function Navbar() {
           </Link>
           {currentUser ? (
             <>
-              <Link to="/account" className="hover:text-himalaya-light transition-colors">
+              <Link to="/account" className="hover:text-himalayan-light transition-colors duration-200">
                 <UserCircleIcon className="w-7 h-7" />
               </Link>
               <button
-                className="px-4 py-2 bg-white text-himalaya-dark rounded hover:bg-gray-100 transition-colors font-medium"
+                className="px-4 py-2 bg-white text-himalayan-dark rounded-md hover:bg-himalayan-light transition-all duration-200 font-medium shadow-sm hover:shadow-md"
                 onClick={handleLogout}
               >
                 Logout
@@ -75,10 +75,10 @@ export default function Navbar() {
             </>
           ) : (
             <>
-              <Link to="/login" className="hover:text-himalaya-light transition-colors">Login</Link>
+              <Link to="/login" className="hover:text-himalayan-light transition-colors duration-200 font-medium">Login</Link>
               <Link 
                 to="/signup" 
-                className="px-4 py-2 bg-white text-himalaya-dark rounded hover:bg-gray-100 transition-colors font-medium"
+                className="px-4 py-2 bg-white text-himalayan-dark rounded-md hover:bg-himalayan-light transition-all duration-200 font-medium shadow-sm hover:shadow-md"
               >
                 Sign Up
               </Link>

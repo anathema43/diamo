@@ -27,14 +27,14 @@ export default function ProductCard({ product }) {
       <div className="flex-1 flex flex-col">
         <h2 className="text-lg font-bold text-himalaya-dark mb-1">{product.name}</h2>
         <ReviewStars rating={product.rating} />
-        <p className="text-stone-600 mb-2 text-sm flex-1">{product.description}</p>
+        <p className="text-stone-600 mb-2 text-sm flex-1 line-clamp-3">{product.description}</p>
         
         <div className="mt-auto">
           <div className="flex justify-between items-center mb-3">
-            <span className="text-lg font-semibold text-green-700">{formatCurrency(product.price)}</span>
+            <span className="text-xl font-bold text-himalayan-dark">{formatCurrency(product.price)}</span>
             <Link 
               to={`/products/${product.id}`} 
-              className="text-himalaya hover:text-himalaya-dark text-sm underline"
+              className="text-himalayan hover:text-himalayan-dark text-sm font-medium underline hover:no-underline transition-all"
             >
               View Details
             </Link>

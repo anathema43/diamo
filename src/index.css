@@ -20,34 +20,34 @@
 @layer components {
   /* Custom scrollbar */
   ::-webkit-scrollbar {
-    width: 8px;
+    width: 6px;
   }
   
   ::-webkit-scrollbar-track {
-    background: #f1f1f1;
+    background: #F8F9FA;
   }
   
   ::-webkit-scrollbar-thumb {
-    background: #4FB0C6;
+    background: #2D5A27;
     border-radius: 4px;
   }
   
   ::-webkit-scrollbar-thumb:hover {
-    background: #165067;
+    background: #1B4332;
   }
 
   /* Custom button styles */
   .btn-himalayan {
-    @apply bg-gradient-to-r from-himalayan to-himalayan-dark text-white font-semibold px-6 py-3 rounded-full hover:shadow-lg transition-all duration-300 transform hover:scale-105;
+    @apply bg-gradient-to-r from-himalayan to-himalayan-dark text-white font-semibold px-6 py-3 rounded-lg hover:shadow-lg transition-all duration-200 border border-himalayan-dark;
   }
   
   .btn-outline-himalayan {
-    @apply border-2 border-himalayan text-himalayan font-semibold px-6 py-3 rounded-full hover:bg-himalayan hover:text-white transition-all duration-300;
+    @apply border-2 border-himalayan text-himalayan font-semibold px-6 py-3 rounded-lg hover:bg-himalayan hover:text-white transition-all duration-200;
   }
 
   /* Card hover effects */
   .card-hover {
-    @apply transition-all duration-300 hover:shadow-xl hover:-translate-y-1;
+    @apply transition-all duration-200 hover:shadow-lg hover:-translate-y-0.5;
   }
 
   /* Text gradient */
@@ -58,6 +58,26 @@
   /* Loading animation */
   .loading-spinner {
     @apply animate-spin rounded-full h-8 w-8 border-b-2 border-himalayan;
+  }
+
+  /* Text truncation utilities */
+  .line-clamp-2 {
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+
+  .line-clamp-3 {
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+
+  /* Focus states for accessibility */
+  .focus-ring {
+    @apply focus:outline-none focus:ring-2 focus:ring-himalayan focus:ring-offset-2;
   }
 }
 
