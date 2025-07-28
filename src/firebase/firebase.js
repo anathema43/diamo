@@ -16,14 +16,23 @@ const firebaseConfig = {
   measurementId: import.meta.env.VITE_FIREBASE_MEASUREMENT_ID,
 };
 
+// Check if Firebase is properly configured
+const isFirebaseConfigured = Object.values(firebaseConfig).every(value => 
+  value && value !== 'undefined' && !value.includes('placeholder')
+);
+
+if (!isFirebaseConfigured) {
+  console.warn('Firebase configuration is incomplete. Please check your .env file.');
+}
+
 // Initialize Firebase
-const app = initializeApp(firebaseConfig);
+const app = isFirebaseConfigured ? initializeApp(firebaseConfig) : null;
 
 // Initialize Firebase services
-export const auth = getAuth(app);
-export const db = getFirestore(app);
-export const storage = getStorage(app);
-export const functions = getFunctions(app);
+export const auth = app ? getAuth(app) : null;
+export const db = app ? getFirestore(app) : null;
+export const storage = app ? getStorage(app) : null;
+export const functions = app ? getFunctions(app) : null;
 
 // Enable offline persistence for Firestore
 import { enableNetwork, disableNetwork } from "firebase/firestore";
