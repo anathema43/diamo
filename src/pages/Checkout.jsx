@@ -471,7 +471,6 @@ export default function Checkout() {
               >
                 {loading ? "Processing..." : `${formData.paymentMethod === 'card' ? 'Proceed to Payment' : 'Place Order'} - ${formatCurrency(getGrandTotal())}`}
               </button>
-              </button>
             </form>
           </div>
 
