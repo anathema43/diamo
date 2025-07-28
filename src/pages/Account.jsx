@@ -98,7 +98,6 @@ export default function AccountPage() {
                   </button>
                 </div>
                 
-                <div>
                   <h2 className="text-xl font-semibold text-organic-text mb-4">Account Statistics</h2>
                   <div className="grid grid-cols-2 gap-4">
                     <div className="bg-organic-background p-4 rounded-lg text-center">

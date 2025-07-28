@@ -470,7 +470,6 @@ export default function Checkout() {
                 className="w-full bg-organic-primary text-white font-bold py-4 px-6 rounded-lg hover:opacity-90 transition-all disabled:opacity-50 disabled:cursor-not-allowed"
               >
                 {loading ? "Processing..." : `${formData.paymentMethod === 'card' ? 'Proceed to Payment' : 'Place Order'} - ${formatCurrency(getGrandTotal())}`}
-              </button>
             </form>
           </div>
 
