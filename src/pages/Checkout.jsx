@@ -3,8 +3,10 @@ import { useNavigate } from "react-router-dom";
 import { useCartStore } from "../store/cartStore";
 import { useOrderStore } from "../store/orderStore";
 import { useAuthStore } from "../store/authStore";
+import StripeCheckout from "../components/StripeCheckout";
 import formatCurrency from "../utils/formatCurrency";
 import LoadingSpinner from "../components/LoadingSpinner";
+import emailService from "../services/emailService";
 
 export default function Checkout() {
   const navigate = useNavigate();
@@ -14,6 +16,7 @@ export default function Checkout() {
   
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
+  const [paymentStep, setPaymentStep] = useState(false);
   const [formData, setFormData] = useState({
     // Shipping Information
     firstName: "",
@@ -97,27 +100,39 @@ export default function Checkout() {
         },
         payment: {
           method: formData.paymentMethod,
-          // Don't store sensitive payment info
         },
         subtotal: getSubtotal(),
         tax: getTax(),
         shipping: getShipping(),
         total: getGrandTotal(),
         orderNotes: formData.orderNotes,
-        status: "processing"
+        status: "processing",
+        paymentStatus: "pending"
       };
 
-      const order = await createOrder(orderData);
-      clearCart();
-      
-      // Redirect to success page or order confirmation
-      navigate(`/orders`, { 
-        state: { 
-          orderSuccess: true, 
-          orderId: order.id,
-          orderNumber: order.orderNumber 
-        } 
-      });
+      if (formData.paymentMethod === 'card') {
+        // Proceed to Stripe payment
+        setPaymentStep(true);
+      } else {
+        // Handle other payment methods (COD, etc.)
+        const order = await createOrder(orderData);
+        
+        // Send confirmation email
+        try {
+          await emailService.sendOrderConfirmation(order);
+        } catch (emailError) {
+          console.error('Error sending confirmation email:', emailError);
+        }
+        
+        clearCart();
+        navigate(`/orders`, { 
+          state: { 
+            orderSuccess: true, 
+            orderId: order.id,
+            orderNumber: order.orderNumber 
+          } 
+        });
+      }
       
     } catch (err) {
       setError("Failed to place order. Please try again.");
@@ -125,6 +140,31 @@ export default function Checkout() {
     } finally {
       setLoading(false);
     }
+  };
+
+  const handlePaymentSuccess = async (order) => {
+    try {
+      // Send confirmation email
+      await emailService.sendOrderConfirmation(order);
+      
+      navigate(`/orders`, { 
+        state: { 
+          orderSuccess: true, 
+          orderId: order.id,
+          orderNumber: order.orderNumber 
+        } 
+      });
+    } catch (error) {
+      console.error('Error after payment success:', error);
+      // Still navigate to success page even if email fails
+      navigate(`/orders`);
+    }
+  };
+
+  const handlePaymentError = (errorMessage) => {
+    setError(errorMessage);
+    setPaymentStep(false);
+    setLoading(false);
   };
 
   if (cart.length === 0) {
@@ -152,6 +192,45 @@ export default function Checkout() {
       <div className="max-w-6xl mx-auto px-6">
         <h1 className="text-3xl font-bold text-organic-text mb-8">Checkout</h1>
         
+        {paymentStep ? (
+          <div className="max-w-2xl mx-auto">
+            <div className="bg-white p-8 rounded-lg shadow-lg">
+              <div className="flex items-center justify-between mb-6">
+                <h2 className="text-xl font-bold text-organic-text">Complete Payment</h2>
+                <button
+                  onClick={() => setPaymentStep(false)}
+                  className="text-organic-primary hover:text-organic-text"
+                >
+                  ← Back to Checkout
+                </button>
+              </div>
+              
+              <StripeCheckout
+                orderData={{
+                  items: cart,
+                  shipping: {
+                    firstName: formData.firstName,
+                    lastName: formData.lastName,
+                    email: formData.email,
+                    phone: formData.phone,
+                    address: formData.address,
+                    city: formData.city,
+                    state: formData.state,
+                    zipCode: formData.zipCode,
+                    country: formData.country
+                  },
+                  subtotal: getSubtotal(),
+                  tax: getTax(),
+                  shipping: getShipping(),
+                  total: getGrandTotal(),
+                  orderNotes: formData.orderNotes
+                }}
+                onSuccess={handlePaymentSuccess}
+                onError={handlePaymentError}
+              />
+            </div>
+          </div>
+        ) : (
         <div className="grid lg:grid-cols-2 gap-12">
           {/* Checkout Form */}
           <div className="bg-white p-8 rounded-lg shadow-lg">
@@ -279,6 +358,17 @@ export default function Checkout() {
                       <input
                         type="radio"
                         name="paymentMethod"
+                        value="cod"
+                        checked={formData.paymentMethod === 'cod'}
+                        onChange={handleInputChange}
+                        className="mr-2"
+                      />
+                      Cash on Delivery
+                    </label>
+                    <label className="flex items-center">
+                      <input
+                        type="radio"
+                        name="paymentMethod"
                         value="esewa"
                         checked={formData.paymentMethod === 'esewa'}
                         onChange={handleInputChange}
@@ -378,7 +468,7 @@ export default function Checkout() {
                 type="submit"
                 disabled={loading}
                 className="w-full bg-organic-primary text-white font-bold py-4 px-6 rounded-lg hover:opacity-90 transition-all disabled:opacity-50 disabled:cursor-not-allowed"
-              >
+                {formData.paymentMethod === 'card' ? 'Proceed to Payment' : 'Place Order'}
                 {loading ? "Processing..." : `Place Order - ${formatCurrency(getGrandTotal())}`}
               </button>
             </form>
@@ -437,6 +527,7 @@ export default function Checkout() {
             </div>
           </div>
         </div>
+        )}
       </div>
     </div>
   );

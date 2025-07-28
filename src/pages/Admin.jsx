@@ -1,8 +1,11 @@
 import React, { useEffect, useState } from "react";
+import AdminSeedButton from "../components/AdminSeedButton";
 import { useProductStore } from "../store/productStore";
 import { useOrderStore } from "../store/orderStore";
+import { useInventoryStore } from "../store/inventoryStore";
 import formatCurrency from "../utils/formatCurrency";
 import LoadingSpinner from "../components/LoadingSpinner";
+import { TrashIcon, PencilIcon, ExclamationTriangleIcon } from "@heroicons/react/24/outline";
 
 const emptyProduct = {
   name: "",
@@ -31,15 +34,24 @@ export default function Admin() {
     loading: ordersLoading,
   } = useOrderStore();
 
+  const {
+    lowStockItems,
+    fetchLowStockProducts,
+    updateInventory,
+    loading: inventoryLoading
+  } = useInventoryStore();
+
   const [activeTab, setActiveTab] = useState('dashboard');
   const [isEdit, setIsEdit] = useState(false);
   const [productForm, setProductForm] = useState(emptyProduct);
   const [editId, setEditId] = useState(null);
+  const [trackingForm, setTrackingForm] = useState({});
 
   useEffect(() => {
     fetchProducts();
     fetchOrders();
-  }, [fetchProducts, fetchOrders]);
+    fetchLowStockProducts();
+  }, [fetchProducts, fetchOrders, fetchLowStockProducts]);
 
   // Handle product form input
   const handleChange = (e) => {
@@ -86,6 +98,23 @@ export default function Admin() {
     }
   };
 
+  const handleTrackingUpdate = async (orderId, trackingNumber) => {
+    try {
+      await updateOrderStatus(orderId, 'shipped', { trackingNumber });
+      setTrackingForm(prev => ({ ...prev, [orderId]: '' }));
+    } catch (error) {
+      console.error('Error updating tracking:', error);
+    }
+  };
+
+  const handleInventoryUpdate = async (productId, newQuantity) => {
+    try {
+      await updateInventory(productId, newQuantity, 'set');
+    } catch (error) {
+      console.error('Error updating inventory:', error);
+    }
+  };
+
   const stats = getOrderStats();
 
   const TabButton = ({ id, label, active, onClick }) => (
@@ -110,6 +139,9 @@ export default function Admin() {
       <div className="max-w-7xl mx-auto px-6">
         <h1 className="text-3xl font-bold text-organic-text mb-8">Admin Dashboard</h1>
 
+        {/* Seed Button */}
+        <AdminSeedButton />
+
         {/* Tab Navigation */}
         <div className="flex gap-2 mb-8 overflow-x-auto">
           <TabButton 
@@ -130,11 +162,35 @@ export default function Admin() {
             active={activeTab === 'orders'} 
             onClick={setActiveTab} 
           />
+          <TabButton 
+            id="inventory" 
+            label="Inventory" 
+            active={activeTab === 'inventory'} 
+            onClick={setActiveTab} 
+          />
         </div>
 
         {/* Dashboard Tab */}
         {activeTab === 'dashboard' && (
           <div className="space-y-8">
+            {/* Low Stock Alert */}
+            {lowStockItems.length > 0 && (
+              <div className="bg-yellow-50 border border-yellow-200 rounded-lg p-6">
+                <div className="flex items-center gap-2 mb-4">
+                  <ExclamationTriangleIcon className="w-6 h-6 text-yellow-600" />
+                  <h3 className="text-lg font-semibold text-yellow-800">Low Stock Alert</h3>
+                </div>
+                <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
+                  {lowStockItems.slice(0, 6).map(item => (
+                    <div key={item.id} className="bg-white p-4 rounded border">
+                      <h4 className="font-medium text-organic-text">{item.name}</h4>
+                      <p className="text-sm text-red-600">Only {item.quantity || item.quantityAvailable} left</p>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            )}
+
             {/* Stats Cards */}
             <div className="grid md:grid-cols-4 gap-6">
               <div className="bg-white p-6 rounded-lg shadow-lg">
@@ -167,6 +223,7 @@ export default function Admin() {
                       <th className="text-left py-2">Total</th>
                       <th className="text-left py-2">Status</th>
                       <th className="text-left py-2">Date</th>
+                      <th className="text-left py-2">Actions</th>
                     </tr>
                   </thead>
                   <tbody>
@@ -187,6 +244,28 @@ export default function Admin() {
                         </td>
                         <td className="py-2 text-sm">
                           {new Date(order.createdAt).toLocaleDateString()}
+                        </td>
+                        <td className="py-2">
+                          {order.status === 'processing' && (
+                            <div className="flex items-center gap-2">
+                              <input
+                                type="text"
+                                placeholder="Tracking #"
+                                value={trackingForm[order.id] || ''}
+                                onChange={(e) => setTrackingForm(prev => ({
+                                  ...prev,
+                                  [order.id]: e.target.value
+                                }))}
+                                className="px-2 py-1 border rounded text-xs w-24"
+                              />
+                              <button
+                                onClick={() => handleTrackingUpdate(order.id, trackingForm[order.id])}
+                                className="bg-blue-500 text-white px-2 py-1 rounded text-xs hover:bg-blue-600"
+                              >
+                                Ship
+                              </button>
+                            </div>
+                          )}
                         </td>
                       </tr>
                     ))}
@@ -251,6 +330,13 @@ export default function Admin() {
                   className="border rounded-lg p-3 focus:ring-2 focus:ring-organic-primary focus:border-transparent"
                   required
                 />
+                <input
+                  name="sku"
+                  value={productForm.sku || ''}
+                  onChange={handleChange}
+                  placeholder="Product SKU"
+                  className="border rounded-lg p-3 focus:ring-2 focus:ring-organic-primary focus:border-transparent"
+                />
                 <textarea
                   name="description"
                   value={productForm.description}
@@ -281,6 +367,7 @@ export default function Admin() {
                       <th className="text-left py-2">Category</th>
                       <th className="text-left py-2">Price</th>
                       <th className="text-left py-2">Stock</th>
+                      <th className="text-left py-2">SKU</th>
                       <th className="text-left py-2">Actions</th>
                     </tr>
                   </thead>
@@ -306,19 +393,22 @@ export default function Admin() {
                             {product.quantityAvailable}
                           </span>
                         </td>
+                        <td className="py-2 text-sm text-gray-600">{product.sku || 'N/A'}</td>
                         <td className="py-2">
                           <div className="flex gap-2">
                             <button
                               onClick={() => handleEdit(product)}
-                              className="text-blue-600 hover:text-blue-800 font-medium"
+                              className="p-1 text-blue-600 hover:text-blue-800"
+                              title="Edit Product"
                             >
-                              Edit
+                              <PencilIcon className="w-4 h-4" />
                             </button>
                             <button
                               onClick={() => handleDelete(product.id)}
-                              className="text-red-600 hover:text-red-800 font-medium"
+                              className="p-1 text-red-600 hover:text-red-800"
+                              title="Delete Product"
                             >
-                              Delete
+                              <TrashIcon className="w-4 h-4" />
                             </button>
                           </div>
                         </td>
@@ -344,6 +434,7 @@ export default function Admin() {
                     <th className="text-left py-2">Items</th>
                     <th className="text-left py-2">Total</th>
                     <th className="text-left py-2">Status</th>
+                    <th className="text-left py-2">Tracking</th>
                     <th className="text-left py-2">Date</th>
                     <th className="text-left py-2">Actions</th>
                   </tr>
@@ -377,6 +468,9 @@ export default function Admin() {
                         </select>
                       </td>
                       <td className="py-2 text-sm">
+                        {order.trackingNumber || 'N/A'}
+                      </td>
+                      <td className="py-2 text-sm">
                         {new Date(order.createdAt).toLocaleDateString()}
                       </td>
                       <td className="py-2">
@@ -388,6 +482,91 @@ export default function Admin() {
                   ))}
                 </tbody>
               </table>
+            </div>
+          </div>
+        )}
+
+        {/* Inventory Tab */}
+        {activeTab === 'inventory' && (
+          <div className="space-y-8">
+            {/* Low Stock Items */}
+            <div className="bg-white p-6 rounded-lg shadow-lg">
+              <h2 className="text-xl font-semibold text-organic-text mb-4">
+                Low Stock Items ({lowStockItems.length})
+              </h2>
+              {inventoryLoading ? (
+                <div className="text-center py-8">Loading...</div>
+              ) : lowStockItems.length === 0 ? (
+                <div className="text-center py-8 text-gray-500">
+                  <p>All products are well stocked! 🎉</p>
+                </div>
+              ) : (
+                <div className="overflow-x-auto">
+                  <table className="w-full">
+                    <thead>
+                      <tr className="border-b">
+                        <th className="text-left py-2">Product</th>
+                        <th className="text-left py-2">Current Stock</th>
+                        <th className="text-left py-2">Update Stock</th>
+                        <th className="text-left py-2">Actions</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {lowStockItems.map((item) => (
+                        <tr key={item.id} className="border-b">
+                          <td className="py-2">
+                            <div className="flex items-center gap-3">
+                              <img 
+                                src={item.image} 
+                                alt={item.name} 
+                                className="w-12 h-12 object-cover rounded"
+                              />
+                              <div>
+                                <p className="font-medium">{item.name}</p>
+                                <p className="text-sm text-gray-500">{item.sku}</p>
+                              </div>
+                            </div>
+                          </td>
+                          <td className="py-2">
+                            <span className="bg-red-100 text-red-800 px-2 py-1 rounded-full text-sm font-medium">
+                              {item.quantityAvailable || item.quantity}
+                            </span>
+                          </td>
+                          <td className="py-2">
+                            <div className="flex items-center gap-2">
+                              <input
+                                type="number"
+                                min="0"
+                                placeholder="New quantity"
+                                className="w-24 px-2 py-1 border rounded text-sm"
+                                onKeyPress={(e) => {
+                                  if (e.key === 'Enter') {
+                                    handleInventoryUpdate(item.id, parseInt(e.target.value));
+                                    e.target.value = '';
+                                  }
+                                }}
+                              />
+                            </div>
+                          </td>
+                          <td className="py-2">
+                            <button
+                              onClick={() => {
+                                const newQuantity = prompt('Enter new stock quantity:', item.quantityAvailable);
+                                if (newQuantity !== null) {
+                                  handleInventoryUpdate(item.id, parseInt(newQuantity));
+                                }
+                              }}
+                              className="text-organic-primary hover:text-organic-text font-medium text-sm"
+                            >
+                              Quick Update
+                            </button>
+                          </td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                </div>
+              )}
             </div>
           </div>
         )}

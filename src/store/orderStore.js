@@ -119,15 +119,30 @@ export const useOrderStore = create((set, get) => ({
     }
   },
 
-  updateOrderStatus: async (id, status) => {
+  updateOrderStatus: async (id, status, additionalData = {}) => {
     set({ error: null });
     try {
       const updateData = {
         status,
-        updatedAt: new Date().toISOString()
+        updatedAt: new Date().toISOString(),
+        ...additionalData
       };
       
       await updateDoc(doc(db, "orders", id), updateData);
+      
+      // Get the updated order for email notifications
+      const updatedOrder = get().orders.find(order => order.id === id) || 
+                          get().userOrders.find(order => order.id === id);
+      
+      if (updatedOrder) {
+        // Send status update email
+        try {
+          const { emailService } = await import('../services/emailService');
+          await emailService.sendOrderStatusUpdate({ ...updatedOrder, ...updateData }, status);
+        } catch (emailError) {
+          console.error('Error sending status update email:', emailError);
+        }
+      }
       
       set({
         orders: get().orders.map(order =>

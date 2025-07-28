@@ -1,15 +1,61 @@
 import React from "react";
 import { useParams, Link } from "react-router-dom";
-import products from "../data/products";
+import { useProductStore } from "../store/productStore";
+import { useInventoryStore } from "../store/inventoryStore";
 import ReviewStars from "../components/ReviewStars";
 import WishlistButton from "../components/WishlistButton";
 import AddToCartButton from "../components/AddToCartButton";
+import ReviewSystem from "../components/ReviewSystem";
 import formatCurrency from "../utils/formatCurrency";
 import { ArrowLeftIcon } from "@heroicons/react/24/outline";
 
 export default function ProductDetail() {
   const { id } = useParams();
-  const product = products.find((p) => p.id === id);
+  const { products, getProductById } = useProductStore();
+  const { trackProduct, untrackProduct } = useInventoryStore();
+  const [product, setProduct] = React.useState(null);
+  const [loading, setLoading] = React.useState(true);
+
+  React.useEffect(() => {
+    const fetchProduct = async () => {
+      setLoading(true);
+      try {
+        // Try to get from store first
+        let foundProduct = products.find((p) => p.id === id);
+        
+        // If not in store, fetch from Firebase
+        if (!foundProduct) {
+          foundProduct = await getProductById(id);
+        }
+        
+        setProduct(foundProduct);
+        
+        // Start tracking inventory for this product
+        if (foundProduct) {
+          trackProduct(id);
+        }
+      } catch (error) {
+        console.error('Error fetching product:', error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchProduct();
+
+    // Cleanup: stop tracking when component unmounts
+    return () => {
+      untrackProduct(id);
+    };
+  }, [id, products, getProductById, trackProduct, untrackProduct]);
+
+  if (loading) {
+    return (
+      <div className="min-h-screen bg-organic-background flex items-center justify-center">
+        <div className="animate-spin rounded-full h-16 w-16 border-b-2 border-organic-primary"></div>
+      </div>
+    );
+  }
 
   if (!product) {
     return (
@@ -69,7 +115,9 @@ export default function ProductDetail() {
           
           <div className="mb-4">
             <ReviewStars rating={product.rating || 4} />
-            <span className="ml-2 text-gray-600">({product.rating || 4}/5)</span>
+            <span className="ml-2 text-gray-600">
+              ({product.rating || 4}/5) • {product.reviewCount || 0} reviews
+            </span>
           </div>
           
           <p className="text-xl font-semibold text-green-700 mb-6">{formatCurrency(product.price)}</p>
@@ -78,6 +126,20 @@ export default function ProductDetail() {
           
           {/* Product Features */}
           <div className="mb-6">
+            <div className="grid grid-cols-2 gap-4 mb-4 text-sm">
+              <div><strong>SKU:</strong> {product.sku || 'N/A'}</div>
+              <div><strong>Weight:</strong> {product.weight || 'N/A'}</div>
+              <div><strong>Origin:</strong> {product.origin || 'Himalayas'}</div>
+              <div><strong>Artisan:</strong> {product.artisan || 'Local Artisan'}</div>
+            </div>
+            
+            {product.ingredients && (
+              <div className="mb-4">
+                <h4 className="font-semibold mb-2">Ingredients:</h4>
+                <p className="text-sm text-gray-600">{product.ingredients.join(', ')}</p>
+              </div>
+            )}
+            
             <h3 className="font-semibold mb-2">Product Features:</h3>
             <ul className="text-gray-600 space-y-1">
               <li>• 100% Organic and Natural</li>
@@ -86,6 +148,13 @@ export default function ProductDetail() {
               <li>• Sustainably grown and harvested</li>
             </ul>
           </div>
+          
+          {product.storageInstructions && (
+            <div className="mb-6 p-4 bg-blue-50 rounded-lg">
+              <h4 className="font-semibold text-blue-800 mb-1">Storage Instructions:</h4>
+              <p className="text-blue-700 text-sm">{product.storageInstructions}</p>
+            </div>
+          )}
           
           {/* Stock Status */}
           <div className="mb-6">
@@ -110,6 +179,11 @@ export default function ProductDetail() {
             <p>• Secure payment options</p>
           </div>
         </div>
+      </div>
+
+      {/* Reviews Section */}
+      <div className="mb-16">
+        <ReviewSystem productId={product.id} />
       </div>
 
       {/* Related Products */}
