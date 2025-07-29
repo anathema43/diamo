@@ -155,6 +155,16 @@ ramro/
 
 ## 🧪 Testing
 
+### Testing Foundation
+- **Unit Tests**: Vitest with React Testing Library
+- **Integration Tests**: Component integration testing
+- **E2E Tests**: Cypress end-to-end testing
+- **Store Tests**: Zustand store behavior validation
+- **Utility Tests**: Pure function testing
+- **Security Tests**: Comprehensive security validation
+- **Accessibility Tests**: WCAG compliance testing
+- **Performance Tests**: Core Web Vitals monitoring
+
 ### Run E2E Tests
 ```bash
 npm run cy:open
