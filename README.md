@@ -28,6 +28,8 @@ Ramro is a premium e-commerce platform showcasing authentic Himalayan products i
 - **Enterprise Security** - Server-side validation and role-based access control
 - **Data Integrity** - Single source of truth with Firestore
 - **Semantic HTML** - Proper accessibility and SEO structure
+- **Responsive Images** - Multi-size image optimization for optimal performance
+- **Image CDN Integration** - Cloudinary and Pexels optimization support
 
 ## 🚀 Getting Started
 
