@@ -99,9 +99,10 @@ export const bundleOptimization = {
   // Preload critical resources
   preloadCriticalResources: () => {
     const criticalResources = [
-      '/api/products',
-      '/images/logo.png',
-      '/fonts/inter.woff2'
+      // Only preload resources that actually exist
+      // '/api/products', // Remove - we don't have this API yet
+      // '/images/logo.png', // Remove - we don't have this image
+      // '/fonts/inter.woff2' // Remove - loaded via Google Fonts
     ];
     
     criticalResources.forEach(resource => {

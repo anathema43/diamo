@@ -17,11 +17,12 @@ export default function Shop() {
   // Filter and sort products
   const filteredProducts = products
     .filter(product => {
-      const matchesSearch = product.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-                           product.description.toLowerCase().includes(searchTerm.toLowerCase());
+      const matchesSearch = !searchTerm || 
+        (product.name && product.name.toLowerCase().includes(searchTerm.toLowerCase())) ||
+        (product.description && product.description.toLowerCase().includes(searchTerm.toLowerCase()));
       const matchesCategory = filterCategory === "all" || 
                              product.category === filterCategory ||
-                             product.name.toLowerCase().includes(filterCategory.toLowerCase());
+                             (product.name && product.name.toLowerCase().includes(filterCategory.toLowerCase()));
       return matchesSearch && matchesCategory;
     })
     .sort((a, b) => {
@@ -32,8 +33,10 @@ export default function Shop() {
           return b.price - a.price;
         case "rating":
           return (b.rating || 0) - (a.rating || 0);
+        case "newest":
+          return new Date(b.createdAt || 0) - new Date(a.createdAt || 0);
         default:
-          return a.name.localeCompare(b.name);
+          return (a.name || '').localeCompare(b.name || '');
       }
     });
 

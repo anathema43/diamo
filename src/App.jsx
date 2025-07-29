@@ -21,6 +21,7 @@ import FAQ from "./pages/FAQ";
 import Contact from "./pages/Contact";
 import ProtectedRoute from "./components/ProtectedRoute";
 import AdminRoute from "./components/AdminRoute";
+import ErrorBoundary from "./components/ErrorBoundary";
 import { useAuthStore } from "./store/authStore";
 import { useCartStore } from "./store/cartStore";
 import LoadingSpinner from "./components/LoadingSpinner";
@@ -44,11 +45,12 @@ function App() {
   }
 
   return (
-    <Router>
-      <div className="min-h-screen bg-organic-background">
-        <Navbar />
-        <main>
-          <Routes>
+    <ErrorBoundary>
+      <Router>
+        <div className="min-h-screen bg-organic-background">
+          <Navbar />
+          <main>
+            <Routes>
             {/* Public Routes */}
             <Route path="/" element={<Home />} />
             <Route path="/shop" element={<Shop />} />
@@ -103,6 +105,7 @@ function App() {
         <Footer />
       </div>
     </Router>
+    </ErrorBoundary>
   );
 }
 

@@ -80,8 +80,8 @@ export const useProductStore = create((set, get) => ({
     
     let filtered = products.filter(product => {
       const matchesSearch = !searchTerm || 
-        product.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        product.description.toLowerCase().includes(searchTerm.toLowerCase());
+        (product.name && product.name.toLowerCase().includes(searchTerm.toLowerCase())) ||
+        (product.description && product.description.toLowerCase().includes(searchTerm.toLowerCase()));
       
       const matchesCategory = category === 'all' || product.category === category;
       
@@ -100,7 +100,7 @@ export const useProductStore = create((set, get) => ({
         case 'newest':
           return new Date(b.createdAt || 0) - new Date(a.createdAt || 0);
         default:
-          return a.name.localeCompare(b.name);
+          return (a.name || '').localeCompare(b.name || '');
       }
     });
 
