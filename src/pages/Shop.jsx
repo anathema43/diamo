@@ -97,6 +97,7 @@ export default function Shop() {
                   <option value="rating">Highest Rated</option>
                 </select>
               </div>
+              </div>
             </div>
           </div>
 
