@@ -75,7 +75,6 @@ Ramro is a premium e-commerce platform showcasing authentic Himalayan products i
 ### Backend & Services
 - **Firebase** - Authentication and database
 - **Razorpay** - Payment processing (Indian market focused)
-- **Cloudinary** - Image management
 - **Firebase Storage** - File storage with automatic image optimization
 
 ### Development Tools
