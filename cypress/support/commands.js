@@ -208,3 +208,58 @@ Cypress.Commands.add('expectError', (errorMessage) => {
 Cypress.Commands.add('expectSuccess', (successMessage) => {
   cy.get('[data-cy="success-message"]').should('contain', successMessage);
 });
+// Security Testing Commands
+Cypress.Commands.add('testAdminSecurity', () => {
+  // Test that admin access requires proper server-side role
+  cy.loginAsUser();
+  cy.visit('/admin');
+  cy.get('[data-cy="access-denied-message"]').should('be.visible');
+});
+
+Cypress.Commands.add('testFileUploadSecurity', (fileType, expectedError) => {
+  cy.loginAsAdmin();
+  cy.navigateToAdmin();
+  
+  const testFile = new File(['test content'], `test.${fileType}`);
+  cy.get('[data-cy="file-upload"]').selectFile(testFile, { force: true });
+  cy.get(`[data-cy="${expectedError}"]`).should('be.visible');
+});
+
+Cypress.Commands.add('testRealTimeSync', () => {
+  cy.loginAsUser();
+  cy.navigateToShop();
+  cy.addProductToCart('Darjeeling Pickle');
+  
+  // Simulate real-time update
+  cy.window().then((win) => {
+    win.dispatchEvent(new CustomEvent('cartUpdate', {
+      detail: { items: [{ id: '1', quantity: 2 }] }
+    }));
+  });
+  
+  cy.get('[data-cy="cart-count"]').should('contain', '2');
+});
+
+// Data Integrity Commands
+Cypress.Commands.add('validateSingleSourceOfTruth', () => {
+  cy.window().then((win) => {
+    // Ensure no static product data exists
+    expect(win.staticProducts).to.be.undefined;
+    expect(win.products).to.be.undefined;
+  });
+});
+
+Cypress.Commands.add('testArchitecturalIntegrity', () => {
+  // Test that stores are properly separated
+  cy.window().then((win) => {
+    const cartStore = win.useCartStore?.getState();
+    const wishlistStore = win.useWishlistStore?.getState();
+    
+    if (cartStore) {
+      expect(cartStore.wishlist).to.be.undefined;
+    }
+    if (wishlistStore) {
+      expect(wishlistStore.cart).to.be.undefined;
+    }
+  });
+});
