@@ -43,11 +43,11 @@ if [ -f .env ]; then
     else
         echo "❌ Firebase config missing"
     fi
-    # Validate Stripe config
-    if grep -q "VITE_STRIPE_PUBLISHABLE_KEY" .env; then
-        echo "✅ Stripe config present"
+    # Validate Razorpay config
+    if grep -q "VITE_RAZORPAY_KEY_ID" .env; then
+        echo "✅ Razorpay config present"
     else
-        echo "❌ Stripe config missing"
+        echo "❌ Razorpay config missing"
     fi
 else
     echo "❌ .env file not found"
@@ -209,7 +209,7 @@ echo "Production Environment Audit:"
 echo "================================"
 
 # Check if all required variables are set
-required_vars=("VITE_FIREBASE_API_KEY" "VITE_FIREBASE_AUTH_DOMAIN" "VITE_FIREBASE_PROJECT_ID" "VITE_STRIPE_PUBLISHABLE_KEY")
+required_vars=("VITE_FIREBASE_API_KEY" "VITE_FIREBASE_AUTH_DOMAIN" "VITE_FIREBASE_PROJECT_ID" "VITE_RAZORPAY_KEY_ID")
 
 for var in "${required_vars[@]}"; do
     if [ -z "${!var}" ]; then
@@ -261,11 +261,11 @@ const productionTests = async () => {
     }
   });
   
-  // Test 3: Stripe loading
+  // Test 3: Razorpay loading
   tests.push({
-    name: 'Stripe Integration',
-    test: () => typeof Stripe !== 'undefined',
-    result: typeof Stripe !== 'undefined'
+    name: 'Razorpay Integration',
+    test: () => typeof Razorpay !== 'undefined',
+    result: typeof Razorpay !== 'undefined'
   });
   
   // Run tests
@@ -434,19 +434,11 @@ const mockFirebase = {
   },
 };
 
-global.firebase = mockFirebase;
-```
-
-### **Example Component Tests**
-```javascript
-// src/components/__tests__/ProductCard.test.jsx
-import { render, screen, fireEvent } from '@testing-library/react'
-import { describe, it, expect, vi } from 'vitest'
-import ProductCard from '../ProductCard'
-
-const mockProduct = {
-  id: '1',
-  name: 'Test Product',
+// Mock Razorpay
+global.Razorpay = vi.fn(() => ({
+  open: vi.fn(),
+  on: vi.fn(),
+}));
   price: 299,
   image: 'test-image.jpg',
   description: 'Test description',
@@ -517,7 +509,8 @@ describe('Complete User Journey', () => {
     // Verify success
     cy.contains('Order placed successfully').should('be.visible');
   });
-});
+    // Select Razorpay payment
+    cy.get('[data-cy=payment-razorpay]').check();
 ```
 
 ---
@@ -526,10 +519,13 @@ describe('Complete User Journey', () => {
 
 ## **Production Monitoring Setup**
 
-### **1. Error Tracking with Sentry**
-```bash
-# Install Sentry
-npm install @sentry/react @sentry/tracing
+// Mock Razorpay service
+vi.mock('../services/razorpayService', () => ({
+  razorpayService: {
+    processPayment: vi.fn(() => Promise.resolve()),
+    initialize: vi.fn(() => Promise.resolve(true)),
+  }
+}));
 
 # Configure Sentry
 cat > src/utils/sentry.js << EOF
@@ -714,16 +710,16 @@ console.log('Valid:', Object.values(config).every(v => v && !v.includes('undefin
 "
 ```
 
-#### **Issue: "Stripe not loading"**
+#### **Issue: "Razorpay not loading"**
 ```javascript
-// Debug Stripe loading
-const debugStripe = () => {
-  console.log('Stripe key:', import.meta.env.VITE_STRIPE_PUBLISHABLE_KEY);
-  console.log('Stripe object:', typeof Stripe);
+// Debug Razorpay loading
+const debugRazorpay = () => {
+  console.log('Razorpay key:', import.meta.env.VITE_RAZORPAY_KEY_ID);
+  console.log('Razorpay object:', typeof Razorpay);
   
-  if (typeof Stripe === 'undefined') {
-    console.error('Stripe not loaded. Check:');
-    console.error('1. Stripe script tag in index.html');
+  if (typeof Razorpay === 'undefined') {
+    console.error('Razorpay not loaded. Check:');
+    console.error('1. Razorpay script loaded via service');
     console.error('2. Network connectivity');
     console.error('3. Content Security Policy');
   }
