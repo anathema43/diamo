@@ -31,7 +31,7 @@ export default function Contact() {
   };
 
   return (
-    <div className="min-h-screen bg-organic-background">
+    <div className="min-h-screen bg-organic-background" data-cy="contact-page">
       {/* Hero Section */}
       <section className="py-20 bg-organic-text text-white">
         <div className="max-w-4xl mx-auto px-6 text-center">
@@ -98,7 +98,7 @@ export default function Contact() {
             </div>
 
             {/* Contact Form */}
-            <div className="bg-white p-8 rounded-lg shadow-lg">
+            <div className="bg-white p-8 rounded-lg shadow-lg" data-cy="contact-form">
               <h2 className="font-display text-3xl font-bold text-organic-text mb-6">
                 Send us a Message
               </h2>
@@ -110,7 +110,7 @@ export default function Contact() {
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                     </svg>
                   </div>
-                  <h3 className="text-xl font-bold text-organic-text mb-2">Message Sent!</h3>
+                  <h3 className="text-xl font-bold text-organic-text mb-2" data-cy="success-message">Message Sent!</h3>
                   <p className="text-organic-text">Thank you for contacting us. We'll get back to you soon.</p>
                 </div>
               ) : (
@@ -123,6 +123,7 @@ export default function Contact() {
                       type="text"
                       id="name"
                       name="name"
+                      data-cy="contact-name"
                       value={formData.name}
                       onChange={handleChange}
                       required
@@ -138,6 +139,7 @@ export default function Contact() {
                       type="email"
                       id="email"
                       name="email"
+                      data-cy="contact-email"
                       value={formData.email}
                       onChange={handleChange}
                       required
@@ -153,6 +155,7 @@ export default function Contact() {
                       type="text"
                       id="subject"
                       name="subject"
+                      data-cy="contact-subject"
                       value={formData.subject}
                       onChange={handleChange}
                       required
@@ -167,6 +170,7 @@ export default function Contact() {
                     <textarea
                       id="message"
                       name="message"
+                      data-cy="contact-message"
                       value={formData.message}
                       onChange={handleChange}
                       required
@@ -177,6 +181,7 @@ export default function Contact() {
                   
                   <button
                     type="submit"
+                    data-cy="contact-submit"
                     disabled={isSubmitting}
                     className="w-full bg-organic-primary text-white font-bold py-3 px-6 rounded-lg hover:opacity-90 transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed"
                   >

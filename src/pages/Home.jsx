@@ -41,7 +41,7 @@ export default function Home() {
               Shop Now
             </Link>
             <Link 
-              to="#why-ramro" 
+              to="/about" 
               className="btn-secondary inline-block px-10 py-4 rounded-full text-lg transition-all duration-300 border-2 border-organic-white text-organic-white hover:bg-organic-white hover:text-organic-text backdrop-blur-sm"
             >
               Learn More

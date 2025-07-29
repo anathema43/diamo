@@ -37,6 +37,18 @@ Cypress.Commands.add('navigateToShop', () => {
   cy.get('[data-cy="shop-page"]').should('be.visible');
 });
 
+Cypress.Commands.add('navigateToAbout', () => {
+  cy.get('[data-cy="nav-about"]').click();
+  cy.url().should('include', '/about');
+  cy.get('[data-cy="about-page"]').should('be.visible');
+});
+
+Cypress.Commands.add('navigateToContact', () => {
+  cy.get('[data-cy="nav-contact"]').click();
+  cy.url().should('include', '/contact');
+  cy.get('[data-cy="contact-page"]').should('be.visible');
+});
+
 Cypress.Commands.add('navigateToCart', () => {
   cy.get('[data-cy="nav-cart"]').click();
   cy.url().should('include', '/cart');
