@@ -1,37 +1,20 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import ResponsiveImage from "./ResponsiveImage";
 import ReviewStars from "./ReviewStars";
 import WishlistButton from "./WishlistButton";
 import AddToCartButton from "./AddToCartButton";
 import formatCurrency from "../utils/formatCurrency";
 
 export default function ProductCard({ product }) {
-  // Generate optimized image URLs
-  const getOptimizedImageUrl = (originalUrl, size = 400) => {
-    if (!originalUrl) return '/images/placeholder-product.jpg';
-    
-    // If using Cloudinary or similar service
-    if (originalUrl.includes('cloudinary.com')) {
-      return originalUrl.replace('/upload/', `/upload/w_${size},h_${size},c_fill,f_auto,q_auto/`);
-    }
-    
-    // If using Firebase Storage with resize extension
-    if (originalUrl.includes('firebasestorage.googleapis.com')) {
-      return `${originalUrl}_${size}x${size}`;
-    }
-    
-    // Fallback to original URL
-    return originalUrl;
-  };
-
   return (
     <article className="bg-white rounded-lg shadow-lg p-4 flex flex-col transition hover:shadow-xl" data-cy="product-card">
       <div className="relative">
-        <img
-          src={getOptimizedImageUrl(product.image, 400)}
+        <ResponsiveImage
+          src={product.image}
           alt={`${product.name} - ${product.description}`}
-          className="w-full h-44 object-cover rounded-md mb-2"
-          loading="lazy"
+          className="w-full h-44 rounded-md mb-2"
+          sizes="(max-width: 768px) 300px, (max-width: 1024px) 400px, 500px"
           data-cy="product-image"
         />
         <div className="absolute top-2 right-2">

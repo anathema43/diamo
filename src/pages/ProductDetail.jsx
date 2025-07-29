@@ -1,5 +1,6 @@
 import React from "react";
 import { useParams, Link } from "react-router-dom";
+import ResponsiveImage from "../components/ResponsiveImage";
 import { useProductStore } from "../store/productStore";
 import { useInventoryStore } from "../store/inventoryStore";
 import ReviewStars from "../components/ReviewStars";
@@ -94,10 +95,12 @@ export default function ProductDetail() {
       <div className="grid md:grid-cols-2 gap-12 mb-16">
         {/* Product Image */}
         <div className="relative">
-          <img 
+          <ResponsiveImage
             src={product.image} 
             alt={product.name} 
-            className="w-full h-96 object-cover rounded-lg shadow-lg"
+            className="w-full h-96 rounded-lg shadow-lg"
+            sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 600px"
+            priority={true} // This is the main product image
           />
           {product.quantityAvailable === 0 && (
             <div className="absolute inset-0 bg-black bg-opacity-50 flex items-center justify-center rounded-lg">

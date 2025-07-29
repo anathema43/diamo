@@ -1,6 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { TruckIcon, BeakerIcon, HandRaisedIcon, StarIcon } from "@heroicons/react/24/outline";
+import ResponsiveImage from "../components/ResponsiveImage";
 import AddToCartButton from "../components/AddToCartButton";
 import { useProductStore } from "../store/productStore";
 import formatCurrency from "../utils/formatCurrency";
@@ -121,10 +122,12 @@ export default function Home() {
                 style={{ animationDelay: `${index * 0.1}s` }}
               >
                 <div className="relative overflow-hidden">
-                  <img 
+                  <ResponsiveImage
                     src={product.image} 
                     alt={product.name} 
-                    className="w-full h-64 object-cover group-hover:scale-110 transition-transform duration-500"
+                    className="w-full h-64 group-hover:scale-110 transition-transform duration-500"
+                    sizes="(max-width: 768px) 300px, (max-width: 1024px) 400px, 500px"
+                    priority={index < 2} // Prioritize first 2 images
                   />
                   {/* Product Badge */}
                   <div className="absolute top-4 left-4">
