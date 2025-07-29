@@ -439,6 +439,18 @@ global.Razorpay = vi.fn(() => ({
   open: vi.fn(),
   on: vi.fn(),
 }));
+```
+
+### **Example Component Test**
+```javascript
+// src/components/__tests__/ProductCard.test.jsx
+import { render, screen, fireEvent } from '@testing-library/react'
+import { describe, it, expect, vi } from 'vitest'
+import ProductCard from '../ProductCard'
+
+const mockProduct = {
+  id: '1',
+  name: 'Test Product',
   price: 299,
   image: 'test-image.jpg',
   description: 'Test description',
@@ -509,8 +521,34 @@ describe('Complete User Journey', () => {
     // Verify success
     cy.contains('Order placed successfully').should('be.visible');
   });
+
+  it('should handle payment processing', () => {
+    // Add items to cart and proceed to checkout
+    cy.addProductToCart('Darjeeling Pickle');
+    cy.navigateToCheckout();
+    
+    // Fill shipping information
+    cy.fillShippingInfo({
+      name: 'Test User',
+      address: '123 Test Street',
+      city: 'Mumbai',
+      zip: '400001'
+    });
+    
     // Select Razorpay payment
     cy.get('[data-cy=payment-razorpay]').check();
+    
+    // Mock successful payment
+    cy.mockRazorpayPayment(true);
+    
+    // Place order
+    cy.get('[data-cy=place-order]').click();
+    
+    // Verify order success
+    cy.url().should('include', '/order-success');
+    cy.get('[data-cy=order-confirmation]').should('be.visible');
+  });
+});
 ```
 
 ---
@@ -519,13 +557,10 @@ describe('Complete User Journey', () => {
 
 ## **Production Monitoring Setup**
 
-// Mock Razorpay service
-vi.mock('../services/razorpayService', () => ({
-  razorpayService: {
-    processPayment: vi.fn(() => Promise.resolve()),
-    initialize: vi.fn(() => Promise.resolve(true)),
-  }
-}));
+### **1. Error Tracking with Sentry**
+```bash
+# Install Sentry
+npm install @sentry/react @sentry/tracing
 
 # Configure Sentry
 cat > src/utils/sentry.js << EOF
