@@ -244,210 +244,105 @@ export default function Home() {
             </p>
           </div>
           
-          {/* Enhanced Product Slider with Swipe */}
-          <div className="relative">
-            {loading ? (
-              <div className="overflow-x-auto scrollbar-hide pb-4">
-                <LoadingProducts />
+          {/* Simple 2-Product Layout */}
+          <div className="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
+            {/* Rice Product */}
+            <div className="bg-white rounded-2xl shadow-lg overflow-hidden hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2">
+              <div className="relative overflow-hidden">
+                <ResponsiveImage
+                  src="https://images.pexels.com/photos/33239/wheat-field-wheat-cereals-grain.jpg?auto=compress&cs=tinysrgb&w=800"
+                  alt="Organic Red Rice"
+                  className="w-full h-64 hover:scale-110 transition-transform duration-300"
+                  sizes="(max-width: 768px) 100vw, 400px"
+                  priority={true}
+                />
+                <div className="absolute top-4 left-4">
+                  <span className="bg-nyano-forest text-nyano-cream px-3 py-1 rounded-full text-sm font-semibold shadow-lg">
+                    🌾 Organic
+                  </span>
+                </div>
+                <div className="absolute top-4 right-4 bg-nyano-cream bg-opacity-90 rounded-full px-2 py-1">
+                  <div className="flex items-center">
+                    <StarIcon className="w-4 h-4 text-nyano-terracotta fill-current" />
+                    <span className="text-sm font-semibold ml-1">4.8</span>
+                  </div>
+                </div>
               </div>
-            ) : displayProducts.length === 0 ? (
-              <ErrorState />
-            ) : (
-              <>
-                {/* Desktop: Horizontal Scroll */}
-                <div className="hidden md:block">
-                  <div className="overflow-x-auto scrollbar-hide pb-4">
-                    <div className="flex gap-6 min-w-max">
-                      {displayProducts.map((product, index) => (
-                        <div 
-                          key={product.id} 
-                          className="group bg-white rounded-2xl shadow-lg overflow-hidden hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2 flex-shrink-0 w-80"
-                        >
-                          <div className="relative overflow-hidden">
-                            <ResponsiveImage
-                              src={product.image} 
-                              alt={product.name} 
-                              className="w-full h-64 group-hover:scale-110 transition-transform duration-300"
-                              sizes="320px"
-                              priority={index < 2}
-                            />
-                            {/* Product Badge */}
-                            <div className="absolute top-4 left-4">
-                              {product.category === 'grains' && (
-                                <span className="bg-nyano-forest text-nyano-cream px-3 py-1 rounded-full text-sm font-semibold shadow-lg">
-                                  🌾 Organic
-                                </span>
-                              )}
-                              {product.category === 'honey' && (
-                                <span className="bg-nyano-terracotta text-nyano-cream px-3 py-1 rounded-full text-sm font-semibold shadow-lg">
-                                  🍯 Pure
-                                </span>
-                              )}
-                              {product.category === 'pickle' && (
-                                <span className="bg-nyano-terracotta text-nyano-cream px-3 py-1 rounded-full text-sm font-semibold shadow-lg">
-                                  🌶️ Traditional
-                                </span>
-                              )}
-                            </div>
-                            
-                            {/* Rating Stars */}
-                            <div className="absolute top-4 right-4 bg-nyano-cream bg-opacity-90 rounded-full px-2 py-1">
-                              <div className="flex items-center">
-                                <StarIcon className="w-4 h-4 text-nyano-terracotta fill-current" />
-                                <span className="text-sm font-semibold ml-1">{product.rating || 4.8}</span>
-                              </div>
-                            </div>
-                          </div>
-                          
-                          <div className="p-6">
-                            <h3 className="font-display text-xl font-bold mb-2 text-nyano-brown group-hover:text-nyano-terracotta">
-                              {product.name}
-                            </h3>
-                            <p className="text-nyano-brown opacity-75 mb-4 text-sm leading-relaxed line-clamp-2">
-                              {product.description}
-                            </p>
-                            <div className="flex items-center justify-between mb-4">
-                              <span className="font-bold text-2xl text-nyano-forest">
-                                {formatCurrency(product.price)}
-                              </span>
-                              <Link 
-                                to={`/products/${product.id}`}
-                                className="text-nyano-terracotta hover:text-nyano-brown text-sm font-semibold underline"
-                              >
-                                View Details
-                              </Link>
-                            </div>
-                            <AddToCartButton product={product} className="w-full" />
-                          </div>
-                        </div>
-                      ))}
-                    </div>
-                  </div>
-                </div>
-
-                {/* Mobile: Swipe Slider */}
-                <div className="md:hidden">
-                  <div 
-                    className="relative overflow-hidden"
-                    onTouchStart={handleTouchStart}
-                    onTouchMove={handleTouchMove}
-                    onTouchEnd={handleTouchEnd}
-                    ref={sliderRef}
+              <div className="p-6">
+                <h3 className="font-display text-xl font-bold mb-2 text-nyano-brown">
+                  Organic Red Rice
+                </h3>
+                <p className="text-nyano-brown opacity-75 mb-4 text-sm leading-relaxed">
+                  Nutrient-rich, farm to table red rice from Himalayan valleys, grown without chemicals in terraced fields.
+                </p>
+                <div className="flex items-center justify-between mb-4">
+                  <span className="font-bold text-2xl text-nyano-forest">
+                    ₹450
+                  </span>
+                  <Link 
+                    to="/shop"
+                    className="text-nyano-terracotta hover:text-nyano-brown text-sm font-semibold underline"
                   >
-                    <div 
-                      className="flex transition-transform duration-300 ease-out"
-                      style={{ transform: `translateX(-${currentSlide * 100}%)` }}
-                    >
-                      {displayProducts.map((product, index) => (
-                        <div 
-                          key={product.id} 
-                          className="w-full flex-shrink-0 px-4"
-                        >
-                          <div className="bg-white rounded-2xl shadow-lg overflow-hidden">
-                            <div className="relative overflow-hidden">
-                              <ResponsiveImage
-                                src={product.image} 
-                                alt={product.name} 
-                                className="w-full h-64"
-                                sizes="(max-width: 768px) 100vw, 320px"
-                                priority={index === currentSlide}
-                              />
-                              {/* Product Badge */}
-                              <div className="absolute top-4 left-4">
-                                {product.category === 'grains' && (
-                                  <span className="bg-nyano-forest text-nyano-cream px-3 py-1 rounded-full text-sm font-semibold shadow-lg">
-                                    🌾 Organic
-                                  </span>
-                                )}
-                                {product.category === 'honey' && (
-                                  <span className="bg-nyano-terracotta text-nyano-cream px-3 py-1 rounded-full text-sm font-semibold shadow-lg">
-                                    🍯 Pure
-                                  </span>
-                                )}
-                                {product.category === 'pickle' && (
-                                  <span className="bg-nyano-terracotta text-nyano-cream px-3 py-1 rounded-full text-sm font-semibold shadow-lg">
-                                    🌶️ Traditional
-                                  </span>
-                                )}
-                              </div>
-                              
-                              {/* Rating Stars */}
-                              <div className="absolute top-4 right-4 bg-nyano-cream bg-opacity-90 rounded-full px-2 py-1">
-                                <div className="flex items-center">
-                                  <StarIcon className="w-4 h-4 text-nyano-terracotta fill-current" />
-                                  <span className="text-sm font-semibold ml-1">{product.rating || 4.8}</span>
-                                </div>
-                              </div>
-                            </div>
-                            
-                            <div className="p-6">
-                              <h3 className="font-display text-xl font-bold mb-2 text-nyano-brown">
-                                {product.name}
-                              </h3>
-                              <p className="text-nyano-brown opacity-75 mb-4 text-sm leading-relaxed line-clamp-2">
-                                {product.description}
-                              </p>
-                              <div className="flex items-center justify-between mb-4">
-                                <span className="font-bold text-2xl text-nyano-forest">
-                                  {formatCurrency(product.price)}
-                                </span>
-                                <Link 
-                                  to={`/products/${product.id}`}
-                                  className="text-nyano-terracotta hover:text-nyano-brown text-sm font-semibold underline"
-                                >
-                                  View Details
-                                </Link>
-                              </div>
-                              <AddToCartButton product={product} className="w-full" />
-                            </div>
-                          </div>
-                        </div>
-                      ))}
-                    </div>
-                  </div>
+                    View Details
+                  </Link>
+                </div>
+                <Link 
+                  to="/shop"
+                  className="w-full bg-nyano-terracotta text-nyano-cream font-semibold py-3 px-6 rounded-lg hover:bg-nyano-terracotta-dark transition-all duration-200 text-center block"
+                >
+                  Add to Cart
+                </Link>
+              </div>
+            </div>
 
-                  {/* Navigation Arrows for Mobile */}
-                  <div className="flex justify-between items-center mt-4 px-4">
-                    <button
-                      onClick={goToPrevious}
-                      disabled={currentSlide === 0}
-                      className="p-2 rounded-full bg-white shadow-lg disabled:opacity-50 disabled:cursor-not-allowed hover:bg-nyano-cream transition-all"
-                    >
-                      <ChevronLeftIcon className="w-6 h-6 text-nyano-brown" />
-                    </button>
-                    
-                    <div className="flex gap-2">
-                      {displayProducts.map((_, index) => (
-                        <button
-                          key={index}
-                          onClick={() => goToSlide(index)}
-                          className={`w-3 h-3 rounded-full transition-all duration-300 ${
-                            index === currentSlide 
-                              ? 'bg-nyano-terracotta scale-125' 
-                              : 'bg-nyano-brown opacity-30 hover:opacity-60'
-                          }`}
-                        />
-                      ))}
-                    </div>
-                    
-                    <button
-                      onClick={goToNext}
-                      disabled={currentSlide === displayProducts.length - 1}
-                      className="p-2 rounded-full bg-white shadow-lg disabled:opacity-50 disabled:cursor-not-allowed hover:bg-nyano-cream transition-all"
-                    >
-                      <ChevronRightIcon className="w-6 h-6 text-nyano-brown" />
-                    </button>
+            {/* Wheat Product */}
+            <div className="bg-white rounded-2xl shadow-lg overflow-hidden hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2">
+              <div className="relative overflow-hidden">
+                <ResponsiveImage
+                  src="https://images.pexels.com/photos/4198015/pexels-photo-4198015.jpeg?auto=compress&cs=tinysrgb&w=800"
+                  alt="Himalayan Buckwheat"
+                  className="w-full h-64 hover:scale-110 transition-transform duration-300"
+                  sizes="(max-width: 768px) 100vw, 400px"
+                  priority={true}
+                />
+                <div className="absolute top-4 left-4">
+                  <span className="bg-nyano-forest text-nyano-cream px-3 py-1 rounded-full text-sm font-semibold shadow-lg">
+                    🌾 Gluten Free
+                  </span>
+                </div>
+                <div className="absolute top-4 right-4 bg-nyano-cream bg-opacity-90 rounded-full px-2 py-1">
+                  <div className="flex items-center">
+                    <StarIcon className="w-4 h-4 text-nyano-terracotta fill-current" />
+                    <span className="text-sm font-semibold ml-1">4.6</span>
                   </div>
                 </div>
-
-                {/* Desktop Scroll Indicators */}
-                <div className="hidden md:flex justify-center mt-6 gap-2">
-                  {displayProducts.map((_, index) => (
-                    <div key={index} className="w-2 h-2 rounded-full bg-nyano-brown opacity-30"></div>
-                  ))}
+              </div>
+              <div className="p-6">
+                <h3 className="font-display text-xl font-bold mb-2 text-nyano-brown">
+                  Himalayan Buckwheat
+                </h3>
+                <p className="text-nyano-brown opacity-75 mb-4 text-sm leading-relaxed">
+                  Gluten-free, sustainably harvested buckwheat from high altitudes, perfect for traditional pancakes and porridge.
+                </p>
+                <div className="flex items-center justify-between mb-4">
+                  <span className="font-bold text-2xl text-nyano-forest">
+                    ₹380
+                  </span>
+                  <Link 
+                    to="/shop"
+                    className="text-nyano-terracotta hover:text-nyano-brown text-sm font-semibold underline"
+                  >
+                    View Details
+                  </Link>
                 </div>
-              </>
-            )}
+                <Link 
+                  to="/shop"
+                  className="w-full bg-nyano-terracotta text-nyano-cream font-semibold py-3 px-6 rounded-lg hover:bg-nyano-terracotta-dark transition-all duration-200 text-center block"
+                >
+                  Add to Cart
+                </Link>
+              </div>
+            </div>
           </div>
         </div>
       </section>
