@@ -5,6 +5,32 @@ import { vi } from 'vitest'
 global.securityTestMode = true;
 
 // Mock Firebase
+vi.mock('firebase/firestore', () => ({
+  getFirestore: vi.fn(),
+  doc: vi.fn(),
+  setDoc: vi.fn(),
+  getDoc: vi.fn(),
+  onSnapshot: vi.fn(() => vi.fn()), // Returns unsubscribe function
+  collection: vi.fn(),
+  addDoc: vi.fn(),
+  updateDoc: vi.fn(),
+  deleteDoc: vi.fn(),
+  query: vi.fn(),
+  where: vi.fn(),
+  orderBy: vi.fn(),
+  limit: vi.fn(),
+  getDocs: vi.fn(),
+}));
+
+vi.mock('react-router-dom', async () => {
+  const actual = await vi.importActual('react-router-dom');
+  return {
+    ...actual,
+    Navigate: ({ children }) => children || null,
+    useNavigate: () => vi.fn(),
+  };
+});
+
 const mockFirebase = {
   auth: {
     currentUser: null,

@@ -1,5 +1,14 @@
 import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest'
+import { onSnapshot } from 'firebase/firestore'
 import { useCartStore } from '../../store/cartStore'
+
+// Mock onSnapshot
+vi.mock('firebase/firestore', () => ({
+  onSnapshot: vi.fn(),
+  doc: vi.fn(),
+  getFirestore: vi.fn(),
+  collection: vi.fn(),
+}));
 
 // Mock Firebase
 vi.mock('../../firebase/firebase', () => ({

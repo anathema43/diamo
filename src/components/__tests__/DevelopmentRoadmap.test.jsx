@@ -102,7 +102,7 @@ describe('DevelopmentRoadmap', () => {
     fireEvent.click(screen.getByText('Future Features'));
     
     expect(screen.getByText('Development Phases')).toBeInTheDocument();
-    expect(screen.getByText('Phase 1: Production Ready')).toBeInTheDocument();
+    expect(screen.getByText('Phase 1: Foundation')).toBeInTheDocument();
     expect(screen.getByText('Phase 2: Enhanced Experience')).toBeInTheDocument();
   });
 
