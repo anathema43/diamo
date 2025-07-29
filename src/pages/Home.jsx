@@ -174,7 +174,7 @@ export default function Home() {
           </div>
           <div className="mb-8">
             <p className="text-lg md:text-xl text-nyano-brown bg-nyano-cream bg-opacity-70 backdrop-blur-sm px-6 py-2 rounded-lg inline-block shadow-md">
-              Local Goodness of Himalayas
+              Handpicked from mountain communities
             </p>
           </div>
           <div className="flex flex-col sm:flex-row gap-6 justify-center">
