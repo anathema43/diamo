@@ -13,6 +13,11 @@ export default function ProductCard({ product }) {
       <div className="relative">
         <ResponsiveImage
           src={product.image}
+          alt={`${product.name} - ${product.description}`}
+          className="w-full h-44 rounded-md mb-2"
+          sizes="(max-width: 768px) 300px, (max-width: 1024px) 400px, 500px"
+          data-cy="product-image"
+        />
         <ResponsiveImage
           src={product.image}
           alt={`${product.name} - ${product.description}`}
