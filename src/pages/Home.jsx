@@ -1,7 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { TruckIcon, BeakerIcon, HandRaisedIcon, StarIcon, ChevronLeftIcon, ChevronRightIcon } from "@heroicons/react/24/outline";
-import ResponsiveImage from "../components/ResponsiveImage";
 import AddToCartButton from "../components/AddToCartButton";
 import { useProductStore } from "../store/productStore";
 import formatCurrency from "../utils/formatCurrency";
