@@ -56,9 +56,9 @@ class ErrorBoundary extends React.Component {
                 </summary>
                 <div className="mt-2 p-3 bg-gray-100 rounded text-xs font-mono text-gray-800 overflow-auto max-h-40">
                   <div className="font-bold mb-2">Error:</div>
-                  <div className="mb-2">{this.state.error && this.state.error.toString()}</div>
+                  <div className="mb-2">{this.state.error?.toString() || 'Unknown error'}</div>
                   <div className="font-bold mb-2">Component Stack:</div>
-                  <div>{this.state.errorInfo.componentStack}</div>
+                  <div>{this.state.errorInfo?.componentStack || 'No component stack available'}</div>
                 </div>
               </details>
             )}
