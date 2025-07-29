@@ -1,16 +1,20 @@
-import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest'
-import { useWishlistStore } from '../wishlistStore'
+import { describe, it, expect, vi, beforeEach } from 'vitest'
+import { onSnapshot } from 'firebase/firestore'
+import { useWishlistStore } from '../../store/wishlistStore'
+
+// Mock Firebase Firestore
+vi.mock('firebase/firestore', () => ({
+  onSnapshot: vi.fn(),
+  doc: vi.fn(),
+  getFirestore: vi.fn(),
+  collection: vi.fn(),
+  setDoc: vi.fn(),
+  deleteDoc: vi.fn(),
+}));
 
 // Mock Firebase
 vi.mock('../firebase/firebase', () => ({
   db: {}
-}))
-
-vi.mock('firebase/firestore', () => ({
-  doc: vi.fn(),
-  setDoc: vi.fn(),
-  getDoc: vi.fn(),
-  onSnapshot: vi.fn()
 }))
 
 vi.mock('../authStore', () => ({
@@ -21,7 +25,7 @@ vi.mock('../authStore', () => ({
   }
 }))
 
-describe('WishlistStore Real-time Synchronization', () => {
+describe('WishlistStore', () => {
   beforeEach(() => {
     vi.clearAllMocks();
     // Reset store state
