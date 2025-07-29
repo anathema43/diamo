@@ -101,10 +101,10 @@ function App() {
             {/* Catch all route */}
             <Route path="*" element={<Navigate to="/" replace />} />
           </Routes>
-        </main>
-        <Footer />
-      </div>
-    </Router>
+          </main>
+          <Footer />
+        </div>
+      </Router>
     </ErrorBoundary>
   );
 }
