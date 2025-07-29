@@ -23,9 +23,12 @@ const isFirebaseConfigured = Object.values(firebaseConfig).every(value =>
 
 if (!isFirebaseConfigured) {
   console.warn('⚠️ Firebase configuration is incomplete. Please check your .env file and ensure all VITE_FIREBASE_* variables are set.');
-  console.error('Firebase configuration is required. Please set up your environment variables.');
-  // Don't throw error in development to allow app to load
-  if (import.meta.env.PROD) {
+  
+  // In development, show warning but don't crash the app
+  if (import.meta.env.DEV) {
+    console.warn('🔧 Development mode: Firebase not configured yet. Some features will be limited.');
+  } else {
+    // Only throw error in production
     throw new Error('Firebase configuration is required. Please set up your environment variables.');
   }
 }
