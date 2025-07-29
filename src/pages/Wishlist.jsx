@@ -20,10 +20,16 @@ export default function Wishlist() {
 
   useEffect(() => {
     if (wishlist.length > 0 && products.length > 0) {
-      const filteredProducts = products.filter(product => 
-        wishlist.includes(product.id)
+      // More efficient: only fetch products that are in wishlist
+      const wishlistProductPromises = wishlist.map(productId => 
+        fetchProducts().then(allProducts => 
+          allProducts.find(p => p.id === productId)
+        ).filter(Boolean)
       );
-      setWishlistProducts(filteredProducts);
+      
+      Promise.all(wishlistProductPromises).then(products => {
+        setWishlistProducts(products.filter(Boolean));
+      });
     } else {
       setWishlistProducts([]);
     }

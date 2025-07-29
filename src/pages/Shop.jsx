@@ -1,12 +1,19 @@
 import React, { useState } from "react";
-import products from "../data/products";
+import { useProductStore } from "../store/productStore";
 import ProductCard from "../components/ProductCard";
 import { MagnifyingGlassIcon, FunnelIcon } from "@heroicons/react/24/outline";
 
 export default function Shop() {
+  const { products, fetchProducts, loading } = useProductStore();
   const [searchTerm, setSearchTerm] = useState("");
   const [sortBy, setSortBy] = useState("name");
   const [filterCategory, setFilterCategory] = useState("all");
+
+  React.useEffect(() => {
+    if (products.length === 0) {
+      fetchProducts();
+    }
+  }, [products.length, fetchProducts]);
 
   // Filter and sort products
   const filteredProducts = products
@@ -42,6 +49,11 @@ export default function Shop() {
       </div>
 
       <div className="max-w-7xl mx-auto px-6 py-8">
+        {loading ? (
+          <div className="flex justify-center py-12">
+            <div className="animate-spin rounded-full h-16 w-16 border-b-2 border-organic-primary"></div>
+          </div>
+        ) : (
         {/* Filters and Search */}
         <div className="bg-white rounded-lg shadow-sm p-6 mb-8">
           <div className="flex flex-col md:flex-row gap-4 items-center justify-between">
@@ -109,6 +121,7 @@ export default function Shop() {
           <div className="mt-8 text-center text-gray-600">
             Showing {filteredProducts.length} of {products.length} products
           </div>
+        )}
         )}
       </div>
     </div>

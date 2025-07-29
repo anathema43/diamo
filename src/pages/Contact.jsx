@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { EnvelopeIcon, PhoneIcon, MapPinIcon } from "@heroicons/react/24/outline";
+import { CONTACT_INFO, BUSINESS_HOURS } from "../utils/constants";
 
 export default function Contact() {
   const [formData, setFormData] = useState({
@@ -59,8 +60,8 @@ export default function Contact() {
                   <EnvelopeIcon className="w-6 h-6 text-organic-primary mt-1" />
                   <div>
                     <h3 className="font-semibold text-organic-text mb-1">Email</h3>
-                    <p className="text-organic-text">support@ramro.com</p>
-                    <p className="text-organic-text">hello@ramro.com</p>
+                    <p className="text-organic-text">{CONTACT_INFO.email.support}</p>
+                    <p className="text-organic-text">{CONTACT_INFO.email.hello}</p>
                   </div>
                 </div>
                 
@@ -68,8 +69,8 @@ export default function Contact() {
                   <PhoneIcon className="w-6 h-6 text-organic-primary mt-1" />
                   <div>
                     <h3 className="font-semibold text-organic-text mb-1">Phone</h3>
-                    <p className="text-organic-text">+977 1 234 5678</p>
-                    <p className="text-organic-text">+1 (555) 123-4567</p>
+                    <p className="text-organic-text">{CONTACT_INFO.phone.nepal}</p>
+                    <p className="text-organic-text">{CONTACT_INFO.phone.international}</p>
                   </div>
                 </div>
                 
@@ -78,8 +79,8 @@ export default function Contact() {
                   <div>
                     <h3 className="font-semibold text-organic-text mb-1">Address</h3>
                     <p className="text-organic-text">
-                      Thamel, Kathmandu<br />
-                      Nepal 44600
+                      {CONTACT_INFO.address.street}<br />
+                      {CONTACT_INFO.address.country} {CONTACT_INFO.address.postalCode}
                     </p>
                   </div>
                 </div>
@@ -90,9 +91,9 @@ export default function Contact() {
                   Business Hours
                 </h3>
                 <div className="space-y-2 text-organic-text">
-                  <p><span className="font-semibold">Monday - Friday:</span> 9:00 AM - 6:00 PM (NPT)</p>
-                  <p><span className="font-semibold">Saturday:</span> 10:00 AM - 4:00 PM (NPT)</p>
-                  <p><span className="font-semibold">Sunday:</span> Closed</p>
+                  <p>{BUSINESS_HOURS.weekdays}</p>
+                  <p>{BUSINESS_HOURS.saturday}</p>
+                  <p>{BUSINESS_HOURS.sunday}</p>
                 </div>
               </div>
             </div>
