@@ -343,7 +343,7 @@ describe('Admin Product Management', () => {
     
     cy.createProduct(newProduct);
     
-    cy.get('[data-cy="success-message"]').should('contain', 'Product created');
+    cy.get('[data-cy="success-message"]').should('contain', 'Product created successfully');
     cy.get('[data-cy="products-table"]').should('contain', newProduct.name);
   });
 
