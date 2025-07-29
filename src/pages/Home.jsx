@@ -48,16 +48,12 @@ export default function Home() {
             <h2 className="font-display text-3xl md:text-5xl font-bold mb-2 text-nyano-brown">
               Experience Pure
             </h2>
-            <h2 className="font-display text-3xl md:text-5xl font-bold mb-4 text-nyano-brown">
+            <h2 className="font-display text-3xl md:text-5xl font-bold mb-2 text-nyano-brown">
               Local Goodness
             </h2>
-          </div>
-          <div className="mb-6">
-            <div className="relative mb-4">
-              <p className="font-body text-lg md:text-xl text-nyano-brown bg-white bg-opacity-70 backdrop-blur-sm px-6 py-2 rounded-lg inline-block shadow-md">
-                of Himalayas
-              </p>
-            </div>
+            <h2 className="font-display text-3xl md:text-5xl font-bold mb-4 text-nyano-brown">
+              of Himalayas
+            </h2>
           </div>
           <div className="flex flex-col sm:flex-row gap-6 justify-center">
             <Link 
