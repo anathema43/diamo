@@ -102,7 +102,10 @@ export default function DevelopmentRoadmap() {
         "Responsive image URLs",
         "Size-based optimization",
         "Lazy loading implementation",
-        "Performance optimization"
+        "Performance optimization",
+        "Multi-device size selection",
+        "Automatic CDN optimization",
+        "Error handling and fallbacks"
       ]
     }
   ];
