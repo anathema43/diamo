@@ -14,8 +14,8 @@ export default function AdminRoute({ children }) {
     return <Navigate to="/login" replace />;
   }
 
-  // Server-side role verification - check Firebase custom claims
-  const isAdmin = userProfile?.role === 'admin' || currentUser?.customClaims?.admin === true;
+  // Server-side role verification - check user role from Firestore
+  const isAdmin = userProfile?.role === 'admin';
   
   if (!isAdmin) {
     return (
@@ -23,7 +23,9 @@ export default function AdminRoute({ children }) {
         <div className="text-center p-8">
           <h2 className="text-2xl font-bold text-red-600 mb-4">Access Denied</h2>
           <p className="text-organic-text mb-6">You don't have permission to access this area.</p>
-          <Navigate to="/" replace />
+          <Link to="/" className="bg-organic-primary text-white px-4 py-2 rounded-lg hover:opacity-90">
+            Return to Home
+          </Link>
         </div>
       </div>
     );

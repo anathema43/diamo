@@ -10,9 +10,8 @@ export default function Shop() {
   const [filterCategory, setFilterCategory] = useState("all");
 
   React.useEffect(() => {
-    if (products.length === 0) {
-      fetchProducts();
-    }
+    // Always fetch products from Firestore to ensure data consistency
+    fetchProducts();
   }, [products.length, fetchProducts]);
 
   // Filter and sort products
@@ -39,7 +38,7 @@ export default function Shop() {
     });
 
   return (
-    <div className="min-h-screen bg-gray-50" data-cy="shop-page">
+    <main className="min-h-screen bg-gray-50" data-cy="shop-page">
       {/* Header */}
       <header className="bg-white shadow-sm">
         <div className="max-w-7xl mx-auto px-6 py-8">
@@ -48,7 +47,7 @@ export default function Shop() {
         </div>
       </header>
 
-      <main className="max-w-7xl mx-auto px-6 py-8">
+      <section className="max-w-7xl mx-auto px-6 py-8">
         {loading ? (
           <div className="flex justify-center py-12" role="status" aria-label="Loading products">
             <div className="animate-spin rounded-full h-16 w-16 border-b-2 border-organic-primary"></div>
@@ -140,7 +139,7 @@ export default function Shop() {
             </section>
           </>
         )}
-      </main>
-    </div>
+      </section>
+    </main>
   );
 }
