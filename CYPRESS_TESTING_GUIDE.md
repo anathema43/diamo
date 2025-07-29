@@ -475,6 +475,16 @@ cy.get('[data-cy="element"]').then(($el) => {
 - **Security Tests**: 100%
 - **User Journeys**: 95%
 
+### **✅ Image Optimization Testing:**
+1. **ResponsiveImage Component**
+   - Tests multiple image sizes
+   - Validates lazy loading implementation
+   - Tests error handling and fallbacks
+   - Validates srcSet and sizes attributes
+   - Tests performance impact
+
+## 🚀 **HOW TO RUN THE TESTS**
+
 ---
 
 ## 🎯 **Running Specific Test Suites**

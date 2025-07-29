@@ -30,6 +30,7 @@
     "cy:run:security": "cypress run --headless --spec 'cypress/e2e/13-security-testing.cy.js'",
     "cy:run:realtime": "cypress run --headless --spec 'cypress/e2e/12-real-time-features.cy.js'",
     "cy:run:architecture": "cypress run --headless --spec 'cypress/e2e/15-architectural-integrity.cy.js'",
+    "cy:run:images": "cypress run --headless --spec 'cypress/e2e/16-image-optimization.cy.js'",
     "cy:run:critical": "cypress run --headless --spec 'cypress/e2e/01-authentication.cy.js,cypress/e2e/13-security-testing.cy.js,cypress/e2e/12-real-time-features.cy.js'",
     "test:security": "vitest run --reporter=verbose src/**/*.security.test.js",
     "test:integration": "vitest run --reporter=verbose src/**/*.integration.test.js",
