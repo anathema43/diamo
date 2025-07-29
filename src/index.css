@@ -130,4 +130,9 @@
   .scrollbar-hide::-webkit-scrollbar {
     display: none;
   }
+  
+  /* Ensure horizontal scroll works properly */
+  .min-w-max {
+    min-width: max-content;
+  }
 }

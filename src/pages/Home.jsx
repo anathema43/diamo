@@ -41,6 +41,17 @@ export default function Home() {
           <p className="font-display text-2xl md:text-3xl italic mb-4 text-nyano-terracotta">
             nyā-nō
           </p>
+          <div className="mb-6">
+            <h2 className="font-display text-3xl md:text-5xl font-bold mb-2 text-nyano-brown">
+              Experience Pure
+            </h2>
+            <h2 className="font-display text-3xl md:text-5xl font-bold mb-4 text-nyano-brown">
+              Local Goodness
+            </h2>
+            <p className="font-body text-lg md:text-xl text-nyano-brown opacity-90">
+              Handpicked, Organically Grown in the Himalayas
+            </p>
+          </div>
           <h2 className="font-body text-xl md:text-2xl mb-8 font-light max-w-3xl mx-auto leading-relaxed text-nyano-brown">
             A little piece of home, delivered.
           </h2>
@@ -113,87 +124,88 @@ export default function Home() {
           
           {/* Horizontal Sliding Products */}
           <div className="relative">
-            <div className="overflow-x-auto scrollbar-hide">
-              <div className="flex gap-6 pb-4" style={{ width: 'max-content' }}>
+            <div className="overflow-x-auto scrollbar-hide pb-4">
+              <div className="flex gap-6 min-w-max">
             {loading ? (
-              <div className="flex justify-center py-12 w-full">
+              <div className="flex justify-center py-12 w-screen">
                 <div className="animate-spin rounded-full h-16 w-16 border-b-2 border-organic-primary"></div>
               </div>
             ) : (
-            featuredProducts.map((product, index) => (
-              <div 
-                key={product.id} 
-                className="group bg-white rounded-2xl shadow-lg overflow-hidden hover:shadow-2xl transition-all duration-500 transform hover:-translate-y-2 flex-shrink-0 w-80"
-                style={{ animationDelay: `${index * 0.1}s` }}
-              >
-                <div className="relative overflow-hidden">
-                  <ResponsiveImage
-                    src={product.image} 
-                    alt={product.name} 
-                    className="w-full h-64 group-hover:scale-110 transition-transform duration-500"
-                    sizes="320px"
-                    priority={index < 2} // Prioritize first 2 images
-                  />
-                  {/* Product Badge */}
-                  <div className="absolute top-4 left-4">
-                    {product.category === 'grains' && (
-                      <span className="bg-nyano-forest text-nyano-cream px-3 py-1 rounded-full text-sm font-semibold shadow-lg">
-                        🌾 Organic
-                      </span>
-                    )}
-                    {product.category === 'honey' && (
-                      <span className="bg-nyano-terracotta text-nyano-cream px-3 py-1 rounded-full text-sm font-semibold shadow-lg">
-                        🍯 Pure
-                      </span>
-                    )}
-                    {product.category === 'pickle' && (
-                      <span className="bg-nyano-terracotta text-nyano-cream px-3 py-1 rounded-full text-sm font-semibold shadow-lg">
-                        🌶️ Traditional
-                      </span>
-                    )}
-                  </div>
-                  
-                  {/* Rating Stars */}
-                  <div className="absolute top-4 right-4 bg-nyano-cream bg-opacity-90 rounded-full px-2 py-1">
-                    <div className="flex items-center">
-                      <StarIcon className="w-4 h-4 text-nyano-terracotta fill-current" />
-                      <span className="text-sm font-semibold ml-1">{product.rating || 4.8}</span>
+              featuredProducts.map((product, index) => (
+                <div 
+                  key={product.id} 
+                  className="group bg-white rounded-2xl shadow-lg overflow-hidden hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2 flex-shrink-0 w-80"
+                >
+                  <div className="relative overflow-hidden">
+                    <ResponsiveImage
+                      src={product.image} 
+                      alt={product.name} 
+                      className="w-full h-64 group-hover:scale-110 transition-transform duration-300"
+                      sizes="320px"
+                      priority={index < 2}
+                    />
+                    {/* Product Badge */}
+                    <div className="absolute top-4 left-4">
+                      {product.category === 'grains' && (
+                        <span className="bg-nyano-forest text-nyano-cream px-3 py-1 rounded-full text-sm font-semibold shadow-lg">
+                          🌾 Organic
+                        </span>
+                      )}
+                      {product.category === 'honey' && (
+                        <span className="bg-nyano-terracotta text-nyano-cream px-3 py-1 rounded-full text-sm font-semibold shadow-lg">
+                          🍯 Pure
+                        </span>
+                      )}
+                      {product.category === 'pickle' && (
+                        <span className="bg-nyano-terracotta text-nyano-cream px-3 py-1 rounded-full text-sm font-semibold shadow-lg">
+                          🌶️ Traditional
+                        </span>
+                      )}
+                    </div>
+                    
+                    {/* Rating Stars */}
+                    <div className="absolute top-4 right-4 bg-nyano-cream bg-opacity-90 rounded-full px-2 py-1">
+                      <div className="flex items-center">
+                        <StarIcon className="w-4 h-4 text-nyano-terracotta fill-current" />
+                        <span className="text-sm font-semibold ml-1">{product.rating || 4.8}</span>
+                      </div>
                     </div>
                   </div>
-                </div>
-                
-                <div className="p-6">
-                  <h3 className="font-display text-xl font-bold mb-2 text-nyano-brown group-hover:text-nyano-terracotta">
-                    {product.name}
-                  </h3>
-                  <p className="text-nyano-brown opacity-75 mb-4 text-sm leading-relaxed">
-                    {product.description}
-                  </p>
-                  <div className="flex items-center justify-between mb-4">
-                    <span className="font-bold text-2xl text-nyano-forest">
-                      {formatCurrency(product.price)}
-                    </span>
-                    <Link 
-                      to={`/products/${product.id}`}
-                      className="text-nyano-terracotta hover:text-nyano-brown text-sm font-semibold underline"
-                    >
-                      View Details
-                    </Link>
+                  
+                  <div className="p-6">
+                    <h3 className="font-display text-xl font-bold mb-2 text-nyano-brown group-hover:text-nyano-terracotta">
+                      {product.name}
+                    </h3>
+                    <p className="text-nyano-brown opacity-75 mb-4 text-sm leading-relaxed">
+                      {product.description}
+                    </p>
+                    <div className="flex items-center justify-between mb-4">
+                      <span className="font-bold text-2xl text-nyano-forest">
+                        {formatCurrency(product.price)}
+                      </span>
+                      <Link 
+                        to={`/products/${product.id}`}
+                        className="text-nyano-terracotta hover:text-nyano-brown text-sm font-semibold underline"
+                      >
+                        View Details
+                      </Link>
+                    </div>
+                    <AddToCartButton product={product} className="w-full" />
                   </div>
-                  <AddToCartButton product={product} className="w-full" />
                 </div>
-              </div>
-            ))
+              ))
             )}
               </div>
             </div>
             
             {/* Scroll Indicators */}
-            <div className="flex justify-center mt-6 gap-2">
-              {featuredProducts.map((_, index) => (
-                <div key={index} className="w-2 h-2 rounded-full bg-nyano-brown opacity-30"></div>
-              ))}
-            </div>
+            {!loading && featuredProducts.length > 0 && (
+              <div className="flex justify-center mt-6 gap-2">
+                {featuredProducts.map((_, index) => (
+                  <div key={index} className="w-2 h-2 rounded-full bg-nyano-brown opacity-30"></div>
+                ))}
+              </div>
+            )}
           </div>
         </div>
       </section>
