@@ -31,23 +31,20 @@ const mockFirebase = {
   },
 };
 
-// Mock Stripe
-global.Stripe = vi.fn(() => ({
-  elements: vi.fn(() => ({
-    create: vi.fn(() => ({
-      mount: vi.fn(),
-      unmount: vi.fn(),
-      on: vi.fn(),
-    })),
-  })),
-  confirmCardPayment: vi.fn(() => Promise.resolve({
-    paymentIntent: { status: 'succeeded' }
-  })),
+// Mock Razorpay
+global.Razorpay = vi.fn(() => ({
+  open: vi.fn(),
+  on: vi.fn(),
 }));
 
 // Mock environment variables
-vi.mock('../config/stripe', () => ({
-  default: Promise.resolve(global.Stripe())
+vi.mock('../config/razorpay', () => ({
+  razorpayConfig: {
+    keyId: 'rzp_test_mock_key',
+    currency: 'INR',
+    name: 'Ramro Test'
+  },
+  loadRazorpayScript: vi.fn(() => Promise.resolve(true))
 }));
 
 // Mock Firebase modules
@@ -55,6 +52,14 @@ vi.mock('../firebase/firebase', () => ({
   auth: mockFirebase.auth,
   db: mockFirebase.firestore,
   default: mockFirebase,
+}));
+
+// Mock Razorpay service
+vi.mock('../services/razorpayService', () => ({
+  razorpayService: {
+    processPayment: vi.fn(() => Promise.resolve()),
+    initialize: vi.fn(() => Promise.resolve(true)),
+  }
 }));
 
 // Mock React Router
