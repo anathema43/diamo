@@ -53,15 +53,8 @@ export default function Home() {
             </h2>
             <div className="relative mb-4">
               <p className="font-body text-lg md:text-xl text-nyano-brown bg-white bg-opacity-70 backdrop-blur-sm px-6 py-2 rounded-lg inline-block shadow-md">
-                Handpicked, Organically Grown in the Himalayas
+                Local Goodness of Himalayas
               </p>
-            </div>
-          </div>
-          <div className="mb-8">
-            <div className="relative inline-block mb-4">
-              <h2 className="font-body text-xl md:text-2xl font-light text-nyano-brown bg-nyano-cream bg-opacity-80 backdrop-blur-sm px-6 py-3 rounded-full shadow-lg">
-                A little piece of home, delivered.
-              </h2>
             </div>
           </div>
           <div className="flex flex-col sm:flex-row gap-6 justify-center">
