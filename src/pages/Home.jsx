@@ -51,20 +51,17 @@ export default function Home() {
             <h2 className="font-display text-3xl md:text-5xl font-bold mb-4 text-nyano-brown">
               Local Goodness
             </h2>
-            <div className="relative">
-              <p className="font-body text-lg md:text-xl text-nyano-brown bg-white bg-opacity-95 backdrop-blur-sm px-8 py-3 rounded-2xl inline-block shadow-xl border border-nyano-brown border-opacity-20">
+            <div className="relative mb-4">
+              <p className="font-body text-lg md:text-xl text-nyano-brown bg-white bg-opacity-70 backdrop-blur-sm px-6 py-2 rounded-lg inline-block shadow-md">
                 Handpicked, Organically Grown in the Himalayas
               </p>
-              <div className="absolute -bottom-2 left-1/2 transform -translate-x-1/2 w-0 h-0 border-l-4 border-r-4 border-t-8 border-transparent border-t-white border-opacity-95"></div>
             </div>
           </div>
           <div className="mb-8">
-            <div className="relative inline-block">
-              <h2 className="font-body text-xl md:text-2xl font-light text-nyano-brown bg-gradient-to-r from-nyano-cream via-white to-nyano-cream bg-opacity-95 backdrop-blur-sm px-8 py-4 rounded-full shadow-2xl border-2 border-nyano-marigold border-opacity-40">
+            <div className="relative inline-block mb-4">
+              <h2 className="font-body text-xl md:text-2xl font-light text-nyano-brown bg-nyano-cream bg-opacity-80 backdrop-blur-sm px-6 py-3 rounded-full shadow-lg">
                 A little piece of home, delivered.
               </h2>
-              <div className="absolute -top-2 -left-2 w-4 h-4 bg-nyano-marigold rounded-full animate-bounce"></div>
-              <div className="absolute -bottom-2 -right-2 w-3 h-3 bg-nyano-terracotta rounded-full animate-pulse"></div>
             </div>
           </div>
           <div className="flex flex-col sm:flex-row gap-6 justify-center">
