@@ -60,6 +60,11 @@ export default function Footer() {
                   Contact
                 </Link>
               </li>
+              <li>
+                <Link to="/roadmap" className="text-organic-white opacity-75 hover:opacity-100 hover:text-organic-primary transition-colors">
+                  Roadmap
+                </Link>
+              </li>
             </ul>
           </div>
 

@@ -14,6 +14,7 @@ import Orders from "./pages/Orders";
 import Wishlist from "./pages/Wishlist";
 import Admin from "./pages/Admin";
 import About from "./pages/About";
+import DevelopmentRoadmap from "./pages/DevelopmentRoadmap";
 import ShippingPolicy from "./pages/ShippingPolicy";
 import ReturnPolicy from "./pages/ReturnPolicy";
 import FAQ from "./pages/FAQ";
@@ -62,6 +63,9 @@ function App() {
             <Route path="/return-policy" element={<ReturnPolicy />} />
             <Route path="/faq" element={<FAQ />} />
             <Route path="/contact" element={<Contact />} />
+            
+            {/* Development Roadmap */}
+            <Route path="/roadmap" element={<DevelopmentRoadmap />} />
             
             {/* Protected Routes */}
             <Route path="/account" element={
