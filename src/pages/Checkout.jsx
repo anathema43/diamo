@@ -86,7 +86,7 @@ export default function Checkout() {
     try {
       const orderData = {
         items: cart,
-        shipping: {
+        shippingInfo: {
           firstName: formData.firstName,
           lastName: formData.lastName,
           name: `${formData.firstName} ${formData.lastName}`,
@@ -103,7 +103,7 @@ export default function Checkout() {
         },
         subtotal: getSubtotal(),
         tax: getTax(),
-        shipping: getShipping(),
+        shippingCost: getShipping(),
         total: getGrandTotal(),
         orderNotes: formData.orderNotes,
         status: "processing",
@@ -208,7 +208,7 @@ export default function Checkout() {
               <StripeCheckout
                 orderData={{
                   items: cart,
-                  shipping: {
+                  shippingInfo: {
                     firstName: formData.firstName,
                     lastName: formData.lastName,
                     email: formData.email,
@@ -221,7 +221,7 @@ export default function Checkout() {
                   },
                   subtotal: getSubtotal(),
                   tax: getTax(),
-                  shipping: getShipping(),
+                  shippingCost: getShipping(),
                   total: getGrandTotal(),
                   orderNotes: formData.orderNotes
                 }}
