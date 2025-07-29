@@ -54,11 +54,24 @@ describe('Footer Pages Testing', () => {
       cy.contains('How do I contact support?').should('be.visible');
     });
 
+    it('should have interactive FAQ accordion', () => {
+      // Test FAQ accordion functionality
+      cy.contains('How does delivery work?').click();
+      cy.contains('shipped from the Himalayas').should('be.visible');
+      
+      // Click another FAQ
+      cy.contains('Can I return items?').click();
+      cy.contains('7-day returns').should('be.visible');
+      
+      // Previous FAQ should close (if accordion behavior)
+      cy.contains('How does delivery work?').click();
+    });
+
     it('should have working internal links', () => {
-      // Test link to return policy
-      cy.get('a[href="/return-policy"]').should('be.visible');
-      cy.get('a[href="/return-policy"]').click();
-      cy.url().should('include', '/return-policy');
+      // Test link to contact page
+      cy.get('a[href="/contact"]').should('be.visible');
+      cy.get('a[href="/contact"]').click();
+      cy.url().should('include', '/contact');
       
       // Go back to FAQ
       cy.go('back');

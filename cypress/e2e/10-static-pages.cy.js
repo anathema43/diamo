@@ -193,6 +193,22 @@ describe('Static Pages Testing', () => {
       cy.get('[data-cy="contact-submit"]').click();
       cy.get('[data-cy="success-message"]').should('be.visible');
     });
+
+    it('should handle long form content', () => {
+      const longMessage = 'A'.repeat(2000); // Very long message
+      
+      cy.get('[data-cy="contact-name"]').type('Test User');
+      cy.get('[data-cy="contact-email"]').type('test@example.com');
+      cy.get('[data-cy="contact-subject"]').type('Long Message Test');
+      cy.get('[data-cy="contact-message"]').type(longMessage);
+      
+      // Should handle long content gracefully
+      cy.get('[data-cy="contact-message"]').should('contain.value', longMessage);
+      
+      // Submit should work
+      cy.get('[data-cy="contact-submit"]').click();
+      cy.get('[data-cy="success-message"]').should('be.visible');
+    });
   });
 
   describe('Static Pages Navigation', () => {
