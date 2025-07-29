@@ -35,7 +35,7 @@ graph TB
         H[Tailwind CSS]
         I[Zustand State Management]
         J[React Router]
-        K[Responsive Image System]
+        K[Responsive Image Optimization System]
     end
     
     subgraph "Authentication & Security"
@@ -59,13 +59,15 @@ graph TB
         V[Email Service Provider]
         W[Analytics Service]
         X[Monitoring Service]
+        Y[Image CDN Services]
     end
     
     subgraph "Data Storage"
-        Y[Firestore Collections - Validated]
-        Z[Secure File Storage]
-        AA[Real-time Cache Layer]
-        BB[Backup Storage]
+        Z[Firestore Collections - Validated]
+        AA[Secure File Storage with Auto-Resize]
+        BB[Real-time Cache Layer]
+        CC[Backup Storage]
+        DD[Optimized Image Storage]
     end
     
     A --> D

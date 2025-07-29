@@ -2,6 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { TruckIcon, BeakerIcon, HandRaisedIcon, StarIcon, ChevronLeftIcon, ChevronRightIcon } from "@heroicons/react/24/outline";
 import ResponsiveImage from "../components/ResponsiveImage";
+import ResponsiveImage from "../components/ResponsiveImage";
 import AddToCartButton from "../components/AddToCartButton";
 import { useProductStore } from "../store/productStore";
 import formatCurrency from "../utils/formatCurrency";
@@ -250,6 +251,8 @@ export default function Home() {
                   className="w-full h-64 hover:scale-110 transition-transform duration-300"
                   sizes="(max-width: 768px) 100vw, 400px"
                   priority={true}
+                  sizes="(max-width: 768px) 100vw, 400px"
+                  priority={true}
                 />
                 <div className="absolute top-4 left-4">
                   <span className="bg-nyano-forest text-nyano-cream px-3 py-1 rounded-full text-sm font-semibold shadow-lg">
@@ -297,6 +300,8 @@ export default function Home() {
                   src="https://images.pexels.com/photos/4198015/pexels-photo-4198015.jpeg?auto=compress&cs=tinysrgb&w=800"
                   alt="Himalayan Buckwheat"
                   className="w-full h-64 hover:scale-110 transition-transform duration-300"
+                  sizes="(max-width: 768px) 100vw, 400px"
+                  priority={true}
                   sizes="(max-width: 768px) 100vw, 400px"
                   priority={true}
                 />

@@ -1,6 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import ResponsiveImage from "./ResponsiveImage";
+import ResponsiveImage from "./ResponsiveImage";
 import ReviewStars from "./ReviewStars";
 import WishlistButton from "./WishlistButton";
 import AddToCartButton from "./AddToCartButton";
@@ -10,6 +11,8 @@ export default function ProductCard({ product }) {
   return (
     <article className="bg-white rounded-lg shadow-lg p-4 flex flex-col transition hover:shadow-xl" data-cy="product-card">
       <div className="relative">
+        <ResponsiveImage
+          src={product.image}
         <ResponsiveImage
           src={product.image}
           alt={`${product.name} - ${product.description}`}
