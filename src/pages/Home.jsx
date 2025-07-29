@@ -38,9 +38,12 @@ export default function Home() {
           <h1 className="font-display text-5xl md:text-7xl font-bold mb-2 tracking-wide leading-tight text-nyano-brown">
             Nyano
           </h1>
-          <p className="font-display text-2xl md:text-3xl italic mb-4 text-nyano-terracotta">
-            nyā-nō
-          </p>
+          <div className="relative mb-6">
+            <p className="font-display text-2xl md:text-3xl italic text-nyano-terracotta bg-nyano-cream bg-opacity-90 backdrop-blur-sm px-6 py-2 rounded-full inline-block shadow-lg border-2 border-nyano-terracotta border-opacity-30">
+              nyā-nō
+            </p>
+            <div className="absolute -top-1 -right-1 w-3 h-3 bg-nyano-marigold rounded-full animate-pulse"></div>
+          </div>
           <div className="mb-6">
             <h2 className="font-display text-3xl md:text-5xl font-bold mb-2 text-nyano-brown">
               Experience Pure
@@ -48,13 +51,22 @@ export default function Home() {
             <h2 className="font-display text-3xl md:text-5xl font-bold mb-4 text-nyano-brown">
               Local Goodness
             </h2>
-            <p className="font-body text-lg md:text-xl text-nyano-brown opacity-90">
-              Handpicked, Organically Grown in the Himalayas
-            </p>
+            <div className="relative">
+              <p className="font-body text-lg md:text-xl text-nyano-brown bg-white bg-opacity-95 backdrop-blur-sm px-8 py-3 rounded-2xl inline-block shadow-xl border border-nyano-brown border-opacity-20">
+                Handpicked, Organically Grown in the Himalayas
+              </p>
+              <div className="absolute -bottom-2 left-1/2 transform -translate-x-1/2 w-0 h-0 border-l-4 border-r-4 border-t-8 border-transparent border-t-white border-opacity-95"></div>
+            </div>
           </div>
-          <h2 className="font-body text-xl md:text-2xl mb-8 font-light max-w-3xl mx-auto leading-relaxed text-nyano-brown">
-            A little piece of home, delivered.
-          </h2>
+          <div className="mb-8">
+            <div className="relative inline-block">
+              <h2 className="font-body text-xl md:text-2xl font-light text-nyano-brown bg-gradient-to-r from-nyano-cream via-white to-nyano-cream bg-opacity-95 backdrop-blur-sm px-8 py-4 rounded-full shadow-2xl border-2 border-nyano-marigold border-opacity-40">
+                A little piece of home, delivered.
+              </h2>
+              <div className="absolute -top-2 -left-2 w-4 h-4 bg-nyano-marigold rounded-full animate-bounce"></div>
+              <div className="absolute -bottom-2 -right-2 w-3 h-3 bg-nyano-terracotta rounded-full animate-pulse"></div>
+            </div>
+          </div>
           <div className="flex flex-col sm:flex-row gap-6 justify-center">
             <Link 
               to="/shop" 
