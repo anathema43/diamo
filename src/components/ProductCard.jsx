@@ -1,7 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import ResponsiveImage from "./ResponsiveImage";
-import ResponsiveImage from "./ResponsiveImage";
 import ReviewStars from "./ReviewStars";
 import WishlistButton from "./WishlistButton";
 import AddToCartButton from "./AddToCartButton";
