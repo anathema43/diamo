@@ -8,6 +8,7 @@ Ramro is a premium e-commerce platform showcasing authentic Himalayan products i
 
 ### Core E-commerce
 - **Smart Shopping Cart** - Persistent cart with quantity controls
+- **Real-time Cart Sync** - Cart updates across browser tabs instantly
 - **Product Catalog** - Advanced filtering and search
 - **Multi-Currency Support** - USD, EUR, INR, NPR, CNY
 - **Secure Checkout** - Multiple payment methods
@@ -23,8 +24,10 @@ Ramro is a premium e-commerce platform showcasing authentic Himalayan products i
 ### Technical Features
 - **Progressive Web App** - Offline browsing capabilities
 - **Responsive Design** - Optimized for all devices
-- **Performance Optimized** - Fast loading with image optimization
+- **Performance Optimized** - Fast loading with automatic image optimization
 - **Accessibility Compliant** - WCAG 2.1 AA standards
+- **Real-time Updates** - Live synchronization across sessions
+- **Form Validation** - Comprehensive client-side validation
 
 ## 🚀 Getting Started
 
@@ -68,16 +71,18 @@ Ramro is a premium e-commerce platform showcasing authentic Himalayan products i
 - **Tailwind CSS** - Utility-first CSS framework
 - **Zustand** - State management
 - **React Router** - Client-side routing
+- **React Hook Form** - Form validation and management
 
 ### Backend & Services
 - **Firebase** - Authentication and database
-- **Stripe** - Payment processing
+- **Razorpay** - Payment processing (Indian market focused)
 - **Cloudinary** - Image management
-- **Supabase** - Database and real-time features
+- **Firebase Storage** - File storage with automatic image optimization
 
 ### Development Tools
 - **ESLint** - Code linting
 - **Cypress** - E2E testing
+- **Vitest** - Unit testing
 - **TypeScript** - Type safety (optional)
 
 ## 📁 Project Structure
@@ -94,6 +99,8 @@ ramro/
 │   │   ├── AddToCartButton.jsx
 │   │   ├── Navbar.jsx
 │   │   ├── ProductCard.jsx
+│   │   ├── RazorpayCheckout.jsx
+│   │   ├── UserProfileEditor.jsx
 │   │   └── ...
 │   ├── pages/            # Page components
 │   │   ├── Home.jsx
@@ -103,12 +110,29 @@ ramro/
 │   ├── store/            # State management
 │   │   ├── authStore.js
 │   │   ├── cartStore.js
+│   │   ├── inventoryStore.js
+│   │   ├── reviewStore.js
 │   │   └── ...
 │   ├── data/             # Static data and configurations
+│   │   └── seedProducts.js
 │   ├── utils/            # Utility functions
+│   │   ├── formatCurrency.js
+│   │   ├── constants.js
+│   │   └── costOptimization.js
 │   ├── firebase/         # Firebase configuration
+│   │   ├── firebase.js
+│   │   ├── auth.js
+│   │   └── collections.js
+│   ├── services/         # External service integrations
+│   │   ├── razorpayService.js
+│   │   └── emailService.js
+│   ├── config/           # Configuration files
+│   │   └── razorpay.js
 │   └── index.css         # Global styles
 ├── cypress/              # E2E tests
+│   ├── e2e/              # Test specifications
+│   ├── fixtures/         # Test data
+│   └── support/          # Test utilities
 ├── .env.example          # Environment variables template
 └── package.json          # Dependencies and scripts
 ```
@@ -117,19 +141,12 @@ ramro/
 
 ### Color Palette
 ```css
-/* Primary Colors */
---himalayan-primary: #2D5A27    /* Deep Forest Green */
---himalayan-secondary: #8B4513  /* Mountain Earth Brown */
---himalayan-accent: #CD853F     /* Warm Sandstone */
-
-/* Interactive Elements */
---button-primary: #1B4332       /* Dark Pine Green */
---button-hover: #2D5A27         /* Lighter on hover */
-
-/* Status Colors */
---success: #27AE60              /* Natural green */
---warning: #F39C12              /* Sunset orange */
---error: #E74C3C                /* Mountain sunset red */
+/* Organic Color System */
+--organic-background: #FDFBF6    /* Soft off-white beige */
+--organic-primary: #B97D4B       /* Warm earthy brown */
+--organic-text: #333333          /* Dark charcoal grey */
+--organic-highlight: #5E8C31     /* Muted natural green */
+--organic-white: #FFFFFF         /* Pure white for contrast */
 ```
 
 ### Typography
@@ -144,12 +161,26 @@ ramro/
 npm run cy:open
 ```
 
+### Run Unit Tests
+```bash
+npm run test
+```
+
+### Run All Tests
+```bash
+npm run test:all
+```
+
 ### Test Coverage
 - User authentication flow
 - Shopping cart functionality
+- Real-time cart synchronization
 - Product browsing and search
 - Checkout process
+- Form validation
+- Payment processing
 - Admin panel operations
+- Accessibility compliance
 
 ## 🚀 Deployment
 
@@ -163,6 +194,16 @@ npm run build
 2. Set build command: `npm run build`
 3. Set publish directory: `dist`
 4. Add environment variables in Netlify dashboard
+
+### Performance Optimization
+```bash
+npm run optimize
+```
+
+### Cost Analysis
+```bash
+npm run cost-report
+```
 
 ## 🤝 Contributing
 
@@ -178,6 +219,22 @@ npm run build
 - Add tests for new features
 - Update documentation as needed
 - Ensure accessibility compliance
+- Test real-time features thoroughly
+- Optimize images before committing
+
+## 🔧 Key Features Implementation
+
+### Real-time Cart Synchronization
+The cart automatically syncs across browser tabs using Firebase's onSnapshot feature, ensuring users have a consistent experience regardless of how many tabs they have open.
+
+### Image Optimization
+All product images are automatically optimized using Firebase Storage extensions, providing multiple sizes (400px, 600px, 800px) for different screen sizes and connection speeds.
+
+### Form Validation
+Comprehensive client-side validation using React Hook Form ensures data quality and provides immediate feedback to users.
+
+### Accessibility
+The application follows WCAG 2.1 AA guidelines with semantic HTML, proper ARIA attributes, keyboard navigation, and screen reader support.
 
 ## 📝 License
 
