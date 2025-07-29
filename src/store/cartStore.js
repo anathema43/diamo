@@ -53,6 +53,49 @@ export const useCartStore = create(
           set({ unsubscribe: null });
         }
       },
+      unsubscribe: null,
+
+      // Real-time cart synchronization
+      subscribeToCart: () => {
+        const { currentUser } = useAuthStore.getState();
+        if (!currentUser) return;
+
+        const { unsubscribe: currentUnsub } = get();
+        if (currentUnsub) {
+          currentUnsub();
+        }
+
+        const unsubscribe = onSnapshot(
+          doc(db, "carts", currentUser.uid),
+          (doc) => {
+            if (doc.exists()) {
+              const cartData = doc.data();
+              set({ 
+                cart: cartData.items || [], 
+                loading: false,
+                error: null 
+              });
+            } else {
+              set({ cart: [], loading: false });
+            }
+          },
+          (error) => {
+            console.error("Error listening to cart changes:", error);
+            set({ error: error.message, loading: false });
+          }
+        );
+
+        set({ unsubscribe });
+        return unsubscribe;
+      },
+
+      unsubscribeFromCart: () => {
+        const { unsubscribe } = get();
+        if (unsubscribe) {
+          unsubscribe();
+          set({ unsubscribe: null });
+        }
+      },
 
       loadCart: async () => {
         const { currentUser } = useAuthStore.getState();
@@ -66,6 +109,9 @@ export const useCartStore = create(
           } else {
             set({ loading: false });
           }
+          
+          // Start real-time subscription
+          get().subscribeToCart();
           
           // Start real-time subscription
           get().subscribeToCart();

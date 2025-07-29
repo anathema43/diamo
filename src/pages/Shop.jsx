@@ -10,7 +10,7 @@ export default function Shop() {
   const [filterCategory, setFilterCategory] = useState("all");
 
   React.useEffect(() => {
-    // Always fetch products from Firestore to ensure data consistency
+    // Always fetch products from Firestore - single source of truth
     fetchProducts();
   }, [products.length, fetchProducts]);
 

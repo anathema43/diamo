@@ -23,9 +23,7 @@ export default function AdminRoute({ children }) {
         <div className="text-center p-8">
           <h2 className="text-2xl font-bold text-red-600 mb-4">Access Denied</h2>
           <p className="text-organic-text mb-6">You don't have permission to access this area.</p>
-          <Link to="/" className="bg-organic-primary text-white px-4 py-2 rounded-lg hover:opacity-90">
-            Return to Home
-          </Link>
+          <Navigate to="/" replace />
         </div>
       </div>
     );
