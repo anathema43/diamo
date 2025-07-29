@@ -224,6 +224,139 @@ Before testing, understand what your Ramro e-commerce app should do:
 3. Test password requirements
 4. Verify secure payment processing
 
+### **Unit Testing with Vitest**
+
+### **Installation & Setup**
+```bash
+# Install testing dependencies
+npm install --save-dev vitest @testing-library/react @testing-library/jest-dom jsdom
+
+# Create vitest config
+cat > vitest.config.js << EOF
+import { defineConfig } from 'vitest/config'
+import react from '@vitejs/plugin-react'
+
+export default defineConfig({
+  plugins: [react()],
+  test: {
+    environment: 'jsdom',
+    setupFiles: ['./src/test/setup.js'],
+  },
+})
+EOF
+```
+
+### **Running Tests**
+```bash
+# Run all tests
+npm run test
+
+# Run specific test suites
+npm run test:stores      # Test Zustand stores
+npm run test:components  # Test React components
+npm run test:utils       # Test utility functions
+
+# Watch mode for development
+npm run test:watch
+
+# Generate coverage report
+npm run test:coverage
+```
+
+### **Test Setup File**
+```javascript
+// src/test/setup.js
+import '@testing-library/jest-dom'
+
+// Mock Firebase
+const mockFirebase = {
+  auth: {
+    currentUser: null,
+    onAuthStateChanged: vi.fn(),
+  },
+  firestore: {
+    collection: vi.fn(() => ({
+      doc: vi.fn(() => ({
+        get: vi.fn(() => Promise.resolve({ exists: true, data: () => ({}) })),
+        set: vi.fn(() => Promise.resolve()),
+      })),
+      get: vi.fn(() => Promise.resolve({ docs: [] })),
+    })),
+  },
+};
+
+// Mock Razorpay
+global.Razorpay = vi.fn(() => ({
+  open: vi.fn(),
+  on: vi.fn(),
+}));
+```
+
+### **Testing Categories Implemented**
+
+#### **1. Utility Function Tests**
+```javascript
+// src/utils/__tests__/formatCurrency.test.js
+describe('formatCurrency', () => {
+  it('formats positive numbers correctly', () => {
+    expect(formatCurrency(299)).toBe('₹299');
+    expect(formatCurrency(1000)).toBe('₹1,000');
+  });
+
+  it('handles invalid input gracefully', () => {
+    expect(formatCurrency(null)).toBe('₹0');
+    expect(formatCurrency(undefined)).toBe('₹0');
+  });
+});
+```
+
+#### **2. Store Tests (Real-time Features)**
+```javascript
+// src/store/__tests__/cartStore.test.js
+describe('CartStore Real-time Synchronization', () => {
+  it('should handle real-time cart updates', () => {
+    const { subscribeToCart } = useCartStore.getState();
+    subscribeToCart();
+    
+    // Simulate Firestore update
+    const mockDoc = {
+      exists: () => true,
+      data: () => ({ items: [{ id: '1', quantity: 3 }] })
+    };
+    
+    snapshotCallback(mockDoc);
+    expect(cart[0].quantity).toBe(3);
+  });
+});
+```
+
+#### **3. Component Tests**
+```javascript
+// src/components/__tests__/ResponsiveImage.test.jsx
+describe('ResponsiveImage', () => {
+  it('renders responsive image with correct attributes', () => {
+    render(<ResponsiveImage src="image.jpg" alt="Test" />);
+    
+    const img = screen.getByAltText('Test');
+    expect(img).toHaveAttribute('srcset');
+    expect(img).toHaveAttribute('sizes');
+  });
+});
+```
+
+### **Test Coverage Goals**
+- **Utility Functions**: 100% (Critical business logic)
+- **Store Logic**: 95% (State management and real-time features)
+- **Components**: 85% (UI behavior and interactions)
+- **Integration**: 90% (End-to-end user flows)
+
+### **Testing Best Practices Implemented**
+1. **Start Small**: Begin with utility functions, then stores, then components
+2. **Test Real-time Features**: Verify onSnapshot listeners and state updates
+3. **Mock External Dependencies**: Firebase, payment gateways, etc.
+4. **Test Error Scenarios**: Network failures, invalid inputs, edge cases
+5. **Maintain Test Data**: Keep fixtures and mocks up to date
+
 ---
 
 ## 📝 **Step-by-Step Testing Procedures** {#testing-procedures}
