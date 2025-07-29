@@ -1,6 +1,9 @@
 import '@testing-library/jest-dom'
 import { vi } from 'vitest'
 
+// Security testing setup
+global.securityTestMode = true;
+
 // Mock Firebase
 const mockFirebase = {
   auth: {
@@ -13,9 +16,13 @@ const mockFirebase = {
   firestore: {
     collection: vi.fn(() => ({
       doc: vi.fn(() => ({
-        get: vi.fn(() => Promise.resolve({ 
-          exists: true, 
-          data: () => ({ name: 'Test Product', price: 299 }) 
+        get: vi.fn(() => Promise.resolve({
+          exists: true,
+          data: () => ({ 
+            name: 'Test Product', 
+            price: 299,
+            role: 'customer' // Default role for security testing
+          })
         })),
         set: vi.fn(() => Promise.resolve()),
         update: vi.fn(() => Promise.resolve()),
@@ -24,14 +31,26 @@ const mockFirebase = {
       get: vi.fn(() => Promise.resolve({ 
         docs: [
           { 
-            id: '1', 
-            data: () => ({ name: 'Test Product', price: 299 }) 
+            id: '1',
+            data: () => ({ 
+              name: 'Test Product', 
+              price: 299,
+              quantityAvailable: 10
+            })
           }
         ] 
       })),
       add: vi.fn(() => Promise.resolve({ id: 'new-doc-id' }))
     }))
   }
+};
+
+// Mock admin role verification
+global.mockAdminRole = (isAdmin = false) => {
+  mockFirebase.firestore.collection().doc().get.mockResolvedValue({
+    exists: true,
+    data: () => ({ role: isAdmin ? 'admin' : 'customer' })
+  });
 };
 
 // Mock Razorpay
@@ -91,10 +110,24 @@ global.sessionStorage = sessionStorageMock;
 global.fetch = vi.fn(() =>
   Promise.resolve({
     ok: true,
+    status: 200,
     json: () => Promise.resolve({}),
     text: () => Promise.resolve(''),
+    headers: new Map([['content-type', 'application/json']])
   })
 );
+
+// Mock file validation
+global.validateFileUpload = vi.fn((file) => {
+  const maxSize = 5 * 1024 * 1024; // 5MB
+  const allowedTypes = ['image/jpeg', 'image/jpg', 'image/png', 'image/webp'];
+  
+  return {
+    valid: file.size <= maxSize && allowedTypes.includes(file.type),
+    error: file.size > maxSize ? 'File too large' : 
+           !allowedTypes.includes(file.type) ? 'Invalid file type' : null
+  };
+});
 
 // Setup console.error to fail tests on React warnings
 const originalError = console.error;

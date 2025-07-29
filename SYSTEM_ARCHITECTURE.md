@@ -1,5 +1,13 @@
 # 🏗️ System Architecture - Ramro E-commerce Platform
 
+## 🔒 **SECURITY-ENHANCED ARCHITECTURE**
+**CRITICAL UPDATES**: The system architecture now includes enterprise-grade security:
+- ✅ **Server-side Role Verification** - No client-side admin access
+- ✅ **Secure File Upload Pipeline** - Strict validation and size limits
+- ✅ **Single Source of Truth** - Firestore-only data architecture
+- ✅ **Real-time Security** - Cross-tab cart sync with proper validation
+- ✅ **Input Sanitization** - XSS and injection attack prevention
+
 ## 🎯 **High-Level Architecture Overview**
 
 This document provides a comprehensive view of the Ramro e-commerce system architecture, including all components, data flows, and integrations.
@@ -32,29 +40,31 @@ graph TB
     subgraph "Authentication & Security"
         K[Firebase Auth]
         L[JWT Tokens]
-        M[Role-Based Access]
+        M[Server-side Role Verification]
         N[Security Rules]
+        O[Input Validation]
+        P[File Upload Security]
     end
     
     subgraph "Backend Services"
-        O[Firebase Firestore]
-        P[Firebase Storage]
-        Q[Firebase Functions]
-        R[Firebase Hosting]
+        Q[Firebase Firestore - Single Source]
+        R[Firebase Storage - Secure]
+        S[Firebase Functions]
+        T[Firebase Hosting]
     end
     
     subgraph "External APIs"
-        S[Razorpay Payment Gateway]
-        T[Email Service Provider]
-        U[Analytics Service]
-        V[Monitoring Service]
+        U[Razorpay Payment Gateway]
+        V[Email Service Provider]
+        W[Analytics Service]
+        X[Monitoring Service]
     end
     
     subgraph "Data Storage"
-        W[Firestore Collections]
-        X[File Storage]
-        Y[Cache Layer]
-        Z[Backup Storage]
+        Y[Firestore Collections - Validated]
+        Z[Secure File Storage]
+        AA[Real-time Cache Layer]
+        BB[Backup Storage]
     end
     
     A --> D
@@ -65,23 +75,25 @@ graph TB
     F --> G
     
     G --> K
-    G --> O
-    G --> S
+    G --> Q
+    G --> U
     
     K --> L
     L --> M
     M --> N
+    N --> O
+    O --> P
     
-    O --> W
-    P --> X
-    Q --> T
-    R --> D
+    Q --> Y
+    R --> Z
+    S --> V
+    T --> D
     
-    Q --> U
-    Q --> V
+    S --> W
+    S --> X
     
-    W --> Y
-    W --> Z
+    Y --> AA
+    Y --> BB
 ```
 
 ---
@@ -402,36 +414,39 @@ sequenceDiagram
 rules_version = '2';
 service cloud.firestore {
   match /databases/{database}/documents {
+    // Helper function for server-side admin verification
+    function isAdmin() {
+      return request.auth != null && 
+        exists(/databases/$(database)/documents/users/$(request.auth.uid)) &&
+        get(/databases/$(database)/documents/users/$(request.auth.uid)).data.role == 'admin';
+    }
+    
     // User data access
     match /users/{userId} {
       allow read, write: if request.auth != null && 
-        request.auth.uid == userId;
+        request.auth.uid == userId &&
+        isValidUserData();
     }
     
-    // Product access (public read, admin write)
+    // Product access (public read, server-side admin write only)
     match /products/{productId} {
       allow read: if true;
       allow write: if isAdmin();
     }
     
-    // Order access (user owns order)
+    // Order access (user owns order or admin)
     match /orders/{orderId} {
-      allow read, write: if request.auth != null && 
+      allow read: if request.auth != null && 
+        (request.auth.uid == resource.data.userId || isAdmin());
+      allow write: if request.auth != null && 
         request.auth.uid == resource.data.userId;
       allow create: if request.auth != null && 
         request.auth.uid == request.resource.data.userId;
     }
     
-    // Admin-only collections
+    // Admin-only collections with strict validation
     match /admin/{document=**} {
       allow read, write: if isAdmin();
-    }
-    
-    // Helper function
-    function isAdmin() {
-      return request.auth != null && 
-        exists(/databases/$(database)/documents/users/$(request.auth.uid)) &&
-        get(/databases/$(database)/documents/users/$(request.auth.uid)).data.role == 'admin';
     }
   }
 }

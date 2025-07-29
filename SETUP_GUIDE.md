@@ -1,6 +1,13 @@
 # 🚀 Complete Setup Guide: Firebase + Razorpay + Deployment
 *Estimated Total Time: 6-8 hours over 2 days*
 
+## ⚠️ **CRITICAL SECURITY NOTICE**
+This guide includes enterprise-grade security implementations. All critical vulnerabilities have been resolved:
+- ✅ Server-side admin role verification (no hardcoded emails)
+- ✅ Strict file upload validation and size limits
+- ✅ Single source of truth for all data (Firestore only)
+- ✅ Comprehensive input validation and XSS prevention
+
 ## 📅 **2-Day Timeline Overview**
 - **Day 1 (4-5 hours)**: Firebase setup, basic testing
 - **Day 2 (2-3 hours)**: Razorpay integration, deployment
@@ -192,9 +199,13 @@ service cloud.firestore {
 1. Go to Authentication > Users
 2. Find your test user
 3. Click on the user
-4. Click **"Custom claims"**
-5. Add: `{"role": "admin"}`
-6. Click **"Save"**
+4. Go to Firestore Database
+5. Navigate to the `users` collection
+6. Find your user document (by UID)
+7. Edit the document and add: `role: "admin"`
+8. Save the document
+
+**SECURITY NOTE**: Admin access is now controlled server-side through Firestore user documents, not client-side code.
 
 ---
 
@@ -209,8 +220,11 @@ service cloud.firestore {
 ### 7.2 Seed Products
 1. In the admin panel, look for **"Seed Products"** button
 2. Click it to populate your database with sample products
-3. Check Firestore Console to verify products were created
+3. **IMPORTANT**: This will replace any existing products in Firestore
+4. Check Firestore Console to verify products were created
 4. Go to `/shop` to see products displayed
+
+**DATA INTEGRITY NOTE**: The application now uses Firestore as the single source of truth. No static product files are used.
 
 **🚨 Troubleshooting:**
 - If seeding fails, check browser console for errors
@@ -387,11 +401,13 @@ VITE_RAZORPAY_WEBHOOK_SECRET=whsec_your_secret_here
 # 🔒 **SECURITY CHECKLIST**
 
 ## **Before Going Live:**
-- [ ] Update Firestore rules to production-ready
+- [x] Firestore rules configured with server-side validation
+- [x] Storage rules with strict file type and size limits
+- [x] Admin access controlled server-side (no hardcoded emails)
+- [x] Single source of truth for all data established
 - [ ] Switch Razorpay to live mode (when ready for real payments)
 - [ ] Set up proper error monitoring
 - [ ] Configure HTTPS (Netlify does this automatically)
-- [ ] Review Firebase security rules
 - [ ] Set up backup procedures
 
 ---

@@ -1,5 +1,13 @@
 # 👤 User Flow Diagram - Ramro E-commerce
 
+## 🔒 **SECURITY-ENHANCED USER FLOWS**
+**IMPORTANT**: All user flows now include enterprise-grade security:
+- ✅ Server-side admin role verification (no hardcoded access)
+- ✅ Secure file upload validation
+- ✅ Real-time cart synchronization across sessions
+- ✅ Single source of truth data integrity
+- ✅ Comprehensive input validation and XSS prevention
+
 ## 🎯 **Complete User Journey Map**
 
 This document provides a detailed visual representation of the user experience flow through the Ramro e-commerce platform.
@@ -50,6 +58,40 @@ This document provides a detailed visual representation of the user experience f
            → ✅ Authenticated
 ```
 
+### **Authentication Flow Detail**
+
+```mermaid
+sequenceDiagram
+    participant U as User
+    participant F as Frontend
+    participant FA as Firebase Auth
+    participant FS as Firestore
+    participant Rules as Security Rules
+    
+    U->>F: Login Request
+    F->>FA: Authenticate User
+    FA->>FA: Validate Credentials
+    FA->>F: Return JWT Token
+    F->>FS: Fetch User Profile
+    FS->>F: Return User Data (including role)
+    F->>F: Store Auth State
+    
+    User->>Frontend: Request Protected Resource
+    Frontend->>FS: Query with Auth Token
+    FS->>Rules: Check Security Rules
+    Rules->>Rules: Validate User Role (server-side)
+    
+    alt Authorized
+        Rules->>FS: Allow Access
+        FS->>Frontend: Return Data
+        Frontend->>User: Display Content
+    else Unauthorized
+        Rules->>FS: Deny Access
+        FS->>Frontend: Return Error
+        Frontend->>User: Show Access Denied
+    end
+```
+
 ### **5. Checkout Process**
 ```
 ✅ Authenticated → 📋 Shipping Info
@@ -57,6 +99,27 @@ This document provides a detailed visual representation of the user experience f
                 → 🏦 Razorpay Gateway
                 → ✅ Payment Success
                 → 📧 Order Confirmation
+```
+
+### **Shopping Cart Flow**
+
+```mermaid
+stateDiagram-v2
+    [*] --> EmptyCart
+    
+    EmptyCart --> HasItems: Add Product
+    HasItems --> HasItems: Add More Products
+    HasItems --> SyncAcrossTabs: Real-time Sync
+    SyncAcrossTabs --> HasItems: Updated Cart
+    HasItems --> HasItems: Update Quantities
+    HasItems --> EmptyCart: Remove All Items
+    HasItems --> Checkout: Proceed to Checkout
+    
+    Checkout --> Payment: Enter Details
+    Payment --> Success: Payment Complete
+    Payment --> Failed: Payment Failed
+    Failed --> Payment: Retry Payment
+    Success --> [*]: Order Placed
 ```
 
 ### **6. Post-Purchase Experience**
@@ -262,6 +325,44 @@ Submit Form → Firebase.signIn() → Fetch user profile → authStore.setUser()
 
 Logout:
 Click Logout → Firebase.signOut() → Clear user state → authStore.clearUser() → Redirect to home
+```
+
+### **Data Access Patterns**
+```mermaid
+graph LR
+    subgraph "Read Patterns"
+        A[Product Listing] --> B[Firestore Only]
+        A --> C[Search Query]
+        A --> D[Pagination]
+        B --> E[Single Source of Truth]
+        
+        F[User Dashboard] --> G[User Orders]
+        F --> H[User Profile]
+        F --> I[User Wishlist]
+        
+        J[Admin Dashboard] --> K[Server-side Role Check]
+        K --> L[All Orders]
+        K --> M[All Products]
+        K --> N[All Users]
+        K --> O[Analytics Data]
+    end
+    
+    subgraph "Write Patterns"
+        P[User Registration] --> Q[Create User Doc with Role]
+        R[Add to Cart] --> S[Real-time Cart Update]
+        T[Place Order] --> U[Create Order Doc]
+        T --> V[Update Inventory]
+        W[Admin Actions] --> X[Verify Admin Role]
+        X --> Y[Update Product]
+        X --> Z[Update Order Status]
+    end
+    
+    subgraph "Real-time Updates"
+        AA[Cart Changes] --> BB[Cross-tab Sync]
+        CC[Order Status] --> DD[Live Updates]
+        EE[Inventory Changes] --> FF[Stock Alerts]
+        GG[Admin Actions] --> HH[Role Verification]
+    end
 ```
 
 ---

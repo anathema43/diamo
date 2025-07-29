@@ -1,6 +1,14 @@
 # 🧪 Complete Beginner's Testing Methodology Guide
 *A Step-by-Step Guide to Testing Your Ramro E-commerce Application*
 
+## 🔒 **SECURITY-FIRST TESTING APPROACH**
+**CRITICAL**: This guide now includes comprehensive security testing for:
+- ✅ Server-side admin role verification (no client-side bypasses)
+- ✅ File upload security validation
+- ✅ Data integrity verification (single source of truth)
+- ✅ Input sanitization and XSS prevention
+- ✅ Real-time feature validation
+
 ## 📚 **Table of Contents**
 1. [What is Testing and Why Do We Need It?](#what-is-testing)
 2. [Pre-Testing Setup](#pre-testing-setup)
@@ -18,8 +26,15 @@
 ### **What is Software Testing?**
 Software testing is like being a detective for your website. You're checking if everything works as expected, finding problems before your customers do, and making sure your website is safe and reliable.
 
+**SECURITY FOCUS**: With the recent security fixes, testing now includes verifying that:
+- Admin access requires proper server-side role verification
+- File uploads are properly restricted and validated
+- All data comes from a single, trusted source (Firestore)
+- User inputs are properly sanitized to prevent attacks
+
 ### **Why Test Your E-commerce Website?**
 - **Protect Your Business**: A broken checkout means lost sales
+- **Security First**: Prevent unauthorized access and data breaches
 - **Customer Trust**: Users expect a smooth shopping experience
 - **Prevent Embarrassment**: Find bugs before customers do
 - **Save Money**: Fixing bugs early is cheaper than fixing them after launch
@@ -97,10 +112,12 @@ Before testing, understand what your Ramro e-commerce app should do:
 
 #### **Admin Features:**
 - Manage products (add, edit, delete)
+- **SECURITY**: Admin access controlled by server-side role verification
 - Process orders
 - Update inventory
 - View sales analytics
 - Manage customer accounts
+- **IMPORTANT**: Only users with `role: "admin"` in Firestore can access these features
 
 ---
 
@@ -217,6 +234,7 @@ Before testing, understand what your Ramro e-commerce app should do:
 **Test Case ID:** TC001
 **Test Title:** User can create a new account
 **Priority:** High (Critical for business)
+**Security Note:** Admin role must be set server-side in Firestore, not client-side
 
 **Pre-conditions:**
 - Website is running
@@ -245,7 +263,9 @@ Before testing, understand what your Ramro e-commerce app should do:
 **Post-conditions:**
 - User account exists in system
 - User is logged in
+- User role is properly set in Firestore user document
 - User can access account features
+- **SECURITY**: Non-admin users cannot access admin features
 
 **What to Document:**
 - ✅ **Pass**: If all steps work as expected
@@ -335,30 +355,33 @@ Notes: [Any observations or issues]
 #### **Security Checklist for E-commerce:**
 
 **Authentication Security:**
-- [ ] **Password Requirements**: Must be strong enough
-- [ ] **Login Protection**: Locks out after failed attempts
-- [ ] **Session Management**: Logs out after inactivity
-- [ ] **Password Visibility**: Hidden when typing
+- [ ] **Admin Access**: Only users with `role: "admin"` in Firestore can access admin features
+- [ ] **Client-side Bypass Prevention**: Changing localStorage/sessionStorage doesn't grant admin access
+- [ ] **Server-side Validation**: All admin actions validated by Firestore rules
+- [ ] **Role Verification**: Admin role checked server-side, not hardcoded emails
 
 **Data Protection:**
-- [ ] **Personal Information**: Only user can see their data
-- [ ] **Payment Security**: Credit card info is encrypted
-- [ ] **Admin Access**: Only admins can access admin features
-- [ ] **Order Privacy**: Users only see their own orders
+- [ ] **Data Integrity**: All product data comes from Firestore (no static files)
+- [ ] **File Upload Security**: Size limits and type validation enforced
+- [ ] **Input Sanitization**: XSS and injection attacks prevented
+- [ ] **Real-time Sync**: Cart updates across browser tabs securely
 
 **Testing Steps:**
 1. **Try to access restricted pages**
    - Go to `/admin` without logging in
    - Should redirect to login page
+   - Log in as regular user, try to access `/admin`
+   - Should show "Access Denied" message
 
 2. **Test data privacy**
-   - Login as regular user
-   - Try to view another user's orders
-   - Should be blocked
+   - Verify all products come from Firestore
+   - Test that static product data is not used
+   - Verify cart syncs in real-time across tabs
 
-3. **Check password security**
-   - Try weak passwords
-   - Should be rejected with helpful message
+3. **Test file upload security**
+   - Try to upload large files (should be rejected)
+   - Try to upload non-image files (should be rejected)
+   - Verify only admins can upload product images
 
 ---
 

@@ -1,5 +1,13 @@
 # 📦 Complete Installation Guide for Ramro E-commerce
 
+## 🔒 **SECURITY-FIRST INSTALLATION**
+This installation guide includes all critical security fixes:
+- ✅ **Server-side Admin Verification** - No hardcoded admin access
+- ✅ **Secure File Upload Rules** - Strict validation and size limits
+- ✅ **Data Integrity** - Single source of truth from Firestore
+- ✅ **Input Validation** - XSS and injection prevention
+- ✅ **Real-time Cart Sync** - Cross-tab synchronization
+
 ## 🚀 **Quick Install (All Dependencies)**
 
 Run these commands in your project root directory:
@@ -158,12 +166,15 @@ npm install -g firebase-tools@latest
 ## ✅ **Installation Checklist**
 
 - [ ] Node.js 18+ installed
+- [ ] Firebase project created with secure rules
 - [ ] All npm packages installed successfully
 - [ ] Development server starts (`npm run dev`)
 - [ ] Tests run successfully (`npm run test`)
 - [ ] Cypress opens without errors (`npm run cy:open`)
 - [ ] Build process works (`npm run build`)
 - [ ] Linting passes (`npm run lint`)
+- [ ] Security tests pass (`npm run test:security`)
+- [ ] Admin access properly configured (server-side role verification)
 
 ## 🚀 **Next Steps After Installation**
 
@@ -176,6 +187,8 @@ npm install -g firebase-tools@latest
 2. **Set Up Firebase Project**
    - Create project at console.firebase.google.com
    - Enable Firestore and Authentication
+   - Configure secure Firestore rules (included in project)
+   - Set up secure Storage rules (included in project)
    - Get configuration keys
 
 3. **Set Up Razorpay Account**
@@ -186,7 +199,15 @@ npm install -g firebase-tools@latest
 4. **Run Initial Tests**
    ```bash
    npm run dev
+   npm run test
    npm run cy:open
    ```
 
-Your Ramro e-commerce application will be fully set up and ready for development and testing!
+5. **Verify Security Implementation**
+   ```bash
+   # Test admin access (should require proper role in Firestore)
+   # Test file uploads (should enforce size/type limits)
+   # Test data integrity (should use only Firestore data)
+   ```
+
+Your Ramro e-commerce application will be fully set up with enterprise-grade security and ready for development and testing!
