@@ -114,7 +114,7 @@ export default function Home() {
                 <div className="animate-spin rounded-full h-16 w-16 border-b-2 border-organic-primary"></div>
               </div>
             ) : (
-            {featuredProducts.map((product, index) => (
+            featuredProducts.map((product, index) => (
               <div 
                 key={product.id} 
                 className="group bg-organic-white rounded-2xl shadow-lg overflow-hidden hover:shadow-2xl transition-all duration-500 transform hover:-translate-y-2"
@@ -175,7 +175,7 @@ export default function Home() {
                   <AddToCartButton product={product} className="w-full" />
                 </div>
               </div>
-            ))}
+            ))
             )}
           </div>
         </div>
