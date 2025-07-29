@@ -30,6 +30,14 @@ export default function Home() {
     }
   }, [products.length, featuredProducts.length, fetchProducts, fetchFeaturedProducts]);
 
+  // Use featured products if available, fallback to first 4 regular products
+  const displayProducts = React.useMemo(() => {
+    if (featuredProducts.length > 0) {
+      return featuredProducts;
+    }
+    return products.filter(p => p.featured === true).slice(0, 4);
+  }, [featuredProducts, products]);
+
   // Auto-play functionality
   React.useEffect(() => {
     if (!isAutoPlaying || displayProducts.length <= 1) return;
@@ -40,14 +48,6 @@ export default function Home() {
     
     return () => clearInterval(interval);
   }, [isAutoPlaying, displayProducts.length]);
-
-  // Use featured products if available, fallback to first 4 regular products
-  const displayProducts = React.useMemo(() => {
-    if (featuredProducts.length > 0) {
-      return featuredProducts;
-    }
-    return products.filter(p => p.featured === true).slice(0, 4);
-  }, [featuredProducts, products]);
 
   // Touch handlers for swipe functionality
   const handleTouchStart = (e) => {
@@ -125,7 +125,7 @@ export default function Home() {
       <p className="text-organic-text opacity-75 mb-4">Please check your connection and try again</p>
       <button 
         onClick={() => {
-      fetchProducts();
+          fetchProducts();
           fetchFeaturedProducts();
         }}
         className="bg-organic-primary text-white px-6 py-2 rounded-lg hover:opacity-90 transition-all"
@@ -447,198 +447,6 @@ export default function Home() {
                   ))}
                 </div>
               </>
-            )}
-          </div>
-    }
-      </section>
-
-  return (
-    <div className="min-h-screen">
-      {/* Hero Section with Provided Image */}
-      <section 
-        className="relative h-screen flex items-center justify-center text-organic-white overflow-hidden"
-        style={{
-          backgroundImage: `linear-gradient(rgba(185, 125, 75, 0.7), rgba(94, 140, 49, 0.7)), url('https://res.cloudinary.com/dj4kdlwzo/image/upload/v1753652937/Gemini_Generated_Image_m5nczum5nczum5nc_c99tl7.png')`,
-          backgroundSize: 'cover',
-          backgroundPosition: 'center',
-          backgroundAttachment: 'fixed'
-        }}
-      >
-        {/* Floating Mountain Pattern Overlay */}
-        <div className="absolute inset-0 bg-mountain-pattern opacity-20"></div>
-        
-        {/* Hero Content */}
-        <div className="relative z-10 text-center max-w-5xl px-6 animate-fade-in">
-          <h1 className="font-display text-5xl md:text-7xl font-bold mb-2 tracking-wide leading-tight text-nyano-brown">
-            Nyano
-          </h1>
-          <div className="relative mb-6">
-            <p className="font-display text-2xl md:text-3xl italic text-nyano-terracotta bg-nyano-cream bg-opacity-90 backdrop-blur-sm px-6 py-2 rounded-full inline-block shadow-lg border-2 border-nyano-terracotta border-opacity-30">
-              nyā-nō
-            </p>
-            <div className="absolute -top-1 -right-1 w-3 h-3 bg-nyano-marigold rounded-full animate-pulse"></div>
-          </div>
-          <div className="mb-6">
-            <h2 className="font-display text-3xl md:text-5xl font-bold mb-2 text-nyano-brown">
-              Experience Pure
-            </h2>
-            <h2 className="font-display text-3xl md:text-5xl font-bold mb-2 text-nyano-brown">
-              Local Goodness
-            </h2>
-            <h2 className="font-display text-3xl md:text-5xl font-bold mb-4 text-nyano-brown">
-              of Himalayas
-            </h2>
-          </div>
-          <div className="flex flex-col sm:flex-row gap-6 justify-center">
-            <Link 
-              to="/shop" 
-              className="inline-block bg-nyano-terracotta text-nyano-cream font-semibold px-10 py-4 rounded-full text-lg transition-all duration-300 transform hover:scale-105 shadow-lg hover:bg-nyano-terracotta-dark"
-            >
-              Explore the Collection
-            </Link>
-            <Link 
-              to="/about" 
-              className="inline-block px-10 py-4 rounded-full text-lg transition-all duration-300 border-2 border-nyano-brown text-nyano-brown hover:bg-nyano-brown hover:text-nyano-cream backdrop-blur-sm"
-            >
-              Learn More
-            </Link>
-          </div>
-        </div>
-
-        {/* Scroll Indicator */}
-        <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 animate-bounce">
-          <div className="w-6 h-10 border-2 border-organic-white rounded-full flex justify-center">
-            <div className="w-1 h-3 bg-organic-white rounded-full mt-2 animate-pulse"></div>
-          </div>
-        </div>
-      </section>
-
-      {/* Benefits Section - Himalayan Inspired */}
-      <section className="py-20 bg-organic-background">
-        <div className="max-w-7xl mx-auto px-6">
-          <div className="grid md:grid-cols-3 gap-12 text-center">
-            <div className="group animate-slide-up">
-              <div className="w-20 h-20 bg-organic-primary rounded-full flex items-center justify-center mb-6 mx-auto group-hover:scale-110 transition-transform duration-300">
-                <TruckIcon className="w-10 h-10 text-organic-white" />
-              </div>
-              <h3 className="font-display text-2xl font-bold mb-3 text-organic-text">Free Delivery</h3>
-              <p className="text-organic-text opacity-75 text-lg">On all orders across the mountains</p>
-            </div>
-            
-            <div className="group animate-slide-up" style={{ animationDelay: '0.2s' }}>
-              <div className="w-20 h-20 bg-organic-highlight rounded-full flex items-center justify-center mb-6 mx-auto group-hover:scale-110 transition-transform duration-300">
-                <BeakerIcon className="w-10 h-10 text-organic-white" />
-              </div>
-              <h3 className="font-display text-2xl font-bold mb-3 text-organic-text">100% Organic</h3>
-              <p className="text-organic-text opacity-75 text-lg">Pure & chemical free from nature</p>
-            </div>
-            
-            <div className="group animate-slide-up" style={{ animationDelay: '0.4s' }}>
-              <div className="w-20 h-20 bg-organic-primary rounded-full flex items-center justify-center mb-6 mx-auto group-hover:scale-110 transition-transform duration-300">
-                <HandRaisedIcon className="w-10 h-10 text-organic-white" />
-              </div>
-              <h3 className="font-display text-2xl font-bold mb-3 text-organic-text">Fair Trade</h3>
-              <p className="text-organic-text opacity-75 text-lg">Supporting mountain communities</p>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Featured Products Section */}
-      <section className="py-20 bg-nyano-cream">
-        <div className="max-w-7xl mx-auto px-6">
-          <div className="text-center mb-16">
-            <h2 className="font-display text-4xl md:text-5xl font-bold text-nyano-brown mb-4">
-              Featured Products
-            </h2>
-            <p className="text-xl text-nyano-brown opacity-75 max-w-2xl mx-auto">
-              Discover our handpicked selection of authentic treasures
-            </p>
-          </div>
-          
-          {/* Horizontal Sliding Products */}
-          <div className="relative">
-            <div className="overflow-x-auto scrollbar-hide pb-4">
-              <div className="flex gap-6 min-w-max">
-            {loading ? (
-              <div className="flex justify-center py-12 w-screen">
-                <div className="animate-spin rounded-full h-16 w-16 border-b-2 border-organic-primary"></div>
-              </div>
-            ) : (
-              featuredProducts.map((product, index) => (
-                <div 
-                  key={product.id} 
-                  className="group bg-white rounded-2xl shadow-lg overflow-hidden hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2 flex-shrink-0 w-80"
-                >
-                  <div className="relative overflow-hidden">
-                    <ResponsiveImage
-                      src={product.image} 
-                      alt={product.name} 
-                      className="w-full h-64 group-hover:scale-110 transition-transform duration-300"
-                      sizes="320px"
-                      priority={index < 2}
-                    />
-                    {/* Product Badge */}
-                    <div className="absolute top-4 left-4">
-                      {product.category === 'grains' && (
-                        <span className="bg-nyano-forest text-nyano-cream px-3 py-1 rounded-full text-sm font-semibold shadow-lg">
-                          🌾 Organic
-                        </span>
-                      )}
-                      {product.category === 'honey' && (
-                        <span className="bg-nyano-terracotta text-nyano-cream px-3 py-1 rounded-full text-sm font-semibold shadow-lg">
-                          🍯 Pure
-                        </span>
-                      )}
-                      {product.category === 'pickle' && (
-                        <span className="bg-nyano-terracotta text-nyano-cream px-3 py-1 rounded-full text-sm font-semibold shadow-lg">
-                          🌶️ Traditional
-                        </span>
-                      )}
-                    </div>
-                    
-                    {/* Rating Stars */}
-                    <div className="absolute top-4 right-4 bg-nyano-cream bg-opacity-90 rounded-full px-2 py-1">
-                      <div className="flex items-center">
-                        <StarIcon className="w-4 h-4 text-nyano-terracotta fill-current" />
-                        <span className="text-sm font-semibold ml-1">{product.rating || 4.8}</span>
-                      </div>
-                    </div>
-                  </div>
-                  
-                  <div className="p-6">
-                    <h3 className="font-display text-xl font-bold mb-2 text-nyano-brown group-hover:text-nyano-terracotta">
-                      {product.name}
-                    </h3>
-                    <p className="text-nyano-brown opacity-75 mb-4 text-sm leading-relaxed">
-                      {product.description}
-                    </p>
-                    <div className="flex items-center justify-between mb-4">
-                      <span className="font-bold text-2xl text-nyano-forest">
-                        {formatCurrency(product.price)}
-                      </span>
-                      <Link 
-                        to={`/products/${product.id}`}
-                        className="text-nyano-terracotta hover:text-nyano-brown text-sm font-semibold underline"
-                      >
-                        View Details
-                      </Link>
-                    </div>
-                    <AddToCartButton product={product} className="w-full" />
-                  </div>
-                </div>
-              ))
-            )}
-              </div>
-            </div>
-            
-            {/* Scroll Indicators */}
-            {!loading && featuredProducts.length > 0 && (
-              <div className="flex justify-center mt-6 gap-2">
-                {featuredProducts.map((_, index) => (
-                  <div key={index} className="w-2 h-2 rounded-full bg-nyano-brown opacity-30"></div>
-                ))}
-              </div>
             )}
           </div>
         </div>
