@@ -29,7 +29,9 @@ const testConfig = {
     'cypress/e2e/06-api-testing.cy.js',
     'cypress/e2e/07-accessibility-testing.cy.js',
     'cypress/e2e/08-responsive-design.cy.js',
-    'cypress/e2e/09-error-handling.cy.js'
+    'cypress/e2e/09-error-handling.cy.js',
+    'cypress/e2e/10-static-pages.cy.js',
+    'cypress/e2e/11-footer-pages.cy.js'
   ]
 };
 
