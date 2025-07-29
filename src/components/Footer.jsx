@@ -9,13 +9,12 @@ export default function Footer() {
           {/* Company Info */}
           <div className="md:col-span-2">
             <div className="flex items-center gap-2 mb-4">
-              <span role="img" aria-label="mountain" className="text-2xl">🏔️</span>
-              <h3 className="text-2xl font-bold">Ramro</h3>
+              <h3 className="font-display text-2xl font-bold text-nyano-cream">Nyano</h3>
             </div>
             <p className="text-organic-white opacity-75 mb-6 leading-relaxed">
-              Authentic Himalayan products sourced directly from local artisans. 
+              Authentic products sourced directly from local artisans. 
               Supporting sustainable communities while bringing you the finest 
-              organic goods from the mountains.
+              organic goods from around the world.
             </p>
             <div className="flex gap-4">
               <a href="#" className="text-organic-white hover:text-organic-primary transition-colors">

@@ -44,7 +44,7 @@ export default function Navbar() {
 
         {/* Logo */}
         <Link to="/" className="flex items-center gap-2 font-bold text-xl tracking-wide hover:text-organic-primary transition-colors">
-          <span role="img" aria-label="mountain">🏔️</span> Ramro
+          <span className="font-display text-2xl text-nyano-brown">Nyano</span>
         </Link>
 
         {/* Desktop Navigation */}
