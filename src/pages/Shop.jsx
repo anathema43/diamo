@@ -39,82 +39,108 @@ export default function Shop() {
     });
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-gray-50" data-cy="shop-page">
       {/* Header */}
-      <div className="bg-white shadow-sm">
+      <header className="bg-white shadow-sm">
         <div className="max-w-7xl mx-auto px-6 py-8">
           <h1 className="text-4xl font-bold text-himalaya-dark mb-2">Shop Ramro Products</h1>
           <p className="text-gray-600">Discover authentic, organic products from the Himalayas</p>
         </div>
-      </div>
+      </header>
 
-      <div className="max-w-7xl mx-auto px-6 py-8">
+      <main className="max-w-7xl mx-auto px-6 py-8">
         {loading ? (
-          <div className="flex justify-center py-12">
+          <div className="flex justify-center py-12" role="status" aria-label="Loading products">
             <div className="animate-spin rounded-full h-16 w-16 border-b-2 border-organic-primary"></div>
+            <span className="sr-only">Loading products...</span>
           </div>
         ) : (
-        <>
-          {/* Filters and Search */}
-          <div className="bg-white rounded-lg shadow-sm p-6 mb-8">
-            <div className="flex flex-col md:flex-row gap-4 items-center justify-between">
-              {/* Search */}
-              <div className="relative flex-1 max-w-md">
-                <MagnifyingGlassIcon className="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-400" />
-                <input
-                  type="text"
-                  placeholder="Search products..."
-                  value={searchTerm}
-                  onChange={(e) => setSearchTerm(e.target.value)}
-                  className="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-himalaya focus:border-transparent"
-                />
-              </div>
-
-              {/* Filters */}
-              <div className="flex gap-4 items-center">
-                <div className="flex items-center gap-2">
-                  <FunnelIcon className="w-5 h-5 text-gray-500" />
-                  <select
-                    value={filterCategory}
-                    onChange={(e) => setFilterCategory(e.target.value)}
-                    className="border border-gray-300 rounded-lg px-3 py-2 focus:ring-2 focus:ring-himalaya focus:border-transparent"
-                  >
-                    <option value="all">All Categories</option>
-                    <option value="pickle">Pickles</option>
-                    <option value="honey">Honey</option>
-                    <option value="spices">Spices</option>
-                  </select>
+          <>
+            {/* Filters and Search */}
+            <section className="bg-white rounded-lg shadow-sm p-6 mb-8" aria-label="Product filters">
+              <div className="flex flex-col md:flex-row gap-4 items-center justify-between">
+                {/* Search */}
+                <div className="relative flex-1 max-w-md">
+                  <label htmlFor="product-search" className="sr-only">Search products</label>
+                  <MagnifyingGlassIcon className="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-400" aria-hidden="true" />
+                  <input
+                    id="product-search"
+                    type="text"
+                    placeholder="Search products..."
+                    value={searchTerm}
+                    onChange={(e) => setSearchTerm(e.target.value)}
+                    className="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-himalaya focus:border-transparent"
+                    data-cy="search-input"
+                  />
                 </div>
 
-                <select
-                  value={sortBy}
-                  onChange={(e) => setSortBy(e.target.value)}
-                  className="border border-gray-300 rounded-lg px-3 py-2 focus:ring-2 focus:ring-himalaya focus:border-transparent"
-                >
-                  <option value="name">Sort by Name</option>
-                  <option value="price-low">Price: Low to High</option>
-                  <option value="price-high">Price: High to Low</option>
-                  <option value="rating">Highest Rated</option>
-                </select>
+                {/* Filters */}
+                <div className="flex gap-4 items-center">
+                  <div className="flex items-center gap-2">
+                    <FunnelIcon className="w-5 h-5 text-gray-500" aria-hidden="true" />
+                    <label htmlFor="category-filter" className="sr-only">Filter by category</label>
+                    <select
+                      id="category-filter"
+                      value={filterCategory}
+                      onChange={(e) => setFilterCategory(e.target.value)}
+                      className="border border-gray-300 rounded-lg px-3 py-2 focus:ring-2 focus:ring-himalaya focus:border-transparent"
+                      data-cy="category-filter"
+                    >
+                      <option value="all">All Categories</option>
+                      <option value="pickle">Pickles</option>
+                      <option value="honey">Honey</option>
+                      <option value="spices">Spices</option>
+                      <option value="grains">Grains</option>
+                    </select>
+                  </div>
+
+                  <div>
+                    <label htmlFor="sort-select" className="sr-only">Sort products</label>
+                    <select
+                      id="sort-select"
+                      value={sortBy}
+                      onChange={(e) => setSortBy(e.target.value)}
+                      className="border border-gray-300 rounded-lg px-3 py-2 focus:ring-2 focus:ring-himalaya focus:border-transparent"
+                      data-cy="sort-select"
+                    >
+                      <option value="name">Sort by Name</option>
+                      <option value="price-low">Price: Low to High</option>
+                      <option value="price-high">Price: High to Low</option>
+                      <option value="rating">Highest Rated</option>
+                    </select>
+                  </div>
+                </div>
               </div>
-            </div>
-          </div>
+            </section>
 
-          {/* Products Grid */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-            {filteredProducts.map((product) => (
-              <ProductCard key={product.id} product={product} />
-            ))}
-          </div>
-
-          {filteredProducts.length === 0 && (
-            <div className="text-center py-12">
-              <p className="text-gray-500 text-lg">No products found matching your criteria.</p>
-            </div>
-          )}
-        </>
+            {/* Products Grid */}
+            <section aria-label="Product catalog">
+              {filteredProducts.length === 0 ? (
+                <div className="text-center py-12" data-cy="no-results-message">
+                  <p className="text-gray-500 text-lg">No products found matching your criteria.</p>
+                  <button 
+                    onClick={() => {
+                      setSearchTerm("");
+                      setFilterCategory("all");
+                    }}
+                    className="mt-4 text-organic-primary hover:text-organic-text underline"
+                  >
+                    Clear filters
+                  </button>
+                </div>
+              ) : (
+                <ul className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6" data-cy="product-grid">
+                  {filteredProducts.map((product) => (
+                    <li key={product.id}>
+                      <ProductCard product={product} />
+                    </li>
+                  ))}
+                </ul>
+              )}
+            </section>
+          </>
         )}
-      </div>
+      </main>
     </div>
   );
 }

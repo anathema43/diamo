@@ -14,8 +14,8 @@ export default function AdminRoute({ children }) {
     return <Navigate to="/login" replace />;
   }
 
-  // Check if user has admin role from Firestore user profile
-  const isAdmin = userProfile?.role === 'admin';
+  // Server-side role verification - check Firebase custom claims
+  const isAdmin = userProfile?.role === 'admin' || currentUser?.customClaims?.admin === true;
   
   if (!isAdmin) {
     return (

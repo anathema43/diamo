@@ -1,11 +1,10 @@
 rules_version = '2';
 service cloud.firestore {
   match /databases/{database}/documents {
-    // Helper function to check if user is admin
+    // Helper function to check if user is admin (server-side verification)
     function isAdmin() {
       return request.auth != null && 
-        exists(/databases/$(database)/documents/users/$(request.auth.uid)) &&
-        get(/databases/$(database)/documents/users/$(request.auth.uid)).data.role == 'admin';
+        request.auth.token.admin == true;
     }
     
     // Helper function to check if user is authenticated
@@ -18,18 +17,25 @@ service cloud.firestore {
       return request.auth != null && request.auth.uid == userId;
     }
     
+    // Helper function to validate user data
+    function isValidUserData() {
+      return request.resource.data.keys().hasAll(['email', 'displayName']) &&
+        request.resource.data.email is string &&
+        request.resource.data.displayName is string;
+    }
+    
     // Users can read and write their own user document
     match /users/{userId} {
-      allow read, write: if isOwner(userId);
-      allow create: if isAuthenticated() && request.auth.uid == userId;
+      allow read, write: if isOwner(userId) && isValidUserData();
+      allow create: if isAuthenticated() && 
+        request.auth.uid == userId && 
+        isValidUserData();
     }
     
     // Products are readable by all, writable only by admins
     match /products/{productId} {
       allow read: if true;
-      allow write: if isAdmin();
-      allow create: if isAdmin();
-      allow delete: if isAdmin();
+      allow write, create, delete: if isAdmin();
     }
     
     // Orders are readable/writable by the user who created them, readable by admins
@@ -37,7 +43,8 @@ service cloud.firestore {
       allow read: if isOwner(resource.data.userId) || isAdmin();
       allow write: if isOwner(resource.data.userId);
       allow create: if isAuthenticated() && 
-        request.auth.uid == request.resource.data.userId;
+        request.auth.uid == request.resource.data.userId &&
+        request.resource.data.keys().hasAll(['items', 'total', 'status']);
       allow update: if isAdmin(); // Admins can update order status
     }
     
@@ -55,12 +62,13 @@ service cloud.firestore {
     match /reviews/{reviewId} {
       allow read: if true;
       allow create: if isAuthenticated() && 
-        request.auth.uid == request.resource.data.userId;
+        request.auth.uid == request.resource.data.userId &&
+        request.resource.data.keys().hasAll(['productId', 'rating', 'comment']);
       allow update, delete: if isAuthenticated() && 
         request.auth.uid == resource.data.userId;
     }
     
-    // Admin-only collections
+    // Admin-only collections with strict validation
     match /admin/{document=**} {
       allow read, write: if isAdmin();
     }

@@ -1,34 +1,31 @@
-import React, { useState } from "react";
+import React from "react";
+import { useForm } from "react-hook-form";
 import { EnvelopeIcon, PhoneIcon, MapPinIcon } from "@heroicons/react/24/outline";
 import { CONTACT_INFO, BUSINESS_HOURS } from "../utils/constants";
+import { apiService } from "../services/apiService";
 
 export default function Contact() {
-  const [formData, setFormData] = useState({
-    name: "",
-    email: "",
-    subject: "",
-    message: ""
-  });
-  const [isSubmitting, setIsSubmitting] = useState(false);
-  const [submitted, setSubmitted] = useState(false);
+  const {
+    register,
+    handleSubmit,
+    formState: { errors, isSubmitting },
+    reset,
+    setError
+  } = useForm();
 
-  const handleChange = (e) => {
-    setFormData({
-      ...formData,
-      [e.target.name]: e.target.value
-    });
-  };
+  const [submitted, setSubmitted] = React.useState(false);
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    setIsSubmitting(true);
-    
-    // Simulate form submission
-    setTimeout(() => {
-      setIsSubmitting(false);
+  const onSubmit = async (data) => {
+    try {
+      await apiService.submitContactForm(data);
       setSubmitted(true);
-      setFormData({ name: "", email: "", subject: "", message: "" });
-    }, 1000);
+      reset();
+    } catch (error) {
+      setError("root", {
+        type: "manual",
+        message: error.message || "Failed to send message. Please try again."
+      });
+    }
   };
 
   return (
@@ -78,10 +75,10 @@ export default function Contact() {
                   <MapPinIcon className="w-6 h-6 text-organic-primary mt-1" />
                   <div>
                     <h3 className="font-semibold text-organic-text mb-1">Address</h3>
-                    <p className="text-organic-text">
+                    <address className="text-organic-text not-italic">
                       {CONTACT_INFO.address.street}<br />
                       {CONTACT_INFO.address.country} {CONTACT_INFO.address.postalCode}
-                    </p>
+                    </address>
                   </div>
                 </div>
               </div>
@@ -105,9 +102,9 @@ export default function Contact() {
               </h2>
               
               {submitted ? (
-                <div className="text-center py-8">
+                <div className="text-center py-8" role="alert" aria-live="polite">
                   <div className="w-16 h-16 bg-organic-highlight rounded-full flex items-center justify-center mx-auto mb-4">
-                    <svg className="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <svg className="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                     </svg>
                   </div>
@@ -115,7 +112,7 @@ export default function Contact() {
                   <p className="text-organic-text">Thank you for contacting us. We'll get back to you soon.</p>
                 </div>
               ) : (
-                <form onSubmit={handleSubmit} className="space-y-6">
+                <form onSubmit={handleSubmit(onSubmit)} className="space-y-6" noValidate>
                   <div>
                     <label htmlFor="name" className="block text-organic-text font-medium mb-2">
                       Full Name *
@@ -123,13 +120,29 @@ export default function Contact() {
                     <input
                       type="text"
                       id="name"
-                      name="name"
                       data-cy="contact-name"
-                      value={formData.name}
-                      onChange={handleChange}
-                      required
-                      className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-organic-primary focus:border-transparent"
+                      {...register("name", {
+                        required: "Full name is required",
+                        minLength: {
+                          value: 2,
+                          message: "Name must be at least 2 characters"
+                        },
+                        maxLength: {
+                          value: 100,
+                          message: "Name must be less than 100 characters"
+                        }
+                      })}
+                      className={`w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-organic-primary focus:border-transparent ${
+                        errors.name ? 'border-red-500' : 'border-gray-300'
+                      }`}
+                      aria-invalid={errors.name ? 'true' : 'false'}
+                      aria-describedby={errors.name ? 'name-error' : undefined}
                     />
+                    {errors.name && (
+                      <p id="name-error" className="mt-1 text-sm text-red-600" role="alert">
+                        {errors.name.message}
+                      </p>
+                    )}
                   </div>
                   
                   <div>
@@ -139,13 +152,25 @@ export default function Contact() {
                     <input
                       type="email"
                       id="email"
-                      name="email"
                       data-cy="contact-email"
-                      value={formData.email}
-                      onChange={handleChange}
-                      required
-                      className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-organic-primary focus:border-transparent"
+                      {...register("email", {
+                        required: "Email address is required",
+                        pattern: {
+                          value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
+                          message: "Please enter a valid email address"
+                        }
+                      })}
+                      className={`w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-organic-primary focus:border-transparent ${
+                        errors.email ? 'border-red-500' : 'border-gray-300'
+                      }`}
+                      aria-invalid={errors.email ? 'true' : 'false'}
+                      aria-describedby={errors.email ? 'email-error' : undefined}
                     />
+                    {errors.email && (
+                      <p id="email-error" className="mt-1 text-sm text-red-600" role="alert">
+                        {errors.email.message}
+                      </p>
+                    )}
                   </div>
                   
                   <div>
@@ -155,13 +180,29 @@ export default function Contact() {
                     <input
                       type="text"
                       id="subject"
-                      name="subject"
                       data-cy="contact-subject"
-                      value={formData.subject}
-                      onChange={handleChange}
-                      required
-                      className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-organic-primary focus:border-transparent"
+                      {...register("subject", {
+                        required: "Subject is required",
+                        minLength: {
+                          value: 5,
+                          message: "Subject must be at least 5 characters"
+                        },
+                        maxLength: {
+                          value: 200,
+                          message: "Subject must be less than 200 characters"
+                        }
+                      })}
+                      className={`w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-organic-primary focus:border-transparent ${
+                        errors.subject ? 'border-red-500' : 'border-gray-300'
+                      }`}
+                      aria-invalid={errors.subject ? 'true' : 'false'}
+                      aria-describedby={errors.subject ? 'subject-error' : undefined}
                     />
+                    {errors.subject && (
+                      <p id="subject-error" className="mt-1 text-sm text-red-600" role="alert">
+                        {errors.subject.message}
+                      </p>
+                    )}
                   </div>
                   
                   <div>
@@ -170,24 +211,52 @@ export default function Contact() {
                     </label>
                     <textarea
                       id="message"
-                      name="message"
                       data-cy="contact-message"
-                      value={formData.message}
-                      onChange={handleChange}
-                      required
                       rows={5}
-                      className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-organic-primary focus:border-transparent"
+                      {...register("message", {
+                        required: "Message is required",
+                        minLength: {
+                          value: 10,
+                          message: "Message must be at least 10 characters"
+                        },
+                        maxLength: {
+                          value: 2000,
+                          message: "Message must be less than 2000 characters"
+                        }
+                      })}
+                      className={`w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-organic-primary focus:border-transparent ${
+                        errors.message ? 'border-red-500' : 'border-gray-300'
+                      }`}
+                      aria-invalid={errors.message ? 'true' : 'false'}
+                      aria-describedby={errors.message ? 'message-error' : undefined}
                     />
+                    {errors.message && (
+                      <p id="message-error" className="mt-1 text-sm text-red-600" role="alert">
+                        {errors.message.message}
+                      </p>
+                    )}
                   </div>
+
+                  {errors.root && (
+                    <div className="p-4 bg-red-50 border border-red-200 rounded-lg" role="alert">
+                      <p className="text-red-700">{errors.root.message}</p>
+                    </div>
+                  )}
                   
                   <button
                     type="submit"
                     data-cy="contact-submit"
                     disabled={isSubmitting}
-                    className="w-full bg-organic-primary text-white font-bold py-3 px-6 rounded-lg hover:opacity-90 transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed"
+                    className="w-full bg-organic-primary text-white font-bold py-3 px-6 rounded-lg hover:opacity-90 transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed focus:ring-2 focus:ring-organic-primary focus:ring-offset-2"
+                    aria-describedby={isSubmitting ? 'submit-status' : undefined}
                   >
                     {isSubmitting ? "Sending..." : "Send Message"}
                   </button>
+                  {isSubmitting && (
+                    <p id="submit-status" className="sr-only" aria-live="polite">
+                      Sending your message, please wait...
+                    </p>
+                  )}
                 </form>
               )}
             </div>
