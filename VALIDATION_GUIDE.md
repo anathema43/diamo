@@ -732,6 +732,12 @@ const validateDataIntegrity = async () => {
   }
 };
 ```
+
+### **3. Network Security**
+```javascript
+// Network security tests
+const networkSecurityTests = {
+  testHTTPS() {
     if (location.protocol !== 'https:' && location.hostname !== 'localhost') {
       console.warn('⚠️ Site not using HTTPS in production');
     } else {

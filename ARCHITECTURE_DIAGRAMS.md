@@ -416,6 +416,7 @@ graph TD
         LoadingSpinner[Loading Spinner]
         ReviewStars[Review Stars]
     end
+        W[ResponsiveImage]
     
     subgraph "State Management"
         AuthStore[Auth Store]

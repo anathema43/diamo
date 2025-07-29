@@ -35,6 +35,7 @@ graph TB
         H[Tailwind CSS]
         I[Zustand State Management]
         J[React Router]
+        K[Responsive Image System]
     end
     
     subgraph "Authentication & Security"
