@@ -109,22 +109,23 @@ describe('Development Roadmap Page', () => {
     it('should display planned features with timelines', () => {
       cy.get('[data-cy="future-features"]').should('be.visible');
       
-      // Check for advanced search
-      cy.contains('Advanced Search & Discovery').should('be.visible');
-      cy.contains('Month 1').should('be.visible');
+      // Check for foundation phase features
+      cy.contains('Comprehensive Testing Strategy').should('be.visible');
+      cy.contains('Foundation Phase').should('be.visible');
       
-      // Check for mobile app
+      // Check for scaling phase features
       cy.contains('Mobile App Development').should('be.visible');
-      cy.contains('Month 3-6').should('be.visible');
+      cy.contains('Future').should('be.visible');
     });
 
     it('should show development phases', () => {
       cy.contains('Development Phases').should('be.visible');
-      cy.contains('Phase 1: Production Ready').should('be.visible');
-      cy.contains('Phase 2: Enhanced Experience').should('be.visible');
+      cy.contains('Phase 1: Foundation').should('be.visible');
+      cy.contains('Phase 2: E-commerce').should('be.visible');
+      cy.contains('Phase 3: Scaling').should('be.visible');
       
       // Check phase details
-      cy.contains('Payment processing backend').should('be.visible');
+      cy.contains('Comprehensive testing strategy').should('be.visible');
       cy.contains('Advanced search and discovery').should('be.visible');
     });
   });

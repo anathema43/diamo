@@ -398,25 +398,35 @@ export default function DevelopmentRoadmap() {
 
             <div className="bg-gray-50 rounded-lg p-6">
               <h3 className="text-lg font-bold text-organic-text mb-4">Development Phases</h3>
-              <div className="grid md:grid-cols-2 gap-6">
+              <div className="grid md:grid-cols-3 gap-6">
                 <div>
-                  <h4 className="font-semibold text-organic-text mb-2">Phase 1: Production Ready</h4>
-                  <p className="text-sm text-organic-text opacity-75 mb-2">Week 1-2</p>
+                  <h4 className="font-semibold text-organic-text mb-2">Phase 1: Foundation</h4>
+                  <p className="text-sm text-organic-text opacity-75 mb-2">Solidifying the Platform</p>
                   <ul className="text-sm text-organic-text space-y-1">
-                    <li>• Payment processing backend</li>
-                    <li>• Email notifications</li>
-                    <li>• Production deployment</li>
-                    <li>• Basic monitoring</li>
+                    <li>• Comprehensive testing strategy</li>
+                    <li>• CI/CD pipeline establishment</li>
+                    <li>• Component library & design system</li>
+                    <li>• Advanced security hardening</li>
                   </ul>
                 </div>
                 <div>
-                  <h4 className="font-semibold text-organic-text mb-2">Phase 2: Enhanced Experience</h4>
-                  <p className="text-sm text-organic-text opacity-75 mb-2">Month 1-2</p>
+                  <h4 className="font-semibold text-organic-text mb-2">Phase 2: E-commerce</h4>
+                  <p className="text-sm text-organic-text opacity-75 mb-2">Core Business Capabilities</p>
                   <ul className="text-sm text-organic-text space-y-1">
                     <li>• Advanced search and discovery</li>
-                    <li>• Enhanced product pages</li>
-                    <li>• Customer account improvements</li>
-                    <li>• Marketing optimization</li>
+                    <li>• Comprehensive order management</li>
+                    <li>• User-generated content features</li>
+                    <li>• Enhanced product experiences</li>
+                  </ul>
+                </div>
+                <div>
+                  <h4 className="font-semibold text-organic-text mb-2">Phase 3: Scaling</h4>
+                  <p className="text-sm text-organic-text opacity-75 mb-2">Intelligence & Performance</p>
+                  <ul className="text-sm text-organic-text space-y-1">
+                    <li>• Scalable frontend framework</li>
+                    <li>• Analytics & business intelligence</li>
+                    <li>• Personalization engine</li>
+                    <li>• Performance optimization</li>
                   </ul>
                 </div>
               </div>
