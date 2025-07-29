@@ -43,7 +43,7 @@ export default function Home() {
           </p>
           <h2 className="font-body text-xl md:text-2xl mb-8 font-light max-w-3xl mx-auto leading-relaxed text-nyano-brown">
             A little piece of home, delivered.
-          </h1>
+          </h2>
           <div className="flex flex-col sm:flex-row gap-6 justify-center">
             <Link 
               to="/shop" 
