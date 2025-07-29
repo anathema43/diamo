@@ -27,6 +27,7 @@ Ramro is a premium e-commerce platform showcasing authentic Himalayan products i
 - **Accessibility Compliant** - WCAG 2.1 AA standards
 - **Enterprise Security** - Server-side role verification and secure file uploads
 - **Real-time Synchronization** - Cross-tab cart and wishlist updates
+- **Real-time Synchronization** - Cross-tab cart and wishlist updates
 - **Data Integrity** - Single source of truth architecture
 - **Image Optimization** - Responsive images with multiple sizes and lazy loading
 - **Testing Foundation** - Unit tests and store tests implemented

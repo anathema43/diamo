@@ -495,6 +495,9 @@ npm run cy:run --spec "cypress/e2e/12-real-time-features.cy.js"
 
 # Test cart functionality
 npm run cy:run --spec "cypress/e2e/03-shopping-cart.cy.js"
+
+# Test cross-tab synchronization
+cy.testRealTimeSync()
 ```
 
 ### **Accessibility Testing**

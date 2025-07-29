@@ -27,6 +27,18 @@ describe('Real-time Features Testing', () => {
       });
     });
 
+    it('should update wishlist in real-time across tabs', () => {
+      cy.loginAsUser();
+      cy.navigateToShop();
+      
+      // Add to wishlist in first tab
+      cy.addToWishlist('Himalayan Wild Honey');
+      cy.get('[data-cy="wishlist-count"]').should('be.visible');
+      
+      // Verify sync across tabs
+      cy.testRealTimeSync();
+    });
+
     it('should update cart in real-time when items are added', () => {
       cy.loginAsUser();
       cy.navigateToShop();

@@ -183,4 +183,19 @@ describe('CartStore Real-time Synchronization', () => {
     expect(mockUnsubscribe).toHaveBeenCalled();
     expect(useCartStore.getState().unsubscribe).toBe(null);
   });
+
+  it('should prevent duplicate subscriptions', () => {
+    const { onSnapshot } = require('firebase/firestore');
+    const mockUnsubscribe = vi.fn();
+    onSnapshot.mockReturnValue(mockUnsubscribe);
+    
+    const { subscribeToCart } = useCartStore.getState();
+    
+    // Subscribe twice
+    subscribeToCart();
+    subscribeToCart();
+    
+    // Should clean up previous subscription
+    expect(mockUnsubscribe).toHaveBeenCalled();
+  });
 });

@@ -34,6 +34,16 @@ function App() {
     try {
       const unsub = fetchUser();
       loadCart();
+      
+      // Set up real-time listeners when user is authenticated
+      const { currentUser } = useAuthStore.getState();
+      if (currentUser) {
+        const { subscribeToCart } = useCartStore.getState();
+        const { subscribeToWishlist } = useWishlistStore.getState();
+        subscribeToCart();
+        subscribeToWishlist();
+      }
+      
       return () => unsub && unsub();
     } catch (error) {
       console.log("Auth not configured yet");

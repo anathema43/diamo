@@ -371,6 +371,8 @@ graph LR
         X[Cart Changes] --> Y[Real-time Sync]
         Z[Order Status] --> AA[Live Updates]
         BB[Inventory Changes] --> CC[Stock Alerts]
+        DD[Cross-tab Synchronization] --> EE[onSnapshot Listeners]
+        FF[Wishlist Updates] --> GG[Real-time Sync]
     end
 ```
 
