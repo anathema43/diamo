@@ -3,9 +3,9 @@
 ## 🎯 **Goal**: Get your Ramro e-commerce app running locally in 30 minutes
 
 ## 🔒 **SECURITY FIRST**: This guide includes critical security fixes
-- ✅ **No Hardcoded Admin Access** - Server-side role verification only
+- ✅ **No Hardcoded Admin Access** - Firebase server-side role verification only
 - ✅ **Secure File Uploads** - Strict validation and size limits
-- ✅ **Data Integrity** - Single source of truth from Firestore
+- ✅ **Data Integrity** - Single source of truth from Firebase Firestore
 - ✅ **Input Validation** - XSS and injection attack prevention
 
 ---

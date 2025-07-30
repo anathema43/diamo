@@ -3,12 +3,12 @@
 
 ## 🔒 **SECURITY-FIRST TESTING APPROACH**
 **CRITICAL**: This guide now includes comprehensive security testing for:
-- ✅ Server-side admin role verification (no client-side bypasses)
+- ✅ Firebase server-side admin role verification (no client-side bypasses)
 - ✅ File upload security validation
-- ✅ Data integrity verification (single source of truth)
+- ✅ Data integrity verification (Firebase single source of truth)
 - ✅ **Real-time Features** - Tests cross-tab cart/wishlist synchronization
 - ✅ Input sanitization and XSS prevention
-- ✅ Real-time feature validation
+- ✅ Firebase real-time feature validation
 
 ## 📚 **Table of Contents**
 1. [What is Testing and Why Do We Need It?](#what-is-testing)

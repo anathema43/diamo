@@ -174,7 +174,7 @@ window.addEventListener('load', measurePageLoad);
 const testFirebaseConnection = async () => {
   try {
     // Test Firestore read
-    const testDoc = await db.collection('products').limit(1).get();
+    const testDoc = await getDocs(query(collection(db, 'products'), limit(1)));
     console.log('✅ Firestore read successful:', testDoc.size);
     
     // Test Authentication
