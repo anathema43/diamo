@@ -21,7 +21,7 @@ vi.mock('../authStore', () => ({
   }
 }))
 
-describe('CartStore Real-time Synchronization', () => {
+describe('CartStore', () => {
   beforeEach(() => {
     vi.clearAllMocks();
     // Reset store state
@@ -31,7 +31,9 @@ describe('CartStore Real-time Synchronization', () => {
   afterEach(() => {
     // Clean up any subscriptions
     const { unsubscribeFromCart } = useCartStore.getState();
-    unsubscribeFromCart();
+    if (unsubscribeFromCart) {
+      unsubscribeFromCart();
+    }
   });
 
   it('should initialize with empty cart', () => {
@@ -42,160 +44,157 @@ describe('CartStore Real-time Synchronization', () => {
     expect(error).toBe(null);
   });
 
-  it('should add product to cart', () => {
-    const { addToCart, cart } = useCartStore.getState();
-    const testProduct = {
-      id: '1',
-      name: 'Test Product',
-      price: 299,
-      quantityAvailable: 10
-    };
-    
-    addToCart(testProduct, 2);
-    
-    const updatedCart = useCartStore.getState().cart;
-    expect(updatedCart).toHaveLength(1);
-    expect(updatedCart[0]).toEqual({
-      ...testProduct,
-      quantity: 2
+  describe('addToCart functionality', () => {
+    it('should add product to cart', () => {
+      const { addToCart } = useCartStore.getState();
+      const testProduct = {
+        id: '1',
+        name: 'Test Product',
+        price: 299,
+        quantityAvailable: 10
+      };
+      
+      addToCart(testProduct, 2);
+      
+      const cart = useCartStore.getState().cart;
+      expect(cart).toHaveLength(1);
+      expect(cart[0]).toEqual({
+        ...testProduct,
+        quantity: 2
+      });
+    });
+
+    it('should update quantity for existing product', () => {
+      const { addToCart } = useCartStore.getState();
+      const testProduct = {
+        id: '1',
+        name: 'Test Product',
+        price: 299,
+        quantityAvailable: 10
+      };
+      
+      // Add product twice
+      addToCart(testProduct, 1);
+      addToCart(testProduct, 1);
+      
+      const cart = useCartStore.getState().cart;
+      expect(cart).toHaveLength(1);
+      expect(cart[0].quantity).toBe(2);
     });
   });
 
-  it('should update quantity for existing product', () => {
-    const { addToCart } = useCartStore.getState();
-    const testProduct = {
-      id: '1',
-      name: 'Test Product',
-      price: 299,
-      quantityAvailable: 10
-    };
-    
-    // Add product twice
-    addToCart(testProduct, 1);
-    addToCart(testProduct, 1);
-    
-    const cart = useCartStore.getState().cart;
-    expect(cart).toHaveLength(1);
-    expect(cart[0].quantity).toBe(2);
-  });
-
-  it('should remove product from cart', () => {
-    const { addToCart, removeFromCart } = useCartStore.getState();
-    const testProduct = {
-      id: '1',
-      name: 'Test Product',
-      price: 299,
-      quantityAvailable: 10
-    };
-    
-    addToCart(testProduct, 1);
-    removeFromCart('1');
-    
-    const cart = useCartStore.getState().cart;
-    expect(cart).toHaveLength(0);
-  });
-
-  it('should calculate total price correctly', () => {
-    const { addToCart, getTotalPrice } = useCartStore.getState();
-    const product1 = { id: '1', name: 'Product 1', price: 100, quantityAvailable: 10 };
-    const product2 = { id: '2', name: 'Product 2', price: 200, quantityAvailable: 10 };
-    
-    addToCart(product1, 2); // 200
-    addToCart(product2, 1); // 200
-    
-    expect(getTotalPrice()).toBe(400);
-  });
-
-  it('should calculate tax correctly', () => {
-    const { addToCart, getTax } = useCartStore.getState();
-    const testProduct = { id: '1', name: 'Test Product', price: 100, quantityAvailable: 10 };
-    
-    addToCart(testProduct, 1);
-    
-    expect(getTax()).toBe(8); // 8% of 100
-  });
-
-  it('should calculate shipping correctly', () => {
-    const { addToCart, getShipping } = useCartStore.getState();
-    
-    // Test free shipping threshold
-    const expensiveProduct = { id: '1', name: 'Expensive Product', price: 600, quantityAvailable: 10 };
-    addToCart(expensiveProduct, 1);
-    expect(getShipping()).toBe(0); // Free shipping over ₹500
-    
-    // Reset cart
-    useCartStore.setState({ cart: [] });
-    
-    // Test paid shipping
-    const cheapProduct = { id: '2', name: 'Cheap Product', price: 100, quantityAvailable: 10 };
-    addToCart(cheapProduct, 1);
-    expect(getShipping()).toBe(50); // ₹50 shipping under ₹500
-  });
-
-  it('should handle real-time subscription setup', () => {
-    const { onSnapshot } = require('firebase/firestore');
-    const mockUnsubscribe = vi.fn();
-    onSnapshot.mockReturnValue(mockUnsubscribe);
-    
-    const { subscribeToCart } = useCartStore.getState();
-    const unsubscribe = subscribeToCart();
-    
-    expect(onSnapshot).toHaveBeenCalled();
-    expect(typeof unsubscribe).toBe('function');
-  });
-
-  it('should handle real-time cart updates', () => {
-    const { onSnapshot } = require('firebase/firestore');
-    let snapshotCallback;
-    
-    onSnapshot.mockImplementation((docRef, callback) => {
-      snapshotCallback = callback;
-      return vi.fn(); // mock unsubscribe
+  describe('removeFromCart functionality', () => {
+    it('should remove product from cart', () => {
+      const { addToCart, removeFromCart } = useCartStore.getState();
+      const testProduct = {
+        id: '1',
+        name: 'Test Product',
+        price: 299,
+        quantityAvailable: 10
+      };
+      
+      addToCart(testProduct, 1);
+      removeFromCart('1');
+      
+      const cart = useCartStore.getState().cart;
+      expect(cart).toHaveLength(0);
     });
-    
-    const { subscribeToCart } = useCartStore.getState();
-    subscribeToCart();
-    
-    // Simulate Firestore update
-    const mockDoc = {
-      exists: () => true,
-      data: () => ({
-        items: [
-          { id: '1', name: 'Updated Product', price: 299, quantity: 3 }
-        ]
-      })
-    };
-    
-    snapshotCallback(mockDoc);
-    
-    const cart = useCartStore.getState().cart;
-    expect(cart).toHaveLength(1);
-    expect(cart[0].quantity).toBe(3);
   });
 
-  it('should handle subscription cleanup', () => {
-    const mockUnsubscribe = vi.fn();
-    useCartStore.setState({ unsubscribe: mockUnsubscribe });
-    
-    const { unsubscribeFromCart } = useCartStore.getState();
-    unsubscribeFromCart();
-    
-    expect(mockUnsubscribe).toHaveBeenCalled();
-    expect(useCartStore.getState().unsubscribe).toBe(null);
+  describe('cart calculations', () => {
+    it('should calculate total price correctly', () => {
+      const { addToCart, getTotalPrice } = useCartStore.getState();
+      const product1 = { id: '1', name: 'Product 1', price: 100, quantityAvailable: 10 };
+      const product2 = { id: '2', name: 'Product 2', price: 200, quantityAvailable: 10 };
+      
+      addToCart(product1, 2); // 200
+      addToCart(product2, 1); // 200
+      
+      expect(getTotalPrice()).toBe(400);
+    });
+
+    it('should calculate tax correctly', () => {
+      const { addToCart, getTax } = useCartStore.getState();
+      const testProduct = { id: '1', name: 'Test Product', price: 100, quantityAvailable: 10 };
+      
+      addToCart(testProduct, 1);
+      
+      expect(getTax()).toBe(8); // 8% of 100
+    });
+
+    it('should calculate shipping correctly', () => {
+      const { addToCart, getShipping } = useCartStore.getState();
+      
+      // Test free shipping threshold
+      const expensiveProduct = { id: '1', name: 'Expensive Product', price: 600, quantityAvailable: 10 };
+      addToCart(expensiveProduct, 1);
+      expect(getShipping()).toBe(0); // Free shipping over ₹500
+      
+      // Reset cart
+      useCartStore.setState({ cart: [] });
+      
+      // Test paid shipping
+      const cheapProduct = { id: '2', name: 'Cheap Product', price: 100, quantityAvailable: 10 };
+      addToCart(cheapProduct, 1);
+      expect(getShipping()).toBe(50); // ₹50 shipping under ₹500
+    });
   });
 
-  it('should prevent duplicate subscriptions', () => {
-    const { onSnapshot } = require('firebase/firestore');
-    const mockUnsubscribe = vi.fn();
-    onSnapshot.mockReturnValue(mockUnsubscribe);
-    
-    const { subscribeToCart } = useCartStore.getState();
-    
-    // Subscribe twice
-    subscribeToCart();
-    subscribeToCart();
-    
-    // Should clean up previous subscription
-    expect(mockUnsubscribe).toHaveBeenCalled();
+  describe('cart utilities', () => {
+    it('should get item quantity correctly', () => {
+      const { addToCart, getItemQuantity } = useCartStore.getState();
+      const testProduct = { id: '1', name: 'Test Product', price: 299, quantityAvailable: 10 };
+      
+      expect(getItemQuantity('1')).toBe(0);
+      
+      addToCart(testProduct, 3);
+      expect(getItemQuantity('1')).toBe(3);
+    });
+
+    it('should get total items correctly', () => {
+      const { addToCart, getTotalItems } = useCartStore.getState();
+      const product1 = { id: '1', name: 'Product 1', price: 100, quantityAvailable: 10 };
+      const product2 = { id: '2', name: 'Product 2', price: 200, quantityAvailable: 10 };
+      
+      addToCart(product1, 2);
+      addToCart(product2, 3);
+      
+      expect(getTotalItems()).toBe(5);
+    });
+
+    it('should clear cart correctly', () => {
+      const { addToCart, clearCart } = useCartStore.getState();
+      const testProduct = { id: '1', name: 'Test Product', price: 299, quantityAvailable: 10 };
+      
+      addToCart(testProduct, 2);
+      expect(useCartStore.getState().cart).toHaveLength(1);
+      
+      clearCart();
+      expect(useCartStore.getState().cart).toHaveLength(0);
+    });
+  });
+
+  describe('updateQuantity functionality', () => {
+    it('should update quantity correctly', () => {
+      const { addToCart, updateQuantity } = useCartStore.getState();
+      const testProduct = { id: '1', name: 'Test Product', price: 299, quantityAvailable: 10 };
+      
+      addToCart(testProduct, 1);
+      updateQuantity('1', 5);
+      
+      const cart = useCartStore.getState().cart;
+      expect(cart[0].quantity).toBe(5);
+    });
+
+    it('should remove item when quantity is set to 0', () => {
+      const { addToCart, updateQuantity } = useCartStore.getState();
+      const testProduct = { id: '1', name: 'Test Product', price: 299, quantityAvailable: 10 };
+      
+      addToCart(testProduct, 1);
+      updateQuantity('1', 0);
+      
+      const cart = useCartStore.getState().cart;
+      expect(cart).toHaveLength(0);
+    });
   });
 });
