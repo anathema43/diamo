@@ -180,6 +180,12 @@ export default function Home() {
               Explore the Collection
             </Link>
             <Link 
+              to="/artisans" 
+              className="inline-block px-10 py-4 rounded-full text-lg transition-all duration-300 border-2 border-nyano-brown text-nyano-brown hover:bg-nyano-brown hover:text-nyano-cream backdrop-blur-sm"
+            >
+              Meet Our Artisans
+            </Link>
+            <Link 
               to="/about" 
               className="inline-block px-10 py-4 rounded-full text-lg transition-all duration-300 border-2 border-nyano-brown text-nyano-brown hover:bg-nyano-brown hover:text-nyano-cream backdrop-blur-sm"
             >

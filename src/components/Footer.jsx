@@ -50,6 +50,11 @@ export default function Footer() {
                 </Link>
               </li>
               <li>
+                <Link to="/artisans" className="text-organic-white opacity-75 hover:opacity-100 hover:text-organic-primary transition-colors">
+                  Artisans
+                </Link>
+              </li>
+              <li>
                 <Link to="/about" className="text-organic-white opacity-75 hover:opacity-100 hover:text-organic-primary transition-colors">
                   About Us
                 </Link>

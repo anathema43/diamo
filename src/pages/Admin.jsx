@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import AdminSeedButton from "../components/AdminSeedButton";
+import ArtisanSeedButton from "../components/ArtisanSeedButton";
 import ImageUpload from "../components/ImageUpload";
 import BulkProductUpload from "../components/BulkProductUpload";
 import { useProductStore } from "../store/productStore";
@@ -177,6 +178,9 @@ export default function Admin() {
 
         {/* Seed Button */}
         <AdminSeedButton />
+
+        {/* Artisan Seed Button */}
+        <ArtisanSeedButton />
 
         {/* Tab Navigation */}
         <div className="flex gap-2 mb-8 overflow-x-auto">

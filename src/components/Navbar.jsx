@@ -51,6 +51,7 @@ export default function Navbar() {
         <div className="hidden md:flex gap-6 items-center">
           <Link to="/" className="text-organic-white hover:text-organic-primary transition-colors duration-200 font-medium">Home</Link>
           <Link to="/shop" className="text-organic-white hover:text-organic-primary transition-colors duration-200 font-medium">Shop</Link>
+          <Link to="/artisans" className="text-organic-white hover:text-organic-primary transition-colors duration-200 font-medium">Artisans</Link>
           <Link to="/about" className="text-organic-white hover:text-organic-primary transition-colors duration-200 font-medium">About</Link>
           <Link to="/contact" className="text-organic-white hover:text-organic-primary transition-colors duration-200 font-medium">Contact</Link>
           <Link to="/cart" className="relative text-organic-white hover:text-organic-primary transition-colors duration-200">
@@ -130,6 +131,13 @@ export default function Navbar() {
                   onClick={closeMobileMenu}
                 >
                   Shop
+                </Link>
+                <Link 
+                  to="/artisans" 
+                  className="block py-3 px-4 text-organic-white hover:bg-organic-primary hover:text-organic-white rounded-md transition-colors duration-200"
+                  onClick={closeMobileMenu}
+                >
+                  Artisans
                 </Link>
                 <Link 
                   to="/about" 

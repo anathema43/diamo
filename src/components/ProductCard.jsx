@@ -5,6 +5,7 @@ import ReviewStars from "./ReviewStars";
 import WishlistButton from "./WishlistButton";
 import AddToCartButton from "./AddToCartButton";
 import formatCurrency from "../utils/formatCurrency";
+import ArtisanCard from "./ArtisanCard";
 
 export default function ProductCard({ product }) {
   return (
@@ -54,6 +55,19 @@ export default function ProductCard({ product }) {
           </div>
           
           <AddToCartButton product={product} className="w-full" />
+          
+          {/* Artisan Link */}
+          {product.artisanId && (
+            <div className="mt-3 pt-3 border-t">
+              <p className="text-xs text-organic-text opacity-75 mb-2">Crafted by:</p>
+              <Link 
+                to={`/artisans/${product.artisanId}`}
+                className="text-organic-primary hover:text-organic-text text-sm font-medium underline hover:no-underline transition-all"
+              >
+                {product.artisan || 'View Artisan Profile'} →
+              </Link>
+            </div>
+          )}
           
           {product.quantityAvailable > 0 && product.quantityAvailable <= 5 && (
             <p className="text-orange-600 text-xs mt-1 text-center" data-cy="stock-warning">
