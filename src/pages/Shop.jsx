@@ -7,16 +7,6 @@ import { MagnifyingGlassIcon, FunnelIcon } from "@heroicons/react/24/outline";
 export default function Shop() {
   const { products, fetchProducts, loading } = useProductStore();
   const [searchTerm, setSearchTerm] = useState("");
-  const [filters, setFilters] = useState({
-    categories: [],
-    priceMin: 0,
-    priceMax: 1000,
-    rating: 0,
-    inStock: false,
-    featured: false,
-    origin: '',
-    sortBy: 'name'
-  });
 
   React.useEffect(() => {
     // Always fetch products from Firestore - single source of truth
