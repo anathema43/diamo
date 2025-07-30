@@ -300,10 +300,10 @@ graph TB
 - **Index Size**: Optimized for fast queries
 - **Analytics**: Real-time search behavior tracking
 
-## User Flow Diagrams
+## Data Flow
 
-> **📝 Note**: To edit the user flow diagram, please modify the source file at `docs/diagrams/user-flow.md`
+> **📝 Note**: To edit the data flow diagram, please modify the source file at `docs/diagrams/data-flow.md`
 
-### **Primary User Journey**
+### **Real-time Data Synchronization**
 
-The user experience follows a carefully designed flow that emphasizes discovery, cultural connection, and seamless transactions:
+The application implements sophisticated real-time data flow:
