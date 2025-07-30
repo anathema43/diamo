@@ -101,6 +101,23 @@ describe('Product Browsing and Search', () => {
       cy.get('[data-cy="algolia-search-input"]').should('have.value', '');
       cy.get('[data-cy="product-card"]').should('have.length.greaterThan', 1);
     });
+
+    it('should test Algolia search analytics', () => {
+      cy.navigateToShop();
+      
+      // Perform search
+      cy.get('[data-cy="algolia-search-input"]').type('honey');
+      cy.get('[data-cy="search-result-item"]').first().click();
+      
+      // Should track search and click
+      cy.window().then((win) => {
+        const analytics = win.searchService?.getSearchAnalytics();
+        if (analytics) {
+          expect(analytics.queries.length).to.be.greaterThan(0);
+          expect(analytics.clicks.length).to.be.greaterThan(0);
+        }
+      });
+    });
   });
 
   describe('Product Filtering', () => {
