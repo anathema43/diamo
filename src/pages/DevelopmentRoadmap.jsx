@@ -147,16 +147,26 @@ export default function DevelopmentRoadmap() {
       objective: "Validate product-market fit and gather real-world data",
       status: "current",
       initiatives: [
+        "Complete MVP Launch (Deploy, Razorpay APIs, Email system)",
         "Acquire first 100 paying customers",
-        "Conduct 50+ user feedback interviews",
+        "Conduct 50+ intensive user feedback interviews",
+        "Implement feedback tracking system",
         "A/B testing framework setup",
-        "Conversion funnel optimization"
+        "Competitive pricing analysis",
+        "User behavior analytics implementation"
       ],
       metrics: [
         "100 paying customers",
+        "50+ user feedback interviews completed",
+        "<2% return rate",
         "Net Promoter Score >40",
+        "Average order value baseline established",
         "Customer acquisition cost <₹500",
-        "<2% return rate"
+      ],
+      resources: [
+        "1 Full-stack developer (part-time)",
+        "Marketing budget: ₹50,000",
+        "Customer service support (part-time)"
       ]
     },
     {
@@ -167,15 +177,29 @@ export default function DevelopmentRoadmap() {
       status: "planned",
       initiatives: [
         "Email marketing automation",
-        "Social media integration",
+        "Social media integration (Instagram Shopping, Facebook Store)",
+        "Referral program system",
+        "Discount and coupon management",
+        "SEO optimization (meta tags, structured data, sitemap)",
         "UPI and COD payment methods",
-        "WhatsApp Business API"
+        "EMI options for high-value products",
+        "WhatsApp Business API integration",
+        "SMS notifications for orders",
+        "Live chat support system",
+        "Google Analytics 4 implementation",
+        "Facebook Pixel integration"
       ],
       metrics: [
         "500+ customers acquired",
         "30% repeat purchase rate",
         "Email open rate >25%",
-        "COD orders 40-60%"
+        "Social media conversion rate >2%",
+        "COD orders representing 40-60% of transactions"
+      ],
+      resources: [
+        "1-2 Full-stack developers",
+        "Digital marketing specialist",
+        "Marketing budget: ₹1,50,000"
       ]
     },
     {
@@ -186,15 +210,31 @@ export default function DevelopmentRoadmap() {
       status: "planned",
       initiatives: [
         "Automated invoice generation",
-        "Multi-courier integration",
+        "Shipping label creation integration",
+        "Order tracking automation",
+        "Return/refund workflow automation",
+        "Automated reorder point alerts",
         "Demand forecasting system",
-        "GST compliance automation"
+        "Multi-courier integration",
+        "Automated shipping rate calculation",
+        "Cash on Delivery (COD) management workflow",
+        "Regional shipping partnerships",
+        "GST compliance automation",
+        "Automated financial reporting",
+        "Expense tracking integration",
+        "Profit margin analytics"
       ],
       metrics: [
         "2,000+ active customers",
         "Order processing <2 hours",
         "Inventory accuracy >98%",
-        "15% margin improvement"
+        "Customer service response time <4 hours",
+        "Operating margin improvement of 15%"
+      ],
+      resources: [
+        "2-3 Full-stack developers",
+        "Operations manager",
+        "Integration budget: ₹2,00,000"
       ]
     },
     {
@@ -205,15 +245,35 @@ export default function DevelopmentRoadmap() {
       status: "planned",
       initiatives: [
         "AI-powered recommendations",
+        "Personalized email campaigns",
+        "Dynamic pricing optimization",
+        "Behavioral segmentation",
+        "Create 'Analytics' section in admin panel",
+        "Sales trends and forecasting",
+        "Customer behavior analytics",
+        "Product performance metrics",
+        "Artisan impact tracking",
         "React Native mobile app",
-        "Business intelligence dashboard",
-        "Loyalty program with tiers"
+        "Push notification system",
+        "App-exclusive features",
+        "Offline browsing capability",
+        "Virtual try-on for applicable products",
+        "Subscription box service",
+        "Loyalty program with tiers",
+        "User-generated content platform"
       ],
       metrics: [
         "10,000+ active customers",
         "Customer LTV >₹5,000",
         "Mobile adoption >40%",
-        "Monthly revenue >₹10,00,000"
+        "Personalization lift >25%",
+        "Monthly recurring revenue >₹10,00,000"
+      ],
+      resources: [
+        "3-4 Full-stack developers",
+        "Data scientist",
+        "Mobile app developer",
+        "Technology budget: ₹5,00,000"
       ]
     }
   ];
@@ -584,35 +644,111 @@ export default function DevelopmentRoadmap() {
                         ))}
                       </ul>
                     </div>
+                    
+                    {phase.resources && (
+                      <div className="md:col-span-2 mt-4">
+                        <h4 className="font-semibold text-organic-text mb-3">Resources Required</h4>
+                        <ul className="space-y-2">
+                          {phase.resources.map((resource, index) => (
+                            <li key={index} className="flex items-start gap-2">
+                              <div className="w-2 h-2 bg-purple-500 rounded-full mt-2 flex-shrink-0"></div>
+                              <span className="text-sm text-organic-text">{resource}</span>
+                            </li>
+                          ))}
+                        </ul>
+                      </div>
+                    )}
                   </div>
                 </div>
               ))}
             </div>
 
+            {/* Success Metrics Dashboard */}
+            <div className="bg-white rounded-lg shadow-lg p-6">
+              <h3 className="text-xl font-bold text-organic-text mb-4">📈 Success Metrics Dashboard</h3>
+              <div className="grid md:grid-cols-3 gap-6">
+                <div>
+                  <h4 className="font-semibold text-organic-text mb-3">North Star Metrics</h4>
+                  <ul className="text-sm space-y-1">
+                    <li>• Monthly Active Customers: 10,000 by Month 12</li>
+                    <li>• Customer Lifetime Value: ₹5,000</li>
+                    <li>• Monthly Recurring Revenue: ₹10,00,000</li>
+                    <li>• Net Promoter Score: >60</li>
+                  </ul>
+                </div>
+                <div>
+                  <h4 className="font-semibold text-organic-text mb-3">Operational KPIs</h4>
+                  <ul className="text-sm space-y-1">
+                    <li>• Order Fulfillment Time: <24 hours</li>
+                    <li>• Customer Service Response: <4 hours</li>
+                    <li>• Website Uptime: >99.9%</li>
+                    <li>• Page Load Speed: <3 seconds</li>
+                  </ul>
+                </div>
+                <div>
+                  <h4 className="font-semibold text-organic-text mb-3">Financial Metrics</h4>
+                  <ul className="text-sm space-y-1">
+                    <li>• Gross Margin: >40%</li>
+                    <li>• Customer Acquisition Cost: <₹500</li>
+                    <li>• Return on Ad Spend (ROAS): >3x</li>
+                    <li>• Operating Margin: >15%</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+
+            {/* Risk Management */}
+            <div className="bg-white rounded-lg shadow-lg p-6">
+              <h3 className="text-xl font-bold text-organic-text mb-4">⚠️ Risk Management</h3>
+              <div className="grid md:grid-cols-2 gap-6">
+                <div>
+                  <h4 className="font-semibold text-organic-text mb-3">Technical & Market Risks</h4>
+                  <ul className="text-sm space-y-2">
+                    <li>• <strong>Payment Gateway Downtime:</strong> Multiple provider fallbacks</li>
+                    <li>• <strong>Scaling Infrastructure:</strong> Cloud-native auto-scaling</li>
+                    <li>• <strong>Seasonal Demand:</strong> Diversified product portfolio</li>
+                    <li>• <strong>Marketplace Competition:</strong> Focus on artisan stories</li>
+                  </ul>
+                </div>
+                <div>
+                  <h4 className="font-semibold text-organic-text mb-3">Operational & Financial Risks</h4>
+                  <ul className="text-sm space-y-2">
+                    <li>• <strong>Logistics Delays:</strong> Multiple courier partnerships</li>
+                    <li>• <strong>Inventory Management:</strong> Automated reorder systems</li>
+                    <li>• <strong>Cash Flow:</strong> Mix of COD and prepaid orders</li>
+                    <li>• <strong>Marketing ROI:</strong> Data-driven optimization</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+
             {/* Long-term Vision */}
             <div className="bg-gradient-to-r from-purple-600 to-blue-600 text-white rounded-lg p-8">
-              <h3 className="text-xl font-bold mb-4">🌟 Long-term Vision (Year 2+)</h3>
+              <h3 className="text-xl font-bold mb-4">🚀 Beyond Phase 3: Long-term Vision</h3>
               <div className="grid md:grid-cols-3 gap-6">
                 <div>
                   <h4 className="font-semibold mb-2">International Expansion</h4>
                   <ul className="text-sm opacity-90 space-y-1">
                     <li>• Multi-currency support</li>
-                    <li>• Global shipping partnerships</li>
-                    <li>• Localized content</li>
+                    <li>• International shipping partnerships</li>
+                    <li>• Localized content and marketing</li>
+                    <li>• Regional payment methods</li>
                   </ul>
                 </div>
                 <div>
                   <h4 className="font-semibold mb-2">Platform Evolution</h4>
                   <ul className="text-sm opacity-90 space-y-1">
-                    <li>• B2B marketplace</li>
-                    <li>• Artisan self-service</li>
+                    <li>• B2B marketplace for bulk orders</li>
+                    <li>• Artisan onboarding self-service</li>
+                    <li>• White-label solutions</li>
                     <li>• API marketplace</li>
                   </ul>
                 </div>
                 <div>
-                  <h4 className="font-semibold mb-2">Social Impact</h4>
+                  <h4 className="font-semibold mb-2">Social Impact Scaling</h4>
                   <ul className="text-sm opacity-90 space-y-1">
                     <li>• 1,000+ artisan partnerships</li>
+                    <li>• Sustainable packaging initiative</li>
                     <li>• Carbon-neutral shipping</li>
                     <li>• Skill development programs</li>
                   </ul>
@@ -632,24 +768,40 @@ export default function DevelopmentRoadmap() {
                 <li>• Complete Razorpay backend APIs</li>
                 <li>• Deploy email notification system</li>
                 <li>• Production deployment testing</li>
+                <li>• Launch monitoring and analytics</li>
+                <li>• Begin customer acquisition campaign</li>
               </ul>
             </div>
             <div>
-              <h3 className="font-semibold mb-2">Next Month</h3>
+              <h3 className="font-semibold mb-2">Week 2 Focus</h3>
               <ul className="text-sm space-y-1 opacity-90">
-                <li>• Launch customer acquisition</li>
-                <li>• Implement feedback systems</li>
-                <li>• Begin A/B testing framework</li>
+                <li>• Set up customer feedback systems</li>
+                <li>• Implement basic A/B testing</li>
+                <li>• Launch initial marketing campaigns</li>
+                <li>• Begin collecting user behavior data</li>
               </ul>
             </div>
             <div>
-              <h3 className="font-semibold mb-2">Quarter 1</h3>
+              <h3 className="font-semibold mb-2">Month 1 Goals</h3>
               <ul className="text-sm space-y-1 opacity-90">
                 <li>• Achieve 100 paying customers</li>
-                <li>• Build marketing infrastructure</li>
-                <li>• Expand payment methods</li>
+                <li>• Complete 50+ user interviews</li>
+                <li>• Establish baseline metrics</li>
+                <li>• Validate product-market fit</li>
               </ul>
             </div>
+          </div>
+          
+          <div className="mt-6 pt-6 border-t border-white border-opacity-20">
+            <p className="text-sm opacity-90 text-center">
+              💡 <strong>Remember:</strong> This roadmap is a living document. We'll update it based on market feedback, 
+              technical discoveries, and business opportunities. The goal is sustainable growth while maintaining 
+              our commitment to quality and cultural authenticity.
+            </p>
+            <p className="text-sm opacity-90 text-center mt-2">
+              🏔️ <strong>Together, we're not just building an e-commerce platform - we're creating a bridge 
+              between traditional Himalayan craftsmanship and the modern digital world.</strong>
+            </p>
           </div>
         </div>
       </div>
