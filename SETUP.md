@@ -49,6 +49,7 @@ You'll need to create accounts with these services:
 3. **Algolia**: [algolia.com](https://algolia.com)
 4. **Cloudinary**: [cloudinary.com](https://cloudinary.com)
 5. **Netlify**: [netlify.com](https://netlify.com) (for deployment)
+6. **GitHub**: [github.com](https://github.com) (for CI/CD pipeline)
 
 ---
 
@@ -363,6 +364,86 @@ npm run dev
    VITE_CLOUDINARY_API_KEY=your_api_key
    VITE_CLOUDINARY_UPLOAD_PRESET=ramro_products
    ```
+
+## Enterprise CI/CD Pipeline Setup
+
+### **Step 1: GitHub Actions Configuration**
+
+#### **Create GitHub Secrets**
+1. Go to your GitHub repository
+2. Navigate to Settings → Secrets and variables → Actions
+3. Add the following secrets:
+   ```
+   VITE_FIREBASE_API_KEY=your_firebase_api_key
+   VITE_FIREBASE_AUTH_DOMAIN=ramro-ecommerce-prod.firebaseapp.com
+   VITE_FIREBASE_PROJECT_ID=ramro-ecommerce-prod
+   VITE_FIREBASE_STORAGE_BUCKET=ramro-ecommerce-prod.appspot.com
+   VITE_FIREBASE_MESSAGING_SENDER_ID=your_sender_id
+   VITE_FIREBASE_APP_ID=your_app_id
+   VITE_RAZORPAY_KEY_ID=rzp_live_your_live_key_id
+   VITE_ALGOLIA_APP_ID=your_application_id
+   VITE_ALGOLIA_SEARCH_KEY=your_search_only_key
+   VITE_CLOUDINARY_CLOUD_NAME=your_cloud_name
+   NETLIFY_AUTH_TOKEN=your_netlify_auth_token
+   NETLIFY_SITE_ID=your_netlify_site_id
+   FIREBASE_TOKEN=your_firebase_ci_token
+   ```
+
+#### **Get Required Tokens**
+
+**Netlify Auth Token:**
+1. Go to Netlify → User settings → Applications
+2. Click "New access token"
+3. Copy the token
+
+**Firebase CI Token:**
+```bash
+# Install Firebase CLI
+npm install -g firebase-tools
+
+# Login and get CI token
+firebase login:ci
+# Copy the token that's generated
+```
+
+#### **CI/CD Pipeline Features**
+The GitHub Actions pipeline includes:
+- ✅ **Quality Checks**: Linting, type checking, unit tests
+- ✅ **Security Scanning**: Dependency audit, secret detection
+- ✅ **Build Verification**: Production build testing
+- ✅ **E2E Testing**: Cypress test execution
+- ✅ **Performance Testing**: Lighthouse audits
+- ✅ **Automated Deployment**: Netlify + Firebase Functions
+- ✅ **Failure Notifications**: Deployment status alerts
+
+#### **Pipeline Workflow**
+```
+Code Push → Quality Gates → Security Scan → Build Test → E2E Tests → Performance Audit → Deploy → Notify
+```
+
+### **Step 2: Branch Protection Rules**
+
+1. **Go to Repository Settings → Branches**
+2. **Add rule for main branch:**
+   - Require pull request reviews
+   - Require status checks to pass
+   - Require branches to be up to date
+   - Include administrators
+
+### **Step 3: Monitoring CI/CD Pipeline**
+
+#### **Pipeline Status Monitoring:**
+- View pipeline status in GitHub Actions tab
+- Monitor build times and success rates
+- Set up notifications for failures
+- Review performance reports
+
+#### **Quality Gates:**
+- **Linting**: Code style and quality checks
+- **Testing**: 95% test coverage requirement
+- **Security**: No high-severity vulnerabilities
+- **Performance**: Lighthouse score >85
+- **Build**: Successful production build
 
 ### **Step 2: Configure Firebase Functions (Backend)**
 

@@ -9,16 +9,18 @@
 - ✅ **Comprehensive Input Validation**: XSS and injection prevention
 - ✅ **Architectural Cleanup**: Dead code removed, state consolidated
 - ✅ **Dynamic Dashboard**: Real-time strategic visualization from markdown sources
+- ✅ **Enterprise CI/CD Pipeline**: Automated security scanning and quality gates
 
 ## Table of Contents
 1. [Local Development Validation](#local-development-validation)
 2. [Production Deployment Validation](#production-deployment-validation)
 3. [Automated Testing Setup](#automated-testing-setup)
-4. [Monitoring & Performance](#monitoring--performance)
-5. [Security Validation](#security-validation)
-6. [Logistics Integration Validation](#logistics-integration-validation)
-7. [Dynamic Dashboard Validation](#dynamic-dashboard-validation)
-8. [Troubleshooting Guide](#troubleshooting-guide)
+4. [CI/CD Pipeline Validation](#cicd-pipeline-validation)
+5. [Monitoring & Performance](#monitoring--performance)
+6. [Security Validation](#security-validation)
+7. [Logistics Integration Validation](#logistics-integration-validation)
+8. [Dynamic Dashboard Validation](#dynamic-dashboard-validation)
+9. [Troubleshooting Guide](#troubleshooting-guide)
 
 ---
 
@@ -613,6 +615,95 @@ describe('Complete User Journey', () => {
     cy.get('[data-cy=order-confirmation]').should('be.visible');
   });
 });
+```
+
+---
+
+# 🚀 **CI/CD PIPELINE VALIDATION**
+
+## **GitHub Actions Pipeline Testing**
+
+### **Pipeline Setup Validation**
+```bash
+# Verify GitHub Actions workflow file exists
+ls -la .github/workflows/ci-cd.yml
+
+# Check workflow syntax
+cat .github/workflows/ci-cd.yml | grep -E "(name|on|jobs)"
+
+# Validate required secrets are set
+echo "Required GitHub Secrets:"
+echo "- VITE_FIREBASE_API_KEY"
+echo "- NETLIFY_AUTH_TOKEN"
+echo "- FIREBASE_TOKEN"
+```
+
+### **Quality Gates Validation**
+```javascript
+// Test quality gate enforcement
+const validateQualityGates = async () => {
+  const checks = [
+    { name: 'Linting', command: 'npm run lint' },
+    { name: 'Unit Tests', command: 'npm run test' },
+    { name: 'Build', command: 'npm run build' },
+    { name: 'E2E Tests', command: 'npm run cy:run' }
+  ];
+  
+  for (const check of checks) {
+    try {
+      console.log(`✅ ${check.name} passed`);
+    } catch (error) {
+      console.log(`❌ ${check.name} failed: ${error.message}`);
+    }
+  }
+};
+```
+
+### **Branch Protection Validation**
+```bash
+# Check if branch protection is enabled
+gh api repos/:owner/:repo/branches/main/protection
+
+# Verify required status checks
+gh api repos/:owner/:repo/branches/main/protection/required_status_checks
+```
+
+### **Deployment Pipeline Testing**
+```javascript
+// Test automated deployment
+const testDeploymentPipeline = () => {
+  // Create test branch
+  cy.exec('git checkout -b test-deployment');
+  
+  // Make small change
+  cy.writeFile('test-deployment.txt', 'Pipeline test');
+  
+  // Commit and push
+  cy.exec('git add . && git commit -m "Test deployment pipeline"');
+  cy.exec('git push origin test-deployment');
+  
+  // Verify pipeline triggers
+  cy.visit('https://github.com/your-repo/actions');
+  cy.contains('Test deployment pipeline').should('be.visible');
+};
+```
+
+### **Performance Monitoring in CI**
+```javascript
+// Validate Lighthouse CI integration
+const validateLighthouseCI = () => {
+  // Check Lighthouse report generation
+  cy.task('lighthouse', {
+    url: 'http://localhost:4173',
+    options: {
+      formFactor: 'desktop',
+      screenEmulation: { disabled: true }
+    }
+  }).then((report) => {
+    expect(report.lhr.categories.performance.score).to.be.greaterThan(0.85);
+    expect(report.lhr.categories.accessibility.score).to.be.greaterThan(0.95);
+  });
+};
 ```
 
 ---

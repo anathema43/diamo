@@ -11,6 +11,7 @@
 - ✅ **Bulk Operations** - CSV upload and batch processing
 - ✅ **Dynamic Strategic Dashboard** - Real-time roadmap visualization
 - ✅ **Logistics Management** - Shipping integration and fulfillment tools
+- ✅ **Enterprise CI/CD Pipeline** - Automated deployment and quality assurance
 
 ## 📋 **Table of Contents**
 1. [Admin Account Setup](#admin-account-setup)
@@ -23,8 +24,9 @@
 8. [User Management](#user-management)
 9. [Logistics Integration Management](#logistics-integration-management)
 10. [Strategic Dashboard Management](#strategic-dashboard-management)
-11. [Analytics & Reports](#analytics--reports)
-12. [Security & Best Practices](#security--best-practices)
+11. [CI/CD Pipeline Management](#cicd-pipeline-management)
+12. [Analytics & Reports](#analytics--reports)
+13. [Security & Best Practices](#security--best-practices)
 
 ---
 
@@ -619,6 +621,98 @@ The dashboard automatically fetches and parses data from:
 - Monitor user activity
 - Handle support requests
 - Process account deletions (if needed)
+
+---
+
+## 🚀 **CI/CD PIPELINE MANAGEMENT**
+
+### **Pipeline Overview**
+
+The enterprise CI/CD pipeline automatically handles code quality, testing, and deployment:
+
+#### **Pipeline Stages**
+1. **Quality Check**: Linting, unit tests, coverage reports
+2. **Security Scan**: Vulnerability assessment, secret detection
+3. **Build Test**: Production build verification
+4. **E2E Testing**: Comprehensive user journey testing
+5. **Performance Test**: Lighthouse audits and optimization
+6. **Deployment**: Automated production deployment
+7. **Monitoring**: Post-deployment health checks
+
+### **Monitoring Pipeline Health**
+
+#### **GitHub Actions Dashboard**
+1. **Access Pipeline Status**
+   - Go to your GitHub repository
+   - Click "Actions" tab
+   - View recent workflow runs
+
+2. **Pipeline Metrics**
+   ```
+   Key Metrics to Monitor:
+   - Success Rate: >95%
+   - Build Time: <10 minutes
+   - Test Coverage: >95%
+   - Performance Score: >85
+   - Security Issues: 0 high-severity
+   ```
+
+#### **Quality Gate Management**
+1. **Failed Pipeline Investigation**
+   - Click on failed workflow run
+   - Review failed job details
+   - Check error logs and screenshots
+   - Fix issues and re-run pipeline
+
+2. **Performance Monitoring**
+   - Review Lighthouse reports
+   - Monitor Core Web Vitals trends
+   - Track bundle size changes
+   - Optimize based on metrics
+
+### **Deployment Management**
+
+#### **Staging Deployments**
+- **Automatic**: Every push to `develop` branch
+- **URL**: `https://staging.ramro.com`
+- **Purpose**: Testing before production
+- **Access**: Internal team only
+
+#### **Production Deployments**
+- **Trigger**: Merge to `main` branch
+- **URL**: `https://ramro.com`
+- **Validation**: Comprehensive test suite
+- **Rollback**: Automatic on failure
+
+### **Emergency Procedures**
+
+#### **Pipeline Failure Response**
+1. **Immediate Actions**
+   - Check pipeline status in GitHub Actions
+   - Review error logs and failure points
+   - Determine if hotfix is needed
+   - Communicate with development team
+
+2. **Rollback Procedures**
+   ```bash
+   # Emergency rollback to previous version
+   git revert HEAD
+   git push origin main
+   # Pipeline will automatically deploy previous version
+   ```
+
+#### **Security Alert Response**
+1. **High-Severity Vulnerabilities**
+   - Pipeline automatically blocks deployment
+   - Review security scan results
+   - Update dependencies or apply patches
+   - Re-run security validation
+
+2. **Secret Exposure Detection**
+   - Immediately rotate exposed credentials
+   - Update GitHub secrets
+   - Review commit history for exposure
+   - Notify security team
 
 ---
 
