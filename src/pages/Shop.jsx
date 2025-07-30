@@ -17,35 +17,11 @@ export default function Shop() {
     origin: '',
     sortBy: 'name'
   });
-  const [filters, setFilters] = useState({
-    categories: [],
-    priceMin: 0,
-    priceMax: 1000,
-    rating: 0,
-    inStock: false,
-    featured: false,
-    origin: '',
-    sortBy: 'name'
-  });
 
   React.useEffect(() => {
     // Always fetch products from Firestore - single source of truth
     fetchProducts();
   }, [products.length, fetchProducts]);
-
-  // Get unique categories and price range from products
-  const categories = React.useMemo(() => {
-    return [...new Set(products.map(p => p.category))].filter(Boolean);
-  }, [products]);
-
-  const priceRange = React.useMemo(() => {
-    if (products.length === 0) return { min: 0, max: 1000 };
-    const prices = products.map(p => p.price);
-    return {
-      min: Math.min(...prices),
-      max: Math.max(...prices)
-    };
-  }, [products]);
 
   // Get unique categories and price range from products
   const categories = React.useMemo(() => {
@@ -96,31 +72,6 @@ export default function Shop() {
       
       return matchesSearch && matchesCategory && matchesPrice && 
              matchesRating && matchesStock && matchesFeatured && matchesOrigin;
-      const matchesCategory = filters.categories.length === 0 || 
-                             filters.categories.includes(product.category);
-      
-      // Price filter
-      const matchesPrice = product.price >= filters.priceMin && 
-                          product.price <= filters.priceMax;
-      
-      // Rating filter
-      const matchesRating = filters.rating === 0 || 
-                           (product.rating || 0) >= filters.rating;
-      
-      // Stock filter
-      const matchesStock = !filters.inStock || 
-                          (product.quantityAvailable > 0);
-      
-      // Featured filter
-      const matchesFeatured = !filters.featured || 
-                             product.featured === true;
-      
-      // Origin filter
-      const matchesOrigin = !filters.origin || 
-                           (product.origin && product.origin.includes(filters.origin));
-      
-      return matchesSearch && matchesCategory && matchesPrice && 
-             matchesRating && matchesStock && matchesFeatured && matchesOrigin;
     })
     .sort((a, b) => {
       switch (filters.sortBy) {
@@ -145,33 +96,8 @@ export default function Shop() {
         default:
           return (a.name || '').localeCompare(b.name || '');
       }
-        case 'relevance':
-          // Simple relevance based on search term match
-          if (searchTerm) {
-            const aRelevance = (a.name?.toLowerCase().includes(searchTerm.toLowerCase()) ? 2 : 0) +
-                              (a.description?.toLowerCase().includes(searchTerm.toLowerCase()) ? 1 : 0);
-            const bRelevance = (b.name?.toLowerCase().includes(searchTerm.toLowerCase()) ? 2 : 0) +
-                              (b.description?.toLowerCase().includes(searchTerm.toLowerCase()) ? 1 : 0);
-            return bRelevance - aRelevance;
-          }
-          return (a.name || '').localeCompare(b.name || '');
-        case "price-low":
-          return a.price - b.price;
-        case "price-high":
-          return b.price - a.price;
-        case "rating":
-          return (b.rating || 0) - (a.rating || 0);
-        case "newest":
-          return new Date(b.createdAt || 0) - new Date(a.createdAt || 0);
-        default:
-          return (a.name || '').localeCompare(b.name || '');
-      }
     });
   }, [products, searchTerm, filters]);
-
-  const handleFiltersChange = (newFilters) => {
-    setFilters(newFilters);
-  };
 
   const handleFiltersChange = (newFilters) => {
     setFilters(newFilters);
@@ -221,44 +147,8 @@ export default function Shop() {
                     priceRange={priceRange}
                     initialFilters={filters}
                   />
-                filters.priceMax < priceRange.max || filters.rating > 0 || 
-                filters.inStock || filters.featured || filters.origin) && (
-                <div className="mt-4 pt-4 border-t">
-                  <div className="flex flex-wrap gap-2">
-                    <span className="text-sm text-gray-600">Active filters:</span>
-                    {filters.categories.map(category => (
-                      <span key={category} className="bg-organic-primary text-white px-2 py-1 rounded-full text-xs">
-                        {category}
-                      </span>
-                    ))}
-                    {(filters.priceMin > priceRange.min || filters.priceMax < priceRange.max) && (
-                      <span className="bg-organic-primary text-white px-2 py-1 rounded-full text-xs">
-                        ₹{filters.priceMin} - ₹{filters.priceMax}
-                      </span>
-                    )}
-                    {filters.rating > 0 && (
-                      <span className="bg-organic-primary text-white px-2 py-1 rounded-full text-xs">
-                        {filters.rating}+ stars
-                      </span>
-                    )}
-                    {filters.inStock && (
-                      <span className="bg-organic-primary text-white px-2 py-1 rounded-full text-xs">
-                        In Stock
-                      </span>
-                    )}
-                    {filters.featured && (
-                      <span className="bg-organic-primary text-white px-2 py-1 rounded-full text-xs">
-                        Featured
-                      </span>
-                    )}
-                    {filters.origin && (
-                      <span className="bg-organic-primary text-white px-2 py-1 rounded-full text-xs">
-                        {filters.origin}
-                      </span>
-                    )}
-                  </div>
                 </div>
-              )}
+              </div>
               
               {/* Active Filters Display */}
               {(filters.categories.length > 0 || filters.priceMin > priceRange.min || 
@@ -313,15 +203,6 @@ export default function Shop() {
                     onClick={() => {
                       setSearchTerm("");
                       setFilters({
-                        categories: [],
-                        priceMin: priceRange.min,
-                        priceMax: priceRange.max,
-                        rating: 0,
-                        inStock: false,
-                        featured: false,
-                        origin: '',
-                        sortBy: 'name'
-                      });
                         categories: [],
                         priceMin: priceRange.min,
                         priceMax: priceRange.max,
