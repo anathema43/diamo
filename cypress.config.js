@@ -11,6 +11,8 @@ export default defineConfig({
     requestTimeout: 10000,
     responseTimeout: 10000,
     pageLoadTimeout: 30000,
+    experimentalStudio: true,
+    experimentalWebKitSupport: true,
     retries: {
       runMode: 2,
       openMode: 0

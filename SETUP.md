@@ -37,7 +37,7 @@
 ## Prerequisites
 
 ### **System Requirements**
-- **Node.js**: 18.0.0 or higher
+- **Node.js**: 18.0.0 or higher (required for React 18 compatibility)
 - **npm**: 8.0.0 or higher
 - **Git**: Latest version
 - **Modern Browser**: Chrome, Firefox, Safari, Edge

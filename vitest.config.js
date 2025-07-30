@@ -9,6 +9,12 @@ export default defineConfig({
     setupFiles: ['./src/test/setup.js'],
     globals: true,
     css: true,
+    pool: 'threads',
+    poolOptions: {
+      threads: {
+        singleThread: true
+      }
+    }
   },
   resolve: {
     alias: {

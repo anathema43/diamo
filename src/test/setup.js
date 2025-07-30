@@ -20,6 +20,13 @@ vi.mock('firebase/firestore', () => ({
   orderBy: vi.fn(),
   limit: vi.fn(),
   getDocs: vi.fn(),
+  writeBatch: vi.fn(() => ({
+    set: vi.fn(),
+    update: vi.fn(),
+    delete: vi.fn(),
+    commit: vi.fn(() => Promise.resolve())
+  })),
+  serverTimestamp: vi.fn(() => new Date())
 }));
 
 vi.mock('react-router-dom', async () => {
