@@ -1,97 +1,58 @@
 import React, { useState } from "react";
 import { useProductStore } from "../store/productStore";
 import ProductCard from "../components/ProductCard";
-import AdvancedFilters from "../components/AdvancedFilters";
+import AlgoliaSearch from "../components/AlgoliaSearch";
+import SearchFilters from "../components/SearchFilters";
+import SearchResults from "../components/SearchResults";
 import { MagnifyingGlassIcon, FunnelIcon } from "@heroicons/react/24/outline";
+import { searchService } from "../services/searchService";
 
 export default function Shop() {
   const { products, fetchProducts, loading } = useProductStore();
-  const [searchTerm, setSearchTerm] = useState("");
+  const [searchResults, setSearchResults] = useState(null);
+  const [isSearching, setIsSearching] = useState(false);
+  const [searchQuery, setSearchQuery] = useState("");
 
   React.useEffect(() => {
     // Always fetch products from Firestore - single source of truth
     fetchProducts();
   }, [products.length, fetchProducts]);
 
-  // Get unique categories and price range from products
-  const categories = React.useMemo(() => {
-    return [...new Set(products.map(p => p.category))].filter(Boolean);
-  }, [products]);
-
-  const priceRange = React.useMemo(() => {
-    if (products.length === 0) return { min: 0, max: 1000 };
-    const prices = products.map(p => p.price);
-    return {
-      min: Math.min(...prices),
-      max: Math.max(...prices)
-    };
-  }, [products]);
-
-  // Filter and sort products
-  const filteredProducts = React.useMemo(() => {
-    return products
-    .filter(product => {
-      // Search term filter
-      const matchesSearch = !searchTerm || 
-        (product.name && product.name.toLowerCase().includes(searchTerm.toLowerCase())) ||
-        (product.description && product.description.toLowerCase().includes(searchTerm.toLowerCase()));
-      
-      // Category filter
-      const matchesCategory = filters.categories.length === 0 || 
-                             filters.categories.includes(product.category);
-      
-      // Price filter
-      const matchesPrice = product.price >= filters.priceMin && 
-                          product.price <= filters.priceMax;
-      
-      // Rating filter
-      const matchesRating = filters.rating === 0 || 
-                           (product.rating || 0) >= filters.rating;
-      
-      // Stock filter
-      const matchesStock = !filters.inStock || 
-                          (product.quantityAvailable > 0);
-      
-      // Featured filter
-      const matchesFeatured = !filters.featured || 
-                             product.featured === true;
-      
-      // Origin filter
-      const matchesOrigin = !filters.origin || 
-                           (product.origin && product.origin.includes(filters.origin));
-      
-      return matchesSearch && matchesCategory && matchesPrice && 
-             matchesRating && matchesStock && matchesFeatured && matchesOrigin;
-    })
-    .sort((a, b) => {
-      switch (filters.sortBy) {
-        case 'relevance':
-          // Simple relevance based on search term match
-          if (searchTerm) {
-            const aRelevance = (a.name?.toLowerCase().includes(searchTerm.toLowerCase()) ? 2 : 0) +
-                              (a.description?.toLowerCase().includes(searchTerm.toLowerCase()) ? 1 : 0);
-            const bRelevance = (b.name?.toLowerCase().includes(searchTerm.toLowerCase()) ? 2 : 0) +
-                              (b.description?.toLowerCase().includes(searchTerm.toLowerCase()) ? 1 : 0);
-            return bRelevance - aRelevance;
-          }
-          return (a.name || '').localeCompare(b.name || '');
-        case "price-low":
-          return a.price - b.price;
-        case "price-high":
-          return b.price - a.price;
-        case "rating":
-          return (b.rating || 0) - (a.rating || 0);
-        case "newest":
-          return new Date(b.createdAt || 0) - new Date(a.createdAt || 0);
-        default:
-          return (a.name || '').localeCompare(b.name || '');
-      }
-    });
-  }, [products, searchTerm, filters]);
-
-  const handleFiltersChange = (newFilters) => {
-    setFilters(newFilters);
+  const handleSearchResults = (results) => {
+    setSearchResults(results);
+    setSearchQuery(results.query || "");
+    setIsSearching(false);
   };
+
+  const handleSearchClear = () => {
+    setSearchResults(null);
+    setSearchQuery("");
+    setIsSearching(false);
+  };
+
+  const handleFiltersChange = async (filters) => {
+    if (searchQuery) {
+      setIsSearching(true);
+      try {
+        const results = await searchService.searchProducts(searchQuery, filters);
+        setSearchResults({
+          products: results.hits,
+          totalResults: results.nbHits,
+          query: searchQuery,
+          processingTime: results.processingTimeMS,
+          facets: results.facets
+        });
+      } catch (error) {
+        console.error('Filter search error:', error);
+      } finally {
+        setIsSearching(false);
+      }
+    }
+  };
+
+  // Determine what to display
+  const displayProducts = searchResults ? searchResults.products : products;
+  const showSearchResults = searchResults !== null;
 
   return (
     <main className="min-h-screen bg-gray-50" data-cy="shop-page">
@@ -104,39 +65,93 @@ export default function Shop() {
       </header>
 
       <section className="max-w-7xl mx-auto px-6 py-8">
-        {loading ? (
+        {loading && !showSearchResults ? (
           <div className="flex justify-center py-12" role="status" aria-label="Loading products">
             <div className="animate-spin rounded-full h-16 w-16 border-b-2 border-organic-primary"></div>
             <span className="sr-only">Loading products...</span>
           </div>
         ) : (
           <>
-            {/* Filters and Search */}
+            {/* Search and Filters */}
             <section className="bg-white rounded-lg shadow-sm p-6 mb-8" aria-label="Product filters">
-              <div className="flex flex-col md:flex-row gap-4 items-center justify-between">
-                {/* Search */}
-                <div className="relative flex-1 max-w-md">
-                  <label htmlFor="product-search" className="sr-only">Search products</label>
-                  <MagnifyingGlassIcon className="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-400" aria-hidden="true" />
-                  <input
-                    id="product-search"
-                    type="text"
-                    placeholder="Search products..."
-                    value={searchTerm}
-                    onChange={(e) => setSearchTerm(e.target.value)}
-                    className="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-himalaya focus:border-transparent"
-                    data-cy="search-input"
+              <div className="space-y-4">
+                {/* Algolia Search */}
+                <div className="flex flex-col md:flex-row gap-4 items-start">
+                  <div className="flex-1">
+                    <AlgoliaSearch
+                      onResults={handleSearchResults}
+                      onClear={handleSearchClear}
+                      className="w-full"
+                    />
+                  </div>
+                  
+                  {/* Search Filters */}
+                  <SearchFilters
+                    onFiltersChange={handleFiltersChange}
+                    facets={searchResults?.facets || {}}
                   />
                 </div>
 
-                {/* Advanced Filters */}
-                <div className="flex items-center gap-4">
-                  <AdvancedFilters
-                    onFiltersChange={handleFiltersChange}
-                    categories={categories}
-                    priceRange={priceRange}
-                    initialFilters={filters}
-                  />
+                {/* Search Status */}
+                {showSearchResults && (
+                  <div className="flex items-center justify-between text-sm text-gray-600">
+                    <span>
+                      {searchResults.totalResults} results for "{searchQuery}"
+                      {searchResults.processingTime && (
+                        <span className="ml-2">({searchResults.processingTime}ms)</span>
+                      )}
+                    </span>
+                    <button
+                      onClick={handleSearchClear}
+                      className="text-organic-primary hover:text-organic-text"
+                    >
+                      Clear search
+                    </button>
+                  </div>
+                )}
+              </div>
+            </section>
+
+            {/* Search Results or Product Grid */}
+            {showSearchResults ? (
+              <SearchResults
+                results={searchResults}
+                isLoading={isSearching}
+                query={searchQuery}
+              />
+            ) : (
+              <section aria-label="Product catalog">
+                {displayProducts.length === 0 ? (
+                  <div className="text-center py-12" data-cy="no-results-message">
+                    <p className="text-gray-500 text-lg">
+                      No products found.
+                    </p>
+                  </div>
+                ) : (
+                  <div>
+                    <div className="flex justify-between items-center mb-4">
+                      <p className="text-gray-600">
+                        Showing {displayProducts.length} of {products.length} products
+                      </p>
+                    </div>
+                    <ul className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6" data-cy="product-grid">
+                      {displayProducts.map((product) => (
+                        <li key={product.id}>
+                          <ProductCard product={product} />
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                )}
+              </section>
+            )}
+          </>
+        )}
+      </section>
+    </main>
+  );
+}
+
                 </div>
               </div>
               

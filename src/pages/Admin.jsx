@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import AdminSeedButton from "../components/AdminSeedButton";
 import ArtisanSeedButton from "../components/ArtisanSeedButton";
+import AdminAlgoliaSync from "../components/AdminAlgoliaSync";
 import ImageUpload from "../components/ImageUpload";
 import BulkProductUpload from "../components/BulkProductUpload";
 import { useProductStore } from "../store/productStore";
@@ -182,6 +183,9 @@ export default function Admin() {
 
         {/* Artisan Seed Button */}
         <ArtisanSeedButton />
+
+        {/* Algolia Search Management */}
+        <AdminAlgoliaSync />
 
         {/* Tab Navigation */}
         <div className="flex gap-2 mb-8 overflow-x-auto">
