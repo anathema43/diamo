@@ -406,6 +406,8 @@ graph TD
     AdminRoutes --> AdminDashboard[Admin Dashboard]
     AdminRoutes --> ProductManagement[Product Management]
     AdminRoutes --> OrderManagement[Order Management]
+        P[Artisan Directory]
+        Q[Artisan Profile]
     AdminRoutes --> UserManagement[User Management]
     
     subgraph "Shared Components"
@@ -416,6 +418,8 @@ graph TD
         LoadingSpinner[Loading Spinner]
         ReviewStars[Review Stars]
     end
+        W[ArtisanCard]
+        X[Cultural Content]
         W[ResponsiveImage]
     
     subgraph "State Management"
@@ -424,6 +428,7 @@ graph TD
         ProductStore[Product Store]
         OrderStore[Order Store]
         WishlistStore[Wishlist Store]
+        CC[Artisan Store]
     end
 ```
 
