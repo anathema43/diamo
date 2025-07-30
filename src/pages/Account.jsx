@@ -218,5 +218,8 @@ export default function AccountPage() {
               <p className="text-organic-text opacity-75 text-sm">Discover more products</p>
             </Link>
           </div>
+        )}
+      </div>
+    </div>
   );
 }
