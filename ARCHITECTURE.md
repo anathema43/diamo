@@ -26,6 +26,14 @@ This comprehensive architecture documentation provides a complete technical over
 
 ---
 
+## System Components
+
+> **📝 Note**: To edit the system architecture diagram, please modify the source file at `docs/diagrams/system-architecture.md`
+
+### **Frontend Architecture**
+
+**Technology Stack**:
+
 # 🗄️ **DATABASE ARCHITECTURE**
 
 ## **Firestore Collections Structure**
