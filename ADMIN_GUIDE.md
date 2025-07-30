@@ -9,6 +9,8 @@
 - ✅ **Cultural Content Management** - Rich artisan profiles and heritage documentation
 - ✅ **Professional Image Management** - Cloudinary integration with optimization
 - ✅ **Bulk Operations** - CSV upload and batch processing
+- ✅ **Dynamic Strategic Dashboard** - Real-time roadmap visualization
+- ✅ **Logistics Management** - Shipping integration and fulfillment tools
 
 ## 📋 **Table of Contents**
 1. [Admin Account Setup](#admin-account-setup)
@@ -19,8 +21,10 @@
 6. [Professional Image Management](#professional-image-management)
 7. [Inventory Management](#inventory-management)
 8. [User Management](#user-management)
-9. [Analytics & Reports](#analytics--reports)
-10. [Security & Best Practices](#security--best-practices)
+9. [Logistics Integration Management](#logistics-integration-management)
+10. [Strategic Dashboard Management](#strategic-dashboard-management)
+11. [Analytics & Reports](#analytics--reports)
+12. [Security & Best Practices](#security--best-practices)
 
 ---
 
@@ -356,6 +360,127 @@ New Order → Processing → Shipped → Delivered
 
 ---
 
+## 🚚 **LOGISTICS INTEGRATION MANAGEMENT**
+
+### **Shipping Partner Setup**
+
+#### **Phase 0: Basic Logistics (Current)**
+1. **Manual Courier Selection**
+   - Partner with Blue Dart, DTDC, India Post
+   - Set up basic rate cards
+   - Configure service areas
+   - Test shipping workflows
+
+2. **COD (Cash on Delivery) Setup**
+   - Configure COD availability by region
+   - Set up COD collection workflow
+   - Implement COD reconciliation process
+   - Monitor COD success rates
+
+3. **Basic Order Tracking**
+   - Manual tracking number entry
+   - Customer notification system
+   - Basic delivery status updates
+   - Return/exchange workflow
+
+#### **Phase 2: Advanced Automation (Future)**
+1. **Multi-Courier Integration**
+   - Shiprocket/Delhivery API integration
+   - Automated rate comparison
+   - Intelligent courier selection
+   - Bulk shipping operations
+
+2. **Automated Workflows**
+   - Automatic label generation
+   - Real-time tracking updates
+   - Returns management automation
+   - COD reconciliation automation
+
+### **Logistics Management Dashboard**
+
+#### **Shipping Analytics:**
+- Delivery success rates by courier
+- Average delivery times by region
+- COD collection rates
+- Shipping cost analysis
+- Customer satisfaction scores
+
+#### **Operational Metrics:**
+- Order fulfillment time
+- Shipping label generation speed
+- Return/exchange rates
+- Regional performance analysis
+
+---
+
+## 📊 **STRATEGIC DASHBOARD MANAGEMENT**
+
+### **Dynamic Roadmap Dashboard**
+
+#### **Accessing the Strategic Dashboard**
+1. Navigate to `/roadmap` in your application
+2. View real-time project progress and strategic planning
+3. Monitor completion percentages and critical items
+4. Track phase progression and success metrics
+
+#### **Dashboard Features**
+1. **Completed Milestones View**
+   - Visual representation of implemented features
+   - Category-based organization (Security, Search, E-commerce, etc.)
+   - Achievement tracking with completion dates
+   - Feature impact and business value
+
+2. **Immediate Priorities View**
+   - Critical items blocking production launch
+   - Priority levels (CRITICAL, HIGH, MEDIUM)
+   - Timeline estimates and resource requirements
+   - Progress tracking and status updates
+
+3. **Strategic Phases View**
+   - 4-phase business roadmap visualization
+   - Success metrics and KPI tracking
+   - Resource planning and budget requirements
+   - Risk management and mitigation strategies
+
+#### **Data Sources**
+The dashboard automatically fetches and parses data from:
+- `COMPLETION_STATUS_ANALYSIS.md` - Completed features and achievements
+- `DEVELOPMENT_ROADMAP.md` - Strategic phases and future planning
+- `IMPLEMENTED_FEATURES.md` - Technical implementation details
+
+#### **Updating Strategic Information**
+1. **Markdown File Updates**
+   - Edit the source markdown files to update dashboard content
+   - Changes are automatically reflected in the dashboard
+   - Use the refresh button to force immediate updates
+
+2. **Progress Tracking**
+   - Mark items as complete by changing ⬜ to ✅ in markdown
+   - Update completion percentages in project stats
+   - Add new milestones and achievements as they're completed
+
+### **Business Intelligence Features**
+
+#### **Success Metrics Dashboard**
+- Monthly Active Customers target tracking
+- Customer Lifetime Value progression
+- Monthly Recurring Revenue goals
+- Net Promoter Score monitoring
+
+#### **Operational KPIs**
+- Order fulfillment time tracking
+- Shipping success rate monitoring
+- Customer service response time
+- Website uptime and performance
+
+#### **Financial Metrics**
+- Gross margin analysis
+- Customer acquisition cost tracking
+- Return on ad spend (ROAS)
+- Operating margin optimization
+
+---
+
 ## 🖼️ **Professional Image Management**
 
 ### **Cloudinary Integration**
@@ -618,6 +743,8 @@ New Order → Processing → Shipped → Delivered
 - **Security Issues**: Immediately revoke admin access if compromised
 - **Data Issues**: Contact technical support for data recovery
 - **System Downtime**: Check Firebase status and hosting platform
+- **Logistics Issues**: Contact courier partners and check tracking systems
+- **Dashboard Issues**: Refresh data or check markdown file accessibility
 
 ---
 

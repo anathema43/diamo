@@ -8,6 +8,7 @@
 - ✅ **Real-time Security**: Authenticated cross-tab synchronization
 - ✅ **Comprehensive Input Validation**: XSS and injection prevention
 - ✅ **Architectural Cleanup**: Dead code removed, state consolidated
+- ✅ **Dynamic Dashboard**: Real-time strategic visualization from markdown sources
 
 ## Table of Contents
 1. [Local Development Validation](#local-development-validation)
@@ -15,7 +16,9 @@
 3. [Automated Testing Setup](#automated-testing-setup)
 4. [Monitoring & Performance](#monitoring--performance)
 5. [Security Validation](#security-validation)
-6. [Troubleshooting Guide](#troubleshooting-guide)
+6. [Logistics Integration Validation](#logistics-integration-validation)
+7. [Dynamic Dashboard Validation](#dynamic-dashboard-validation)
+8. [Troubleshooting Guide](#troubleshooting-guide)
 
 ---
 
@@ -832,6 +835,199 @@ const testFirestoreRules = async () => {
   } catch (error) {
     console.log('✅ Unauthenticated writes properly blocked');
   }
+};
+```
+
+// Check that only whitelisted domains are loaded
+      cy.window().then((win) => {
+        const images = Array.from(win.document.images);
+        images.forEach((img) => {
+          const url = new URL(img.src);
+          const allowedDomains = [
+            'localhost',
+            'firebasestorage.googleapis.com',
+            'images.pexels.com',
+            'res.cloudinary.com'
+          ];
+          
+          expect(allowedDomains.some(domain => url.hostname.includes(domain))).to.be.true;
+        });
+      });
+    }
+  }
+};
+
+---
+
+# 🚚 **LOGISTICS INTEGRATION VALIDATION**
+
+## **Shipping Partner Validation**
+
+### **Basic Logistics Testing (Phase 0)**
+```javascript
+// Test shipping partner integration
+const validateShippingPartners = async () => {
+  const partners = ['bluedart', 'dtdc', 'indiapost'];
+  
+  for (const partner of partners) {
+    try {
+      const response = await fetch(`/api/shipping/${partner}/rates`, {
+        method: 'POST',
+        body: JSON.stringify({
+          origin: '400001',
+          destination: '110001',
+          weight: 1000
+        })
+      });
+      
+      if (response.ok) {
+        console.log(`✅ ${partner} integration working`);
+      } else {
+        console.warn(`⚠️ ${partner} integration issues`);
+      }
+    } catch (error) {
+      console.error(`❌ ${partner} integration failed:`, error);
+    }
+  }
+};
+```
+
+### **COD Workflow Validation**
+```javascript
+// Test Cash on Delivery workflow
+const validateCODWorkflow = () => {
+  // Test COD order creation
+  cy.loginAsUser();
+  cy.addProductToCart('Darjeeling Pickle');
+  cy.navigateToCheckout();
+  cy.selectPaymentMethod('cod');
+  cy.fillShippingInfo(testAddress);
+  cy.get('[data-cy="place-order-button"]').click();
+  
+  // Verify COD order created
+  cy.get('[data-cy="cod-confirmation"]').should('be.visible');
+  cy.get('[data-cy="order-number"]').should('be.visible');
+};
+```
+
+### **Shipping Label Generation**
+```javascript
+// Test shipping label creation
+const validateShippingLabels = async () => {
+  const testOrder = {
+    orderId: 'TEST-001',
+    shipping: {
+      name: 'Test Customer',
+      address: '123 Test Street',
+      city: 'Mumbai',
+      pincode: '400001'
+    },
+    items: [{ name: 'Test Product', weight: 500 }]
+  };
+  
+  try {
+    const response = await fetch('/api/shipping/generate-label', {
+      method: 'POST',
+      body: JSON.stringify(testOrder)
+    });
+    
+    if (response.ok) {
+      const labelData = await response.json();
+      console.log('✅ Shipping label generated:', labelData.trackingNumber);
+    }
+  } catch (error) {
+    console.error('❌ Label generation failed:', error);
+  }
+};
+```
+
+---
+
+# 📊 **DYNAMIC DASHBOARD VALIDATION**
+
+## **Markdown Data Layer Testing**
+
+### **Data Fetching Validation**
+```javascript
+// Test markdown file fetching
+const validateMarkdownFetching = async () => {
+  const files = [
+    'COMPLETION_STATUS_ANALYSIS.md',
+    'DEVELOPMENT_ROADMAP.md',
+    'IMPLEMENTED_FEATURES.md'
+  ];
+  
+  for (const file of files) {
+    try {
+      const response = await fetch(`/${file}`);
+      if (response.ok) {
+        const content = await response.text();
+        console.log(`✅ ${file} fetched successfully (${content.length} chars)`);
+      } else {
+        console.warn(`⚠️ ${file} fetch failed: ${response.status}`);
+      }
+    } catch (error) {
+      console.error(`❌ ${file} fetch error:`, error);
+    }
+  }
+};
+```
+
+### **Dashboard Data Parsing**
+```javascript
+// Test intelligent parsing
+const validateDataParsing = () => {
+  cy.visit('/roadmap');
+  
+  // Verify completed milestones are parsed
+  cy.get('[data-cy="implemented-features"]').should('be.visible');
+  cy.get('[data-cy="milestone-card"]').should('have.length.greaterThan', 5);
+  
+  // Verify immediate priorities are extracted
+  cy.get('[data-cy="critical-features"]').should('be.visible');
+  cy.get('[data-cy="priority-card"]').should('have.length.greaterThan', 2);
+  
+  // Verify strategic phases are displayed
+  cy.get('[data-cy="future-features"]').should('be.visible');
+  cy.get('[data-cy="phase-card"]').should('have.length.greaterThan', 3);
+};
+```
+
+### **Real-time Updates Testing**
+```javascript
+// Test dashboard refresh functionality
+const validateDashboardRefresh = () => {
+  cy.visit('/roadmap');
+  
+  // Test manual refresh
+  cy.get('[data-cy="refresh-button"]').click();
+  cy.get('[data-cy="loading-spinner"]').should('be.visible');
+  cy.get('[data-cy="loading-spinner"]').should('not.exist');
+  
+  // Verify data is updated
+  cy.get('[data-cy="last-updated"]').should('be.visible');
+  cy.get('[data-cy="progress-overview"]').should('be.visible');
+};
+```
+
+### **Performance Validation**
+```javascript
+// Test dashboard performance
+const validateDashboardPerformance = () => {
+  const startTime = Date.now();
+  
+  cy.visit('/roadmap');
+  cy.get('[data-cy="roadmap-content"]').should('be.visible');
+  
+  cy.then(() => {
+    const loadTime = Date.now() - startTime;
+    expect(loadTime).to.be.lessThan(3000); // Should load in under 3 seconds
+  });
+  
+  // Test caching performance
+  cy.reload();
+  cy.get('[data-cy="roadmap-content"]').should('be.visible');
+  // Second load should be faster due to caching
 };
 ```
 
