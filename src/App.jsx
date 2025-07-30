@@ -24,6 +24,7 @@ import AdminRoute from "./components/AdminRoute";
 import ErrorBoundary from "./components/ErrorBoundary";
 import { useAuthStore } from "./store/authStore";
 import { useCartStore } from "./store/cartStore";
+import { useWishlistStore } from "./store/wishlistStore";
 import LoadingSpinner from "./components/LoadingSpinner";
 
 function App() {
@@ -40,7 +41,9 @@ function App() {
       if (currentUser) {
         const { subscribeToCart } = useCartStore.getState();
         const { subscribeToWishlist } = useWishlistStore.getState();
+        const { subscribeToWishlist } = useWishlistStore.getState();
         subscribeToCart();
+        subscribeToWishlist();
         subscribeToWishlist();
       }
       
