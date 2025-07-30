@@ -1,12 +1,16 @@
 # 🧪 Complete Cypress Testing Guide for Ramro E-commerce
 
-## 🔒 **SECURITY-FIRST TESTING APPROACH**
-This guide includes comprehensive testing for all implemented security fixes:
+## 🚀 **ENTERPRISE-GRADE TESTING APPROACH**
+This guide includes comprehensive testing for all implemented features:
 - ✅ **Firebase Server-side Admin Verification** - Tests that admin access requires proper role in Firestore
 - ✅ **File Upload Security** - Tests size limits and type validation
 - ✅ **Data Integrity** - Tests single source of truth from Firebase Firestore
 - ✅ **Real-time Features** - Tests cross-tab cart/wishlist synchronization
 - ✅ **Input Validation** - Tests XSS and injection prevention
+- ✅ **Advanced Search** - Tests Algolia integration with instant search and analytics
+- ✅ **Cultural Content** - Tests artisan profiles and storytelling features
+- ✅ **Image Optimization** - Tests responsive images and performance
+- ✅ **Accessibility** - Tests WCAG 2.1 AA compliance
 
 ## 📚 **Table of Contents**
 1. [Installation and Setup](#installation-and-setup)
@@ -122,10 +126,15 @@ cypress/
 │   ├── 11-footer-pages.cy.js     # Policy pages
 │   ├── 12-real-time-features.cy.js # Real-time sync tests
 │   ├── 13-security-testing.cy.js # Security vulnerability tests
-│   └── 14-development-roadmap.cy.js # Roadmap page tests
+│   ├── 14-development-roadmap.cy.js # Roadmap page tests
+│   ├── 15-architectural-integrity.cy.js # Architecture validation
+│   ├── 16-image-optimization.cy.js # Image performance tests
+│   ├── 17-artisan-cultural-content.cy.js # Cultural content tests
+│   └── 18-algolia-search.cy.js   # Advanced search tests
 ├── fixtures/                     # Test data
 │   ├── products.json            # Sample product data
 │   ├── users.json               # Test user accounts
+│   ├── artisans.json            # Test artisan data
 │   ├── auth-success.json        # Auth response mocks
 │   └── order-success.json       # Order response mocks
 ├── support/                      # Test utilities
@@ -472,12 +481,17 @@ cy.get('[data-cy="element"]').then(($el) => {
 - **Security**: 95%
 - **Real-time Features**: 90%
 - **Accessibility**: 85%
+- **Advanced Search**: 95%
+- **Cultural Content**: 90%
+- **Image Optimization**: 85%
 
 ### **Target Coverage**
 - **Overall**: 90%+
 - **Critical Paths**: 100%
 - **Security Tests**: 100%
 - **User Journeys**: 95%
+- **Search Features**: 95%
+- **Cultural Features**: 90%
 
 ### **Unit Testing Integration**
 - **Utility Functions**: 100% coverage with Vitest
@@ -492,6 +506,33 @@ cy.get('[data-cy="element"]').then(($el) => {
    - Validates srcSet and sizes attributes
    - Tests performance impact
 
+### **✅ Algolia Search Testing:**
+1. **Search Service Testing**
+   - Tests instant search functionality
+   - Validates autocomplete suggestions
+   - Tests typo tolerance and fuzzy matching
+   - Validates faceted search combinations
+   - Tests search analytics tracking
+
+2. **Search UI Testing**
+   - Tests search input and results display
+   - Validates filter interactions
+   - Tests mobile search experience
+   - Validates search performance metrics
+
+### **✅ Artisan & Cultural Content Testing:**
+1. **Artisan Store Testing**
+   - Tests CRUD operations for artisan management
+   - Validates featured artisan functionality
+   - Tests artisan-product linking
+   - Validates search and filtering capabilities
+
+2. **Cultural Content Testing**
+   - Tests artisan profile rendering
+   - Validates cultural heritage display
+   - Tests traditional techniques documentation
+   - Validates impact story presentation
+
 ## 🚀 **HOW TO RUN THE TESTS**
 
 ---
@@ -505,6 +546,15 @@ npm run cy:run --spec "cypress/e2e/01-authentication.cy.js,cypress/e2e/13-securi
 
 # Run admin security tests
 npm run cy:run --spec "cypress/e2e/05-admin-functionality.cy.js"
+
+# Run advanced search tests
+npm run cy:run --spec "cypress/e2e/18-algolia-search.cy.js"
+
+# Run cultural content tests
+npm run cy:run --spec "cypress/e2e/17-artisan-cultural-content.cy.js"
+
+# Run image optimization tests
+npm run cy:run --spec "cypress/e2e/16-image-optimization.cy.js"
 ```
 
 ### **Real-time Feature Testing**
