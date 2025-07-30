@@ -680,6 +680,9 @@ export default function DevelopmentRoadmap() {
                   <h4 className="font-semibold text-organic-text mb-3">Operational KPIs</h4>
                   <ul className="text-sm space-y-1">
                     <li>• Order Fulfillment Time: &lt;24 hours</li>
+                    <li>• Shipping Success Rate: &gt;98%</li>
+                    <li>• Average Delivery Time: &lt;3 days (domestic)</li>
+                    <li>• COD Collection Rate: &gt;95%</li>
                     <li>• Customer Service Response: &lt;4 hours</li>
                     <li>• Website Uptime: &gt;99.9%</li>
                     <li>• Page Load Speed: &lt;3 seconds</li>

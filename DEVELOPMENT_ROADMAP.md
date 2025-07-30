@@ -654,13 +654,16 @@ We've successfully developed a **production-ready, enterprise-grade e-commerce p
 ### **Immediate Priorities**
 1. ✅ Complete Razorpay backend implementation (Day 1-2)
 2. ✅ Deploy email notification system (Day 2-3)
-3. ⬜ Production deployment and testing (Day 3-4)
-4. ⬜ Launch monitoring and analytics (Day 4-5)
-5. ⬜ Begin customer acquisition campaign (Day 5+)
+3. ⬜ Set up basic logistics partnerships (Day 3-4)
+4. ⬜ Production deployment and testing (Day 4-5)
+5. ⬜ Launch monitoring and analytics (Day 5)
+6. ⬜ Begin customer acquisition campaign (Day 6+)
 
 ### **Week 2 Focus**
 - Set up customer feedback systems
 - Implement basic A/B testing
+- Test shipping workflows with courier partners
+- Optimize packaging and shipping costs
 - Launch initial marketing campaigns
 - Begin collecting user behavior data
 
