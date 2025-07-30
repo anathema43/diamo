@@ -679,19 +679,19 @@ export default function DevelopmentRoadmap() {
                 <div>
                   <h4 className="font-semibold text-organic-text mb-3">Operational KPIs</h4>
                   <ul className="text-sm space-y-1">
-                    <li>• Order Fulfillment Time: <24 hours</li>
-                    <li>• Customer Service Response: <4 hours</li>
-                    <li>• Website Uptime: >99.9%</li>
-                    <li>• Page Load Speed: <3 seconds</li>
+                    <li>• Order Fulfillment Time: &lt;24 hours</li>
+                    <li>• Customer Service Response: &lt;4 hours</li>
+                    <li>• Website Uptime: &gt;99.9%</li>
+                    <li>• Page Load Speed: &lt;3 seconds</li>
                   </ul>
                 </div>
                 <div>
                   <h4 className="font-semibold text-organic-text mb-3">Financial Metrics</h4>
                   <ul className="text-sm space-y-1">
-                    <li>• Gross Margin: >40%</li>
-                    <li>• Customer Acquisition Cost: <₹500</li>
-                    <li>• Return on Ad Spend (ROAS): >3x</li>
-                    <li>• Operating Margin: >15%</li>
+                    <li>• Gross Margin: &gt;40%</li>
+                    <li>• Customer Acquisition Cost: &lt;₹500</li>
+                    <li>• Return on Ad Spend (ROAS): &gt;3x</li>
+                    <li>• Operating Margin: &gt;15%</li>
                   </ul>
                 </div>
               </div>
