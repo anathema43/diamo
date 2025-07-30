@@ -88,6 +88,12 @@ Cypress.Commands.add('navigateToWishlist', () => {
   cy.get('[data-cy="wishlist-page"]').should('be.visible');
 });
 
+Cypress.Commands.add('navigateToArtisans', () => {
+  cy.get('[data-cy="nav-artisans"]').click();
+  cy.url().should('include', '/artisans');
+  cy.get('[data-cy="artisans-directory"]').should('be.visible');
+});
+
 // Product Commands
 Cypress.Commands.add('addProductToCart', (productName) => {
   cy.get('[data-cy="shop-page"]').within(() => {
@@ -126,6 +132,16 @@ Cypress.Commands.add('searchProduct', (searchTerm) => {
   cy.get('[data-cy="search-input"]').type(searchTerm);
   cy.get('[data-cy="search-button"]').click();
   cy.get('[data-cy="search-results"]').should('be.visible');
+});
+
+Cypress.Commands.add('searchArtisans', (searchTerm) => {
+  cy.get('[data-cy="artisan-search"]').type(searchTerm);
+  cy.get('[data-cy="artisan-card"]').should('be.visible');
+});
+
+Cypress.Commands.add('filterArtisansByRegion', (region) => {
+  cy.get('[data-cy="region-filter"]').select(region);
+  cy.get('[data-cy="artisan-card"]').should('be.visible');
 });
 
 Cypress.Commands.add('filterByCategory', (category) => {
@@ -234,6 +250,11 @@ Cypress.Commands.add('updateOrderStatus', (orderId, status) => {
 Cypress.Commands.add('seedProducts', () => {
   cy.get('[data-cy="seed-products-button"]').click();
   cy.get('[data-cy="seed-success-message"]').should('be.visible');
+});
+
+Cypress.Commands.add('seedArtisanData', () => {
+  cy.get('[data-cy="artisan-seed-button"]').click();
+  cy.get('[data-cy="artisan-seed-success"]').should('be.visible');
 });
 
 // Form Commands

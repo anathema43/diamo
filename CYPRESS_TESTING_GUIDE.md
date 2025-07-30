@@ -401,18 +401,22 @@ cy.logout();
 cy.navigateToShop();
 cy.navigateToCart();
 cy.navigateToAdmin();
+cy.navigateToArtisans();
 
 // Actions
 cy.addProductToCart('Product Name');
 cy.fillShippingInfo(shippingData);
 cy.selectPaymentMethod('razorpay');
 cy.createProduct(productData);
+cy.searchArtisans('search term');
+cy.filterArtisansByRegion('region');
 
 // Utilities
 cy.waitForPageLoad();
 cy.checkAccessibility();
 cy.setMobileViewport();
 cy.mockRazorpayPayment(true);
+cy.seedArtisanData();
 ```
 
 ---

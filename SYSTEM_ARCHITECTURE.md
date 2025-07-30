@@ -210,12 +210,14 @@ erDiagram
     PRODUCTS ||--o{ WISHLIST_ITEMS : saved_in
     PRODUCTS ||--o{ REVIEWS : receives
     PRODUCTS ||--o{ INVENTORY_LOGS : tracks
+    PRODUCTS ||--o{ ARTISANS : created_by
     
     ORDERS ||--o{ ORDER_ITEMS : contains
     ORDERS ||--o{ PAYMENTS : processed_via
     ORDERS ||--o{ SHIPPING_UPDATES : has
     
     CATEGORIES ||--o{ PRODUCTS : categorizes
+    ARTISANS ||--o{ PRODUCTS : creates
     
     USERS {
         string uid PK
@@ -245,6 +247,31 @@ erDiagram
         boolean featured
         boolean active
         object metadata
+        string artisanId FK
+        string artisan
+        timestamp createdAt
+        timestamp updatedAt
+    }
+    
+    ARTISANS {
+        string id PK
+        string name
+        string title
+        string location
+        string region
+        number experience
+        string profileImage
+        string shortBio
+        string story
+        array specialties
+        array techniques
+        array values
+        string culturalHeritage
+        number familyMembers
+        number rating
+        number reviewCount
+        boolean featured
+        number productCount
         timestamp createdAt
         timestamp updatedAt
     }
@@ -349,6 +376,7 @@ graph LR
         A[Product Listing] --> B[Category Filter]
         A --> C[Search Query]
         A --> D[Pagination]
+        A --> AA[Artisan Filter]
         
         E[User Dashboard] --> F[User Orders]
         E --> G[User Profile]
@@ -358,6 +386,15 @@ graph LR
         I --> K[All Products]
         I --> L[All Users]
         I --> M[Analytics Data]
+        I --> BB[All Artisans]
+        
+        CC[Artisan Directory] --> DD[Featured Artisans]
+        CC --> EE[Regional Filter]
+        CC --> FF[Artisan Search]
+        
+        GG[Artisan Profile] --> HH[Artisan Products]
+        GG --> II[Cultural Heritage]
+        GG --> JJ[Impact Stories]
     end
     
     subgraph "Write Patterns"
@@ -367,6 +404,11 @@ graph LR
         R --> T[Update Inventory]
         U[Admin Actions] --> V[Update Product]
         U --> W[Update Order Status]
+        U --> KK[Manage Artisans]
+        
+        LL[Artisan Management] --> MM[Create Artisan Profile]
+        LL --> NN[Update Cultural Content]
+        LL --> OO[Link Products to Artisans]
     end
     
     subgraph "Real-time Updates"
@@ -375,6 +417,7 @@ graph LR
         BB[Inventory Changes] --> CC[Stock Alerts]
         DD[Cross-tab Synchronization] --> EE[onSnapshot Listeners]
         FF[Wishlist Updates] --> GG[Real-time Sync]
+        PP[Artisan Content] --> QQ[Cultural Updates]
     end
 ```
 

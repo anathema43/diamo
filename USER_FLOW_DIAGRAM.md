@@ -12,12 +12,19 @@
 
 This document provides a detailed visual representation of the user experience flow through the Ramro e-commerce platform.
 
+**NEW: Artisan Discovery Journey**
+```
+🏠 Landing → 👨‍🎨 Artisans → 📖 Stories → 🛍️ Products → 💝 Cultural Connection
+```
+
 ---
 
 ## 📱 **User Flow Overview**
 
 ```
 🏠 Landing → 🛍️ Browse → 🛒 Cart → 💳 Checkout → ✅ Order Complete
+           ↓
+       👨‍🎨 Artisans → 📖 Cultural Stories → 🤝 Emotional Connection
 ```
 
 ---
@@ -38,6 +45,19 @@ This document provides a detailed visual representation of the user experience f
            → 🔍 Search Products
            → 📂 Category Filter
            → 📄 Product Detail
+           → 👨‍🎨 Artisan Profile
+           → 📖 Cultural Story
+```
+
+### **3. Artisan Discovery Flow**
+```
+🏠 Homepage → 👨‍🎨 Artisans Directory
+           → 🔍 Search Artisans
+           → 🗺️ Regional Filter
+           → 📄 Artisan Profile
+           → 📖 Cultural Heritage
+           → 🛍️ Artisan Products
+           → 💝 Impact Story
 ```
 
 ### **3. Shopping & Cart Management**
