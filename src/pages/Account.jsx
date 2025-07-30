@@ -24,16 +24,6 @@ export default function AccountPage() {
           </Link>
         </div>
       </div>
-        <div className="text-center">
-          <h2 className="text-2xl font-bold text-organic-text mb-4">Please login to view your account</h2>
-          <Link 
-            to="/login" 
-            className="bg-organic-primary text-white px-6 py-3 rounded-lg hover:opacity-90"
-          >
-            Login
-          </Link>
-        </div>
-      </div>
     );
   }
 

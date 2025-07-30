@@ -39,10 +39,8 @@ function App() {
       // Set up real-time listeners when user is authenticated
       const { currentUser } = useAuthStore.getState();
       if (currentUser) {
-        const { subscribeToCart } = useCartStore.getState();
         const { subscribeToWishlist } = useWishlistStore.getState();
         subscribeToCart();
-        subscribeToWishlist();
       }
       
       return () => unsub && unsub();
