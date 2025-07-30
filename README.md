@@ -224,4 +224,11 @@ npm install -g firebase-tools@latest
    # Test data integrity (should use only Firestore data)
    ```
 
+6. **Seed Cultural Content**
+   ```bash
+   # Access admin panel and seed artisan profiles
+   # Navigate to /admin and click "Seed Artisan Profiles"
+   # Verify artisan directory at /artisans
+   ```
+
 Your Ramro e-commerce application will be fully set up with enterprise-grade security and ready for development and testing!
