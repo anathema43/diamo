@@ -59,29 +59,46 @@ describe('Product Browsing and Search', () => {
       cy.navigateToShop();
     });
 
-    it('should search products by name', () => {
+    it('should search products with Algolia instant search', () => {
       const searchTerm = 'honey';
       
-      cy.searchProduct(searchTerm);
+      cy.get('[data-cy="algolia-search-input"]').type(searchTerm);
       
-      cy.get('[data-cy="search-results"]').should('be.visible');
-      cy.get('[data-cy="product-card"]').each(($card) => {
+      // Should show instant results
+      cy.get('[data-cy="instant-search-results"]').should('be.visible');
+      cy.get('[data-cy="search-result-item"]').each(($card) => {
         cy.wrap($card).should('contain.text', searchTerm);
       });
     });
 
+    it('should provide autocomplete suggestions', () => {
+      cy.get('[data-cy="algolia-search-input"]').type('him');
+      
+      // Should show autocomplete dropdown
+      cy.get('[data-cy="autocomplete-dropdown"]').should('be.visible');
+      cy.get('[data-cy="suggestion-item"]').should('contain', 'himalayan');
+    });
+
+    it('should handle typo tolerance', () => {
+      cy.get('[data-cy="algolia-search-input"]').type('hony'); // Typo for "honey"
+      
+      // Should still find honey products
+      cy.get('[data-cy="search-result-item"]').should('contain', 'honey');
+    });
+
     it('should show no results message for invalid search', () => {
-      cy.searchProduct('nonexistentproduct123');
+      cy.get('[data-cy="algolia-search-input"]').type('nonexistentproduct123');
       
       cy.get('[data-cy="no-results-message"]').should('be.visible');
       cy.get('[data-cy="no-results-message"]').should('contain', 'No products found');
+      cy.get('[data-cy="search-suggestions"]').should('be.visible');
     });
 
     it('should clear search results', () => {
-      cy.searchProduct('honey');
+      cy.get('[data-cy="algolia-search-input"]').type('honey');
       cy.get('[data-cy="clear-search-button"]').click();
       
-      cy.get('[data-cy="search-input"]').should('have.value', '');
+      cy.get('[data-cy="algolia-search-input"]').should('have.value', '');
       cy.get('[data-cy="product-card"]').should('have.length.greaterThan', 1);
     });
   });
@@ -91,41 +108,50 @@ describe('Product Browsing and Search', () => {
       cy.navigateToShop();
     });
 
-    it('should filter products by category', () => {
-      cy.get('[data-cy="category-filter"]').select('honey');
+    it('should filter products with Algolia faceted search', () => {
+      cy.get('[data-cy="algolia-filters-button"]').click();
+      cy.get('[data-cy="algolia-category-filter"]').within(() => {
+        cy.get('[data-cy="filter-honey"]').check();
+      });
       
-      cy.get('[data-cy="product-card"]').each(($card) => {
+      cy.get('[data-cy="search-result-item"]').each(($card) => {
         cy.wrap($card).within(() => {
           cy.get('[data-cy="product-category"]').should('contain', 'honey');
         });
       });
     });
 
-    it('should filter products by price range', () => {
-      cy.get('[data-cy="price-filter-min"]').type('200');
-      cy.get('[data-cy="price-filter-max"]').type('500');
-      cy.get('[data-cy="apply-price-filter"]').click();
+    it('should filter products by price range with Algolia', () => {
+      cy.get('[data-cy="algolia-filters-button"]').click();
+      cy.get('[data-cy="algolia-price-filter"]').within(() => {
+        cy.get('[data-cy="price-range-slider"]').invoke('val', 500).trigger('input');
+      });
       
-      cy.get('[data-cy="product-card"]').each(($card) => {
+      cy.get('[data-cy="search-result-item"]').each(($card) => {
         cy.wrap($card).within(() => {
           cy.get('[data-cy="product-price"]').invoke('text').then((priceText) => {
             const price = parseInt(priceText.replace(/[^\d]/g, ''));
-            expect(price).to.be.within(200, 500);
+            expect(price).to.be.lessThan(500);
           });
         });
       });
     });
 
-    it('should sort products by price', () => {
-      cy.get('[data-cy="sort-select"]').select('price-low');
+    it('should apply multiple filters simultaneously', () => {
+      cy.get('[data-cy="algolia-filters-button"]').click();
       
-      cy.get('[data-cy="product-price"]').then(($prices) => {
-        const prices = [...$prices].map(el => 
-          parseInt(el.textContent.replace(/[^\d]/g, ''))
-        );
-        const sortedPrices = [...prices].sort((a, b) => a - b);
-        expect(prices).to.deep.equal(sortedPrices);
+      // Apply category filter
+      cy.get('[data-cy="algolia-category-filter"]').within(() => {
+        cy.get('[data-cy="filter-honey"]').check();
       });
+      
+      // Apply rating filter
+      cy.get('[data-cy="algolia-rating-filter"]').within(() => {
+        cy.get('[data-cy="rating-4-plus"]').click();
+      });
+      
+      // Should show filtered results
+      cy.get('[data-cy="search-result-item"]').should('be.visible');
     });
   });
 
