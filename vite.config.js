@@ -36,7 +36,7 @@ export default defineConfig({
   },
   optimizeDeps: {
     include: ['react', 'react-dom', 'firebase/app', 'firebase/auth', 'firebase/firestore'],
-    exclude: ['react-dom/client']
+    exclude: []
   },
   server: {
     port: 5173,
