@@ -34,6 +34,8 @@
     "cy:run:artisans": "cypress run --headless --spec 'cypress/e2e/17-artisan-cultural-content.cy.js'",
     "cy:run:critical": "cypress run --headless --spec 'cypress/e2e/01-authentication.cy.js,cypress/e2e/13-security-testing.cy.js,cypress/e2e/12-real-time-features.cy.js'",
     "cy:run:cultural": "cypress run --headless --spec 'cypress/e2e/17-artisan-cultural-content.cy.js'",
+    "cy:run:core": "cypress run --headless --spec 'cypress/e2e/01-authentication.cy.js,cypress/e2e/02-shopping-cart.cy.js,cypress/e2e/03-checkout.cy.js'",
+    "cy:run:user-features": "cypress run --headless --spec 'cypress/e2e/01-authentication.cy.js,cypress/e2e/02-shopping-cart.cy.js'",
     "test:security": "vitest run --reporter=verbose src/**/*.security.test.js",
     "test:integration": "vitest run --reporter=verbose src/**/*.integration.test.js",
     "test:all-comprehensive": "npm run test && npm run test:security && npm run cy:run:all",
