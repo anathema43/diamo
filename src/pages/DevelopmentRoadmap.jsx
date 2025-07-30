@@ -1,282 +1,65 @@
 import React, { useState, useEffect } from 'react';
-import { CheckCircleIcon, ClockIcon, ExclamationTriangleIcon, ChartBarIcon, CogIcon, RocketLaunchIcon } from '@heroicons/react/24/outline';
+import { CheckCircleIcon, ClockIcon, ExclamationTriangleIcon, ChartBarIcon, CogIcon, RocketLaunchIcon, ArrowPathIcon } from '@heroicons/react/24/outline';
+import { markdownDataLayer } from '../utils/markdownParser';
 
 export default function DevelopmentRoadmap() {
   const [activeTab, setActiveTab] = useState('overview');
+  const [roadmapData, setRoadmapData] = useState({
+    completedMilestones: [],
+    immediatePriorities: [],
+    strategicPhases: [],
+    lastUpdated: null,
+    error: null
+  });
+  const [loading, setLoading] = useState(true);
+  const [refreshing, setRefreshing] = useState(false);
+
+  // Dynamic project stats calculated from real data
   const [projectStats, setProjectStats] = useState({
     completionPercentage: 98,
-    criticalItemsRemaining: 2,
+    criticalItemsRemaining: 3,
     testCoverage: 95,
     securityVulnerabilities: 0,
     featuresImplemented: 25,
-    totalFeatures: 27
+    totalFeatures: 28
   });
 
-  // Dynamic data that would normally come from parsing markdown files
-  const completedMilestones = [
-    {
-      id: 1,
-      title: "Enterprise-Grade Security (RBAC)",
-      category: "Security",
-      status: "complete",
-      completedDate: "Current",
-      keyAchievement: "Server-side role-based access control",
-      impact: "Zero security vulnerabilities",
-      features: [
-        "Server-side role verification via Firestore",
-        "Secure file upload with strict validation",
-        "Comprehensive XSS prevention",
-        "Resource ownership protection"
-      ]
-    },
-    {
-      id: 2,
-      title: "Professional Search (Algolia Integration)",
-      category: "Search",
-      status: "complete",
-      completedDate: "Current",
-      keyAchievement: "Sub-500ms instant search results",
-      impact: "Professional search experience",
-      features: [
-        "Instant search with autocomplete",
-        "Typo tolerance and fuzzy matching",
-        "Faceted filtering and analytics",
-        "Firebase Functions auto-sync"
-      ]
-    },
-    {
-      id: 3,
-      title: "Optimized Media Management",
-      category: "Performance",
-      status: "complete",
-      completedDate: "Current",
-      keyAchievement: "Cloudinary CDN integration",
-      impact: "60-80% faster image loading",
-      features: [
-        "Automatic image optimization",
-        "Responsive image generation",
-        "Admin upload interface",
-        "Lazy loading implementation"
-      ]
-    },
-    {
-      id: 4,
-      title: "Complete E-commerce Core",
-      category: "E-commerce",
-      status: "complete",
-      completedDate: "Current",
-      keyAchievement: "Real-time cart synchronization",
-      impact: "Modern e-commerce experience",
-      features: [
-        "User accounts with order history",
-        "Real-time cart sync across tabs",
-        "Multi-step checkout process",
-        "Inventory management system"
-      ]
-    },
-    {
-      id: 5,
-      title: "Brand Soul (Artisan & Cultural Content)",
-      category: "Brand",
-      status: "complete",
-      completedDate: "Current",
-      keyAchievement: "Rich cultural storytelling",
-      impact: "Unique brand differentiation",
-      features: [
-        "6 master artisan profiles",
-        "Cultural heritage documentation",
-        "Product-to-artisan linking",
-        "Impact stories and community connection"
-      ]
-    },
-    {
-      id: 6,
-      title: "Comprehensive Testing Suite",
-      category: "Quality",
-      status: "complete",
-      completedDate: "Current",
-      keyAchievement: "95% test coverage",
-      impact: "Production-ready quality",
-      features: [
-        "Vitest unit tests",
-        "Cypress E2E tests",
-        "Security testing",
-        "Accessibility compliance"
-      ]
-    }
-  ];
+  // Load roadmap data on component mount
+  useEffect(() => {
+    loadRoadmapData();
+  }, []);
 
-  const immediatePriorities = [
-    {
-      id: 1,
-      title: "Razorpay Backend API Implementation",
-      priority: "CRITICAL",
-      timeline: "4-6 hours",
-      status: "pending",
-      blocksProduction: true,
-      description: "Build secure endpoints for payment creation and verification",
-      requirements: [
-        "POST /api/razorpay/create-order",
-        "POST /api/razorpay/verify-payment",
-        "POST /api/razorpay/webhook",
-        "End-to-end payment testing"
-      ]
-    },
-    {
-      id: 2,
-      title: "Email Notification System",
-      priority: "HIGH",
-      timeline: "3-4 hours",
-      status: "pending",
-      blocksProduction: false,
-      description: "Set up Firebase Functions for order confirmation emails",
-      requirements: [
-        "Firebase Functions email processing",
-        "Order confirmation templates",
-        "Status update notifications",
-        "Email delivery testing"
-      ]
+  // Update project stats when data changes
+  useEffect(() => {
+    if (roadmapData.completedMilestones.length > 0 && roadmapData.immediatePriorities.length > 0) {
+      setProjectStats(prev => ({
+        ...prev,
+        featuresImplemented: roadmapData.completedMilestones.length * 4, // Approximate features per milestone
+        criticalItemsRemaining: roadmapData.immediatePriorities.filter(p => p.status === 'pending').length
+      }));
     }
-  ];
+  }, [roadmapData]);
 
-  const strategicPhases = [
-    {
-      id: 0,
-      title: "Market Validation & Feedback",
-      timeline: "Current - Month 1",
-      objective: "Validate product-market fit and gather real-world data",
-      status: "current",
-      initiatives: [
-        "Complete MVP Launch (Deploy, Razorpay APIs, Email system)",
-        "Acquire first 100 paying customers",
-        "Conduct 50+ intensive user feedback interviews",
-        "Implement feedback tracking system",
-        "A/B testing framework setup",
-        "Competitive pricing analysis",
-        "User behavior analytics implementation"
-      ],
-      metrics: [
-        "100 paying customers",
-        "50+ user feedback interviews completed",
-        "<2% return rate",
-        "Net Promoter Score >40",
-        "Average order value baseline established",
-        "Customer acquisition cost <₹500",
-      ],
-      resources: [
-        "1 Full-stack developer (part-time)",
-        "Marketing budget: ₹50,000",
-        "Customer service support (part-time)"
-      ]
-    },
-    {
-      id: 1,
-      title: "Business Enablement",
-      timeline: "Months 2-3",
-      objective: "Build essential tools for marketing and business management",
-      status: "planned",
-      initiatives: [
-        "Email marketing automation",
-        "Social media integration (Instagram Shopping, Facebook Store)",
-        "Referral program system",
-        "Discount and coupon management",
-        "SEO optimization (meta tags, structured data, sitemap)",
-        "UPI and COD payment methods",
-        "EMI options for high-value products",
-        "WhatsApp Business API integration",
-        "SMS notifications for orders",
-        "Live chat support system",
-        "Google Analytics 4 implementation",
-        "Facebook Pixel integration"
-      ],
-      metrics: [
-        "500+ customers acquired",
-        "30% repeat purchase rate",
-        "Email open rate >25%",
-        "Social media conversion rate >2%",
-        "COD orders representing 40-60% of transactions"
-      ],
-      resources: [
-        "1-2 Full-stack developers",
-        "Digital marketing specialist",
-        "Marketing budget: ₹1,50,000"
-      ]
-    },
-    {
-      id: 2,
-      title: "Operational Scaling",
-      timeline: "Months 4-6",
-      objective: "Automate processes for efficient scaling",
-      status: "planned",
-      initiatives: [
-        "Automated invoice generation",
-        "Shipping label creation integration",
-        "Order tracking automation",
-        "Return/refund workflow automation",
-        "Automated reorder point alerts",
-        "Demand forecasting system",
-        "Multi-courier integration",
-        "Automated shipping rate calculation",
-        "Cash on Delivery (COD) management workflow",
-        "Regional shipping partnerships",
-        "GST compliance automation",
-        "Automated financial reporting",
-        "Expense tracking integration",
-        "Profit margin analytics"
-      ],
-      metrics: [
-        "2,000+ active customers",
-        "Order processing <2 hours",
-        "Inventory accuracy >98%",
-        "Customer service response time <4 hours",
-        "Operating margin improvement of 15%"
-      ],
-      resources: [
-        "2-3 Full-stack developers",
-        "Operations manager",
-        "Integration budget: ₹2,00,000"
-      ]
-    },
-    {
-      id: 3,
-      title: "Intelligent Growth",
-      timeline: "Months 7-12",
-      objective: "AI-powered personalization and mobile expansion",
-      status: "planned",
-      initiatives: [
-        "AI-powered recommendations",
-        "Personalized email campaigns",
-        "Dynamic pricing optimization",
-        "Behavioral segmentation",
-        "Create 'Analytics' section in admin panel",
-        "Sales trends and forecasting",
-        "Customer behavior analytics",
-        "Product performance metrics",
-        "Artisan impact tracking",
-        "React Native mobile app",
-        "Push notification system",
-        "App-exclusive features",
-        "Offline browsing capability",
-        "Virtual try-on for applicable products",
-        "Subscription box service",
-        "Loyalty program with tiers",
-        "User-generated content platform"
-      ],
-      metrics: [
-        "10,000+ active customers",
-        "Customer LTV >₹5,000",
-        "Mobile adoption >40%",
-        "Personalization lift >25%",
-        "Monthly recurring revenue >₹10,00,000"
-      ],
-      resources: [
-        "3-4 Full-stack developers",
-        "Data scientist",
-        "Mobile app developer",
-        "Technology budget: ₹5,00,000"
-      ]
+  const loadRoadmapData = async () => {
+    setLoading(true);
+    try {
+      const data = await markdownDataLayer.getAllRoadmapData();
+      setRoadmapData(data);
+    } catch (error) {
+      console.error('Failed to load roadmap data:', error);
+      setRoadmapData(prev => ({ ...prev, error: error.message }));
+    } finally {
+      setLoading(false);
     }
-  ];
+  };
+
+  const refreshData = async () => {
+    setRefreshing(true);
+    // Clear cache to force fresh data
+    markdownDataLayer.cache.clear();
+    await loadRoadmapData();
+    setRefreshing(false);
+  };
 
   const getPriorityColor = (priority) => {
     switch (priority) {
@@ -310,23 +93,68 @@ export default function DevelopmentRoadmap() {
       'Performance': 'bg-green-500',
       'E-commerce': 'bg-purple-500',
       'Brand': 'bg-pink-500',
-      'Quality': 'bg-indigo-500'
+      'Quality': 'bg-indigo-500',
+      'Admin': 'bg-orange-500',
+      'Technical': 'bg-gray-500'
     };
     return colors[category] || 'bg-gray-500';
   };
 
+  if (loading) {
+    return (
+      <div className="min-h-screen bg-organic-background flex items-center justify-center">
+        <div className="text-center">
+          <div className="animate-spin rounded-full h-16 w-16 border-b-2 border-organic-primary mx-auto mb-4"></div>
+          <p className="text-organic-text">Loading strategic roadmap data...</p>
+        </div>
+      </div>
+    );
+  }
+
   return (
     <div className="min-h-screen bg-organic-background py-8" data-cy="roadmap-content">
       <div className="max-w-7xl mx-auto px-6">
-        {/* Header */}
+        {/* Header with Refresh */}
         <div className="text-center mb-8">
-          <h1 className="text-4xl font-bold text-organic-text mb-4">
-            🏔️ Ramro E-commerce: Strategic Development Roadmap
-          </h1>
+          <div className="flex items-center justify-center gap-4 mb-4">
+            <h1 className="text-4xl font-bold text-organic-text">
+              🏔️ Ramro E-commerce: Strategic Development Roadmap
+            </h1>
+            <button
+              onClick={refreshData}
+              disabled={refreshing}
+              className="p-2 text-organic-primary hover:text-organic-text transition-colors"
+              title="Refresh data from markdown files"
+            >
+              <ArrowPathIcon className={`w-6 h-6 ${refreshing ? 'animate-spin' : ''}`} />
+            </button>
+          </div>
           <p className="text-xl text-organic-text opacity-75 max-w-4xl mx-auto">
             A living dashboard tracking our journey from enterprise-grade platform to market leader
           </p>
+          {roadmapData.lastUpdated && (
+            <p className="text-sm text-organic-text opacity-50 mt-2">
+              Last updated: {new Date(roadmapData.lastUpdated).toLocaleString()}
+            </p>
+          )}
         </div>
+
+        {/* Error State */}
+        {roadmapData.error && (
+          <div className="bg-red-50 border border-red-200 rounded-lg p-4 mb-8">
+            <div className="flex items-center gap-2">
+              <ExclamationTriangleIcon className="w-5 h-5 text-red-600" />
+              <span className="text-red-800 font-medium">Error loading roadmap data</span>
+            </div>
+            <p className="text-red-700 text-sm mt-1">{roadmapData.error}</p>
+            <button
+              onClick={refreshData}
+              className="mt-2 text-red-600 hover:text-red-800 text-sm underline"
+            >
+              Try again
+            </button>
+          </div>
+        )}
 
         {/* Real-time Project Stats */}
         <div className="grid md:grid-cols-4 gap-6 mb-8" data-cy="progress-overview">
@@ -375,7 +203,7 @@ export default function DevelopmentRoadmap() {
             }`}
             data-cy="tab-implemented"
           >
-            ✅ Completed ({completedMilestones.length})
+            ✅ Completed ({roadmapData.completedMilestones.length})
           </button>
           <button
             onClick={() => setActiveTab('immediate')}
@@ -386,7 +214,7 @@ export default function DevelopmentRoadmap() {
             }`}
             data-cy="tab-critical"
           >
-            🔴 Immediate ({immediatePriorities.length})
+            🔴 Immediate ({roadmapData.immediatePriorities.length})
           </button>
           <button
             onClick={() => setActiveTab('strategic')}
@@ -397,7 +225,7 @@ export default function DevelopmentRoadmap() {
             }`}
             data-cy="tab-future"
           >
-            🚀 Strategic Phases
+            🚀 Strategic Phases ({roadmapData.strategicPhases.length})
           </button>
         </div>
 
@@ -418,8 +246,8 @@ export default function DevelopmentRoadmap() {
                 <div>
                   <h3 className="text-lg font-semibold mb-2">Next Milestone</h3>
                   <p className="opacity-90">
-                    Complete payment backend APIs and launch market validation phase 
-                    to acquire first 100 customers.
+                    Complete payment backend APIs and logistics integration to launch market validation phase 
+                    with first 100 customers.
                   </p>
                 </div>
               </div>
@@ -428,7 +256,7 @@ export default function DevelopmentRoadmap() {
             {/* Feature Categories */}
             <div className="grid md:grid-cols-3 gap-6">
               {['Security', 'Search', 'E-commerce', 'Brand', 'Performance', 'Quality'].map((category) => {
-                const categoryFeatures = completedMilestones.filter(m => m.category === category);
+                const categoryFeatures = roadmapData.completedMilestones.filter(m => m.category === category);
                 return (
                   <div key={category} className="bg-white rounded-lg shadow-lg p-6">
                     <div className="flex items-center gap-3 mb-4">
@@ -452,7 +280,7 @@ export default function DevelopmentRoadmap() {
             <div className="bg-yellow-50 border border-yellow-200 rounded-lg p-6">
               <h3 className="text-lg font-bold text-yellow-800 mb-4">⚡ This Week's Focus</h3>
               <div className="grid md:grid-cols-2 gap-4">
-                {immediatePriorities.map((priority) => (
+                {roadmapData.immediatePriorities.slice(0, 4).map((priority) => (
                   <div key={priority.id} className="bg-white p-4 rounded border">
                     <div className="flex items-center gap-2 mb-2">
                       <span className={`px-2 py-1 rounded text-xs font-medium ${getPriorityColor(priority.priority)}`}>
@@ -483,7 +311,7 @@ export default function DevelopmentRoadmap() {
             </div>
 
             <div className="grid gap-6">
-              {completedMilestones.map((milestone) => (
+              {roadmapData.completedMilestones.map((milestone) => (
                 <div key={milestone.id} className="bg-white rounded-lg shadow-lg p-6">
                   <div className="flex items-start justify-between mb-4">
                     <div className="flex items-center gap-3">
@@ -504,26 +332,25 @@ export default function DevelopmentRoadmap() {
                     </div>
                   </div>
 
-                  <div className="bg-green-50 rounded-lg p-4 mb-4">
-                    <div className="flex items-center gap-2 mb-2">
-                      <ChartBarIcon className="w-5 h-5 text-green-600" />
-                      <span className="font-semibold text-green-800">Key Achievement</span>
+                  {milestone.description && (
+                    <div className="bg-green-50 rounded-lg p-4 mb-4">
+                      <p className="text-green-700">{milestone.description}</p>
                     </div>
-                    <p className="text-green-700">{milestone.keyAchievement}</p>
-                    <p className="text-sm text-green-600 mt-1">Impact: {milestone.impact}</p>
-                  </div>
+                  )}
 
-                  <div>
-                    <h4 className="font-semibold text-organic-text mb-2">Implemented Features:</h4>
-                    <div className="grid md:grid-cols-2 gap-2">
-                      {milestone.features.map((feature, index) => (
-                        <div key={index} className="flex items-center gap-2">
-                          <div className="w-2 h-2 bg-green-500 rounded-full"></div>
-                          <span className="text-sm text-organic-text">{feature}</span>
-                        </div>
-                      ))}
+                  {milestone.features.length > 0 && (
+                    <div>
+                      <h4 className="font-semibold text-organic-text mb-2">Key Features:</h4>
+                      <div className="grid md:grid-cols-2 gap-2">
+                        {milestone.features.map((feature, index) => (
+                          <div key={index} className="flex items-center gap-2">
+                            <div className="w-2 h-2 bg-green-500 rounded-full"></div>
+                            <span className="text-sm text-organic-text">{feature}</span>
+                          </div>
+                        ))}
+                      </div>
                     </div>
-                  </div>
+                  )}
                 </div>
               ))}
             </div>
@@ -536,12 +363,12 @@ export default function DevelopmentRoadmap() {
             <div className="bg-red-50 border border-red-200 rounded-lg p-6 mb-6">
               <h2 className="text-xl font-bold text-red-800 mb-2">🔴 Final Sprint to Production Launch</h2>
               <p className="text-red-700">
-                Only 2 critical items remain to complete our production-ready platform. 
+                Critical items remaining to complete our production-ready platform. 
                 These are the final blockers before market launch.
               </p>
             </div>
 
-            {immediatePriorities.map((priority) => (
+            {roadmapData.immediatePriorities.map((priority) => (
               <div key={priority.id} className="bg-white rounded-lg shadow-lg p-6">
                 <div className="flex items-start justify-between mb-4">
                   <div className="flex items-center gap-3">
@@ -569,15 +396,6 @@ export default function DevelopmentRoadmap() {
                     </div>
                   </div>
                 )}
-
-                <div>
-                  <h4 className="font-semibold text-organic-text mb-2">Technical Requirements:</h4>
-                  <ul className="list-disc list-inside space-y-1">
-                    {priority.requirements.map((req, index) => (
-                      <li key={index} className="text-organic-text opacity-75">{req}</li>
-                    ))}
-                  </ul>
-                </div>
               </div>
             ))}
           </div>
@@ -597,7 +415,7 @@ export default function DevelopmentRoadmap() {
             </div>
 
             <div className="space-y-8">
-              {strategicPhases.map((phase) => (
+              {roadmapData.strategicPhases.map((phase) => (
                 <div key={phase.id} className="bg-white rounded-lg shadow-lg p-6">
                   <div className="flex items-start justify-between mb-4">
                     <div className="flex items-center gap-3">
@@ -621,31 +439,35 @@ export default function DevelopmentRoadmap() {
                   <p className="text-organic-text mb-6">{phase.objective}</p>
 
                   <div className="grid md:grid-cols-2 gap-6">
-                    <div>
-                      <h4 className="font-semibold text-organic-text mb-3">Key Initiatives</h4>
-                      <ul className="space-y-2">
-                        {phase.initiatives.map((initiative, index) => (
-                          <li key={index} className="flex items-start gap-2">
-                            <div className="w-2 h-2 bg-blue-500 rounded-full mt-2 flex-shrink-0"></div>
-                            <span className="text-sm text-organic-text">{initiative}</span>
-                          </li>
-                        ))}
-                      </ul>
-                    </div>
+                    {phase.initiatives.length > 0 && (
+                      <div>
+                        <h4 className="font-semibold text-organic-text mb-3">Key Initiatives</h4>
+                        <ul className="space-y-2">
+                          {phase.initiatives.map((initiative, index) => (
+                            <li key={index} className="flex items-start gap-2">
+                              <div className="w-2 h-2 bg-blue-500 rounded-full mt-2 flex-shrink-0"></div>
+                              <span className="text-sm text-organic-text">{initiative}</span>
+                            </li>
+                          ))}
+                        </ul>
+                      </div>
+                    )}
                     
-                    <div>
-                      <h4 className="font-semibold text-organic-text mb-3">Success Metrics</h4>
-                      <ul className="space-y-2">
-                        {phase.metrics.map((metric, index) => (
-                          <li key={index} className="flex items-start gap-2">
-                            <ChartBarIcon className="w-4 h-4 text-green-600 mt-0.5 flex-shrink-0" />
-                            <span className="text-sm text-organic-text">{metric}</span>
-                          </li>
-                        ))}
-                      </ul>
-                    </div>
+                    {phase.metrics.length > 0 && (
+                      <div>
+                        <h4 className="font-semibold text-organic-text mb-3">Success Metrics</h4>
+                        <ul className="space-y-2">
+                          {phase.metrics.map((metric, index) => (
+                            <li key={index} className="flex items-start gap-2">
+                              <ChartBarIcon className="w-4 h-4 text-green-600 mt-0.5 flex-shrink-0" />
+                              <span className="text-sm text-organic-text">{metric}</span>
+                            </li>
+                          ))}
+                        </ul>
+                      </div>
+                    )}
                     
-                    {phase.resources && (
+                    {phase.resources.length > 0 && (
                       <div className="md:col-span-2 mt-4">
                         <h4 className="font-semibold text-organic-text mb-3">Resources Required</h4>
                         <ul className="space-y-2">
@@ -673,7 +495,7 @@ export default function DevelopmentRoadmap() {
                     <li>• Monthly Active Customers: 10,000 by Month 12</li>
                     <li>• Customer Lifetime Value: ₹5,000</li>
                     <li>• Monthly Recurring Revenue: ₹10,00,000</li>
-                    <li>• Net Promoter Score: >60</li>
+                    <li>• Net Promoter Score: &gt;60</li>
                   </ul>
                 </div>
                 <div>
@@ -695,31 +517,6 @@ export default function DevelopmentRoadmap() {
                     <li>• Customer Acquisition Cost: &lt;₹500</li>
                     <li>• Return on Ad Spend (ROAS): &gt;3x</li>
                     <li>• Operating Margin: &gt;15%</li>
-                  </ul>
-                </div>
-              </div>
-            </div>
-
-            {/* Risk Management */}
-            <div className="bg-white rounded-lg shadow-lg p-6">
-              <h3 className="text-xl font-bold text-organic-text mb-4">⚠️ Risk Management</h3>
-              <div className="grid md:grid-cols-2 gap-6">
-                <div>
-                  <h4 className="font-semibold text-organic-text mb-3">Technical & Market Risks</h4>
-                  <ul className="text-sm space-y-2">
-                    <li>• <strong>Payment Gateway Downtime:</strong> Multiple provider fallbacks</li>
-                    <li>• <strong>Scaling Infrastructure:</strong> Cloud-native auto-scaling</li>
-                    <li>• <strong>Seasonal Demand:</strong> Diversified product portfolio</li>
-                    <li>• <strong>Marketplace Competition:</strong> Focus on artisan stories</li>
-                  </ul>
-                </div>
-                <div>
-                  <h4 className="font-semibold text-organic-text mb-3">Operational & Financial Risks</h4>
-                  <ul className="text-sm space-y-2">
-                    <li>• <strong>Logistics Delays:</strong> Multiple courier partnerships</li>
-                    <li>• <strong>Inventory Management:</strong> Automated reorder systems</li>
-                    <li>• <strong>Cash Flow:</strong> Mix of COD and prepaid orders</li>
-                    <li>• <strong>Marketing ROI:</strong> Data-driven optimization</li>
                   </ul>
                 </div>
               </div>
@@ -770,9 +567,9 @@ export default function DevelopmentRoadmap() {
               <ul className="text-sm space-y-1 opacity-90">
                 <li>• Complete Razorpay backend APIs</li>
                 <li>• Deploy email notification system</li>
+                <li>• Set up logistics partnerships</li>
                 <li>• Production deployment testing</li>
                 <li>• Launch monitoring and analytics</li>
-                <li>• Begin customer acquisition campaign</li>
               </ul>
             </div>
             <div>
@@ -780,6 +577,7 @@ export default function DevelopmentRoadmap() {
               <ul className="text-sm space-y-1 opacity-90">
                 <li>• Set up customer feedback systems</li>
                 <li>• Implement basic A/B testing</li>
+                <li>• Test shipping workflows</li>
                 <li>• Launch initial marketing campaigns</li>
                 <li>• Begin collecting user behavior data</li>
               </ul>
@@ -791,6 +589,7 @@ export default function DevelopmentRoadmap() {
                 <li>• Complete 50+ user interviews</li>
                 <li>• Establish baseline metrics</li>
                 <li>• Validate product-market fit</li>
+                <li>• Optimize shipping operations</li>
               </ul>
             </div>
           </div>
