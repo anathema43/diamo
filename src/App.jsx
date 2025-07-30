@@ -31,25 +31,27 @@ import LoadingSpinner from "./components/LoadingSpinner";
 
 function App() {
   const { fetchUser, loading } = useAuthStore();
-  const { loadCart } = useCartStore();
+  const { loadCart, subscribeToCart } = useCartStore();
+  const { loadWishlist, subscribeToWishlist } = useWishlistStore();
   
   useEffect(() => {
     try {
       const unsub = fetchUser();
       loadCart();
+      loadWishlist();
       
       // Set up real-time listeners when user is authenticated
       const { currentUser } = useAuthStore.getState();
       if (currentUser) {
-        const { subscribeToWishlist } = useWishlistStore.getState();
         subscribeToCart();
+        subscribeToWishlist();
       }
       
       return () => unsub && unsub();
     } catch (error) {
       console.log("Auth not configured yet");
     }
-  }, [fetchUser, loadCart]);
+  }, [fetchUser, loadCart, loadWishlist, subscribeToCart, subscribeToWishlist]);
 
   if (loading) {
     return <LoadingSpinner />;
@@ -101,9 +103,7 @@ function App() {
               </ProtectedRoute>
             } />
             <Route path="/wishlist" element={
-              <ProtectedRoute>
                 <Wishlist />
-              </ProtectedRoute>
             } />
             
             {/* Admin Routes */}
