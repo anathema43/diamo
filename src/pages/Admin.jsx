@@ -1,4 +1,6 @@
 import React, { useEffect, useState } from "react";
+import ImageUpload from "../components/ImageUpload";
+import BulkProductUpload from "../components/BulkProductUpload";
 import AdminSeedButton from "../components/AdminSeedButton";
 import ArtisanSeedButton from "../components/ArtisanSeedButton";
 import ImageUpload from "../components/ImageUpload";
@@ -10,6 +12,7 @@ import formatCurrency from "../utils/formatCurrency";
 import LoadingSpinner from "../components/LoadingSpinner";
 import { TrashIcon, PencilIcon, ExclamationTriangleIcon } from "@heroicons/react/24/outline";
 import { cloudinaryService } from "../services/cloudinaryService";
+import { cloudinaryService } from "../services/cloudinaryService";
 
 const emptyProduct = {
   name: "",
@@ -17,6 +20,9 @@ const emptyProduct = {
   price: "",
   image: "",
   quantityAvailable: "",
+  category: "",
+  cloudinaryPublicId: "",
+  optimizedImageUrl: ""
   category: "",
   cloudinaryPublicId: "",
   optimizedImageUrl: ""
@@ -51,6 +57,7 @@ export default function Admin() {
   const [isEdit, setIsEdit] = useState(false);
   const [productForm, setProductForm] = useState(emptyProduct);
   const [editId, setEditId] = useState(null);
+  const [imageUploadError, setImageUploadError] = useState("");
   const [trackingForm, setTrackingForm] = useState({});
   const [imageUploadError, setImageUploadError] = useState("");
 
@@ -77,6 +84,14 @@ export default function Admin() {
       price: parseFloat(productForm.price),
       quantityAvailable: parseInt(productForm.quantityAvailable),
       image: productForm.optimizedImageUrl || productForm.image
+    };
+
+    if (isEdit) {
+      updateProduct(editId, productData);
+    } else {
+      addProduct(productData);
+    }
+    
     };
 
     if (isEdit) {
@@ -119,8 +134,41 @@ export default function Admin() {
       fetchProducts();
     }
   };
+  const handleImageUpload = (imageData) => {
+    if (imageData) {
+      setProductForm(prev => ({
+        ...prev,
+        image: imageData.optimizedUrl,
+        cloudinaryPublicId: imageData.publicId,
+        optimizedImageUrl: imageData.optimizedUrl
+      }));
+      setImageUploadError("");
+    } else {
+      setProductForm(prev => ({
+        ...prev,
+        image: "",
+        cloudinaryPublicId: "",
+        optimizedImageUrl: ""
+      }));
+    }
+  };
+
+  const handleImageUploadError = (error) => {
+    setImageUploadError(error);
+  };
+
+  const handleBulkUploadComplete = (result) => {
+    if (result.successCount > 0) {
+      // Refresh products list
+      fetchProducts();
+    }
+  };
   const handleEdit = (product) => {
     setProductForm({
+      ...product,
+      price: product.price.toString(),
+      quantityAvailable: product.quantityAvailable.toString()
+    });
       ...product,
       price: product.price.toString(),
       quantityAvailable: product.quantityAvailable.toString()
@@ -194,6 +242,12 @@ export default function Admin() {
             id="products" 
             label="Products" 
             active={activeTab === 'products'} 
+            onClick={setActiveTab} 
+          />
+          <TabButton 
+            id="bulk-upload" 
+            label="Bulk Upload" 
+            active={activeTab === 'bulk-upload'} 
             onClick={setActiveTab} 
           />
           <TabButton 
@@ -338,8 +392,176 @@ export default function Admin() {
                   placeholder="Product Name"
                   className="border rounded-lg p-3 focus:ring-2 focus:ring-organic-primary focus:border-transparent"
                   required
+                  data-cy="product-name"
                 />
                 <input
+                  name="category"
+                  value={productForm.category}
+                  onChange={handleChange}
+                  list="categories"
+                  placeholder="Select or enter category"
+                  className="border rounded-lg p-3 focus:ring-2 focus:ring-organic-primary focus:border-transparent"
+                  required
+                  data-cy="product-category"
+                />
+                <datalist id="categories">
+                  <option value="pickle">Pickles</option>
+                  <option value="honey">Honey</option>
+                  <option value="grains">Grains</option>
+                  <option value="spices">Spices</option>
+                  <option value="dairy">Dairy</option>
+                </datalist>
+                <input
+                  name="price"
+                  value={productForm.price}
+                  onChange={handleChange}
+                  type="number"
+                  min="1"
+                  step="0.01"
+                  placeholder="Price"
+                  className="border rounded-lg p-3 focus:ring-2 focus:ring-organic-primary focus:border-transparent"
+                  required
+                  data-cy="product-price"
+                />
+                <input
+                  name="quantityAvailable"
+                  value={productForm.quantityAvailable}
+                  onChange={handleChange}
+                  type="number"
+                  min="0"
+                  placeholder="Available Quantity"
+                  className="border rounded-lg p-3 focus:ring-2 focus:ring-organic-primary focus:border-transparent"
+                  required
+                  data-cy="product-quantity"
+                />
+                <input
+                  name="sku"
+                  value={productForm.sku || ''}
+                  onChange={handleChange}
+                  placeholder="Product SKU"
+                  className="border rounded-lg p-3 focus:ring-2 focus:ring-organic-primary focus:border-transparent"
+                />
+                
+                {/* Image Upload Section */}
+                <div className="col-span-1 md:col-span-2">
+                  <label className="block text-sm font-medium text-gray-700 mb-2">
+                    Product Image
+                  </label>
+                  <ImageUpload
+                    onImageUploaded={handleImageUpload}
+                    onError={handleImageUploadError}
+                    currentImage={productForm.image}
+                    folder="ramro/products"
+                  />
+                  {imageUploadError && (
+                    <p className="mt-2 text-sm text-red-600" data-cy="file-type-error">{imageUploadError}</p>
+                  )}
+                </div>
+                
+                <textarea
+                  name="description"
+                  value={productForm.description}
+                  onChange={handleChange}
+                  placeholder="Product Description"
+                  className="border rounded-lg p-3 col-span-1 md:col-span-2 focus:ring-2 focus:ring-organic-primary focus:border-transparent"
+                  rows={3}
+                  required
+                  data-cy="product-description"
+                />
+                <button
+                  type="submit"
+                  className="bg-organic-primary text-white px-6 py-3 rounded-lg hover:opacity-90 col-span-1 md:col-span-2 font-semibold"
+                  data-cy="save-product-button"
+                >
+                  {isEdit ? "Update Product" : "Add Product"}
+                </button>
+              </form>
+            </div>
+
+            {/* Products List */}
+            <div className="bg-white p-6 rounded-lg shadow-lg">
+              <h2 className="text-xl font-semibold text-organic-text mb-4">Products ({products.length})</h2>
+              <div className="overflow-x-auto">
+                <table className="w-full">
+                  <thead>
+                    <tr className="border-b">
+                      <th className="text-left py-2">Image</th>
+                      <th className="text-left py-2">Name</th>
+                      <th className="text-left py-2">Category</th>
+                      <th className="text-left py-2">Price</th>
+                      <th className="text-left py-2">Stock</th>
+                      <th className="text-left py-2">SKU</th>
+                      <th className="text-left py-2">Actions</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {products.map((product) => (
+                      <tr key={product.id} className="border-b">
+                        <td className="py-2">
+                          <img 
+                            src={product.image} 
+                            alt={product.name} 
+                            className="w-12 h-12 object-cover rounded"
+                          />
+                        </td>
+                        <td className="py-2 font-medium">{product.name}</td>
+                        <td className="py-2 capitalize">{product.category}</td>
+                        <td className="py-2 font-semibold">{formatCurrency(product.price)}</td>
+                        <td className="py-2">
+                          <span className={`px-2 py-1 rounded-full text-xs font-medium ${
+                            product.quantityAvailable > 10 ? 'bg-green-100 text-green-800' :
+                            product.quantityAvailable > 0 ? 'bg-yellow-100 text-yellow-800' :
+                            'bg-red-100 text-red-800'
+                          }`}>
+                            {product.quantityAvailable}
+                          </span>
+                        </td>
+                        <td className="py-2 text-sm text-gray-600">{product.sku || 'N/A'}</td>
+                        <td className="py-2">
+                          <div className="flex gap-2">
+                            <button
+                              onClick={() => handleEdit(product)}
+                              className="p-1 text-blue-600 hover:text-blue-800"
+                              title="Edit Product"
+                            >
+                              <PencilIcon className="w-4 h-4" />
+                            </button>
+                            <button
+                              onClick={() => handleDelete(product.id)}
+                              className="p-1 text-red-600 hover:text-red-800"
+                              title="Delete Product"
+                            >
+                              <TrashIcon className="w-4 h-4" />
+                            </button>
+                          </div>
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        )}
+
+        {/* Bulk Upload Tab */}
+        {activeTab === 'bulk-upload' && (
+          <div className="space-y-8">
+            <div className="bg-yellow-50 border border-yellow-200 rounded-lg p-6">
+              <h2 className="text-xl font-semibold text-yellow-800 mb-2" data-cy="bulk-upload-tab">
+                📦 Bulk Product Upload
+              </h2>
+              <p className="text-yellow-700">
+                Upload multiple products at once using a CSV file. This feature allows you to add hundreds of products in minutes.
+              </p>
+            </div>
+            
+            <BulkProductUpload onUploadComplete={handleBulkUploadComplete} />
+          </div>
+        )}
+
+        {/* Orders Tab */}
+        {activeTab === 'orders' && (
                   name="category"
                   value={productForm.category}
                   onChange={handleChange}

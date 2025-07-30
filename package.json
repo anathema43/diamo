@@ -35,6 +35,7 @@
     "cy:run:critical": "cypress run --headless --spec 'cypress/e2e/01-authentication.cy.js,cypress/e2e/13-security-testing.cy.js,cypress/e2e/12-real-time-features.cy.js'",
     "cy:run:cultural": "cypress run --headless --spec 'cypress/e2e/17-artisan-cultural-content.cy.js'",
     "cy:run:foundational": "cypress run --headless --spec 'cypress/e2e/auth.cy.js,cypress/e2e/shopping_cart.cy.js,cypress/e2e/order_history.cy.js'",
+    "cy:run:admin": "cypress run --headless --spec 'cypress/e2e/admin-file-upload.cy.js'",
     "cy:run:core": "cypress run --headless --spec 'cypress/e2e/01-authentication.cy.js,cypress/e2e/02-shopping-cart.cy.js,cypress/e2e/03-checkout.cy.js'",
     "cy:run:user-features": "cypress run --headless --spec 'cypress/e2e/01-authentication.cy.js,cypress/e2e/02-shopping-cart.cy.js'",
     "cy:run:new-features": "cypress run --headless --spec 'cypress/e2e/product-reviews.cy.js,cypress/e2e/wishlist-functionality.cy.js'",
