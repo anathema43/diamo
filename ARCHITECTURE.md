@@ -9,18 +9,22 @@
 5. [Search Architecture](#search-architecture)
 6. [Payment Processing](#payment-processing)
 7. [Real-time Features](#real-time-features)
-8. [User Flow Diagrams](#user-flow-diagrams)
-9. [Admin Flow Diagrams](#admin-flow-diagrams)
-10. [Data Flow](#data-flow)
-11. [Security Architecture](#security-architecture)
-12. [Performance Considerations](#performance-considerations)
-13. [Scalability](#scalability)
+8. [Logistics Integration](#logistics-integration)
+9. [Dynamic Dashboard Architecture](#dynamic-dashboard-architecture)
+10. [User Flow Diagrams](#user-flow-diagrams)
+11. [Admin Flow Diagrams](#admin-flow-diagrams)
+12. [Data Flow](#data-flow)
+13. [Security Architecture](#security-architecture)
+14. [Performance Considerations](#performance-considerations)
+15. [Scalability](#scalability)
 
 ---
 
 ## Architecture Overview
 
 **COMPREHENSIVE SYSTEM DESIGN**: This document provides complete architectural documentation for the Ramro e-commerce platform, covering all systems, flows, and integrations.
+
+**DYNAMIC DASHBOARD INTEGRATION**: The platform now includes a sophisticated markdown-driven dashboard that provides real-time strategic visualization.
 
 This comprehensive architecture documentation provides a complete technical overview of the Ramro e-commerce platform, covering all aspects from frontend components to backend services, security, and scalability considerations.
 
@@ -307,3 +311,123 @@ graph TB
 ### **Real-time Data Synchronization**
 
 The application implements sophisticated real-time data flow:
+
+---
+
+# 🚚 **LOGISTICS INTEGRATION ARCHITECTURE**
+
+## **Shipping Partner Integration**
+
+```mermaid
+graph TB
+    subgraph "Order Processing"
+        A[Order Created]
+        B[Shipping Calculation]
+        C[Courier Selection]
+        D[Label Generation]
+    end
+    
+    subgraph "Shipping Partners"
+        E[Blue Dart]
+        F[DTDC]
+        G[India Post]
+        H[Delhivery]
+    end
+    
+    subgraph "Logistics Management"
+        I[Shiprocket API]
+        J[Rate Comparison]
+        K[Tracking Integration]
+        L[COD Management]
+    end
+    
+    A --> B
+    B --> C
+    C --> D
+    
+    C --> I
+    I --> E
+    I --> F
+    I --> G
+    I --> H
+    
+    I --> J
+    I --> K
+    I --> L
+```
+
+## **Logistics Flow Architecture**
+
+### **Phase 0: Basic Logistics (Manual)**
+- Manual courier partner selection
+- Basic shipping label generation
+- Simple order tracking
+- COD workflow setup
+
+### **Phase 2: Advanced Automation**
+- Multi-courier integration via Shiprocket
+- Automated rate comparison
+- Intelligent courier selection
+- Returns management automation
+
+---
+
+# 📊 **DYNAMIC DASHBOARD ARCHITECTURE**
+
+## **Markdown Data Layer**
+
+```mermaid
+graph TB
+    subgraph "Markdown Sources"
+        A[COMPLETION_STATUS_ANALYSIS.md]
+        B[DEVELOPMENT_ROADMAP.md]
+        C[IMPLEMENTED_FEATURES.md]
+    end
+    
+    subgraph "Data Processing"
+        D[MarkdownDataLayer]
+        E[Intelligent Parsing]
+        F[Data Caching]
+        G[Error Handling]
+    end
+    
+    subgraph "Dashboard UI"
+        H[Completed Milestones]
+        I[Immediate Priorities]
+        J[Strategic Phases]
+        K[Real-time Stats]
+    end
+    
+    A --> D
+    B --> D
+    C --> D
+    
+    D --> E
+    E --> F
+    F --> G
+    
+    E --> H
+    E --> I
+    E --> J
+    E --> K
+```
+
+## **Dashboard Features**
+
+### **Real-time Data Synchronization**
+- Automatic markdown file fetching
+- Intelligent content parsing
+- 5-minute caching for performance
+- Manual refresh capability
+
+### **Visual Progress Tracking**
+- Dynamic completion percentages
+- Category-based feature organization
+- Priority-based task visualization
+- Timeline and resource planning
+
+### **Strategic Business Intelligence**
+- Phase progression tracking
+- Success metrics dashboard
+- Risk management visualization
+- Resource requirement planning
