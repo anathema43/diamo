@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
-+import { CloudArrowUpIcon, Cog6ToothIcon, CheckCircleIcon, ExclamationTriangleIcon } from '@heroicons/react/24/outline';
-+import { searchService } from '../services/searchService';
-+import { useProductStore } from '../store/productStore';
-+
-+export default function AdminAlgoliaSync() {
+import { CloudArrowUpIcon, Cog6ToothIcon, CheckCircleIcon, ExclamationTriangleIcon } from '@heroicons/react/24/outline';
+import { searchService } from '../services/searchService';
+import { useProductStore } from '../store/productStore';
+
+export default function AdminAlgoliaSync() {
 +  const [isSyncing, setIsSyncing] = useState(false);
 +  const [isConfiguring, setIsConfiguring] = useState(false);
 +  const [syncResult, setSyncResult] = useState(null);
