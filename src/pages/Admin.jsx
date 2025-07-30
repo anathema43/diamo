@@ -1,6 +1,4 @@
 import React, { useEffect, useState } from "react";
-import ImageUpload from "../components/ImageUpload";
-import BulkProductUpload from "../components/BulkProductUpload";
 import AdminSeedButton from "../components/AdminSeedButton";
 import ArtisanSeedButton from "../components/ArtisanSeedButton";
 import ImageUpload from "../components/ImageUpload";
@@ -12,7 +10,6 @@ import formatCurrency from "../utils/formatCurrency";
 import LoadingSpinner from "../components/LoadingSpinner";
 import { TrashIcon, PencilIcon, ExclamationTriangleIcon } from "@heroicons/react/24/outline";
 import { cloudinaryService } from "../services/cloudinaryService";
-import { cloudinaryService } from "../services/cloudinaryService";
 
 const emptyProduct = {
   name: "",
@@ -20,9 +17,6 @@ const emptyProduct = {
   price: "",
   image: "",
   quantityAvailable: "",
-  category: "",
-  cloudinaryPublicId: "",
-  optimizedImageUrl: "",
   category: "",
   cloudinaryPublicId: "",
   optimizedImageUrl: ""
@@ -57,7 +51,6 @@ export default function Admin() {
   const [isEdit, setIsEdit] = useState(false);
   const [productForm, setProductForm] = useState(emptyProduct);
   const [editId, setEditId] = useState(null);
-  const [imageUploadError, setImageUploadError] = useState("");
   const [trackingForm, setTrackingForm] = useState({});
   const [imageUploadError, setImageUploadError] = useState("");
 
