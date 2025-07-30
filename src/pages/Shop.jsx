@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import { useProductStore } from "../store/productStore";
 import ProductCard from "../components/ProductCard";
 import AdvancedFilters from "../components/AdvancedFilters";
-import AdvancedFilters from "../components/AdvancedFilters";
 import { MagnifyingGlassIcon, FunnelIcon } from "@heroicons/react/24/outline";
 
 export default function Shop() {
