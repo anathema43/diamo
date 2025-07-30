@@ -4,15 +4,9 @@ import { useAuthStore } from "../store/authStore";
 import { useOrderStore } from "../store/orderStore";
 import { useWishlistStore } from "../store/wishlistStore";
 import UserProfileEditor from "../components/UserProfileEditor";
-import { useOrderStore } from "../store/orderStore";
-import { useWishlistStore } from "../store/wishlistStore";
-import UserProfileEditor from "../components/UserProfileEditor";
 
 export default function AccountPage() {
   const { currentUser, userProfile, logout } = useAuthStore();
-  const { userOrders } = useOrderStore();
-  const { wishlist } = useWishlistStore();
-  const [activeTab, setActiveTab] = React.useState('overview');
   const { userOrders } = useOrderStore();
   const { wishlist } = useWishlistStore();
   const [activeTab, setActiveTab] = React.useState('overview');

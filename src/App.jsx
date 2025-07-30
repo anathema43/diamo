@@ -41,9 +41,7 @@ function App() {
       if (currentUser) {
         const { subscribeToCart } = useCartStore.getState();
         const { subscribeToWishlist } = useWishlistStore.getState();
-        const { subscribeToWishlist } = useWishlistStore.getState();
         subscribeToCart();
-        subscribeToWishlist();
         subscribeToWishlist();
       }
       
