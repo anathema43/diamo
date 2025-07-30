@@ -26,14 +26,6 @@ This comprehensive architecture documentation provides a complete technical over
 
 ---
 
-## System Components
-
-> **📝 Note**: To edit the system architecture diagram, please modify the source file at `docs/diagrams/system-architecture.md`
-
-### **Frontend Architecture**
-
-**Technology Stack**:
-
 # 🗄️ **DATABASE ARCHITECTURE**
 
 ## **Firestore Collections Structure**
@@ -307,3 +299,11 @@ graph TB
 - **Autocomplete**: <200ms for suggestions
 - **Index Size**: Optimized for fast queries
 - **Analytics**: Real-time search behavior tracking
+
+## User Flow Diagrams
+
+> **📝 Note**: To edit the user flow diagram, please modify the source file at `docs/diagrams/user-flow.md`
+
+### **Primary User Journey**
+
+The user experience follows a carefully designed flow that emphasizes discovery, cultural connection, and seamless transactions:
