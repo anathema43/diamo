@@ -223,13 +223,17 @@ npm install -g firebase-tools@latest
    # Test admin access (should require proper role in Firestore)
    # Test file uploads (should enforce size/type limits)
    # Test data integrity (should use only Firestore data)
+   # Test advanced search (should provide instant results)
+   # Test real-time features (should sync across browser tabs)
    ```
 
-6. **Seed Cultural Content**
+7. **Seed Cultural Content and Search Index**
    ```bash
    # Access admin panel and seed artisan profiles
    # Navigate to /admin and click "Seed Artisan Profiles"
    # Verify artisan directory at /artisans
+   # Click "Sync Products to Algolia" for search functionality
+   # Test search at /shop with instant results
    ```
 
 Your Ramro e-commerce application will be fully set up with enterprise-grade security and ready for development and testing!

@@ -17,12 +17,17 @@ This document provides a detailed visual representation of the user experience f
 🏠 Landing → 👨‍🎨 Artisans → 📖 Stories → 🛍️ Products → 💝 Cultural Connection
 ```
 
+**NEW: Advanced Search Journey**
+```
+🔍 Search Input → ⚡ Instant Results → 🎯 Filters → 📊 Analytics → 🛒 Purchase
+```
+
 ---
 
 ## 📱 **User Flow Overview**
 
 ```
-🏠 Landing → 🛍️ Browse → 🛒 Cart → 💳 Checkout → ✅ Order Complete
+🏠 Landing → 🔍 Search → 🛍️ Browse → 🛒 Cart → 💳 Checkout → ✅ Order Complete
            ↓
        👨‍🎨 Artisans → 📖 Cultural Stories → 🤝 Emotional Connection
 ```

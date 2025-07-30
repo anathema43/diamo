@@ -249,50 +249,6 @@ New Order → Processing → Shipped → Delivered
 
 ---
 
-## 🔍 **Advanced Search Management**
-
-### **Algolia Search Integration**
-
-#### **Search Index Management**
-1. **Access Search Management**
-   - Navigate to Admin Dashboard (`/admin`)
-   - Look for "Algolia Search Management" section
-   - View search analytics and sync status
-
-2. **Product Synchronization**
-   ```
-   Sync Features:
-   - Bulk sync all products to Algolia
-   - Automatic sync on product changes
-   - Index configuration optimization
-   - Search analytics tracking
-   ```
-
-3. **Search Analytics Dashboard**
-   ```
-   Analytics Metrics:
-   - Total searches performed
-   - Search click-through rates
-   - Popular search queries
-   - Conversion rates from search
-   ```
-
-#### **Search Configuration**
-1. **Index Settings**
-   - Configure search attributes
-   - Set up faceting options
-   - Optimize ranking algorithms
-   - Manage synonyms and stop words
-
-2. **Search Features Available**
-   - Instant search with sub-500ms results
-   - Autocomplete with smart suggestions
-   - Typo tolerance and fuzzy matching
-   - Faceted search with multiple filters
-   - Search analytics and insights
-
----
-
 ## 👨‍🎨 **Artisan & Cultural Content Management**
 
 ### **Adding Artisan Profiles**
@@ -397,6 +353,42 @@ New Order → Processing → Shipped → Delivered
 - Record cultural values and practices
 - Preserve generational knowledge
 - Support community development
+
+---
+
+## 🖼️ **Professional Image Management**
+
+### **Cloudinary Integration**
+
+#### **Image Upload System**
+1. **Professional Upload Interface**
+   - Drag-and-drop image upload
+   - Real-time upload progress tracking
+   - Image preview before saving
+   - Automatic optimization and resizing
+
+2. **Upload Features**
+   ```
+   Upload Capabilities:
+   - Multiple image sizes generated automatically
+   - Cloudinary CDN optimization
+   - File type validation (JPEG, PNG, WebP)
+   - Size limits enforced (5MB for products)
+   - Error handling and validation
+   ```
+
+#### **Bulk Operations**
+1. **CSV Product Upload**
+   - Download CSV template
+   - Bulk upload hundreds of products
+   - Data validation and error reporting
+   - Progress tracking for large uploads
+
+2. **Image Management**
+   - Responsive image delivery
+   - Automatic size optimization
+   - CDN integration for fast loading
+   - Error handling and fallbacks
 
 ---
 

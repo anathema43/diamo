@@ -60,14 +60,16 @@ graph TB
         W[Analytics Service]
         X[Monitoring Service]
         Y[Image CDN Services]
+        Z[Algolia Search Service]
     end
     
     subgraph "Data Storage"
-        Z[Firestore Collections - Validated]
+        AA[Firestore Collections - Validated]
         AA[Secure File Storage with Auto-Resize]
         BB[Real-time Cache Layer]
         CC[Backup Storage]
         DD[Optimized Image Storage]
+        EE[Algolia Search Index]
     end
     
     A --> D
