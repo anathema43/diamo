@@ -2,6 +2,27 @@
  # 🧪 Complete Beginner's Testing Methodology Guide
  *A Step-by-Step Guide to Testing Your Ramro E-commerce Application*
 
+## 📋 Table of Contents
+
+1. [Testing Overview](#testing-overview)
+2. [Testing Philosophy](#testing-philosophy)
+3. [Unit Testing with Vitest](#unit-testing-with-vitest)
+4. [E2E Testing with Cypress](#e2e-testing-with-cypress)
+5. [Security Testing](#security-testing)
+6. [Performance Testing](#performance-testing)
+7. [Accessibility Testing](#accessibility-testing)
+8. [Search Testing](#search-testing)
+9. [Real-time Feature Testing](#real-time-feature-testing)
+10. [Cultural Content Testing](#cultural-content-testing)
+11. [Test Data Management](#test-data-management)
+12. [CI/CD Integration](#cicd-integration)
+13. [Test Coverage Goals](#test-coverage-goals)
+14. [Troubleshooting Tests](#troubleshooting-tests)
+
+---
+
+## Testing Overview
+
 +## 🎯 **COMPREHENSIVE TESTING GUIDE**
 +
 +This guide covers all testing methodologies for the Ramro e-commerce platform, including unit testing, E2E testing, security testing, and performance validation.

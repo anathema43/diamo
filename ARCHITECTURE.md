@@ -1,3 +1,27 @@
+# 🏗️ System Architecture - Ramro E-commerce Platform
+
+## 📋 Table of Contents
+
+1. [Architecture Overview](#architecture-overview)
+2. [System Components](#system-components)
+3. [Database Architecture](#database-architecture)
+4. [Authentication & Security](#authentication--security)
+5. [Search Architecture](#search-architecture)
+6. [Payment Processing](#payment-processing)
+7. [Real-time Features](#real-time-features)
+8. [User Flow Diagrams](#user-flow-diagrams)
+9. [Admin Flow Diagrams](#admin-flow-diagrams)
+10. [Data Flow](#data-flow)
+11. [Security Architecture](#security-architecture)
+12. [Performance Considerations](#performance-considerations)
+13. [Scalability](#scalability)
+
+---
+
+## Architecture Overview
+
+**COMPREHENSIVE SYSTEM DESIGN**: This document provides complete architectural documentation for the Ramro e-commerce platform, covering all systems, flows, and integrations.
+
 This comprehensive architecture documentation provides a complete technical overview of the Ramro e-commerce platform, covering all aspects from frontend components to backend services, security, and scalability considerations.
 
 ---

@@ -1,3 +1,35 @@
+# 🚀 Complete Setup Guide - Ramro E-commerce Platform
+
+## 📋 Table of Contents
+
+1. [Overview](#overview)
+2. [Prerequisites](#prerequisites)
+3. [Core Installation](#core-installation)
+4. [Firebase Setup](#firebase-setup)
+5. [Razorpay Configuration](#razorpay-configuration)
+6. [Configure Professional Search (Algolia)](#configure-professional-search-algolia)
+7. [Configure Media Management (Cloudinary)](#configure-media-management-cloudinary)
+8. [Environment Variables](#environment-variables)
+9. [Initial Setup & Testing](#initial-setup--testing)
+10. [Admin Account Creation](#admin-account-creation)
+11. [Data Seeding](#data-seeding)
+12. [Production Deployment](#production-deployment)
+13. [Troubleshooting](#troubleshooting)
+14. [Next Steps](#next-steps)
+
+---
+
+## Overview
+
+**ENTERPRISE-GRADE E-COMMERCE PLATFORM**: This guide covers the complete setup for the Ramro e-commerce application with all advanced features:
+- ✅ **Advanced Search**: Professional Algolia integration with instant results
+- ✅ **Cultural Content**: Rich artisan storytelling and heritage documentation
+- ✅ **Secure Payments**: Razorpay integration with multiple payment methods
+- ✅ **Real-time Features**: Live inventory, instant notifications
+- ✅ **Admin Dashboard**: Complete business management tools
+- ✅ **Mobile Responsive**: Optimized for all devices
+- ✅ **Performance Optimized**: Fast loading with modern architecture
+
 **Your platform is ready for production launch!** 🚀🏔️
 
 ---
