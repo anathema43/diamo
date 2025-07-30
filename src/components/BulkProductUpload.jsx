@@ -194,7 +194,7 @@ export default function BulkProductUpload({ onUploadComplete }) {
   };
 
   return (
-    <div className="bg-white p-6 rounded-lg shadow-lg">
+    <div className="bg-white p-6 rounded-lg shadow-lg" data-cy="bulk-upload-section">
       <div className="flex items-center justify-between mb-6">
         <h3 className="text-lg font-semibold text-organic-text">
           Bulk Product Upload
@@ -202,6 +202,7 @@ export default function BulkProductUpload({ onUploadComplete }) {
         <button
           onClick={downloadTemplate}
           className="flex items-center gap-2 text-organic-primary hover:text-organic-text transition-colors"
+          data-cy="csv-template-download"
         >
           <DocumentTextIcon className="w-5 h-5" />
           Download Template
@@ -209,7 +210,7 @@ export default function BulkProductUpload({ onUploadComplete }) {
       </div>
 
       {/* Upload Area */}
-      <div className="border-2 border-dashed border-gray-300 rounded-lg p-6 text-center hover:border-organic-primary transition-colors">
+      <div className="border-2 border-dashed border-gray-300 rounded-lg p-6 text-center hover:border-organic-primary transition-colors" data-cy="csv-upload-dropzone">
         <DocumentArrowUpIcon className="mx-auto h-12 w-12 text-gray-400 mb-4" />
         
         <div className="space-y-2">
@@ -234,12 +235,12 @@ export default function BulkProductUpload({ onUploadComplete }) {
 
       {/* Progress */}
       {uploading && (
-        <div className="mt-6 bg-blue-50 border border-blue-200 rounded-lg p-4">
+        <div className="mt-6 bg-blue-50 border border-blue-200 rounded-lg p-4" data-cy="csv-upload-progress">
           <div className="flex items-center mb-2">
             <DocumentArrowUpIcon className="w-5 h-5 text-blue-600 mr-2" />
-            <span className="text-blue-800 font-medium">Uploading Products...</span>
+            <span className="text-blue-800 font-medium" data-cy="upload-status">Uploading Products...</span>
           </div>
-          <div className="w-full bg-blue-200 rounded-full h-2">
+          <div className="w-full bg-blue-200 rounded-full h-2" role="progressbar" aria-valuenow={progress} aria-valuemin="0" aria-valuemax="100">
             <div
               className="bg-blue-600 h-2 rounded-full transition-all duration-300"
               style={{ width: `${progress}%` }}
@@ -251,12 +252,12 @@ export default function BulkProductUpload({ onUploadComplete }) {
 
       {/* Results */}
       {results && (
-        <div className="mt-6 bg-green-50 border border-green-200 rounded-lg p-4">
+        <div className="mt-6 bg-green-50 border border-green-200 rounded-lg p-4" data-cy="upload-success">
           <div className="flex items-center mb-2">
             <CheckCircleIcon className="w-5 h-5 text-green-600 mr-2" />
             <span className="text-green-800 font-medium">Upload Complete</span>
           </div>
-          <div className="text-sm text-green-700">
+          <div className="text-sm text-green-700" data-cy="upload-results">
             <p>Total products: {results.total}</p>
             <p>Successfully uploaded: {results.successful}</p>
             {results.failed > 0 && <p>Failed: {results.failed}</p>}
@@ -266,12 +267,12 @@ export default function BulkProductUpload({ onUploadComplete }) {
 
       {/* Errors */}
       {errors.length > 0 && (
-        <div className="mt-6 bg-red-50 border border-red-200 rounded-lg p-4">
+        <div className="mt-6 bg-red-50 border border-red-200 rounded-lg p-4" data-cy="csv-validation-errors">
           <div className="flex items-center mb-2">
             <ExclamationTriangleIcon className="w-5 h-5 text-red-600 mr-2" />
             <span className="text-red-800 font-medium">Upload Errors</span>
           </div>
-          <div className="text-sm text-red-700 space-y-1 max-h-32 overflow-y-auto">
+          <div className="text-sm text-red-700 space-y-1 max-h-32 overflow-y-auto" data-cy="error-list">
             {errors.map((error, index) => (
               <p key={index}>• {error}</p>
             ))}
@@ -280,7 +281,7 @@ export default function BulkProductUpload({ onUploadComplete }) {
       )}
 
       {/* Instructions */}
-      <div className="mt-6 bg-gray-50 rounded-lg p-4">
+      <div className="mt-6 bg-gray-50 rounded-lg p-4" data-cy="upload-instructions">
         <h4 className="font-medium text-gray-900 mb-2">CSV Format Instructions:</h4>
         <ul className="text-sm text-gray-600 space-y-1">
           <li>• Download the template to see the correct format</li>
