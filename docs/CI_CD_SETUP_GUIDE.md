@@ -117,7 +117,7 @@ The CI/CD workflow file is already created at `.github/workflows/ci-cd.yml`. Her
 ```yaml
 quality-check:
   - Checkout code
-  - Setup Node.js 18
+  - Setup Node.js 18.x
   - Install dependencies
   - Run ESLint
   - Execute unit tests with coverage
