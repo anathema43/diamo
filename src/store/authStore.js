@@ -27,16 +27,20 @@ export const useAuthStore = create(
     try {
       const unsubscribe = onAuthStateChanged(auth, async (user) => {
         if (user) {
-          // Fetch user profile from Firestore
+          // CRITICAL: Always fetch fresh user profile from Firestore on auth state change
           try {
-            const userDoc = await getDoc(doc(db, "users", user.uid));
-            const userProfile = userDoc.exists() ? userDoc.data() : null;
+            const userDocRef = doc(db, "users", user.uid);
+            const userDocSnap = await getDoc(userDocRef);
+            const userProfile = userDocSnap.exists() ? userDocSnap.data() : null;
+            
+            console.log('Auth state changed - user profile:', userProfile); // Debug log
             set({ currentUser: user, userProfile, loading: false });
           } catch (error) {
             console.error("Error fetching user profile:", error);
             set({ currentUser: user, userProfile: null, loading: false });
           }
         } else {
+          console.log('Auth state changed - user logged out'); // Debug log
           set({ currentUser: null, userProfile: null, loading: false });
         }
       });
@@ -81,9 +85,17 @@ export const useAuthStore = create(
     try {
       const userCredential = await signInWithEmailAndPassword(auth, email, password);
       
-      // Fetch user profile
-      const userDoc = await getDoc(doc(db, "users", userCredential.user.uid));
-      const userProfile = userDoc.exists() ? userDoc.data() : null;
+      // CRITICAL: Fetch user profile from Firestore to get role information
+      const userDocRef = doc(db, "users", userCredential.user.uid);
+      const userDocSnap = await getDoc(userDocRef);
+      
+      let userProfile = null;
+      if (userDocSnap.exists()) {
+        userProfile = userDocSnap.data();
+        console.log('User profile fetched on login:', userProfile); // Debug log
+      } else {
+        console.warn('User document not found in Firestore for UID:', userCredential.user.uid);
+      }
       
       set({ currentUser: userCredential.user, userProfile, loading: false });
     } catch (error) {
@@ -98,11 +110,13 @@ export const useAuthStore = create(
       const result = await signInWithPopup(auth, googleProvider);
       const user = result.user;
       
-      // Check if user profile exists, create if not
-      const userDoc = await getDoc(doc(db, "users", user.uid));
+      // CRITICAL: Fetch or create user profile from Firestore
+      const userDocRef = doc(db, "users", user.uid);
+      const userDocSnap = await getDoc(userDocRef);
       let userProfile;
       
-      if (!userDoc.exists()) {
+      if (!userDocSnap.exists()) {
+        // Create new user profile for Google OAuth users
         userProfile = {
           uid: user.uid,
           email: user.email,
@@ -116,9 +130,11 @@ export const useAuthStore = create(
             language: 'en'
           }
         };
-        await setDoc(doc(db, "users", user.uid), userProfile);
+        await setDoc(userDocRef, userProfile);
+        console.log('Created new user profile for Google OAuth:', userProfile);
       } else {
-        userProfile = userDoc.data();
+        userProfile = userDocSnap.data();
+        console.log('Existing user profile fetched for Google OAuth:', userProfile);
       }
       
       set({ currentUser: user, userProfile, loading: false });
