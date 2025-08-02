@@ -3,25 +3,57 @@
 import React, { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import { useAuthStore } from "../store/authStore";
+import { getAndClearRedirectPath, determineRedirectPath } from "../utils/redirectUtils";
 
 export default function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
+  const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
   const { login } = useAuthStore();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     setError("");
+    setLoading(true);
+    
     try {
       await login(email, password);
-      // Allow auth state to stabilize before navigation
+      
+      // Get user profile and determine redirect path
+      const { userProfile } = useAuthStore.getState();
+      const savedRedirectPath = getAndClearRedirectPath();
+      const redirectPath = determineRedirectPath(userProfile, savedRedirectPath);
+      
+      // Navigate after auth state stabilizes
       setTimeout(() => {
-        navigate('/');
-      }, 0);
+        navigate(redirectPath, { replace: true });
+      }, 100);
+      
     } catch (error) {
-      setError(error.message || "Login failed. Please try again.");
+      console.error("Login error:", error);
+      
+      // Provide user-friendly error messages
+      let errorMessage = "Login failed. Please try again.";
+      
+      if (error.code === 'auth/user-not-found') {
+        errorMessage = "No account found with this email address.";
+      } else if (error.code === 'auth/wrong-password') {
+        errorMessage = "Incorrect password. Please try again.";
+      } else if (error.code === 'auth/invalid-email') {
+        errorMessage = "Please enter a valid email address.";
+      } else if (error.code === 'auth/user-disabled') {
+        errorMessage = "This account has been disabled. Please contact support.";
+      } else if (error.code === 'auth/too-many-requests') {
+        errorMessage = "Too many failed attempts. Please try again later.";
+      } else if (error.message) {
+        errorMessage = error.message;
+      }
+      
+      setError(errorMessage);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -61,10 +93,11 @@ export default function Login() {
           </div>
           <button
             type="submit"
+            disabled={loading}
             className="w-full bg-organic-primary hover:opacity-90 text-white font-semibold rounded py-2 transition"
             data-cy="login-submit"
           >
-            Login
+            {loading ? "Signing in..." : "Login"}
           </button>
         </form>
         <div className="mt-4 text-center text-himalaya-dark">
