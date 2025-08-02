@@ -108,3 +108,12 @@ export default function Navbar() {
             </>
           ) : (
             <>
+              <Link to="/login" className="text-organic-white hover:text-organic-primary transition-colors duration-200 font-medium focus:outline-none focus:ring-2 focus:ring-white focus:ring-opacity-50 rounded px-2 py-1" data-cy="nav-login">Login</Link>
+              <Link to="/register" className="px-4 py-2 bg-organic-white text-organic-text rounded-md hover:bg-organic-primary hover:text-organic-white transition-all duration-200 font-medium shadow-sm hover:shadow-md focus:outline-none focus:ring-2 focus:ring-organic-primary focus:ring-offset-2" data-cy="nav-register">Register</Link>
+            </>
+          )}
+        </nav>
+      </nav>
+    </>
+  );
+}
