@@ -16,7 +16,10 @@ export default function Login() {
     setError("");
     try {
       await login(email, password);
-      navigate('/');
+      // Allow auth state to stabilize before navigation
+      setTimeout(() => {
+        navigate('/');
+      }, 0);
     } catch (error) {
       setError(error.message || "Login failed. Please try again.");
     }

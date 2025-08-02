@@ -15,7 +15,10 @@ export default function Signup() {
     setErr("");
     try {
       await signup(email, password, name);
-      navigate('/');
+      // Allow auth state to stabilize before navigation
+      setTimeout(() => {
+        navigate('/');
+      }, 0);
     } catch (error) {
       setErr("Signup failed. Try a different email.");
     }
