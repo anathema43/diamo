@@ -7,7 +7,6 @@ import { saveRedirectPath } from '../utils/redirectUtils';
 export default function ProtectedRoute({ children }) {
   const { currentUser, loading } = useAuthStore();
   const location = useLocation();
-  const location = useLocation();
 
   if (loading) {
     return <LoadingSpinner />;

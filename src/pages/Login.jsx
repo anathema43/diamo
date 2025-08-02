@@ -10,9 +10,7 @@ export default function Login() {
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
   const [redirectPath, setRedirectPath] = useState(null);
-  const [redirectPath, setRedirectPath] = useState(null);
   const navigate = useNavigate();
-  const location = useLocation();
   const location = useLocation();
   const { login } = useAuthStore();
 

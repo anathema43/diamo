@@ -10,7 +10,6 @@ export default function Signup() {
   const [password, setPassword] = useState("");
   const [err, setErr] = useState("");
   const [redirectPath, setRedirectPath] = useState(null);
-  const [redirectPath, setRedirectPath] = useState(null);
   const navigate = useNavigate();
   const location = useLocation();
 

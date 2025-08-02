@@ -7,7 +7,6 @@ import { saveRedirectPath } from '../utils/redirectUtils';
 export default function AdminRoute({ children }) {
   const { currentUser, userProfile, loading } = useAuthStore();
   const location = useLocation();
-  const location = useLocation();
 
   if (loading) {
     return <LoadingSpinner />;
