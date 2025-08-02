@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import { useAuthStore } from "../store/authStore";
 import { useNavigate, Link } from "react-router-dom";
 import { getAndClearRedirectPath, determineRedirectPath } from "../utils/redirectUtils";
-import { getAndClearRedirectPath, determineRedirectPath } from "../utils/redirectUtils";
 
 export default function Signup() {
   const { signup } = useAuthStore();
