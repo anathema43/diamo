@@ -1,9 +1,8 @@
 // src/pages/Login.jsx
 
 import React, { useState } from "react";
-import { useNavigate, Link, useLocation } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import { useAuthStore } from "../store/authStore";
-import { getAndClearRedirectPath, determineRedirectPath } from "../utils/redirectUtils";
 
 export default function Login() {
   const [email, setEmail] = useState("");
@@ -17,19 +16,12 @@ export default function Login() {
     setError("");
     try {
       await login(email, password);
-      
-      // Get and clear the saved redirect path
-      const savedRedirectPath = getAndClearRedirectPath();
-      
-      // Determine where to redirect based on user role and saved path
-      const latestUserProfile = useAuthStore.getState().userProfile;
-      const targetPath = determineRedirectPath(latestUserProfile, savedRedirectPath);
-      
-      navigate(targetPath);
+      navigate('/');
     } catch (error) {
       setError(error.message || "Login failed. Please try again.");
     }
-  }
+  };
+
   return (
     <div className="min-h-screen flex items-center justify-center bg-himalaya-light">
       <div className="bg-white p-8 rounded-lg shadow-lg w-full max-w-md">

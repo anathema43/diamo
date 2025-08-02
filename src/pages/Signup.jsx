@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { useAuthStore } from "../store/authStore";
-import { useNavigate, Link, useLocation } from "react-router-dom";
-import { getAndClearRedirectPath } from "../utils/redirectUtils";
+import { useNavigate, Link } from "react-router-dom";
 
 export default function Signup() {
   const { signup } = useAuthStore();
@@ -10,25 +9,13 @@ export default function Signup() {
   const [password, setPassword] = useState("");
   const [err, setErr] = useState("");
   const navigate = useNavigate();
-  const location = useLocation(); // Keep this declaration
 
   async function handleSignup(e) {
     e.preventDefault();
     setErr("");
     try {
       await signup(email, password, name);
-      
-      // Get and clear the saved redirect path
-      const savedRedirectPath = getAndClearRedirectPath();
-      
-      // Navigate to redirect path or home (new users don't get admin access immediately)
-      const latestUserProfile = useAuthStore.getState().userProfile;
-      const targetPath = determineRedirectPath(latestUserProfile, savedRedirectPath);
-      if (savedRedirectPath) {
-        navigate(savedRedirectPath);
-      } else {
-        navigate("/");
-      }
+      navigate('/');
     } catch (error) {
       setErr("Signup failed. Try a different email.");
     }
