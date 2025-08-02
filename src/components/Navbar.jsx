@@ -6,7 +6,7 @@ import { useWishlistStore } from "../store/wishlistStore";
 import { UserCircleIcon, Bars3Icon, XMarkIcon, ShoppingCartIcon } from "@heroicons/react/24/outline";
 
 export default function Navbar() {
-  const { currentUser, logout } = useAuthStore();
+  const { currentUser, userProfile, logout } = useAuthStore();
   const { getTotalItems } = useCartStore();
   const { getWishlistCount } = useWishlistStore();
   const navigate = useNavigate();
@@ -57,6 +57,11 @@ export default function Navbar() {
           <Link to="/artisans" className="text-organic-white hover:text-organic-primary transition-colors duration-200 font-medium">Artisans</Link>
           <Link to="/about" className="text-organic-white hover:text-organic-primary transition-colors duration-200 font-medium">About</Link>
           <Link to="/contact" className="text-organic-white hover:text-organic-primary transition-colors duration-200 font-medium">Contact</Link>
+          
+          {/* Admin Link - Only show for admin users */}
+          {userProfile && userProfile.role === 'admin' && (
+            <Link to="/admin" className="text-organic-white hover:text-organic-primary transition-colors duration-200 font-medium">Admin</Link>
+          )}
           
           {/* Wishlist Link */}
           {currentUser && (
@@ -173,6 +178,17 @@ export default function Navbar() {
                 >
                   Contact
                 </Link>
+                
+                {/* Mobile Admin Link - Only show for admin users */}
+                {userProfile && userProfile.role === 'admin' && (
+                  <Link 
+                    to="/admin" 
+                    className="block py-3 px-4 text-organic-white hover:bg-organic-primary hover:text-organic-white rounded-md transition-colors duration-200"
+                    onClick={closeMobileMenu}
+                  >
+                    Admin
+                  </Link>
+                )}
                 
                 {/* Mobile Wishlist */}
                 {currentUser && (
