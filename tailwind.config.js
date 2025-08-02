@@ -35,8 +35,10 @@ module.exports = {
         }
       },
       fontFamily: {
-        'display': ['Lora', 'serif'],
-        'brand': ['Lora', 'serif'],
+        'display': ['Playfair Display', 'Lora', 'serif'],
+        'brand': ['Playfair Display', 'serif'],
+        'elegant': ['Cormorant Garamond', 'serif'],
+        'classic': ['Libre Baskerville', 'serif'],
         'body': ['Nunito Sans', 'sans-serif'],
         'cultural': ['Noto Sans Devanagari', 'sans-serif']
       },

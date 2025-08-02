@@ -152,17 +152,17 @@ export default function Home() {
         
         {/* Hero Content */}
         <div className="relative z-10 text-center max-w-5xl px-6 animate-fade-in">
-          <h1 className="font-display text-5xl md:text-7xl font-bold mb-6 tracking-wide leading-tight text-organic-text">
+          <h1 className="font-brand text-5xl md:text-7xl font-bold mb-6 tracking-wide leading-tight text-organic-text">
             Darjeeling Souls
           </h1>
           <div className="mb-6">
-            <h2 className="font-display text-3xl md:text-5xl font-bold mb-2 text-organic-text">
+            <h2 className="font-brand text-3xl md:text-5xl font-bold mb-2 text-organic-text">
               Authentic Handcrafted Goods
             </h2>
-            <h2 className="font-display text-3xl md:text-5xl font-bold mb-4 text-organic-text">
+            <h2 className="font-brand text-3xl md:text-5xl font-bold mb-4 text-organic-text">
               from the Heart of
             </h2>
-            <h2 className="font-display text-3xl md:text-5xl font-bold mb-4 text-organic-text">
+            <h2 className="font-brand text-3xl md:text-5xl font-bold mb-4 text-organic-text">
               the Darjeeling Hills
             </h2>
           </div>
