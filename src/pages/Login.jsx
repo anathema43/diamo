@@ -25,11 +25,6 @@ export default function Login() {
       const targetPath = determineRedirectPath(userProfile, savedRedirectPath);
       
       navigate(targetPath);
-    } catch (err) {
-      setError("Invalid email or password.");
-    }
-  };
-
   return (
     <div className="min-h-screen flex items-center justify-center bg-himalaya-light">
       <div className="bg-white p-8 rounded-lg shadow-lg w-full max-w-md">
