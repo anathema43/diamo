@@ -8,27 +8,7 @@ export default function Signup() {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [err, setErr] = useState("");
-  const [redirectPath, setRedirectPath] = useState(null);
   const navigate = useNavigate();
-  const location = useLocation();
-
-  // Check for redirect path when component mounts
-  React.useEffect(() => {
-    const savedRedirectPath = sessionStorage.getItem('redirectPath');
-    if (savedRedirectPath) {
-      setRedirectPath(savedRedirectPath);
-    }
-  }, []);
-  const location = useLocation();
-
-  // Check for redirect path when component mounts
-  React.useEffect(() => {
-    const savedRedirectPath = sessionStorage.getItem('redirectPath');
-    if (savedRedirectPath) {
-      setRedirectPath(savedRedirectPath);
-    }
-  }, []);
 
   async function handleSignup(e) {
     e.preventDefault();
@@ -46,15 +26,6 @@ export default function Signup() {
       // Navigate to redirect path or home (new users don't get admin access immediately)
       if (savedRedirectPath) {
         navigate(savedRedirectPath);
-      } else {
-        navigate("/");
-      }
-      // Clear redirect path from sessionStorage
-      sessionStorage.removeItem('redirectPath');
-      
-      // Navigate to redirect path or home
-      if (redirectPath) {
-        navigate(redirectPath);
       } else {
         navigate("/");
       }
