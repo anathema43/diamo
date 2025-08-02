@@ -103,7 +103,7 @@ export default function Footer() {
         <div className="border-t border-organic-white border-opacity-20 mt-12 pt-8">
           <div className="flex flex-col md:flex-row justify-between items-center">
             <p className="text-organic-white opacity-75 text-sm">
-              © {new Date().getFullYear()} Darjeeling Souls. All rights reserved. Made with ❤️ in the Darjeeling hills.
+              © {new Date().getFullYear()} Darjeeling Soul. All rights reserved. Made with ❤️ in the Darjeeling hills.
             </p>
             <div className="flex gap-6 mt-4 md:mt-0">
               <Link to="/privacy-policy" className="text-organic-white opacity-75 hover:opacity-100 text-sm transition-colors">

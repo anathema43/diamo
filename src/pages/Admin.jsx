@@ -108,7 +108,7 @@ export default function Admin() {
         {/* Header */}
         <div className="flex items-center justify-between mb-8">
           <div>
-            <h1 className="text-3xl font-bold text-organic-text">Darjeeling Souls Admin</h1>
+            <h1 className="text-3xl font-bold text-organic-text">Darjeeling Soul Admin</h1>
             <p className="text-organic-text opacity-75">Welcome back! Here's your daily snapshot.</p>
           </div>
           <div className="flex gap-3">
