@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useAuthStore } from "../store/authStore";
-import { useNavigate, Link } from "react-router-dom";
+import { useNavigate, Link, useLocation } from "react-router-dom";
+import { getAndClearRedirectPath } from "../utils/redirectUtils";
 
 export default function Signup() {
   const { signup } = useAuthStore();
@@ -8,7 +9,27 @@ export default function Signup() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [err, setErr] = useState("");
+  const [redirectPath, setRedirectPath] = useState(null);
+  const [redirectPath, setRedirectPath] = useState(null);
   const navigate = useNavigate();
+  const location = useLocation();
+
+  // Check for redirect path when component mounts
+  React.useEffect(() => {
+    const savedRedirectPath = sessionStorage.getItem('redirectPath');
+    if (savedRedirectPath) {
+      setRedirectPath(savedRedirectPath);
+    }
+  }, []);
+  const location = useLocation();
+
+  // Check for redirect path when component mounts
+  React.useEffect(() => {
+    const savedRedirectPath = sessionStorage.getItem('redirectPath');
+    if (savedRedirectPath) {
+      setRedirectPath(savedRedirectPath);
+    }
+  }, []);
 
   async function handleSignup(e) {
     e.preventDefault();
@@ -19,7 +40,25 @@ export default function Signup() {
     }
     try {
       await signup(email, password, name);
-      navigate("/");
+      
+      // Get and clear the saved redirect path
+      const savedRedirectPath = getAndClearRedirectPath();
+      
+      // Navigate to redirect path or home (new users don't get admin access immediately)
+      if (savedRedirectPath) {
+        navigate(savedRedirectPath);
+      } else {
+        navigate("/");
+      }
+      // Clear redirect path from sessionStorage
+      sessionStorage.removeItem('redirectPath');
+      
+      // Navigate to redirect path or home
+      if (redirectPath) {
+        navigate(redirectPath);
+      } else {
+        navigate("/");
+      }
     } catch (error) {
       setErr("Signup failed. Try a different email.");
     }

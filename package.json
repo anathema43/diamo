@@ -47,6 +47,8 @@
     "test:components": "vitest run src/components/__tests__/*.test.jsx",
     "test:utils": "vitest run src/utils/__tests__/*.test.js",
     "test:foundational": "npm run test:utils && npm run test:stores && npm run cy:run:foundational && npm run cy:run:new-features && npm run cy:run:search",
+    "test:redirect": "cypress run --headless --spec 'cypress/e2e/21-redirect-functionality.cy.js'",
+    "test:auth-flow": "npm run test:utils && cypress run --headless --spec 'cypress/e2e/01-authentication.cy.js,cypress/e2e/21-redirect-functionality.cy.js'",
     "test:watch": "vitest --watch",
     "test:coverage": "vitest --coverage",
     "firebase:emulators": "firebase emulators:start",

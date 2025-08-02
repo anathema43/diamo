@@ -1,22 +1,67 @@
 // src/pages/Login.jsx
 
 import React, { useState } from "react";
-import { useNavigate, Link } from "react-router-dom";
+import { useNavigate, Link, useLocation } from "react-router-dom";
 import { useAuthStore } from "../store/authStore";
+import { getAndClearRedirectPath, determineRedirectPath } from "../utils/redirectUtils";
 
 export default function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
+  const [redirectPath, setRedirectPath] = useState(null);
+  const [redirectPath, setRedirectPath] = useState(null);
   const navigate = useNavigate();
+  const location = useLocation();
+  const location = useLocation();
   const { login } = useAuthStore();
+
+  // Check for redirect path when component mounts
+  React.useEffect(() => {
+    const savedRedirectPath = sessionStorage.getItem('redirectPath');
+    if (savedRedirectPath) {
+      setRedirectPath(savedRedirectPath);
+    }
+  }, []);
+
+  // Check for redirect path when component mounts
+  React.useEffect(() => {
+    const savedRedirectPath = sessionStorage.getItem('redirectPath');
+    if (savedRedirectPath) {
+      setRedirectPath(savedRedirectPath);
+    }
+  }, []);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     setError("");
     try {
       await login(email, password);
-      navigate("/account");
+      
+      // Get user profile to check role
+      const { userProfile } = useAuthStore.getState();
+      
+      // Get and clear the saved redirect path
+      const savedRedirectPath = getAndClearRedirectPath();
+      
+      // Determine where to redirect based on user role and saved path
+      const targetPath = determineRedirectPath(userProfile, savedRedirectPath);
+      
+      navigate(targetPath);
+      // Get user profile to check role
+      const { userProfile } = useAuthStore.getState();
+      
+      // Clear redirect path from sessionStorage
+      sessionStorage.removeItem('redirectPath');
+      
+      // Navigate based on user role and redirect path
+      if (userProfile?.role === 'admin') {
+        navigate("/admin");
+      } else if (redirectPath) {
+        navigate(redirectPath);
+      } else {
+        navigate("/");
+      }
     } catch (err) {
       setError("Invalid email or password.");
     }

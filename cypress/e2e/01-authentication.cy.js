@@ -22,6 +22,43 @@ describe('Authentication Flow', () => {
       
       // Verify successful registration
       cy.url().should('not.include', '/signup');
+
+    it('should redirect to intended page after signup', () => {
+      // Try to access protected route without login
+      cy.visit('/#/wishlist');
+      cy.url().should('include', '/login');
+      
+      // Go to signup instead
+      cy.get('a').contains('Create an account').click();
+      cy.url().should('include', '/signup');
+      
+      const timestamp = Date.now();
+      const testEmail = `test${timestamp}@ramro.com`;
+      
+      // Fill registration form
+      cy.get('input[name="name"]').type('Test User');
+      cy.get('input[name="email"]').type(testEmail);
+      cy.get('input[name="password"]').type('password123');
+      cy.get('button[type="submit"]').click();
+      
+      // Should redirect back to wishlist page
+      cy.url().should('include', '/wishlist');
+    });
+
+    it('should redirect to home page when no redirect path exists after signup', () => {
+      const timestamp = Date.now();
+      const testEmail = `test${timestamp}@ramro.com`;
+      
+      cy.get('a[href="#/signup"]').click();
+      cy.get('input[name="name"]').type('Test User');
+      cy.get('input[name="email"]').type(testEmail);
+      cy.get('input[name="password"]').type('password123');
+      cy.get('button[type="submit"]').click();
+      
+      // Should redirect to home page
+      cy.url().should('not.include', '/signup');
+      cy.url().should('not.include', '/login');
+    });
       cy.get('[data-cy="user-menu"]').should('be.visible');
       cy.get('[data-cy="welcome-message"]').should('contain', 'Test User');
     });
@@ -74,6 +111,43 @@ describe('Authentication Flow', () => {
       // Verify successful login
       cy.url().should('not.include', '/login');
       cy.get('[data-cy="user-menu"]').should('be.visible');
+
+    it('should redirect to intended page after login', () => {
+      // Try to access protected route without login
+      cy.visit('/#/account');
+      cy.url().should('include', '/login');
+      
+      // Login
+      cy.get('input[name="email"]').type('test@ramro.com');
+      cy.get('input[name="password"]').type('password123');
+      cy.get('button[type="submit"]').click();
+      
+      // Should redirect back to account page
+      cy.url().should('include', '/account');
+    });
+
+    it('should redirect admin users to admin panel after login', () => {
+      const admin = Cypress.env('adminUser');
+      
+      cy.get('a[href="#/login"]').click();
+      cy.get('input[name="email"]').type(admin.email);
+      cy.get('input[name="password"]').type(admin.password);
+      cy.get('button[type="submit"]').click();
+      
+      // Admin should be redirected to admin panel
+      cy.url().should('include', '/admin');
+    });
+
+    it('should redirect to home page when no redirect path exists', () => {
+      cy.get('a[href="#/login"]').click();
+      cy.get('input[name="email"]').type('test@ramro.com');
+      cy.get('input[name="password"]').type('password123');
+      cy.get('button[type="submit"]').click();
+      
+      // Should redirect to home page
+      cy.url().should('not.include', '/login');
+      cy.url().should('not.include', '/account');
+    });
       cy.get('[data-cy="user-name"]').should('contain', user.name);
     });
 
