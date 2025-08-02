@@ -84,7 +84,7 @@ export default function Login() {
   return (
     <div className="min-h-screen flex items-center justify-center bg-himalaya-light" role="main">
       <div className="bg-white p-8 rounded-lg shadow-lg w-full max-w-md">
-        <h1 className="text-2xl font-bold mb-4 text-himalaya-dark text-center">Login to Nyano</h1>
+        <h1 className="text-2xl font-bold mb-4 text-himalaya-dark text-center">Sign In to Darjeeling Souls</h1>
         {error && (
           <div className="bg-red-100 text-red-700 p-3 mb-4 rounded-lg border border-red-200" role="alert" aria-live="assertive">
             <div className="flex items-center">

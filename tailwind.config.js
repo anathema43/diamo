@@ -36,6 +36,7 @@ module.exports = {
       },
       fontFamily: {
         'display': ['Lora', 'serif'],
+        'brand': ['Lora', 'serif'],
         'body': ['Nunito Sans', 'sans-serif'],
         'cultural': ['Noto Sans Devanagari', 'sans-serif']
       },

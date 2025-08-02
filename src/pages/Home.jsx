@@ -152,44 +152,38 @@ export default function Home() {
         
         {/* Hero Content */}
         <div className="relative z-10 text-center max-w-5xl px-6 animate-fade-in">
-          <h1 className="font-display text-5xl md:text-7xl font-bold mb-6 tracking-wide leading-tight text-nyano-brown">
-            Nyano
+          <h1 className="font-display text-5xl md:text-7xl font-bold mb-6 tracking-wide leading-tight text-organic-text">
+            Darjeeling Souls
           </h1>
-          <div className="relative mb-8">
-            <p className="font-display text-2xl md:text-3xl italic text-nyano-terracotta bg-nyano-cream bg-opacity-80 backdrop-blur-sm px-6 py-2 rounded-full inline-block shadow-md border border-nyano-terracotta border-opacity-30">
-              nyā-nō
-            </p>
-            <div className="absolute -top-1 -right-1 w-3 h-3 bg-nyano-marigold rounded-full animate-pulse"></div>
-          </div>
           <div className="mb-6">
-            <h2 className="font-display text-3xl md:text-5xl font-bold mb-2 text-nyano-brown">
-              Experience Pure
+            <h2 className="font-display text-3xl md:text-5xl font-bold mb-2 text-organic-text">
+              Authentic Handcrafted Goods
             </h2>
-            <h2 className="font-display text-3xl md:text-5xl font-bold mb-4 text-nyano-brown">
-              Local Goodness
+            <h2 className="font-display text-3xl md:text-5xl font-bold mb-4 text-organic-text">
+              from the Heart of
             </h2>
-            <h2 className="font-display text-3xl md:text-5xl font-bold mb-4 text-nyano-brown">
-              of Himalayas
+            <h2 className="font-display text-3xl md:text-5xl font-bold mb-4 text-organic-text">
+              the Darjeeling Hills
             </h2>
           </div>
           <div className="flex flex-col sm:flex-row gap-6 justify-center">
             <Link 
               to="/shop" 
-              className="inline-block bg-nyano-terracotta text-nyano-cream font-semibold px-10 py-4 rounded-full text-lg transition-all duration-300 transform hover:scale-105 shadow-lg hover:bg-nyano-terracotta-dark"
+              className="inline-block bg-organic-primary text-organic-white font-semibold px-10 py-4 rounded-full text-lg transition-all duration-300 transform hover:scale-105 shadow-lg hover:opacity-90"
             >
-              Explore the Collection
+              Discover Our Collection
             </Link>
             <Link 
               to="/artisans" 
-              className="inline-block px-10 py-4 rounded-full text-lg transition-all duration-300 border-2 border-nyano-brown text-nyano-brown hover:bg-nyano-brown hover:text-nyano-cream backdrop-blur-sm"
+              className="inline-block px-10 py-4 rounded-full text-lg transition-all duration-300 border-2 border-organic-text text-organic-text hover:bg-organic-text hover:text-organic-white backdrop-blur-sm"
             >
               Meet Our Artisans
             </Link>
             <Link 
               to="/about" 
-              className="inline-block px-10 py-4 rounded-full text-lg transition-all duration-300 border-2 border-nyano-brown text-nyano-brown hover:bg-nyano-brown hover:text-nyano-cream backdrop-blur-sm"
+              className="inline-block px-10 py-4 rounded-full text-lg transition-all duration-300 border-2 border-organic-text text-organic-text hover:bg-organic-text hover:text-organic-white backdrop-blur-sm"
             >
-              Learn More
+              Our Story
             </Link>
           </div>
         </div>
@@ -234,13 +228,13 @@ export default function Home() {
       </section>
 
       {/* Featured Products Section */}
-      <section className="py-20 bg-nyano-cream">
+      <section className="py-20 bg-organic-background">
         <div className="max-w-7xl mx-auto px-6">
           <div className="text-center mb-16">
-            <h2 className="font-display text-4xl md:text-5xl font-bold text-nyano-brown mb-4">
+            <h2 className="font-display text-4xl md:text-5xl font-bold text-organic-text mb-4">
               Featured Products
             </h2>
-            <p className="text-xl text-nyano-brown opacity-75 max-w-2xl mx-auto">
+            <p className="text-xl text-organic-text opacity-75 max-w-2xl mx-auto">
               Discover our handpicked selection of authentic treasures
             </p>
           </div>
@@ -256,42 +250,40 @@ export default function Home() {
                   className="w-full h-64 hover:scale-110 transition-transform duration-300"
                   sizes="(max-width: 768px) 100vw, 400px"
                   priority={true}
-                  sizes="(max-width: 768px) 100vw, 400px"
-                  priority={true}
                 />
                 <div className="absolute top-4 left-4">
-                  <span className="bg-nyano-forest text-nyano-cream px-3 py-1 rounded-full text-sm font-semibold shadow-lg">
+                  <span className="bg-organic-highlight text-organic-white px-3 py-1 rounded-full text-sm font-semibold shadow-lg">
                     🌾 Organic
                   </span>
                 </div>
-                <div className="absolute top-4 right-4 bg-nyano-cream bg-opacity-90 rounded-full px-2 py-1">
+                <div className="absolute top-4 right-4 bg-organic-white bg-opacity-90 rounded-full px-2 py-1">
                   <div className="flex items-center">
-                    <StarIcon className="w-4 h-4 text-nyano-terracotta fill-current" />
+                    <StarIcon className="w-4 h-4 text-organic-primary fill-current" />
                     <span className="text-sm font-semibold ml-1">4.8</span>
                   </div>
                 </div>
               </div>
               <div className="p-6">
-                <h3 className="font-display text-xl font-bold mb-2 text-nyano-brown">
+                <h3 className="font-display text-xl font-bold mb-2 text-organic-text">
                   Organic Red Rice
                 </h3>
-                <p className="text-nyano-brown opacity-75 mb-4 text-sm leading-relaxed">
+                <p className="text-organic-text opacity-75 mb-4 text-sm leading-relaxed">
                   Nutrient-rich, farm to table red rice from Himalayan valleys, grown without chemicals in terraced fields.
                 </p>
                 <div className="flex items-center justify-between mb-4">
-                  <span className="font-bold text-2xl text-nyano-forest">
+                  <span className="font-bold text-2xl text-organic-highlight">
                     ₹450
                   </span>
                   <Link 
                     to="/shop"
-                    className="text-nyano-terracotta hover:text-nyano-brown text-sm font-semibold underline"
+                    className="text-organic-primary hover:text-organic-text text-sm font-semibold underline"
                   >
                     View Details
                   </Link>
                 </div>
                 <Link 
                   to="/shop"
-                  className="w-full bg-nyano-terracotta text-nyano-cream font-semibold py-3 px-6 rounded-lg hover:bg-nyano-terracotta-dark transition-all duration-200 text-center block"
+                  className="w-full bg-organic-primary text-organic-white font-semibold py-3 px-6 rounded-lg hover:opacity-90 transition-all duration-200 text-center block"
                 >
                   Add to Cart
                 </Link>
@@ -307,42 +299,40 @@ export default function Home() {
                   className="w-full h-64 hover:scale-110 transition-transform duration-300"
                   sizes="(max-width: 768px) 100vw, 400px"
                   priority={true}
-                  sizes="(max-width: 768px) 100vw, 400px"
-                  priority={true}
                 />
                 <div className="absolute top-4 left-4">
-                  <span className="bg-nyano-forest text-nyano-cream px-3 py-1 rounded-full text-sm font-semibold shadow-lg">
+                  <span className="bg-organic-highlight text-organic-white px-3 py-1 rounded-full text-sm font-semibold shadow-lg">
                     🌾 Gluten Free
                   </span>
                 </div>
-                <div className="absolute top-4 right-4 bg-nyano-cream bg-opacity-90 rounded-full px-2 py-1">
+                <div className="absolute top-4 right-4 bg-organic-white bg-opacity-90 rounded-full px-2 py-1">
                   <div className="flex items-center">
-                    <StarIcon className="w-4 h-4 text-nyano-terracotta fill-current" />
+                    <StarIcon className="w-4 h-4 text-organic-primary fill-current" />
                     <span className="text-sm font-semibold ml-1">4.6</span>
                   </div>
                 </div>
               </div>
               <div className="p-6">
-                <h3 className="font-display text-xl font-bold mb-2 text-nyano-brown">
+                <h3 className="font-display text-xl font-bold mb-2 text-organic-text">
                   Himalayan Buckwheat
                 </h3>
-                <p className="text-nyano-brown opacity-75 mb-4 text-sm leading-relaxed">
+                <p className="text-organic-text opacity-75 mb-4 text-sm leading-relaxed">
                   Gluten-free, sustainably harvested buckwheat from high altitudes, perfect for traditional pancakes and porridge.
                 </p>
                 <div className="flex items-center justify-between mb-4">
-                  <span className="font-bold text-2xl text-nyano-forest">
+                  <span className="font-bold text-2xl text-organic-highlight">
                     ₹380
                   </span>
                   <Link 
                     to="/shop"
-                    className="text-nyano-terracotta hover:text-nyano-brown text-sm font-semibold underline"
+                    className="text-organic-primary hover:text-organic-text text-sm font-semibold underline"
                   >
                     View Details
                   </Link>
                 </div>
                 <Link 
                   to="/shop"
-                  className="w-full bg-nyano-terracotta text-nyano-cream font-semibold py-3 px-6 rounded-lg hover:bg-nyano-terracotta-dark transition-all duration-200 text-center block"
+                  className="w-full bg-organic-primary text-organic-white font-semibold py-3 px-6 rounded-lg hover:opacity-90 transition-all duration-200 text-center block"
                 >
                   Add to Cart
                 </Link>
@@ -365,14 +355,14 @@ export default function Home() {
             </div>
             <div className="animate-slide-up" style={{ animationDelay: '0.3s' }}>
               <h2 className="font-display text-4xl md:text-5xl font-bold mb-8 text-organic-text">
-                Why Choose Ramro - From the Hearts of Himalayas
+                Why Choose Darjeeling Souls - From the Heart of the Hills
               </h2>
               <div className="space-y-6">
                 <div className="flex items-start">
                   <div className="w-3 h-3 bg-organic-highlight rounded-full mt-2 mr-4 flex-shrink-0"></div>
                   <div>
                     <h4 className="font-semibold text-lg text-organic-text mb-1">Locally Sourced & Sustainably Grown</h4>
-                    <p className="text-organic-text opacity-75">Direct from mountain communities with traditional farming methods</p>
+                    <p className="text-organic-text opacity-75">Direct from Darjeeling hill communities with traditional farming methods</p>
                   </div>
                 </div>
                 <div className="flex items-start">
@@ -393,7 +383,7 @@ export default function Home() {
                   <div className="w-3 h-3 bg-organic-highlight rounded-full mt-2 mr-4 flex-shrink-0"></div>
                   <div>
                     <h4 className="font-semibold text-lg text-organic-text mb-1">Authentic. Sustainable. Pure.</h4>
-                    <p className="text-organic-text opacity-75">Connecting you with the timeless traditions of the Himalayas</p>
+                    <p className="text-organic-text opacity-75">Connecting you with the timeless traditions of the Darjeeling hills</p>
                   </div>
                 </div>
               </div>
@@ -489,17 +479,17 @@ export default function Home() {
         <div className="absolute inset-0 bg-mountain-pattern opacity-10"></div>
         <div className="relative z-10 max-w-5xl mx-auto text-center px-6">
           <h2 className="font-display text-4xl md:text-5xl font-bold mb-6">
-            Ready to Experience the Himalayan Difference?
+            Ready to Experience the Darjeeling Difference?
           </h2>
           <p className="text-xl md:text-2xl mb-10 max-w-3xl mx-auto leading-relaxed">
-            Join thousands of customers who choose authentic, organic products from the heart of the mountains.
+            Join thousands of customers who choose authentic, organic products from the heart of the Darjeeling hills.
           </p>
           <div className="flex flex-col sm:flex-row gap-6 justify-center">
             <Link 
               to="/shop" 
               className="inline-block bg-white text-organic-text font-bold px-10 py-4 rounded-full text-lg hover:bg-organic-background transition-all duration-300 transform hover:scale-105 shadow-lg"
             >
-              Start Shopping
+              Begin Your Journey
             </Link>
             <Link 
               to="/signup" 

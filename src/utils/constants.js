@@ -1,17 +1,17 @@
 // Application Constants
 export const CONTACT_INFO = {
   email: {
-    support: 'support@ramro.com',
-    hello: 'hello@ramro.com'
+    support: 'support@darjeelingsouls.com',
+    hello: 'hello@darjeelingsouls.com'
   },
   phone: {
     nepal: '+977 1 234 5678',
     international: '+1 (555) 123-4567'
   },
   address: {
-    street: 'Thamel, Kathmandu',
-    country: 'Nepal',
-    postalCode: '44600'
+    street: 'Siliguri, West Bengal',
+    country: 'India',
+    postalCode: '734001'
   }
 };
 
@@ -34,16 +34,16 @@ export const RETURN_POLICY = {
 };
 
 export const SOCIAL_MEDIA = {
-  twitter: 'https://twitter.com/ramro',
-  facebook: 'https://facebook.com/ramro',
-  instagram: 'https://instagram.com/ramro',
-  pinterest: 'https://pinterest.com/ramro'
+  twitter: 'https://twitter.com/darjeelingsouls',
+  facebook: 'https://facebook.com/darjeelingsouls',
+  instagram: 'https://instagram.com/darjeelingsouls',
+  pinterest: 'https://pinterest.com/darjeelingsouls'
 };
 
 export const APP_CONFIG = {
-  name: 'Ramro',
-  tagline: 'Authentic Himalayan Products',
-  description: 'Handpicked, Organically Grown in the Himalayas',
+  name: 'Darjeeling Souls',
+  tagline: 'Authentic Darjeeling Hill Products',
+  description: 'Handpicked, Organically Grown in the Darjeeling Hills',
   currency: 'INR',
   defaultLanguage: 'en'
 };
@@ -76,5 +76,5 @@ export const SUCCESS_MESSAGES = {
   orderPlaced: 'Order placed successfully!',
   productAdded: 'Product added to cart',
   profileUpdated: 'Profile updated successfully',
-  messageSent: 'Message sent successfully'
+  messageSent: 'Your message has been sent successfully'
 };

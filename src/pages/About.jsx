@@ -11,7 +11,7 @@ export default function About() {
             Our Story
           </h1>
           <p className="text-xl md:text-2xl leading-relaxed">
-            Connecting the world with authentic Himalayan craftsmanship and organic goodness
+            Connecting the world with authentic Darjeeling hill craftsmanship and organic goodness
           </p>
         </div>
       </section>
@@ -24,8 +24,8 @@ export default function About() {
               Born in the Mountains
             </h2>
             <p className="text-organic-text mb-6 leading-relaxed">
-              Ramro began as a dream to bridge the gap between the pristine Himalayan highlands and the global community. 
-              Founded by mountain enthusiasts who witnessed firsthand the incredible craftsmanship and organic farming 
+              Darjeeling Souls began as a dream to bridge the gap between the pristine Darjeeling hills and the global community. 
+              Founded by hill enthusiasts who witnessed firsthand the incredible craftsmanship and organic farming 
               practices of local communities, we set out to create a platform that honors tradition while embracing modernity.
             </p>
 
@@ -56,7 +56,7 @@ export default function About() {
             </div>
 
             <h2 className="font-display text-3xl font-bold text-organic-text mb-6 mt-12">
-              The Ramro Promise
+              The Darjeeling Souls Promise
             </h2>
             <ul className="list-disc list-inside text-organic-text space-y-3 mb-8">
               <li>100% authentic products sourced directly from artisans</li>

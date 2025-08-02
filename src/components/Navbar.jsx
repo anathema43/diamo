@@ -4,6 +4,7 @@ import { useAuthStore } from "../store/authStore";
 import { useCartStore } from "../store/cartStore";
 import { useWishlistStore } from "../store/wishlistStore";
 import { UserCircleIcon, Bars3Icon, XMarkIcon, ShoppingCartIcon } from "@heroicons/react/24/outline";
+import Logo from "./Logo";
 
 export default function Navbar() {
   const { currentUser, userProfile, logout } = useAuthStore();
@@ -48,9 +49,9 @@ export default function Navbar() {
       </button>
 
       {/* Logo */}
-      <Link to="/" className="flex items-center gap-2 font-bold text-xl tracking-wide hover:text-organic-primary transition-colors focus:outline-none focus:ring-2 focus:ring-white focus:ring-opacity-50 rounded" aria-label="Nyano - Go to homepage" data-cy="logo">
-        <span className="font-display text-2xl text-nyano-cream">Nyano</span>
-      </Link>
+      <div className="text-organic-white" data-cy="logo">
+        <Logo className="h-8 w-auto" />
+      </div>
 
       {/* Desktop Navigation */}
       <div className="hidden md:flex gap-6 items-center" role="navigation" aria-label="Main navigation" data-cy="desktop-nav">
@@ -103,13 +104,13 @@ export default function Navbar() {
               aria-label="Sign out of your account"
               data-cy="logout-button"
             >
-              Logout
+              Sign Out
             </button>
           </>
         ) : (
           <>
-            <Link to="/login" className="text-organic-white hover:text-organic-primary transition-colors duration-200 font-medium focus:outline-none focus:ring-2 focus:ring-white focus:ring-opacity-50 rounded px-2 py-1" data-cy="nav-login">Login</Link>
-            <Link to="/signup" className="px-4 py-2 bg-organic-white text-organic-text rounded-md hover:bg-organic-primary hover:text-organic-white transition-all duration-200 font-medium shadow-sm hover:shadow-md focus:outline-none focus:ring-2 focus:ring-organic-primary focus:ring-offset-2" data-cy="nav-signup">Sign Up</Link>
+            <Link to="/login" className="text-organic-white hover:text-organic-primary transition-colors duration-200 font-medium focus:outline-none focus:ring-2 focus:ring-white focus:ring-opacity-50 rounded px-2 py-1" data-cy="nav-login">Sign In</Link>
+            <Link to="/signup" className="px-4 py-2 bg-organic-white text-organic-text rounded-md hover:bg-organic-primary hover:text-organic-white transition-all duration-200 font-medium shadow-sm hover:shadow-md focus:outline-none focus:ring-2 focus:ring-organic-primary focus:ring-offset-2" data-cy="nav-signup">Join Us</Link>
           </>
         )}
       </div>
@@ -143,13 +144,13 @@ export default function Navbar() {
                   className="text-left text-organic-white hover:text-organic-primary transition-colors duration-200 font-medium py-2 focus:outline-none focus:ring-2 focus:ring-white focus:ring-opacity-50 rounded"
                   data-cy="mobile-logout-button"
                 >
-                  Logout
+                  Sign Out
                 </button>
               </>
             ) : (
               <>
-                <Link to="/login" onClick={closeMobileMenu} className="text-organic-white hover:text-organic-primary transition-colors duration-200 font-medium py-2 focus:outline-none focus:ring-2 focus:ring-white focus:ring-opacity-50 rounded" data-cy="mobile-nav-login">Login</Link>
-                <Link to="/signup" onClick={closeMobileMenu} className="text-organic-white hover:text-organic-primary transition-colors duration-200 font-medium py-2 focus:outline-none focus:ring-2 focus:ring-white focus:ring-opacity-50 rounded" data-cy="mobile-nav-signup">Sign Up</Link>
+                <Link to="/login" onClick={closeMobileMenu} className="text-organic-white hover:text-organic-primary transition-colors duration-200 font-medium py-2 focus:outline-none focus:ring-2 focus:ring-white focus:ring-opacity-50 rounded" data-cy="mobile-nav-login">Sign In</Link>
+                <Link to="/signup" onClick={closeMobileMenu} className="text-organic-white hover:text-organic-primary transition-colors duration-200 font-medium py-2 focus:outline-none focus:ring-2 focus:ring-white focus:ring-opacity-50 rounded" data-cy="mobile-nav-signup">Join Us</Link>
               </>
             )}
           </nav>

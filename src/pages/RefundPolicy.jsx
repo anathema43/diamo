@@ -1,17 +1,17 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
-export default function ShippingPolicy() {
+export default function RefundPolicy() {
   return (
     <div className="min-h-screen bg-organic-background">
       {/* Hero Section */}
       <section className="py-20 bg-organic-text text-white">
         <div className="max-w-4xl mx-auto px-6 text-center">
           <h1 className="font-display text-4xl md:text-6xl font-bold mb-6">
-            Shipping Policy
+            Refund & Return Policy
           </h1>
           <p className="text-xl md:text-2xl leading-relaxed">
-            Careful packaging and shipping from the Darjeeling hills
+            Your trust is the most important thing to us
           </p>
         </div>
       </section>
@@ -22,37 +22,37 @@ export default function ShippingPolicy() {
           <div className="bg-white p-8 rounded-lg shadow-lg">
             <div className="space-y-6 text-organic-text">
               <p className="text-lg leading-relaxed">
-                At Darjeeling Souls, we take great care in packaging and shipping your handcrafted items. All our products are sourced directly from artisans in the Darjeeling and Kalimpong regions and shipped from our base in Siliguri.
+                Your trust is the most important thing to us. We are committed to delivering authentic, high-quality products. Please read our policy carefully.
               </p>
               
               <div>
-                <h3 className="text-xl font-semibold mb-3">📦 Order Processing Time</h3>
+                <h3 className="text-xl font-semibold mb-3 text-red-600">🍯 Edible Items</h3>
                 <p className="leading-relaxed">
-                  Please allow up to <strong>7 business days</strong> for us to process and dispatch your order. As we work with small-batch producers, this ensures we can perform a final quality check and package your items with care.
+                  Due to the nature of our products and for hygiene and safety reasons, <strong>all sales on edible items (e.g., pickles, teas, spices) are final.</strong> We do not offer returns or refunds on these items.
                 </p>
               </div>
               
               <div>
-                <h3 className="text-xl font-semibold mb-3">📧 Shipping Confirmation</h3>
+                <h3 className="text-xl font-semibold mb-3 text-green-600">🎨 Non-Edible Items (Crafts, Decor, Apparel)</h3>
                 <p className="leading-relaxed">
-                  Once your order is dispatched, you will receive a shipping confirmation email containing your tracking number and a link to track your package.
+                  We only offer returns for non-edible items if they arrive in a <strong>damaged or defective condition.</strong>
                 </p>
               </div>
               
               <div>
-                <h3 className="text-xl font-semibold mb-3">🚚 Delivery Timelines</h3>
-                <p className="leading-relaxed">
-                  Delivery times will vary based on your location. You will receive a more accurate delivery estimate at checkout after entering your pincode.
-                </p>
+                <h3 className="text-xl font-semibold mb-3">📋 To be eligible for a return:</h3>
+                <ol className="list-decimal list-inside space-y-2 ml-4">
+                  <li>You must contact us at <a href="mailto:support@darjeelingsouls.com" className="text-organic-primary underline">support@darjeelingsouls.com</a> within <strong>48 hours</strong> of receiving your order.</li>
+                  <li>You must provide your order number and clear photographic evidence of the damage or defect.</li>
+                </ol>
               </div>
               
               <div className="bg-organic-background p-6 rounded-lg">
-                <h3 className="text-xl font-semibold mb-3">📞 Questions?</h3>
                 <p className="leading-relaxed">
-                  If you have any questions about your order, please contact us at{" "}
-                  <a href="mailto:support@darjeelingsouls.com" className="text-organic-primary underline">
-                    support@darjeelingsouls.com
-                  </a>
+                  Our team will review your request. If approved, we will arrange for a reverse pickup and, upon receiving the returned item, we will issue a full refund or send a replacement, based on your preference.
+                </p>
+                <p className="leading-relaxed mt-3">
+                  We do not accept returns for non-edible items for any other reason (e.g., change of mind).
                 </p>
               </div>
             </div>
@@ -68,7 +68,7 @@ export default function ShippingPolicy() {
                 to="/shop" 
                 className="inline-block border border-organic-primary text-organic-primary font-bold px-6 py-3 rounded-lg hover:bg-organic-primary hover:text-white transition-all"
               >
-                Start Shopping
+                Continue Shopping
               </Link>
             </div>
           </div>

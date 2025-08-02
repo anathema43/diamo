@@ -16,7 +16,10 @@ import Admin from "./pages/Admin";
 import About from "./pages/About";
 import DevelopmentRoadmap from "./pages/DevelopmentRoadmap";
 import ShippingPolicy from "./pages/ShippingPolicy";
-import ReturnPolicy from "./pages/ReturnPolicy";
+import RefundPolicy from "./pages/RefundPolicy";
+import PrivacyPolicy from "./pages/PrivacyPolicy";
+import TermsOfUse from "./pages/TermsOfUse";
+import Disclaimer from "./pages/Disclaimer";
 import FAQ from "./pages/FAQ";
 import Contact from "./pages/Contact";
 import ArtisansDirectory from "./pages/ArtisansDirectory";
@@ -75,7 +78,10 @@ function App() {
             {/* Static Pages */}
             <Route path="/about" element={<About />} />
             <Route path="/shipping-policy" element={<ShippingPolicy />} />
-            <Route path="/return-policy" element={<ReturnPolicy />} />
+            <Route path="/refund-policy" element={<RefundPolicy />} />
+            <Route path="/privacy-policy" element={<PrivacyPolicy />} />
+            <Route path="/terms-of-use" element={<TermsOfUse />} />
+            <Route path="/disclaimer" element={<Disclaimer />} />
             <Route path="/faq" element={<FAQ />} />
             <Route path="/contact" element={<Contact />} />
             
