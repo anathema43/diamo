@@ -13,6 +13,6 @@ export default function ProtectedRoute({ children }) {
 
   if (!currentUser) {
     saveRedirectPath(window.location.pathname);
-    return <Navigate to="/login" replace />;
+    return React.createElement(Navigate, { to: "/login", replace: true });
   }
 }
