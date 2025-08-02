@@ -25,6 +25,8 @@ export default function Login() {
       const targetPath = determineRedirectPath(userProfile, savedRedirectPath);
       
       navigate(targetPath);
+    } catch (error) {
+      setError(error.message || "Login failed. Please try again.");
     }
   }
   return (
