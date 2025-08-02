@@ -4,7 +4,6 @@ import React, { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import { useAuthStore } from "../store/authStore";
 import { getAndClearRedirectPath, determineRedirectPath } from "../utils/redirectUtils";
-import { getAndClearRedirectPath, determineRedirectPath } from "../utils/redirectUtils";
 
 export default function Login() {
   const [email, setEmail] = useState("");
