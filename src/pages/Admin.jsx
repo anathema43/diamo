@@ -6,7 +6,7 @@ import { useInventoryStore } from "../store/inventoryStore";
 import formatCurrency from "../utils/formatCurrency";
 import LoadingSpinner from "../components/LoadingSpinner";
 import ProductFormModal from "../components/ProductFormModal";
-import ArtisanFormModal from "../components/ArtisanFormModal";
+import ArtisanFormModal from "../components/ArtisanFormModal.jsx";
 import { 
   TrashIcon, 
   PencilIcon, 
