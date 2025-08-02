@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { TruckIcon, BeakerIcon, HandRaisedIcon, StarIcon, ChevronLeftIcon, ChevronRightIcon } from "@heroicons/react/24/outline";
 import ResponsiveImage from "../components/ResponsiveImage";
 import AddToCartButton from "../components/AddToCartButton";
+import Logo from "../components/Logo";
 import { useProductStore } from "../store/productStore";
 import formatCurrency from "../utils/formatCurrency";
 
@@ -152,17 +153,17 @@ export default function Home() {
         
         {/* Hero Content */}
         <div className="relative z-10 text-center max-w-5xl px-6 animate-fade-in">
-          <h1 className="font-brand text-5xl md:text-7xl font-bold mb-6 tracking-wide leading-tight text-organic-text">
-            Darjeeling Souls
-          </h1>
+          <div className="mb-8">
+            <Logo variant="large" className="text-white mb-4" linkTo={null} />
+          </div>
           <div className="mb-6">
-            <h2 className="font-brand text-3xl md:text-5xl font-bold mb-2 text-organic-text">
+            <h2 className="font-brand text-3xl md:text-5xl font-bold mb-2 text-white">
               Authentic Handcrafted Goods
             </h2>
-            <h2 className="font-brand text-3xl md:text-5xl font-bold mb-4 text-organic-text">
+            <h2 className="font-brand text-3xl md:text-5xl font-bold mb-4 text-white">
               from the Heart of
             </h2>
-            <h2 className="font-brand text-3xl md:text-5xl font-bold mb-4 text-organic-text">
+            <h2 className="font-brand text-3xl md:text-5xl font-bold mb-4 text-white">
               the Darjeeling Hills
             </h2>
           </div>

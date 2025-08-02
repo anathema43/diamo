@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { useAuthStore } from "../store/authStore";
 import { useNavigate, Link } from "react-router-dom";
 import { getAndClearRedirectPath, determineRedirectPath } from "../utils/redirectUtils";
+import Logo from "../components/Logo";
 
 export default function Signup() {
   const { signup } = useAuthStore();
@@ -94,6 +95,9 @@ export default function Signup() {
   return (
     <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-himalaya-light to-blue-200" role="main">
       <div className="bg-white p-8 rounded-lg shadow-lg w-full max-w-md">
+        <div className="text-center mb-6">
+          <Logo className="text-organic-primary justify-center" />
+        </div>
         <h1 className="text-2xl font-bold mb-6 text-center text-himalaya-dark">Join Darjeeling Souls</h1>
         {error && (
           <div className="bg-red-100 text-red-700 p-3 mb-4 rounded-lg border border-red-200" role="alert" aria-live="assertive">

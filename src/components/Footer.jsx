@@ -1,6 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import Logo from "./Logo";
+import Logo from "./Logo";
 
 export default function Footer() {
   return (
@@ -9,9 +10,7 @@ export default function Footer() {
         <div className="grid md:grid-cols-4 gap-8">
           {/* Company Info */}
           <div className="md:col-span-2">
-            <div className="mb-4">
-              <Logo className="h-10 w-auto text-organic-white" />
-            </div>
+            <Logo className="text-organic-white mb-4" />
             <p className="text-organic-white opacity-75 mb-6 leading-relaxed">
               Authentic handcrafted goods sourced directly from artisans in the Darjeeling hills. 
               Supporting sustainable communities while bringing you the finest 

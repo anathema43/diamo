@@ -1,5 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import Logo from "../components/Logo";
 
 export default function About() {
   return (
@@ -7,6 +8,9 @@ export default function About() {
       {/* Hero Section */}
       <section className="py-20 bg-organic-text text-white" data-cy="about-hero">
         <div className="max-w-4xl mx-auto px-6 text-center">
+          <div className="mb-8">
+            <Logo className="text-white justify-center" linkTo={null} />
+          </div>
           <h1 className="font-display text-4xl md:text-6xl font-bold mb-6">
             Our Story
           </h1>

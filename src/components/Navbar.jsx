@@ -5,6 +5,7 @@ import { useCartStore } from "../store/cartStore";
 import { useWishlistStore } from "../store/wishlistStore";
 import { UserCircleIcon, Bars3Icon, XMarkIcon, ShoppingCartIcon } from "@heroicons/react/24/outline";
 import Logo from "./Logo";
+import Logo from "./Logo";
 
 export default function Navbar() {
   const { currentUser, userProfile, logout } = useAuthStore();
@@ -49,9 +50,7 @@ export default function Navbar() {
       </button>
 
       {/* Logo */}
-      <div className="text-organic-white" data-cy="logo">
-        <Logo className="h-8 w-auto text-organic-white" />
-      </div>
+      <Logo className="text-organic-white" data-cy="logo" />
 
       {/* Desktop Navigation */}
       <div className="hidden md:flex gap-6 items-center" role="navigation" aria-label="Main navigation" data-cy="desktop-nav">

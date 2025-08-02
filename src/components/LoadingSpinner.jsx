@@ -1,5 +1,6 @@
 import React from 'react';
 import Logo from './Logo';
+import Logo from './Logo';
 
 export default function LoadingSpinner({ message = "Loading...", size = "large" }) {
   const sizeClasses = {
@@ -17,7 +18,7 @@ export default function LoadingSpinner({ message = "Loading...", size = "large" 
     >
       <div className="text-center">
         {/* Brand Logo Loading Animation */}
-        <div className={`${sizeClasses[size]} mx-auto mb-4 text-organic-primary animate-pulse`}>
+        <div className={`mx-auto mb-4 text-organic-primary animate-pulse`}>
           <Logo variant="icon" linkTo={null} className="w-full h-full" />
         </div>
         

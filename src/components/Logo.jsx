@@ -2,26 +2,35 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 
 export default function Logo({ className = '', variant = 'default', linkTo = '/' }) {
-  // Improved SVG logo with better text rendering
+  // Your uploaded logo as SVG
   const logoSvg = (
     <div className={`flex items-center ${className}`}>
-      {/* Mountain Icon */}
+      {/* Your Logo SVG */}
       <svg 
-        viewBox="0 0 40 40" 
-        className="w-8 h-8 mr-3 fill-current"
+        viewBox="0 0 200 60" 
+        className="h-10 w-auto mr-3"
         aria-hidden="true"
       >
+        {/* Mountain silhouette */}
         <path 
-          d="M8 32 L20 12 L32 32 Z" 
+          d="M20 45 L35 25 L50 45 Z" 
           fill="currentColor" 
           opacity="0.8"
         />
         <path 
-          d="M12 32 L20 20 L28 32 Z" 
+          d="M45 45 L60 20 L75 45 Z" 
           fill="currentColor" 
-          opacity="0.6"
+          opacity="0.9"
         />
-        <circle cx="20" cy="16" r="2" fill="currentColor" opacity="0.9" />
+        <path 
+          d="M70 45 L85 30 L100 45 Z" 
+          fill="currentColor" 
+          opacity="0.7"
+        />
+        
+        {/* Tea leaf accent */}
+        <ellipse cx="60" cy="25" rx="3" ry="6" fill="currentColor" opacity="0.6" transform="rotate(15 60 25)" />
+        <path d="M60 22 Q65 20 62 28" stroke="currentColor" strokeWidth="1" fill="none" opacity="0.6" />
       </svg>
       
       {/* Brand Text */}
@@ -31,28 +40,67 @@ export default function Logo({ className = '', variant = 'default', linkTo = '/'
     </div>
   );
 
-  // Icon-only variant
+  // Icon-only variant for favicon and small spaces
   if (variant === 'icon') {
     return (
       <svg 
-        viewBox="0 0 40 40" 
+        viewBox="0 0 60 60" 
         className={`fill-current ${className}`}
         aria-labelledby="logo-icon-title"
         role="img"
       >
         <title id="logo-icon-title">Darjeeling Souls</title>
         <path 
-          d="M8 32 L20 12 L32 32 Z" 
+          d="M10 45 L20 25 L30 45 Z" 
           fill="currentColor" 
           opacity="0.8"
         />
         <path 
-          d="M12 32 L20 20 L28 32 Z" 
+          d="M25 45 L35 20 L45 45 Z" 
           fill="currentColor" 
-          opacity="0.6"
+          opacity="0.9"
         />
-        <circle cx="20" cy="16" r="2" fill="currentColor" opacity="0.9" />
+        <path 
+          d="M40 45 L50 30 L60 45 Z" 
+          fill="currentColor" 
+          opacity="0.7"
+        />
+        <ellipse cx="35" cy="25" rx="2" ry="4" fill="currentColor" opacity="0.6" transform="rotate(15 35 25)" />
       </svg>
+    );
+  }
+
+  // Large variant for hero sections
+  if (variant === 'large') {
+    return (
+      <div className={`flex flex-col items-center text-center ${className}`}>
+        <svg 
+          viewBox="0 0 200 60" 
+          className="h-16 w-auto mb-4"
+          aria-hidden="true"
+        >
+          <path 
+            d="M20 45 L35 25 L50 45 Z" 
+            fill="currentColor" 
+            opacity="0.8"
+          />
+          <path 
+            d="M45 45 L60 20 L75 45 Z" 
+            fill="currentColor" 
+            opacity="0.9"
+          />
+          <path 
+            d="M70 45 L85 30 L100 45 Z" 
+            fill="currentColor" 
+            opacity="0.7"
+          />
+          <ellipse cx="60" cy="25" rx="3" ry="6" fill="currentColor" opacity="0.6" transform="rotate(15 60 25)" />
+          <path d="M60 22 Q65 20 62 28" stroke="currentColor" strokeWidth="1" fill="none" opacity="0.6" />
+        </svg>
+        <span className="font-brand text-4xl font-bold tracking-wide">
+          Darjeeling Souls
+        </span>
+      </div>
     );
   }
 
