@@ -5,9 +5,9 @@ export default function Logo({ className = '', variant = 'default', linkTo = '/'
   // Your Darjeeling Soul logo
   const logoSvg = (
     <div className={`flex items-center ${className}`}>
-      {/* Your Darjeeling Soul Logo */}
-      <img 
-        src="/logo copy.jpg" 
+      {/* Darjeeling Soul Logo */}
+      <img
+        src="/logo.webp"
         alt="Darjeeling Soul Logo"
         className="h-10 w-auto mr-3"
       />
@@ -22,8 +22,8 @@ export default function Logo({ className = '', variant = 'default', linkTo = '/'
   // Icon-only variant for favicon and small spaces
   if (variant === 'icon') {
     return (
-      <img 
-        src="/logo copy.jpg" 
+      <img
+        src="/logo.webp"
         alt="Darjeeling Soul"
         className={`h-8 w-auto ${className}`}
       />
@@ -34,8 +34,8 @@ export default function Logo({ className = '', variant = 'default', linkTo = '/'
   if (variant === 'large') {
     return (
       <div className={`flex flex-col items-center text-center ${className}`}>
-        <img 
-          src="/logo copy.jpg" 
+        <img
+          src="/logo.webp"
           alt="Darjeeling Soul Logo"
           className="h-20 w-auto mb-4"
         />
@@ -49,8 +49,8 @@ export default function Logo({ className = '', variant = 'default', linkTo = '/'
   // With link wrapper
   if (linkTo) {
     return (
-      <Link 
-        to={linkTo} 
+      <Link
+        to={linkTo}
         className="inline-block hover:opacity-80 transition-opacity focus:outline-none focus:ring-2 focus:ring-current focus:ring-opacity-50 rounded"
         aria-label="Darjeeling Soul - Go to homepage"
       >
