@@ -4,6 +4,7 @@ import React, { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import { useAuthStore } from "../store/authStore";
 import { getAndClearRedirectPath, determineRedirectPath } from "../utils/redirectUtils";
+import { getAndClearRedirectPath, determineRedirectPath } from "../utils/redirectUtils";
 
 export default function Login() {
   const [email, setEmail] = useState("");
@@ -21,13 +22,11 @@ export default function Login() {
     try {
       await login(email, password);
       
-      // Get user profile and determine redirect path
-      const { userProfile } = useAuthStore.getState();
-      const savedRedirectPath = getAndClearRedirectPath();
-      const redirectPath = determineRedirectPath(userProfile, savedRedirectPath);
-      
       // Navigate after auth state stabilizes
       setTimeout(() => {
+        const { userProfile } = useAuthStore.getState();
+        const savedRedirectPath = getAndClearRedirectPath();
+        const redirectPath = determineRedirectPath(userProfile, savedRedirectPath);
         navigate(redirectPath, { replace: true });
       }, 100);
       
