@@ -153,8 +153,8 @@ export default function Home() {
         
         {/* Hero Content */}
         <div className="relative z-10 text-center max-w-5xl px-6 animate-fade-in">
-          <div className="mb-8">
-            <Logo variant="large" className="text-white mb-4" linkTo={null} />
+          <div className="mb-12">
+            <Logo variant="hero" className="text-white" linkTo={null} />
           </div>
           <div className="mb-6">
             <h2 className="font-brand text-3xl md:text-5xl font-bold mb-2 text-white">

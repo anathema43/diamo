@@ -1,86 +1,138 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { ReactComponent as LogoSvg } from '../assets/logo.svg';
 
-export default function Logo({ className = '', variant = 'default', linkTo = '/' }) {
-  // Logo with fallback support
-  const logoElement = (
-    <div className={`flex items-center ${className}`}>
-      {/* Darjeeling Soul Logo with fallback */}
-      <picture className="h-10 w-auto mr-3 flex-shrink-0">
-        <source srcSet="/logo.webp" type="image/webp" />
-        <source srcSet="/logo copy.jpg" type="image/jpeg" />
-        <img
-          src="/logo copy.jpg"
-          alt="Darjeeling Soul Logo"
-          className="h-10 w-auto object-contain"
-          onError={(e) => {
-            console.error('Logo failed to load:', e.target.src);
-            // Try alternative fallback
-            if (!e.target.src.includes('placeholder')) {
-              e.target.src = 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAiIGhlaWdodD0iNDAiIHZpZXdCb3g9IjAgMCA0MCA0MCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjQwIiBoZWlnaHQ9IjQwIiByeD0iOCIgZmlsbD0iIzM5MzUzMSIvPgo8dGV4dCB4PSIyMCIgeT0iMjQiIGZvbnQtZmFtaWx5PSJzZXJpZiIgZm9udC1zaXplPSIxNCIgZm9udC13ZWlnaHQ9ImJvbGQiIGZpbGw9IndoaXRlIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIj5EUzwvdGV4dD4KPHN2Zz4=';
-            }
-          }}
-        />
-      </picture>
-      
-      {/* Brand Text */}
-      <span className="font-brand text-2xl font-bold tracking-wide">
-        Darjeeling Soul
-      </span>
-    </div>
-  );
+export default function Logo({ 
+  className = '', 
+  variant = 'default', 
+  linkTo = '/', 
+  showText = true 
+}) {
+  // Base logo component with SVG
+  const LogoComponent = ({ size = 'default', textClass = '' }) => {
+    const sizeClasses = {
+      small: 'h-8 w-auto',
+      default: 'h-10 w-auto',
+      large: 'h-16 w-auto',
+      hero: 'h-20 w-auto'
+    };
 
-  // Icon-only variant for favicon and small spaces
+    return (
+      <div className={`flex items-center ${className}`}>
+        {/* SVG Logo with enhanced styling */}
+        <div className="relative">
+          <LogoSvg 
+            className={`${sizeClasses[size]} text-current transition-all duration-300 filter drop-shadow-sm hover:drop-shadow-md`}
+            aria-label="Darjeeling Soul Logo"
+          />
+          {/* Subtle glow effect for dark backgrounds */}
+          <div className="absolute inset-0 opacity-0 hover:opacity-20 transition-opacity duration-300">
+            <LogoSvg 
+              className={`${sizeClasses[size]} text-current blur-sm`}
+              aria-hidden="true"
+            />
+          </div>
+        </div>
+        
+        {/* Brand text with enhanced typography */}
+        {showText && (
+          <div className={`ml-3 ${textClass}`}>
+            <div className="font-display text-current font-bold tracking-wide leading-tight">
+              <span className="block text-lg">Darjeeling</span>
+              <span className="block text-sm opacity-80 -mt-1">Soul</span>
+            </div>
+          </div>
+        )}
+      </div>
+    );
+  };
+
+  // Icon-only variant
   if (variant === 'icon') {
     return (
-      <picture className={`h-8 w-auto ${className}`}>
-        <source srcSet="/logo.webp" type="image/webp" />
-        <source srcSet="/logo copy.jpg" type="image/jpeg" />
-        <img
-          src="/logo copy.jpg"
-          alt="Darjeeling Soul"
-          className="h-8 w-auto object-contain"
-          onError={(e) => {
-            if (!e.target.src.includes('placeholder')) {
-              e.target.src = 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMzIiIGhlaWdodD0iMzIiIHZpZXdCb3g9IjAgMCAzMiAzMiIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjMyIiBoZWlnaHQ9IjMyIiByeD0iNiIgZmlsbD0iIzM5MzUzMSIvPgo8dGV4dCB4PSIxNiIgeT0iMjAiIGZvbnQtZmFtaWx5PSJzZXJpZiIgZm9udC1zaXplPSIxMiIgZm9udC13ZWlnaHQ9ImJvbGQiIGZpbGw9IndoaXRlIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIj5EUzwvdGV4dD4KPHN2Zz4=';
-            }
-          }}
+      <div className={className}>
+        <LogoSvg 
+          className="h-8 w-auto text-current transition-all duration-300 filter drop-shadow-sm hover:drop-shadow-md"
+          aria-label="Darjeeling Soul"
         />
-      </picture>
+      </div>
     );
   }
 
   // Large variant for hero sections
   if (variant === 'large') {
     return (
-      <div className={`flex flex-col items-center text-center ${className}`}>
-        <picture className="h-20 w-auto mb-4">
-          <source srcSet="/logo.webp" type="image/webp" />
-          <source srcSet="/logo copy.jpg" type="image/jpeg" />
-          <img
-            src="/logo copy.jpg"
-            alt="Darjeeling Soul Logo"
-            className="h-20 w-auto object-contain"
-            onError={(e) => {
-              if (!e.target.src.includes('placeholder')) {
-                e.target.src = 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iODAiIGhlaWdodD0iODAiIHZpZXdCb3g9IjAgMCA4MCA4MCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjgwIiBoZWlnaHQ9IjgwIiByeD0iMTIiIGZpbGw9IiMzOTM1MzEiLz4KPHRleHQgeD0iNDAiIHk9IjQ4IiBmb250LWZhbWlseT0ic2VyaWYiIGZvbnQtc2l6ZT0iMjQiIGZvbnQtd2VpZ2h0PSJib2xkIiBmaWxsPSJ3aGl0ZSIgdGV4dC1hbmNob3I9Im1pZGRsZSI+RFM8L3RleHQ+Cjwvc3ZnPg==';
-              }
-            }}
+      <div className={`text-center ${className}`}>
+        <div className="relative inline-block mb-4">
+          <LogoSvg 
+            className="h-20 w-auto text-current transition-all duration-300 filter drop-shadow-lg"
+            aria-label="Darjeeling Soul Logo"
           />
-        </picture>
-        <span className="font-brand text-4xl font-bold tracking-wide">
-          Darjeeling Soul
-        </span>
+          {/* Enhanced glow effect for hero */}
+          <div className="absolute inset-0 opacity-30 animate-pulse">
+            <LogoSvg 
+              className="h-20 w-auto text-current blur-md"
+              aria-hidden="true"
+            />
+          </div>
+        </div>
+        <div className="font-display text-current">
+          <h1 className="text-4xl md:text-5xl font-bold tracking-wide mb-2">
+            Darjeeling Soul
+          </h1>
+          <p className="text-lg opacity-90 font-light tracking-wider">
+            Authentic Hill Crafts
+          </p>
+        </div>
       </div>
     );
   }
 
-  // With link wrapper
+  // Hero variant with special effects
+  if (variant === 'hero') {
+    return (
+      <div className={`text-center ${className}`}>
+        <div className="relative inline-block mb-6">
+          {/* Main logo with enhanced effects */}
+          <LogoSvg 
+            className="h-24 w-auto text-current transition-all duration-500 filter drop-shadow-2xl animate-float"
+            aria-label="Darjeeling Soul Logo"
+          />
+          {/* Animated glow effect */}
+          <div className="absolute inset-0 opacity-40 animate-glow">
+            <LogoSvg 
+              className="h-24 w-auto text-current blur-lg"
+              aria-hidden="true"
+            />
+          </div>
+          {/* Subtle pulse effect */}
+          <div className="absolute inset-0 opacity-20 animate-pulse">
+            <LogoSvg 
+              className="h-24 w-auto text-current blur-sm"
+              aria-hidden="true"
+            />
+          </div>
+        </div>
+        <div className="font-display text-current">
+          <h1 className="text-5xl md:text-7xl font-bold tracking-wide mb-4 animate-fade-in-up">
+            Darjeeling Soul
+          </h1>
+          <p className="text-xl md:text-2xl opacity-90 font-light tracking-wider animate-fade-in-up" style={{ animationDelay: '0.3s' }}>
+            Authentic Handcrafted Goods from the Heart of the Hills
+          </p>
+        </div>
+      </div>
+    );
+  }
+
+  // Default variant with link wrapper
+  const logoElement = <LogoComponent size={variant} textClass="" />;
+
   if (linkTo) {
     return (
       <Link
         to={linkTo}
-        className="inline-block hover:opacity-80 transition-opacity focus:outline-none focus:ring-2 focus:ring-current focus:ring-opacity-50 rounded"
+        className="inline-block hover:opacity-90 transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-current focus:ring-opacity-50 rounded-lg p-1"
         aria-label="Darjeeling Soul - Go to homepage"
       >
         {logoElement}
