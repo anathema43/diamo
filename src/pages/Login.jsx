@@ -10,7 +10,7 @@ export default function Login() {
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
   const navigate = useNavigate();
-  const { login, userProfile } = useAuthStore();
+  const { login } = useAuthStore();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -22,7 +22,8 @@ export default function Login() {
       const savedRedirectPath = getAndClearRedirectPath();
       
       // Determine where to redirect based on user role and saved path
-      const targetPath = determineRedirectPath(userProfile, savedRedirectPath);
+      const latestUserProfile = useAuthStore.getState().userProfile;
+      const targetPath = determineRedirectPath(latestUserProfile, savedRedirectPath);
       
       navigate(targetPath);
     } catch (error) {
