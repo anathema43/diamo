@@ -1,6 +1,5 @@
 import React from 'react';
 import Logo from './Logo';
-import Logo from './Logo';
 
 export default function LoadingSpinner({ message = "Loading...", size = "large" }) {
   const sizeClasses = {
