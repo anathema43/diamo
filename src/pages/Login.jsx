@@ -86,7 +86,7 @@ export default function Login() {
     <div className="min-h-screen flex items-center justify-center bg-himalaya-light" role="main">
       <div className="bg-white p-8 rounded-lg shadow-lg w-full max-w-md">
         <div className="text-center mb-6">
-          <Logo className="text-nyano-terracotta justify-center" variant="default" linkTo="/" />
+          <Logo className="text-nyano-terracotta justify-center" size="default" linkTo="/" />
         </div>
         <h1 className="text-2xl font-bold mb-4 text-himalaya-dark text-center">Sign In to Darjeeling Souls</h1>
         {error && (

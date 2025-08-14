@@ -9,7 +9,7 @@ export default function About() {
       <section className="py-20 bg-organic-text text-white" data-cy="about-hero">
         <div className="max-w-4xl mx-auto px-6 text-center">
           <div className="mb-8">
-            <Logo className="text-white justify-center" variant="large" linkTo={null} />
+            <Logo className="text-white justify-center" size="large" linkTo={null} />
           </div>
           <h1 className="font-display text-4xl md:text-6xl font-bold mb-6">
             Our Story

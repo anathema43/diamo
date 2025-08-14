@@ -18,7 +18,12 @@ export default function LoadingSpinner({ message = "Loading...", size = "large" 
       <div className="text-center">
         {/* Brand Logo Loading Animation */}
         <div className={`mx-auto mb-4 text-organic-primary animate-pulse`}>
-          <Logo variant="icon" linkTo={null} className="w-full h-full" />
+          <Logo 
+            className="text-organic-primary" 
+            size="large" 
+            linkTo={null} 
+            showText={false} 
+          />
         </div>
         
         {/* Loading Message */}

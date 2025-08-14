@@ -9,7 +9,7 @@ export default function Footer() {
         <div className="grid md:grid-cols-4 gap-8">
           {/* Company Info */}
           <div className="md:col-span-2">
-            <Logo className="text-white mb-6" variant="default" linkTo="/" />
+            <Logo className="text-white mb-6" size="default" linkTo="/" />
             <p className="text-organic-white opacity-75 mb-6 leading-relaxed">
               Authentic handcrafted goods sourced directly from artisans in the Darjeeling hills. 
               Supporting sustainable communities while bringing you the finest 

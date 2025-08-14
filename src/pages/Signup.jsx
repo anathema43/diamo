@@ -96,7 +96,7 @@ export default function Signup() {
     <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-himalaya-light to-blue-200" role="main">
       <div className="bg-white p-8 rounded-lg shadow-lg w-full max-w-md">
         <div className="text-center mb-6">
-          <Logo className="text-nyano-terracotta justify-center" variant="default" linkTo="/" />
+          <Logo className="text-nyano-terracotta justify-center" size="default" linkTo="/" />
         </div>
         <h1 className="text-2xl font-bold mb-6 text-center text-himalaya-dark">Join Darjeeling Souls</h1>
         {error && (

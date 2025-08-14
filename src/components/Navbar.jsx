@@ -49,7 +49,7 @@ export default function Navbar() {
       </button>
 
       {/* Logo */}
-      <Logo className="text-white" variant="default" data-cy="logo" />
+      <Logo className="text-white" size="default" data-cy="logo" />
 
       {/* Desktop Navigation */}
       <div className="hidden md:flex gap-6 items-center" role="navigation" aria-label="Main navigation" data-cy="desktop-nav">
