@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { ReactComponent as LogoSvg } from '../assets/logo.svg';
+import LogoSvg from '../assets/logo.svg?react';
 
 export default function Logo({ 
   className = '', 
