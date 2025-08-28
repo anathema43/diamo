@@ -1,8 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useOrderStore } from '../store/orderStore';
 import { useProductStore } from '../store/productStore';
-import { ChartBarIcon, UsersIcon, ShoppingCartIcon } from '@heroicons/react/24/outline';
-import { TrendingUpIcon } from '@heroicons/react/24/solid';
+import { ChartBarIcon, UsersIcon, ShoppingCartIcon, ArrowTrendingUpIcon } from '@heroicons/react/24/outline';
 import formatCurrency from '../utils/formatCurrency';
 
 export default function AnalyticsDashboard() {
@@ -87,7 +86,7 @@ export default function AnalyticsDashboard() {
     const isPositive = growth >= 0;
     return (
       <span className={`flex items-center text-sm ${isPositive ? 'text-green-600' : 'text-red-600'}`}>
-        <TrendingUpIcon className={`w-4 h-4 mr-1 ${isPositive ? '' : 'rotate-180'}`} />
+        <ArrowTrendingUpIcon className={`w-4 h-4 mr-1 ${isPositive ? '' : 'rotate-180'}`} />
         {Math.abs(growth).toFixed(1)}%
       </span>
     );
