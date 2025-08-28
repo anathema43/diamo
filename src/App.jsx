@@ -25,8 +25,6 @@ import ArtisansDirectory from "./pages/ArtisansDirectory";
 import ArtisanProfile from "./pages/ArtisanProfile";
 import Stories from "./pages/Stories";
 import StoryDetail from "./pages/StoryDetail";
-import Stories from "./pages/Stories";
-import StoryDetail from "./pages/StoryDetail";
 import DevelopmentRoadmap from "./pages/DevelopmentRoadmap";
 import ProtectedRoute from "./components/ProtectedRoute";
 import AdminRoute from "./components/AdminRoute";
