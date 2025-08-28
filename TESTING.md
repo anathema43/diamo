@@ -14,10 +14,12 @@
 8. [Search Testing](#search-testing)
 9. [Real-time Feature Testing](#real-time-feature-testing)
 10. [Cultural Content Testing](#cultural-content-testing)
-11. [Test Data Management](#test-data-management)
-12. [Enterprise CI/CD Integration](#enterprise-cicd-integration)
-13. [Test Coverage Goals](#test-coverage-goals)
-14. [Troubleshooting Tests](#troubleshooting-tests)
+11. [Payment Processing Testing](#payment-processing-testing)
+12. [Email Notification Testing](#email-notification-testing)
+13. [Test Data Management](#test-data-management)
+14. [Enterprise CI/CD Integration](#enterprise-cicd-integration)
+15. [Test Coverage Goals](#test-coverage-goals)
+16. [Troubleshooting Tests](#troubleshooting-tests)
 
 ---
 

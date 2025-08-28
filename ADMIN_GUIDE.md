@@ -77,6 +77,172 @@
 
 ---
 
+## 💳 **Payment Processing Management**
+
+### **Razorpay Integration Overview**
+
+Your Ramro platform now includes complete payment processing capabilities through Razorpay integration with Firebase Functions.
+
+#### **Payment System Features**
+1. **Secure Order Creation**
+   - Firebase Functions create Razorpay orders
+   - Cryptographic signature verification
+   - Real-time payment status updates
+   - Comprehensive error handling
+
+2. **Supported Payment Methods**
+   ```
+   Payment Options Available:
+   - Credit/Debit Cards (Visa, Mastercard, RuPay, Amex)
+   - UPI (Google Pay, PhonePe, Paytm, BHIM)
+   - Net Banking (All major Indian banks)
+   - Digital Wallets (Paytm, Mobikwik, Freecharge)
+   - EMI Options (No-cost and regular EMI)
+   - Buy Now Pay Later (Simpl, LazyPay)
+   ```
+
+### **Managing Payment Processing**
+
+#### **Monitoring Payments**
+1. **Access Payment Dashboard**
+   - Navigate to Admin Dashboard
+   - Click "Payments" tab
+   - View payment transactions and status
+
+2. **Payment Information Display**
+   ```
+   Payment Details:
+   - Payment ID: Razorpay payment identifier
+   - Order ID: Associated order number
+   - Amount: Payment amount in INR
+   - Status: Payment status (captured, failed, refunded)
+   - Method: Payment method used
+   - Date: Payment processing date
+   ```
+
+#### **Processing Refunds**
+1. **Initiate Refund**
+   - Go to Orders section
+   - Find order requiring refund
+   - Click "Process Refund" button
+   - Enter refund amount and reason
+
+2. **Refund Process**
+   ```
+   Refund Steps:
+   - Verify order and payment details
+   - Enter refund amount (full or partial)
+   - Select refund reason
+   - Process through Razorpay API
+   - Update order status
+   - Send customer notification
+   ```
+
+3. **Refund Timeline**
+   ```
+   Expected Refund Times:
+   - Credit/Debit Cards: 5-7 business days
+   - UPI/Digital Wallets: 2-3 business days
+   - Net Banking: 3-5 business days
+   ```
+
+### **Payment Analytics**
+
+#### **Key Metrics**
+- Daily/weekly/monthly payment volume
+- Payment method distribution
+- Success vs failure rates
+- Average transaction value
+- Refund rates and reasons
+
+#### **Payment Reports**
+- Transaction summaries
+- Settlement reports
+- Failed payment analysis
+- Customer payment preferences
+
+---
+
+## 📧 **Email Notification Management**
+
+### **Email System Overview**
+
+Your platform includes automated email notifications for all customer touchpoints, powered by Firebase Functions and professional email templates.
+
+#### **Automated Email Types**
+1. **Welcome Emails** - Sent when users register
+2. **Order Confirmations** - Sent immediately after order placement
+3. **Shipping Notifications** - Sent when orders are dispatched
+4. **Delivery Confirmations** - Sent when orders are delivered
+5. **Status Updates** - Sent for any order status changes
+
+### **Managing Email Notifications**
+
+#### **Email Configuration**
+1. **Access Email Settings**
+   - Navigate to Admin Dashboard
+   - Click "Settings" tab
+   - Select "Email Configuration"
+
+2. **Email Service Configuration**
+   ```
+   Email Settings:
+   - Service Provider: Gmail/SendGrid
+   - From Address: noreply@ramro.com
+   - Reply-to Address: support@ramro.com
+   - Template Language: English/Hindi
+   ```
+
+#### **Email Template Management**
+1. **Template Customization**
+   - Order confirmation template
+   - Shipping notification template
+   - Delivery confirmation template
+   - Welcome email template
+
+2. **Template Features**
+   ```
+   Professional Templates Include:
+   - Responsive design for all devices
+   - Brand colors and styling
+   - Order details and tracking information
+   - Customer service contact information
+   - Unsubscribe links for compliance
+   ```
+
+### **Email Analytics**
+
+#### **Delivery Metrics**
+- Email delivery success rate
+- Open rates (if using advanced service)
+- Click-through rates
+- Bounce rates and failures
+
+#### **Customer Engagement**
+- Email preference management
+- Unsubscribe tracking
+- Customer communication history
+
+### **Troubleshooting Email Issues**
+
+#### **Common Email Problems**
+1. **Emails Not Sending**
+   - Check Firebase Functions logs
+   - Verify email service configuration
+   - Test email service connectivity
+
+2. **Emails Going to Spam**
+   - Verify sender domain authentication
+   - Check email content for spam triggers
+   - Monitor sender reputation
+
+3. **Template Issues**
+   - Test email templates in different clients
+   - Verify responsive design
+   - Check for broken links or images
+
+---
+
 ## 📦 **Product Management**
 
 ### **Adding New Products**

@@ -20,30 +20,23 @@ class RazorpayService {
 
   async createOrder(orderData) {
     try {
-      const response = await fetch('/api/razorpay/create-order', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          amount: Math.round(orderData.total * 100), // Convert to paise
-          currency: 'INR',
-          receipt: orderData.orderNumber || `order_${Date.now()}`,
-          notes: {
-            orderId: orderData.id,
-            customerEmail: orderData.userEmail
-          }
-        })
+      // Use Firebase Functions instead of direct API
+      const { getFunctions, httpsCallable } = await import('firebase/functions');
+      const { functions } = await import('../firebase/firebase');
+      
+      const createOrder = httpsCallable(functions, 'createRazorpayOrder');
+      
+      const result = await createOrder({
+        amount: orderData.total,
+        currency: 'INR',
+        receipt: orderData.orderNumber || `order_${Date.now()}`,
+        notes: {
+          orderId: orderData.id,
+          customerEmail: orderData.userEmail
+        }
       });
 
-      if (!response.ok) {
-        const errorData = await response.json().catch(() => ({}));
-        const errorMessage = errorData.message || `Server error: ${response.status}`;
-        throw new Error(errorMessage);
-      }
-
-      const order = await response.json();
-      return order;
+      return result.data;
     } catch (error) {
       console.error('Error creating Razorpay order:', error);
       if (error.name === 'TypeError' && error.message.includes('fetch')) {
@@ -120,19 +113,13 @@ class RazorpayService {
 
   async verifyPayment(paymentData) {
     try {
-      const response = await fetch('/api/razorpay/verify-payment', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(paymentData)
-      });
-
-      if (!response.ok) {
-        throw new Error('Payment verification failed');
-      }
-
-      return await response.json();
+      const { getFunctions, httpsCallable } = await import('firebase/functions');
+      const { functions } = await import('../firebase/firebase');
+      
+      const verifyPayment = httpsCallable(functions, 'verifyRazorpayPayment');
+      const result = await verifyPayment(paymentData);
+      
+      return result.data;
     } catch (error) {
       console.error('Error verifying payment:', error);
       throw error;
@@ -141,25 +128,17 @@ class RazorpayService {
 
   async processRefund(paymentId, amount, reason = 'Customer request') {
     try {
-      const response = await fetch('/api/razorpay/refund', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          payment_id: paymentId,
-          amount: amount ? Math.round(amount * 100) : undefined, // Full refund if amount not specified
-          notes: {
-            reason: reason
-          }
-        })
+      const { getFunctions, httpsCallable } = await import('firebase/functions');
+      const { functions } = await import('../firebase/firebase');
+      
+      const processRefund = httpsCallable(functions, 'processRazorpayRefund');
+      const result = await processRefund({
+        payment_id: paymentId,
+        amount: amount,
+        reason: reason
       });
-
-      if (!response.ok) {
-        throw new Error('Refund processing failed');
-      }
-
-      return await response.json();
+      
+      return result.data;
     } catch (error) {
       console.error('Error processing refund:', error);
       throw error;

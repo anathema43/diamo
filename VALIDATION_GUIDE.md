@@ -10,17 +10,150 @@
 - ✅ **Architectural Cleanup**: Dead code removed, state consolidated
 - ✅ **Dynamic Dashboard**: Real-time strategic visualization from markdown sources
 - ✅ **Enterprise CI/CD Pipeline**: Automated security scanning and quality gates
+- ✅ **Payment Security**: Complete Razorpay integration with signature verification
+- ✅ **Email Security**: Secure Firebase Functions for customer communications
 
 ## Table of Contents
 1. [Local Development Validation](#local-development-validation)
 2. [Production Deployment Validation](#production-deployment-validation)
 3. [Automated Testing Setup](#automated-testing-setup)
-4. [CI/CD Pipeline Validation](#cicd-pipeline-validation)
-5. [Monitoring & Performance](#monitoring--performance)
-6. [Security Validation](#security-validation)
-7. [Logistics Integration Validation](#logistics-integration-validation)
-8. [Dynamic Dashboard Validation](#dynamic-dashboard-validation)
-9. [Troubleshooting Guide](#troubleshooting-guide)
+4. [Payment Processing Validation](#payment-processing-validation)
+5. [Email System Validation](#email-system-validation)
+6. [CI/CD Pipeline Validation](#cicd-pipeline-validation)
+7. [Monitoring & Performance](#monitoring--performance)
+8. [Security Validation](#security-validation)
+9. [Logistics Integration Validation](#logistics-integration-validation)
+10. [Dynamic Dashboard Validation](#dynamic-dashboard-validation)
+11. [Troubleshooting Guide](#troubleshooting-guide)
+
+---
+
+# 💳 **Payment Processing Validation**
+
+## **Razorpay Integration Testing**
+
+### **Payment Flow Validation**
+```javascript
+// Test payment order creation
+const testPaymentCreation = async () => {
+  const orderData = {
+    total: 299,
+    items: [{ id: '1', name: 'Test Product', quantity: 1, price: 299 }],
+    userEmail: 'test@ramro.com'
+  };
+  
+  try {
+    const result = await razorpayService.createOrder(orderData);
+    console.log('✅ Payment order created:', result.orderId);
+    return result;
+  } catch (error) {
+    console.error('❌ Payment creation failed:', error);
+    throw error;
+  }
+};
+```
+
+### **Payment Verification Testing**
+```javascript
+// Test payment signature verification
+const testPaymentVerification = async () => {
+  const paymentData = {
+    razorpay_order_id: 'order_test_123',
+    razorpay_payment_id: 'pay_test_123',
+    razorpay_signature: 'test_signature',
+    orderData: { /* order details */ }
+  };
+  
+  try {
+    const result = await razorpayService.verifyPayment(paymentData);
+    console.log('✅ Payment verified:', result.success);
+  } catch (error) {
+    console.error('❌ Payment verification failed:', error);
+  }
+};
+```
+
+### **Test Cards for Validation**
+```javascript
+// Razorpay test cards
+const testCards = {
+  success: '4111111111111111',
+  failure: '4000000000000002',
+  visa: '4111111111111111',
+  mastercard: '5555555555554444',
+  rupay: '6521565221651234'
+};
+
+// Test UPI IDs
+const testUPI = {
+  success: 'success@razorpay',
+  failure: 'failure@razorpay'
+};
+```
+
+### **Webhook Validation**
+```bash
+# Test webhook endpoint
+curl -X POST https://your-region-your-project.cloudfunctions.net/razorpayWebhook \
+  -H "Content-Type: application/json" \
+  -H "X-Razorpay-Signature: test_signature" \
+  -d '{"event": "payment.captured", "payload": {"payment": {"entity": {"id": "pay_test"}}}}'
+```
+
+---
+
+# 📧 **Email System Validation**
+
+## **Email Notification Testing**
+
+### **Order Confirmation Email Test**
+```javascript
+// Test order confirmation email
+const testOrderConfirmation = async () => {
+  const orderData = {
+    orderNumber: 'ORD-TEST-123',
+    userEmail: 'test@ramro.com',
+    shipping: { firstName: 'Test', lastName: 'User' },
+    items: [{ name: 'Test Product', quantity: 1, price: 299 }],
+    total: 299
+  };
+  
+  try {
+    await emailService.sendOrderConfirmation(orderData);
+    console.log('✅ Order confirmation email sent');
+  } catch (error) {
+    console.error('❌ Email sending failed:', error);
+  }
+};
+```
+
+### **Email Template Validation**
+```javascript
+// Validate email templates
+const validateEmailTemplates = () => {
+  const templates = [
+    'order_confirmation',
+    'shipping_notification', 
+    'delivery_confirmation',
+    'welcome_email'
+  ];
+  
+  templates.forEach(template => {
+    // Check template exists and has required fields
+    console.log(`Validating template: ${template}`);
+  });
+};
+```
+
+### **Email Delivery Testing**
+```bash
+# Test Firebase Functions email
+firebase functions:shell
+> sendOrderConfirmation({orderNumber: 'TEST-123', userEmail: 'test@example.com'})
+
+# Check function logs
+firebase functions:log --only sendOrderConfirmation
+```
 
 ---
 
@@ -76,6 +209,11 @@ npm run dev
 # Check if server starts without errors
 # Expected output: "Local: http://localhost:5173"
 # Expected output: "ready in XXXms"
+
+# Test Firebase Functions locally
+firebase emulators:start --only functions
+
+# Expected output: "functions: Emulator started at http://localhost:5001"
 ```
 
 ## **Phase 2: Functional Testing (30-45 minutes)**
@@ -110,6 +248,9 @@ console.log('Auth Storage:', localStorage.getItem('auth-storage'));
 - [ ] Real-time cart synchronization across tabs
 - [ ] Checkout process
 - [ ] Order creation
+- [ ] Payment processing with Razorpay
+- [ ] Email notifications sending
+- [ ] Order status updates
 
 **Test Script:**
 ```javascript

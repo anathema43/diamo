@@ -7,15 +7,16 @@
 3. [Core Installation](#core-installation)
 4. [Firebase Setup](#firebase-setup)
 5. [Razorpay Configuration](#razorpay-configuration)
-6. [Configure Professional Search (Algolia)](#configure-professional-search-algolia)
-7. [Configure Media Management (Cloudinary)](#configure-media-management-cloudinary)
-8. [Environment Variables](#environment-variables)
-9. [Initial Setup & Testing](#initial-setup--testing)
-10. [Admin Account Creation](#admin-account-creation)
-11. [Data Seeding](#data-seeding)
-12. [Production Deployment](#production-deployment)
-13. [Troubleshooting](#troubleshooting)
-14. [Next Steps](#next-steps)
+6. [Firebase Functions Setup](#firebase-functions-setup)
+7. [Configure Professional Search (Algolia)](#configure-professional-search-algolia)
+8. [Configure Media Management (Cloudinary)](#configure-media-management-cloudinary)
+9. [Environment Variables](#environment-variables)
+10. [Initial Setup & Testing](#initial-setup--testing)
+11. [Admin Account Creation](#admin-account-creation)
+12. [Data Seeding](#data-seeding)
+13. [Production Deployment](#production-deployment)
+14. [Troubleshooting](#troubleshooting)
+15. [Next Steps](#next-steps)
 
 ---
 
@@ -31,6 +32,70 @@
 - ✅ **Performance Optimized**: Fast loading with modern architecture
 
 **Your platform is ready for production launch!** 🚀🏔️
+
+---
+
+## Firebase Functions Setup
+
+### **Step 1: Install Firebase CLI**
+```bash
+# Install Firebase CLI globally
+npm install -g firebase-tools
+
+# Login to Firebase
+firebase login
+
+# Initialize functions in your project
+firebase init functions
+```
+
+### **Step 2: Install Function Dependencies**
+```bash
+# Navigate to functions directory
+cd functions
+
+# Install Razorpay SDK
+npm install razorpay@latest
+
+# Install other dependencies
+npm install
+```
+
+### **Step 3: Configure Function Environment**
+```bash
+# Set Razorpay configuration
+firebase functions:config:set razorpay.key_id="your_razorpay_key_id"
+firebase functions:config:set razorpay.key_secret="your_razorpay_key_secret"
+firebase functions:config:set razorpay.webhook_secret="your_webhook_secret"
+
+# Set email configuration
+firebase functions:config:set email.user="your-gmail@gmail.com"
+firebase functions:config:set email.password="your-app-password"
+
+# Verify configuration
+firebase functions:config:get
+```
+
+### **Step 4: Deploy Functions**
+```bash
+# Deploy all functions
+firebase deploy --only functions
+
+# Or deploy specific functions
+firebase deploy --only functions:createRazorpayOrder,functions:verifyRazorpayPayment
+
+# Check deployment status
+firebase functions:log
+```
+
+### **Step 5: Test Functions**
+```bash
+# Test locally with emulator
+firebase emulators:start --only functions
+
+# Test specific function
+firebase functions:shell
+```
 
 ---
 
@@ -144,7 +209,7 @@ npm run build
 ### **Step 3: Configure Webhooks**
 1. Go to "Settings" → "Webhooks"
 2. Create new webhook
-3. URL: `https://your-domain.com/api/razorpay/webhook`
+3. URL: `https://your-region-your-project.cloudfunctions.net/razorpayWebhook`
 4. Events: Select "payment.captured", "payment.failed"
 5. Save webhook secret for later use
 
