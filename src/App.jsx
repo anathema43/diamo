@@ -23,6 +23,7 @@ import FAQ from "./pages/FAQ";
 import Contact from "./pages/Contact";
 import ArtisansDirectory from "./pages/ArtisansDirectory";
 import ArtisanProfile from "./pages/ArtisanProfile";
+import DevelopmentRoadmap from "./pages/DevelopmentRoadmap";
 import ProtectedRoute from "./components/ProtectedRoute";
 import AdminRoute from "./components/AdminRoute";
 import ErrorBoundary from "./components/ErrorBoundary";
