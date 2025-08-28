@@ -91,6 +91,36 @@ export default function ArtisansDirectory() {
       reviewCount: 15,
       featured: false,
       productCount: 1
+    },
+    {
+      id: 'mohan-lal-001',
+      name: 'Mohan Lal',
+      title: 'Black Salt Miner',
+      location: 'Sambhar Lake Region',
+      region: 'Rajasthan',
+      experience: 28,
+      profileImage: 'https://images.pexels.com/photos/1181263/pexels-photo-1181263.jpeg?auto=compress&cs=tinysrgb&w=800',
+      shortBio: 'Traditional black salt miner extracting mineral-rich kala namak using methods passed down through generations.',
+      specialties: ['Traditional Mining', 'Mineral Extraction', 'Salt Processing'],
+      rating: 4.4,
+      reviewCount: 22,
+      featured: false,
+      productCount: 1
+    },
+    {
+      id: 'dolma-angmo-001',
+      name: 'Dolma Angmo',
+      title: 'Yak Cheese Maker',
+      location: 'Ladakh',
+      region: 'Ladakh',
+      experience: 16,
+      profileImage: 'https://images.pexels.com/photos/1181677/pexels-photo-1181677.jpeg?auto=compress&cs=tinysrgb&w=800',
+      shortBio: 'High-altitude yak cheese maker creating traditional churpi using ancient Ladakhi methods in the world\'s highest inhabited region.',
+      specialties: ['Yak Cheese Making', 'High-Altitude Processing', 'Traditional Preservation'],
+      rating: 4.3,
+      reviewCount: 8,
+      featured: false,
+      productCount: 1
     }
   ];
 

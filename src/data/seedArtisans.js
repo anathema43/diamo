@@ -224,6 +224,82 @@ Ram works with the local forest department to protect bee habitats and has train
     productCount: 1,
     createdAt: new Date().toISOString(),
     updatedAt: new Date().toISOString()
+  },
+  {
+    name: "Mohan Lal",
+    title: "Black Salt Miner",
+    location: "Sambhar Lake Region",
+    region: "Rajasthan",
+    experience: 28,
+    profileImage: "https://images.pexels.com/photos/1181263/pexels-photo-1181263.jpeg?auto=compress&cs=tinysrgb&w=800",
+    shortBio: "Traditional black salt miner extracting mineral-rich kala namak using methods passed down through generations.",
+    story: `Mohan Lal comes from a family that has been mining black salt (kala namak) for over 100 years. The traditional mining techniques he uses have been passed down through four generations, preserving both the quality of the salt and the ancient knowledge.
+
+Working in the mineral-rich deposits near Sambhar Lake, Mohan extracts black salt using traditional methods that maintain its unique sulfur content and distinctive flavor. The process requires precise timing and temperature control that can only be mastered through years of experience.
+
+His black salt is prized by chefs and home cooks across India for its unique taste and digestive properties. Unlike industrial salt, Mohan's kala namak retains all its natural minerals and therapeutic qualities.
+
+Mohan has established a small cooperative with 8 other traditional miners, ensuring that this ancient craft continues while providing fair wages for the skilled work involved.`,
+    specialties: ["Traditional Mining", "Mineral Extraction", "Salt Processing"],
+    techniques: [
+      "Traditional mining methods",
+      "Temperature-controlled processing",
+      "Natural mineral preservation",
+      "Quality testing techniques"
+    ],
+    values: [
+      "Traditional knowledge preservation",
+      "Quality over quantity",
+      "Sustainable extraction",
+      "Community cooperation"
+    ],
+    culturalHeritage: "Traditional salt mining heritage",
+    familyMembers: 6,
+    rating: 4.4,
+    reviewCount: 22,
+    featured: false,
+    productCount: 1,
+    createdAt: new Date().toISOString(),
+    updatedAt: new Date().toISOString()
+  },
+  {
+    name: "Dolma Angmo",
+    title: "Yak Cheese Maker",
+    location: "Ladakh",
+    region: "Ladakh",
+    experience: 16,
+    profileImage: "https://images.pexels.com/photos/1181677/pexels-photo-1181677.jpeg?auto=compress&cs=tinysrgb&w=800",
+    shortBio: "High-altitude yak cheese maker creating traditional churpi using ancient Ladakhi methods in the world's highest inhabited region.",
+    story: `Dolma Angmo lives and works at 4500 meters above sea level in Ladakh, where she makes traditional yak cheese (churpi) using methods that have sustained her community for centuries. In this harsh but beautiful landscape, yaks are not just livestock - they are partners in survival.
+
+The process of making churpi is both an art and a necessity. The cheese must be made quickly in the short summer months when the yaks produce milk, and it must be processed to last through the long, harsh winters.
+
+Dolma learned this craft from her grandmother, who taught her the precise timing needed to separate the curds, the right pressure for pressing, and the optimal drying conditions that create churpi's characteristic hardness and long shelf life.
+
+Her churpi is not only a traditional food but also serves as a natural, long-lasting treat that has gained popularity among dog owners worldwide. This unexpected market has provided new income opportunities for her remote community.
+
+Through her work, Dolma supports 5 families in her village, helping them maintain their traditional lifestyle while adapting to modern economic opportunities.`,
+    specialties: ["Yak Cheese Making", "High-Altitude Processing", "Traditional Preservation"],
+    techniques: [
+      "Traditional milk processing",
+      "Natural cheese aging",
+      "High-altitude drying methods",
+      "Quality preservation techniques"
+    ],
+    values: [
+      "Traditional Ladakhi methods",
+      "Sustainable yak farming",
+      "Community resilience",
+      "Cultural adaptation"
+    ],
+    culturalHeritage: "Ladakhi yak farming and cheese-making traditions",
+    familyMembers: 5,
+    rating: 4.3,
+    reviewCount: 8,
+    featured: false,
+    productCount: 1,
+    createdAt: new Date().toISOString(),
+    updatedAt: new Date().toISOString()
   }
 ];
 

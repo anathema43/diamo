@@ -32,60 +32,187 @@ export default function Stories() {
         const demoStories = [
           {
             id: '1',
-            title: 'Darjeeling Tea Festival 2024: Celebrating Heritage',
-            excerpt: 'This year\'s Darjeeling Tea Festival brought together over 50 local producers to showcase their finest teas and traditional food products.',
-            content: 'The annual Darjeeling Tea Festival has become more than just a celebration of tea - it\'s a vibrant showcase of the entire hill culture. This year, over 50 local producers participated, displaying everything from traditional pickles to wild honey...',
+            title: 'The Ancient Art of Darjeeling Pickle Making',
+            excerpt: 'In the early morning mist of Darjeeling, when the hills are shrouded in clouds and the air carries the scent of tea gardens, Deepak Sharma begins his day as his grandmother taught him 25 years ago.',
+            content: `In the early morning mist of Darjeeling, when the hills are shrouded in clouds and the air carries the scent of tea gardens, Deepak Sharma begins his day as his grandmother taught him 25 years ago.
+
+The small workshop behind his house comes alive with the sounds of grinding spices and chopping vegetables. This is where three generations of pickle-making knowledge converge into jars of authentic Darjeeling flavor.
+
+## A Family Legacy
+
+Deepak's grandmother, Kamala Devi, started making pickles in 1948 when she moved to Darjeeling after partition. With limited resources but abundant knowledge of traditional preservation techniques, she began creating pickles that would remind her family of their ancestral home.
+
+"She taught me that pickle-making is not just about preserving vegetables," Deepak explains, his hands expertly grinding mustard seeds in a traditional stone grinder. "It's about preserving memories, culture, and the essence of our hills."
+
+## The Secret of Darjeeling Pickles
+
+What makes Darjeeling pickles unique is not just the recipe, but the environment. The cool mountain air, the pure water from natural springs, and the specific varieties of chilies and vegetables that grow in this altitude create flavors that cannot be replicated elsewhere.
+
+## Supporting the Community
+
+Today, Deepak employs 8 local women in his workshop, providing them with steady income while preserving traditional knowledge. His success has inspired other families to revive their own traditional recipes.`,
             author: 'Editorial Team',
             authorImage: 'https://images.pexels.com/photos/1222271/pexels-photo-1222271.jpeg?auto=compress&cs=tinysrgb&w=800',
-            category: 'events',
-            featuredImage: 'https://images.pexels.com/photos/1638280/pexels-photo-1638280.jpeg?auto=compress&cs=tinysrgb&w=800',
+            authorBio: 'Food culture writer documenting traditional Darjeeling food practices.',
+            category: 'artisan-story',
+            featuredImage: 'https://res.cloudinary.com/dj4kdlwzo/image/upload/v1752940186/pickle_3_co88iu.jpg',
             publishedAt: '2024-01-15',
-            readTime: '4 min read',
+            readTime: '6 min read',
             featured: true,
-            tags: ['festival', 'community', 'tea-culture']
+            tags: ['traditional-recipes', 'family-heritage', 'pickle-making']
           },
           {
             id: '2',
-            title: 'Winter Harvest: Traditional Pickle Making Season',
-            excerpt: 'As winter approaches, local families begin their annual tradition of making pickles from seasonal vegetables and fruits.',
-            content: 'Winter in Darjeeling brings more than just cold weather - it brings the pickle-making season. Families across the hills gather to prepare traditional pickles that will last through the year...',
-            author: 'Food Editor',
+            title: 'Wild Honey Collection in the High Himalayas',
+            excerpt: 'At 3000 meters above sea level, Laxmi Devi carefully approaches the wild bee colonies that have made their home in the ancient oak trees of Manali.',
+            content: `At 3000 meters above sea level, Laxmi Devi carefully approaches the wild bee colonies that have made their home in the ancient oak trees of Manali. The morning air is crisp, and the only sounds are the gentle humming of bees and the distant call of Himalayan birds.
+
+## The Art of Wild Honey Collection
+
+Laxmi learned this ancient craft from her father, who taught her to read the mountains and understand the behavior of wild bees. Using traditional smoking techniques and tools passed down through generations, she harvests honey without harming the colonies.
+
+"The bees know when you respect them," Laxmi explains, lighting a bundle of dried herbs that creates a calming smoke. "They allow you to take what they can spare, but only if you approach with the right heart."
+
+## Pure Mountain Honey
+
+The honey collected at this altitude is unlike any other. The bees forage on rare Himalayan flowers, herbs, and trees that grow only in these pristine forests. Each batch reflects the unique flora of the season and location.
+
+## Sustainable Practices
+
+Laxmi follows strict sustainable practices, never taking more than 30% of the honey from any colony. This ensures the bees have enough for winter and the colonies remain healthy for years to come.`,
+            author: 'Mountain Reporter',
             authorImage: 'https://images.pexels.com/photos/1181690/pexels-photo-1181690.jpeg?auto=compress&cs=tinysrgb&w=800',
-            category: 'food-culture',
-            featuredImage: 'https://images.pexels.com/photos/1640777/pexels-photo-1640777.jpeg?auto=compress&cs=tinysrgb&w=800',
+            authorBio: 'Documenting traditional practices in remote Himalayan communities.',
+            category: 'sustainability',
+            featuredImage: 'https://images.pexels.com/photos/1638280/pexels-photo-1638280.jpeg?auto=compress&cs=tinysrgb&w=800',
             publishedAt: '2024-01-10',
             readTime: '5 min read',
             featured: false,
-            tags: ['winter-harvest', 'pickle-making', 'seasonal-food']
-          },
-          {
-            id: '2',
-            title: 'Winter Harvest: Traditional Pickle Making Season',
-            excerpt: 'As winter approaches, local families begin their annual tradition of making pickles from seasonal vegetables and fruits.',
-            content: 'Winter in Darjeeling brings more than just cold weather - it brings the pickle-making season. Families across the hills gather to prepare traditional pickles that will last through the year...',
-          },
-          {
-            authorImage: 'https://images.pexels.com/photos/1181690/pexels-photo-1181690.jpeg?auto=compress&cs=tinysrgb&w=800',
-            category: 'food-culture',
-            featuredImage: 'https://images.pexels.com/photos/1640777/pexels-photo-1640777.jpeg?auto=compress&cs=tinysrgb&w=800',
-            publishedAt: '2024-01-10',
-            readTime: '5 min read',
-            featured: false,
-            tags: ['winter-harvest', 'pickle-making', 'seasonal-food']
+            tags: ['wild-honey', 'sustainable-harvesting', 'himalayan-traditions']
           },
           {
             id: '3',
-            title: 'New Organic Certifications: 5 More Farmers Join Our Network',
-            excerpt: 'We\'re excited to announce that five more local farmers have received their organic certification, expanding our network of trusted producers.',
-            content: `Great news for organic food lovers! Five more farmers from the Darjeeling region have successfully completed their organic certification process. This brings our total network of certified organic producers to 25.`,
-            author: 'News Team',
+            title: 'Terraced Rice Fields: Ancient Wisdom in Modern Times',
+            excerpt: 'Ashok Singh walks through his terraced rice fields in Uttarakhand, where ancient varieties of red rice grow using methods unchanged for centuries.',
+            content: `Ashok Singh walks through his terraced rice fields in Uttarakhand, where ancient varieties of red rice grow using methods unchanged for centuries. These terraces, carved into the mountainside by his ancestors, represent one of humanity's most sustainable farming systems.
+
+## Heritage Rice Varieties
+
+The red rice that Ashok grows is not just any rice - these are ancient varieties that have been cultivated in the Himalayas for over 1000 years. These varieties are naturally resistant to pests and diseases, requiring no chemical inputs.
+
+## Traditional Terraced Farming
+
+The terraced fields use an ingenious water management system that captures monsoon rains and distributes it evenly across the slopes. This system, built by generations of farmers, is both environmentally sustainable and highly productive.
+
+## Organic by Tradition
+
+Ashok's farming is organic not by choice, but by tradition. His family has never used chemical fertilizers or pesticides, relying instead on natural composting, crop rotation, and traditional pest management techniques.
+
+## Community Impact
+
+Through his cooperative, Ashok supports 12 farming families in his village, teaching them organic certification processes and helping them access better markets for their traditional crops.`,
+            author: 'Agricultural Writer',
             authorImage: 'https://images.pexels.com/photos/1181467/pexels-photo-1181467.jpeg?auto=compress&cs=tinysrgb&w=800',
-            category: 'news',
+            authorBio: 'Specialist in traditional Himalayan farming practices and heritage crops.',
+            category: 'farming',
             featuredImage: 'https://images.pexels.com/photos/33239/wheat-field-wheat-cereals-grain.jpg?auto=compress&cs=tinysrgb&w=800',
             publishedAt: '2024-01-05',
+            readTime: '4 min read',
+            featured: false,
+            tags: ['terraced-farming', 'heritage-rice', 'organic-farming']
+          },
+          {
+            id: '4',
+            title: 'Kashmiri Spice Traditions: The Art of Perfect Blending',
+            excerpt: 'In her small workshop in Kashmir Valley, Fatima Khan creates spice blends that have been perfected over three decades of experimentation and tradition.',
+            content: `In her small workshop in Kashmir Valley, Fatima Khan creates spice blends that have been perfected over three decades of experimentation and tradition. The aroma that fills her workspace tells the story of Kashmir's rich culinary heritage.
+
+## Master of Spices
+
+Fatima learned the art of spice blending from her mother-in-law, who was renowned throughout their village for her mastery of traditional Kashmiri recipes. Each blend requires precise proportions and timing that can only be learned through years of practice.
+
+## Hand-Selected Ingredients
+
+Every spice in Fatima's blends is hand-selected. She travels to different regions to source the finest cardamom, saffron, and other precious spices. She roasts and grinds everything by hand in small batches to ensure maximum flavor and aroma.
+
+## Traditional Techniques
+
+The spice blending process follows ancient techniques - specific roasting temperatures, grinding methods, and storage practices that preserve the essential oils and flavors that make Kashmiri cuisine unique.
+
+## Women's Cooperative
+
+Fatima has trained 6 women in her neighborhood in the art of spice blending, creating a small enterprise that provides income while preserving traditional knowledge.`,
+            author: 'Culinary Heritage Writer',
+            authorImage: 'https://images.pexels.com/photos/1181677/pexels-photo-1181677.jpeg?auto=compress&cs=tinysrgb&w=800',
+            authorBio: 'Documenting traditional culinary practices and spice traditions across the Himalayas.',
+            category: 'heritage',
+            featuredImage: 'https://images.pexels.com/photos/4198017/pexels-photo-4198017.jpeg?auto=compress&cs=tinysrgb&w=800',
+            publishedAt: '2024-01-01',
+            readTime: '5 min read',
+            featured: false,
+            tags: ['kashmiri-spices', 'traditional-blending', 'womens-cooperative']
+          },
+          {
+            id: '5',
+            title: 'Forest Honey: Guardian of the Wild Bees',
+            excerpt: 'Deep in the Garhwal Himalayas, Ram Prasad serves as both forest guardian and honey collector, protecting wild bee colonies while sustainably harvesting their golden treasure.',
+            content: `Deep in the Garhwal Himalayas, Ram Prasad serves as both forest guardian and honey collector, protecting wild bee colonies while sustainably harvesting their golden treasure. His role goes far beyond honey collection - he is a protector of the entire forest ecosystem.
+
+## Guardian of the Forest
+
+Having spent two decades in the forests, Ram has developed an intimate knowledge of bee behavior and forest ecology. He can identify different types of wild bees and knows exactly when and how much honey can be sustainably harvested.
+
+## Complex Forest Honey
+
+His honey comes from bees that forage on a diverse range of wild flowers, herbs, and trees found only in the pristine Himalayan forests. This creates honey with complex flavors and exceptional medicinal properties.
+
+## Conservation Efforts
+
+Ram works with the local forest department to protect bee habitats and has trained 4 other forest workers in sustainable honey collection. His efforts have helped establish protected zones for wild bee colonies.
+
+## Ecosystem Balance
+
+Every jar of Ram's honey represents a commitment to maintaining the delicate balance of the forest ecosystem while providing sustainable income for forest communities.`,
+            author: 'Conservation Writer',
+            authorImage: 'https://images.pexels.com/photos/1181562/pexels-photo-1181562.jpeg?auto=compress&cs=tinysrgb&w=800',
+            authorBio: 'Environmental journalist focusing on conservation and sustainable practices in the Himalayas.',
+            category: 'sustainability',
+            featuredImage: 'https://images.pexels.com/photos/1638280/pexels-photo-1638280.jpeg?auto=compress&cs=tinysrgb&w=800',
+            publishedAt: '2023-12-28',
+            readTime: '4 min read',
+            featured: false,
+            tags: ['forest-conservation', 'wild-honey', 'ecosystem-protection']
+          },
+          {
+            id: '6',
+            title: 'Darjeeling Food Festival 2024: A Celebration of Heritage',
+            excerpt: 'The annual Darjeeling Food Festival brought together over 30 local food producers to showcase their finest traditional products and share their stories.',
+            content: `The annual Darjeeling Food Festival has become more than just a celebration of food - it's a vibrant showcase of the entire hill culture. This year, over 30 local food producers participated, displaying everything from traditional pickles to wild honey.
+
+## Community Gathering
+
+The festival serves as a meeting point for food artisans from across the Darjeeling region. It's where old recipes are shared, new techniques are discussed, and the younger generation learns from the masters.
+
+## Traditional Food Showcase
+
+Visitors could taste authentic Darjeeling pickles, sample different varieties of wild honey, try heritage rice preparations, and learn about traditional spice blending techniques.
+
+## Cultural Preservation
+
+Events like these are crucial for preserving food traditions that might otherwise be lost as younger generations move to cities for education and employment.
+
+## Next Year's Plans
+
+The festival organizers are already planning next year's event, with hopes to include more artisans and expand the cultural programming to include cooking demonstrations and traditional music.`,
+            author: 'Festival Reporter',
+            authorImage: 'https://images.pexels.com/photos/1222271/pexels-photo-1222271.jpeg?auto=compress&cs=tinysrgb&w=800',
+            authorBio: 'Local journalist covering cultural events and community celebrations in the Darjeeling region.',
+            category: 'events',
+            featuredImage: 'https://images.pexels.com/photos/1640777/pexels-photo-1640777.jpeg?auto=compress&cs=tinysrgb&w=800',
+            publishedAt: '2024-01-20',
             readTime: '3 min read',
             featured: false,
-            tags: ['organic-certification', 'farmers', 'quality-assurance']
+            tags: ['food-festival', 'community-event', 'cultural-celebration']
           }
         ];
         setStories(demoStories);
