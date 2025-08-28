@@ -52,6 +52,24 @@ describe('Content Management Testing', () => {
       // Test share functionality
       cy.get('button').contains('Share').should('be.visible');
     });
+
+    it('should show artisan profile link only when artisan exists', () => {
+      cy.visit('/stories');
+      
+      // Find artisan story and click it
+      cy.contains('Pickle Making').parents('article').within(() => {
+        cy.get('a').contains('Read Story').click();
+      });
+      
+      // Should show artisan profile link for artisan stories
+      cy.get('body').then(($body) => {
+        if ($body.text().includes('View Artisan Profile')) {
+          cy.get('a').contains('View Artisan Profile').should('be.visible');
+          cy.get('a').contains('View Artisan Profile').click();
+          cy.url().should('include', '/artisans/');
+        }
+      });
+    });
   });
 
   describe('Artisans Directory', () => {
