@@ -23,23 +23,23 @@ export default function Stories() {
         const demoStories = [
           {
             id: '1',
-            title: 'Darjeeling Tea Festival 2024: A Celebration of Hill Culture',
-            excerpt: 'The annual tea festival brought together over 50 local producers, showcasing the rich cultural heritage of our hills.',
-            content: `The annual Darjeeling Tea Festival has become more than just a celebration of tea - it's a vibrant showcase of the entire hill culture. This year, over 50 local producers participated, displaying everything from traditional pickles to wild honey.`,
-            author: 'Editorial Team',
-            authorImage: 'https://images.pexels.com/photos/1222271/pexels-photo-1222271.jpeg?auto=compress&cs=tinysrgb&w=800',
+            title: 'Darjeeling Tea Festival 2024: Celebrating Heritage',
             category: 'events',
             featuredImage: 'https://images.pexels.com/photos/1638280/pexels-photo-1638280.jpeg?auto=compress&cs=tinysrgb&w=800',
+            excerpt: 'Join us for the annual Darjeeling Tea Festival celebrating our rich heritage and traditional tea-making practices.',
+            content: 'The annual Darjeeling Tea Festival brings together tea lovers from around the world to celebrate our rich heritage...',
+            author: 'Event Team',
+            authorImage: 'https://images.pexels.com/photos/1181686/pexels-photo-1181686.jpeg?auto=compress&cs=tinysrgb&w=800',
             publishedAt: '2024-01-15',
             readTime: '4 min read',
             featured: true,
-            tags: ['festival', 'community', 'tea-culture']
+            tags: ['tea-festival', 'heritage', 'community']
           },
           {
             id: '2',
-            title: 'Winter Harvest: How Cold Weather Makes Better Pickles',
-            excerpt: 'The winter months in Darjeeling create perfect conditions for pickle making. Local producers explain why cold weather pickles taste better.',
-            content: 'As winter settles over the Darjeeling hills, something magical happens in the small workshops where traditional pickles are made. The cold, dry air creates perfect conditions for fermentation...',
+            title: 'Winter Pickle Making: A Seasonal Tradition',
+            excerpt: 'Discover how winter conditions create the perfect environment for traditional pickle making in the Darjeeling hills.',
+            content: `As winter settles over the Darjeeling hills, something magical happens in the small workshops where traditional pickles are made. The cold, dry air creates perfect conditions for fermentation and preservation.`,
             author: 'Food Editor',
             authorImage: 'https://images.pexels.com/photos/1181690/pexels-photo-1181690.jpeg?auto=compress&cs=tinysrgb&w=800',
             category: 'food-culture',
