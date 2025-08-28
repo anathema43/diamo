@@ -1,10 +1,44 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import { useAuthStore } from "../store/authStore";
+import ContentEditor from "../components/ContentEditor";
 import Logo from "../components/Logo";
 
 export default function About() {
+  const { userProfile } = useAuthStore();
+  const [showEditor, setShowEditor] = React.useState(false);
+  const isAdmin = userProfile?.role === 'admin';
+
   return (
     <div className="min-h-screen bg-organic-background" data-cy="about-page">
+      {/* Admin Edit Button */}
+      {isAdmin && (
+        <div className="fixed top-20 right-4 z-40">
+          <button
+            onClick={() => setShowEditor(!showEditor)}
+            className="bg-organic-primary text-white p-3 rounded-full shadow-lg hover:opacity-90 transition-all"
+            title="Edit page content"
+          >
+            <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
+            </svg>
+          </button>
+        </div>
+      )}
+
+      {/* Content Editor Modal */}
+      {showEditor && (
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
+          <div className="w-full max-w-4xl">
+            <ContentEditor 
+              pageId="about" 
+              title="About Us"
+              onClose={() => setShowEditor(false)}
+            />
+          </div>
+        </div>
+      )}
+
       {/* Hero Section */}
       <section className="py-20 bg-organic-text text-white" data-cy="about-hero">
         <div className="max-w-4xl mx-auto px-6 text-center">
