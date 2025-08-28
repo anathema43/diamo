@@ -22,12 +22,14 @@ export default function StoryEditor({ story, onClose, onSave }) {
   });
 
   const categories = [
-    { value: 'artisan-story', label: 'Artisan Story' },
-    { value: 'sustainability', label: 'Sustainability' },
-    { value: 'farming', label: 'Traditional Farming' },
+    { value: 'events', label: 'Events & Festivals' },
+    { value: 'people', label: 'People & Profiles' },
+    { value: 'places', label: 'Places & Destinations' },
+    { value: 'traditions', label: 'Traditions & Culture' },
+    { value: 'artisan-story', label: 'Artisan Stories' },
+    { value: 'food-culture', label: 'Food & Recipes' },
     { value: 'community', label: 'Community Impact' },
-    { value: 'heritage', label: 'Cultural Heritage' },
-    { value: 'recipes', label: 'Traditional Recipes' }
+    { value: 'sustainability', label: 'Environment & Nature' }
   ];
 
   const handleInputChange = (field, value) => {

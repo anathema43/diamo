@@ -63,157 +63,256 @@ Today, Deepak employs 8 local women in his workshop, providing them with steady 
           },
           {
             id: '2',
-            title: 'Wild Honey Collection in the High Himalayas',
-            excerpt: 'At 3000 meters above sea level, Laxmi Devi carefully approaches the wild bee colonies that have made their home in the ancient oak trees of Manali.',
-            content: `At 3000 meters above sea level, Laxmi Devi carefully approaches the wild bee colonies that have made their home in the ancient oak trees of Manali. The morning air is crisp, and the only sounds are the gentle humming of bees and the distant call of Himalayan birds.
+            title: 'Darjeeling Durga Puja 2024: Hills Come Alive with Celebration',
+            excerpt: 'The annual Durga Puja festival transforms Darjeeling into a vibrant celebration of Bengali culture, bringing together communities from across the hills in joyous festivities.',
+            content: `Every October, the hill station of Darjeeling transforms into a spectacular celebration as the Bengali community comes together for Durga Puja. The cool mountain air fills with the sound of dhak drums, the aroma of traditional sweets, and the joyous chatter of families reuniting for the festival.
 
-## The Art of Wild Honey Collection
+## A Festival in the Clouds
 
-Laxmi learned this ancient craft from her father, who taught her to read the mountains and understand the behavior of wild bees. Using traditional smoking techniques and tools passed down through generations, she harvests honey without harming the colonies.
+Darjeeling's Durga Puja has a unique character shaped by its mountain setting. The pandals (temporary structures) are built on steep hillsides, offering breathtaking views of the Kanchenjunga peaks as devotees offer prayers to Goddess Durga.
 
-"The bees know when you respect them," Laxmi explains, lighting a bundle of dried herbs that creates a calming smoke. "They allow you to take what they can spare, but only if you approach with the right heart."
+The main celebrations happen at Chowrasta, the heart of Darjeeling, where elaborate pandals showcase artistic themes that blend Bengali traditions with local hill culture. This year's theme celebrated the harmony between different communities living in the hills.
 
-## Pure Mountain Honey
+## Community Unity
 
-The honey collected at this altitude is unlike any other. The bees forage on rare Himalayan flowers, herbs, and trees that grow only in these pristine forests. Each batch reflects the unique flora of the season and location.
+What makes Darjeeling's Durga Puja special is how it brings together people from all backgrounds - Bengali families, Nepali neighbors, Tibetan friends, and visitors from across India. The festival becomes a celebration of the multicultural spirit that defines Darjeeling.
 
-## Sustainable Practices
+Local businesses, from tea gardens to small shops, participate by sponsoring pandals and organizing cultural programs. The entire town becomes one big family during these five days.
 
-Laxmi follows strict sustainable practices, never taking more than 30% of the honey from any colony. This ensures the bees have enough for winter and the colonies remain healthy for years to come.`,
-            author: 'Mountain Reporter',
+## Traditional Foods and Modern Touches
+
+The festival features traditional Bengali sweets like rasgulla and sandesh, but also incorporates local Darjeeling flavors. Street vendors sell everything from traditional luchi-alur dom to local momos, creating a unique fusion of cultures.
+
+Many families prepare special festival meals using locally sourced ingredients - pickles from hill gardens, honey from mountain forests, and spices from local markets, connecting the celebration to the land that sustains them.
+
+## Cultural Bridge
+
+For many Bengali families who have made Darjeeling their home over generations, this festival is a bridge between their cultural roots and their mountain identity. It's a time when stories are shared, traditions are passed down, and the community bonds are strengthened.`,
+            author: 'Festival Reporter',
             authorImage: 'https://images.pexels.com/photos/1181690/pexels-photo-1181690.jpeg?auto=compress&cs=tinysrgb&w=800',
-            authorBio: 'Documenting traditional practices in remote Himalayan communities.',
-            category: 'sustainability',
+            authorBio: 'Local journalist covering cultural events and community celebrations in the Darjeeling region.',
+            category: 'events',
             featuredImage: 'https://images.pexels.com/photos/1638280/pexels-photo-1638280.jpeg?auto=compress&cs=tinysrgb&w=800',
-            publishedAt: '2024-01-10',
+            publishedAt: '2024-10-15',
             readTime: '5 min read',
             featured: false,
-            tags: ['wild-honey', 'sustainable-harvesting', 'himalayan-traditions']
+            tags: ['durga-puja', 'bengali-culture', 'darjeeling-festivals', 'community-celebration']
           },
           {
             id: '3',
-            title: 'Terraced Rice Fields: Ancient Wisdom in Modern Times',
-            excerpt: 'Ashok Singh walks through his terraced rice fields in Uttarakhand, where ancient varieties of red rice grow using methods unchanged for centuries.',
-            content: `Ashok Singh walks through his terraced rice fields in Uttarakhand, where ancient varieties of red rice grow using methods unchanged for centuries. These terraces, carved into the mountainside by his ancestors, represent one of humanity's most sustainable farming systems.
+            title: 'The Sacred Groves of Kalimpong: Where Nature Meets Spirituality',
+            excerpt: 'Hidden in the forests around Kalimpong are sacred groves that have been protected by local communities for centuries, preserving both biodiversity and spiritual traditions.',
+            content: `Deep in the forests surrounding Kalimpong, there exist sacred groves that serve as living temples where nature and spirituality converge. These protected forest patches, known locally as "devrai," have been safeguarded by indigenous communities for over 500 years.
 
-## Heritage Rice Varieties
+## Ancient Protection System
 
-The red rice that Ashok grows is not just any rice - these are ancient varieties that have been cultivated in the Himalayas for over 1000 years. These varieties are naturally resistant to pests and diseases, requiring no chemical inputs.
+The sacred groves represent one of the world's oldest conservation systems. Local communities designated these forest areas as sacred, making them off-limits for hunting, logging, or any form of exploitation. This traditional conservation has preserved biodiversity that has disappeared from surrounding areas.
 
-## Traditional Terraced Farming
+## Biodiversity Hotspots
 
-The terraced fields use an ingenious water management system that captures monsoon rains and distributes it evenly across the slopes. This system, built by generations of farmers, is both environmentally sustainable and highly productive.
+These groves harbor rare medicinal plants, ancient trees, and wildlife that have vanished from other parts of the region. Botanists have identified over 200 plant species in just one grove, including several that are found nowhere else in the Eastern Himalayas.
 
-## Organic by Tradition
+## Spiritual Significance
 
-Ashok's farming is organic not by choice, but by tradition. His family has never used chemical fertilizers or pesticides, relying instead on natural composting, crop rotation, and traditional pest management techniques.
+Each grove is dedicated to local deities and serves as a place for community prayers and festivals. The annual grove festivals bring together people from multiple villages to celebrate the harmony between humans and nature.
 
-## Community Impact
+## Modern Challenges
 
-Through his cooperative, Ashok supports 12 farming families in his village, teaching them organic certification processes and helping them access better markets for their traditional crops.`,
-            author: 'Agricultural Writer',
+Today, these sacred groves face pressure from development and changing lifestyles. However, local environmental groups are working with traditional communities to document and protect these invaluable ecosystems for future generations.
+
+## Conservation Success
+
+The sacred groves of Kalimpong demonstrate how traditional knowledge and spiritual beliefs can create effective conservation. They serve as models for community-based conservation efforts across the Himalayas.`,
+            author: 'Environmental Writer',
             authorImage: 'https://images.pexels.com/photos/1181467/pexels-photo-1181467.jpeg?auto=compress&cs=tinysrgb&w=800',
-            authorBio: 'Specialist in traditional Himalayan farming practices and heritage crops.',
-            category: 'farming',
+            authorBio: 'Environmental journalist documenting traditional conservation practices in the Eastern Himalayas.',
+            category: 'places',
             featuredImage: 'https://images.pexels.com/photos/33239/wheat-field-wheat-cereals-grain.jpg?auto=compress&cs=tinysrgb&w=800',
-            publishedAt: '2024-01-05',
-            readTime: '4 min read',
+            publishedAt: '2024-09-20',
+            readTime: '6 min read',
             featured: false,
-            tags: ['terraced-farming', 'heritage-rice', 'organic-farming']
+            tags: ['sacred-groves', 'kalimpong', 'conservation', 'spirituality', 'biodiversity']
           },
           {
             id: '4',
-            title: 'Kashmiri Spice Traditions: The Art of Perfect Blending',
-            excerpt: 'In her small workshop in Kashmir Valley, Fatima Khan creates spice blends that have been perfected over three decades of experimentation and tradition.',
-            content: `In her small workshop in Kashmir Valley, Fatima Khan creates spice blends that have been perfected over three decades of experimentation and tradition. The aroma that fills her workspace tells the story of Kashmir's rich culinary heritage.
+            title: 'Losar: Tibetan New Year Celebrations in the Hills',
+            excerpt: 'The Tibetan New Year brings colorful celebrations to hill communities, featuring traditional dances, special foods, and ancient rituals that welcome prosperity and good fortune.',
+            content: `As February arrives in the Himalayan foothills, Tibetan communities prepare for Losar, their most important celebration of the year. The festival marks not just the new year, but a time of renewal, family reunions, and cultural pride.
 
-## Master of Spices
+## Preparations Begin
 
-Fatima learned the art of spice blending from her mother-in-law, who was renowned throughout their village for her mastery of traditional Kashmiri recipes. Each blend requires precise proportions and timing that can only be learned through years of practice.
+Weeks before Losar, families begin preparing traditional foods like khapse (deep-fried cookies), guthuk (special soup), and chang (barley beer). Homes are cleaned thoroughly, new clothes are prepared, and prayer flags are hung to welcome good fortune.
 
-## Hand-Selected Ingredients
+## The Three Days of Celebration
 
-Every spice in Fatima's blends is hand-selected. She travels to different regions to source the finest cardamom, saffron, and other precious spices. She roasts and grinds everything by hand in small batches to ensure maximum flavor and aroma.
-
-## Traditional Techniques
-
-The spice blending process follows ancient techniques - specific roasting temperatures, grinding methods, and storage practices that preserve the essential oils and flavors that make Kashmiri cuisine unique.
-
-## Women's Cooperative
-
-Fatima has trained 6 women in her neighborhood in the art of spice blending, creating a small enterprise that provides income while preserving traditional knowledge.`,
-            author: 'Culinary Heritage Writer',
-            authorImage: 'https://images.pexels.com/photos/1181677/pexels-photo-1181677.jpeg?auto=compress&cs=tinysrgb&w=800',
-            authorBio: 'Documenting traditional culinary practices and spice traditions across the Himalayas.',
-            category: 'heritage',
-            featuredImage: 'https://images.pexels.com/photos/4198017/pexels-photo-4198017.jpeg?auto=compress&cs=tinysrgb&w=800',
-            publishedAt: '2024-01-01',
-            readTime: '5 min read',
-            featured: false,
-            tags: ['kashmiri-spices', 'traditional-blending', 'womens-cooperative']
-          },
-          {
-            id: '5',
-            title: 'Forest Honey: Guardian of the Wild Bees',
-            excerpt: 'Deep in the Garhwal Himalayas, Ram Prasad serves as both forest guardian and honey collector, protecting wild bee colonies while sustainably harvesting their golden treasure.',
-            content: `Deep in the Garhwal Himalayas, Ram Prasad serves as both forest guardian and honey collector, protecting wild bee colonies while sustainably harvesting their golden treasure. His role goes far beyond honey collection - he is a protector of the entire forest ecosystem.
-
-## Guardian of the Forest
-
-Having spent two decades in the forests, Ram has developed an intimate knowledge of bee behavior and forest ecology. He can identify different types of wild bees and knows exactly when and how much honey can be sustainably harvested.
-
-## Complex Forest Honey
-
-His honey comes from bees that forage on a diverse range of wild flowers, herbs, and trees found only in the pristine Himalayan forests. This creates honey with complex flavors and exceptional medicinal properties.
-
-## Conservation Efforts
-
-Ram works with the local forest department to protect bee habitats and has trained 4 other forest workers in sustainable honey collection. His efforts have helped establish protected zones for wild bee colonies.
-
-## Ecosystem Balance
-
-Every jar of Ram's honey represents a commitment to maintaining the delicate balance of the forest ecosystem while providing sustainable income for forest communities.`,
-            author: 'Conservation Writer',
-            authorImage: 'https://images.pexels.com/photos/1181562/pexels-photo-1181562.jpeg?auto=compress&cs=tinysrgb&w=800',
-            authorBio: 'Environmental journalist focusing on conservation and sustainable practices in the Himalayas.',
-            category: 'sustainability',
-            featuredImage: 'https://images.pexels.com/photos/1638280/pexels-photo-1638280.jpeg?auto=compress&cs=tinysrgb&w=800',
-            publishedAt: '2023-12-28',
-            readTime: '4 min read',
-            featured: false,
-            tags: ['forest-conservation', 'wild-honey', 'ecosystem-protection']
-          },
-          {
-            id: '6',
-            title: 'Darjeeling Food Festival 2024: A Celebration of Heritage',
-            excerpt: 'The annual Darjeeling Food Festival brought together over 30 local food producers to showcase their finest traditional products and share their stories.',
-            content: `The annual Darjeeling Food Festival has become more than just a celebration of food - it's a vibrant showcase of the entire hill culture. This year, over 30 local food producers participated, displaying everything from traditional pickles to wild honey.
-
-## Community Gathering
-
-The festival serves as a meeting point for food artisans from across the Darjeeling region. It's where old recipes are shared, new techniques are discussed, and the younger generation learns from the masters.
-
-## Traditional Food Showcase
-
-Visitors could taste authentic Darjeeling pickles, sample different varieties of wild honey, try heritage rice preparations, and learn about traditional spice blending techniques.
+Losar is celebrated over three days, each with its own significance. The first day is for family, the second for friends, and the third for the community. Monasteries hold special prayers, and traditional cham dances are performed to drive away evil spirits.
 
 ## Cultural Preservation
 
-Events like these are crucial for preserving food traditions that might otherwise be lost as younger generations move to cities for education and employment.
+In places like Darjeeling, Kalimpong, and Gangtok, Losar celebrations help preserve Tibetan culture among younger generations who may be more connected to modern life than traditional practices.
 
-## Next Year's Plans
+## Food and Fellowship
 
-The festival organizers are already planning next year's event, with hopes to include more artisans and expand the cultural programming to include cooking demonstrations and traditional music.`,
-            author: 'Festival Reporter',
-            authorImage: 'https://images.pexels.com/photos/1222271/pexels-photo-1222271.jpeg?auto=compress&cs=tinysrgb&w=800',
-            authorBio: 'Local journalist covering cultural events and community celebrations in the Darjeeling region.',
-            category: 'events',
-            featuredImage: 'https://images.pexels.com/photos/1640777/pexels-photo-1640777.jpeg?auto=compress&cs=tinysrgb&w=800',
-            publishedAt: '2024-01-20',
-            readTime: '3 min read',
+The festival foods are not just delicious but carry deep meaning. Khapse cookies are shaped into auspicious symbols, and the ingredients for guthuk soup are chosen for their symbolic significance in bringing good luck.
+
+## Modern Adaptations
+
+While maintaining traditional elements, modern Losar celebrations in hill towns also include cultural programs, exhibitions of Tibetan art, and community gatherings that welcome people from all backgrounds to learn about Tibetan culture.`,
+            author: 'Cultural Reporter',
+            authorImage: 'https://images.pexels.com/photos/1181677/pexels-photo-1181677.jpeg?auto=compress&cs=tinysrgb&w=800',
+            authorBio: 'Journalist specializing in Himalayan cultural traditions and festival celebrations.',
+            category: 'traditions',
+            featuredImage: 'https://images.pexels.com/photos/4198017/pexels-photo-4198017.jpeg?auto=compress&cs=tinysrgb&w=800',
+            publishedAt: '2024-02-10',
+            readTime: '5 min read',
             featured: false,
-            tags: ['food-festival', 'community-event', 'cultural-celebration'],
-            relatedProducts: ['1', '2'] // Link to products
+            tags: ['losar', 'tibetan-new-year', 'cultural-festivals', 'traditional-celebrations']
+          },
+          {
+            id: '5',
+            title: 'The Toy Train Journey: A Century of Mountain Magic',
+            excerpt: 'The Darjeeling Himalayan Railway, affectionately known as the Toy Train, continues to enchant travelers with its century-old journey through the misty hills and tea gardens.',
+            content: `The whistle of the Darjeeling Himalayan Railway echoes through the mountains as it has for over 150 years. This narrow-gauge railway, lovingly called the "Toy Train," is more than just transportation - it's a journey through time and a testament to human ingenuity.
+
+## Engineering Marvel
+
+Built between 1879 and 1881, the railway climbs from sea level to over 2000 meters using ingenious loops and zigzags. The engineering feat required no tunnels, instead following the natural contours of the mountains through 88 curves and over 900 bridges.
+
+## Living Heritage
+
+Today, the Toy Train is a UNESCO World Heritage Site, but it remains a working railway serving local communities. School children use it to reach their schools, vendors sell tea and snacks at stations, and tourists from around the world experience the magic of slow travel.
+
+## The Journey Experience
+
+The 8-hour journey from New Jalpaiguri to Darjeeling passes through changing landscapes - from tropical plains to temperate forests to alpine meadows. Passengers witness the gradual transformation of culture, architecture, and vegetation as the train climbs higher.
+
+## Preserving the Magic
+
+Local communities and railway enthusiasts work together to maintain this heritage railway. Recent restoration efforts have ensured that future generations can continue to experience the wonder of this mountain railway.
+
+The Toy Train represents the spirit of Darjeeling - a blend of history, culture, and natural beauty that continues to inspire and delight all who experience its magic.`,
+            author: 'Heritage Writer',
+            authorImage: 'https://images.pexels.com/photos/1181562/pexels-photo-1181562.jpeg?auto=compress&cs=tinysrgb&w=800',
+            authorBio: 'Travel and heritage writer documenting the cultural landmarks of the Eastern Himalayas.',
+            category: 'places',
+            featuredImage: 'https://images.pexels.com/photos/1638280/pexels-photo-1638280.jpeg?auto=compress&cs=tinysrgb&w=800',
+            publishedAt: '2024-08-15',
+            readTime: '6 min read',
+            featured: false,
+            tags: ['toy-train', 'darjeeling-railway', 'unesco-heritage', 'mountain-travel']
+          },
+          {
+            id: '6',
+            title: 'Monsoon Magic: When the Hills Turn Emerald Green',
+            excerpt: 'The monsoon season transforms the Darjeeling hills into a lush paradise, bringing life to tea gardens and filling the air with the fragrance of mountain flowers.',
+            content: `When the monsoon clouds roll in from the Bay of Bengal, the Darjeeling hills undergo a magical transformation. The landscape that was golden and dry in the pre-monsoon heat suddenly bursts into every shade of green imaginable.
+
+## The Arrival of Rains
+
+The first monsoon showers usually arrive in June, announced by dramatic clouds that engulf the mountains. The temperature drops, the air becomes fresh and clean, and the entire hill station seems to breathe a sigh of relief.
+
+## Tea Gardens Come Alive
+
+For the tea gardens, monsoon is the most crucial season. The combination of warmth and moisture creates ideal conditions for tea bushes to produce the tender leaves that make the finest Darjeeling tea. The second flush, harvested during monsoon, produces teas with the distinctive muscatel flavor that Darjeeling is famous for.
+
+## Mountain Flowers Bloom
+
+The hillsides explode with wildflowers - rhododendrons, primulas, orchids, and countless other species paint the landscape in brilliant colors. The air fills with fragrances that seem to change with every turn in the mountain paths.
+
+## Life in the Clouds
+
+Living in the monsoon means embracing the mist and clouds that often shroud the hills. Locals joke that they live "inside the clouds," and indeed, walking through Darjeeling during monsoon often feels like moving through a dream.
+
+## Challenges and Beauty
+
+While monsoon brings beauty, it also brings challenges - landslides, power cuts, and transportation difficulties. But hill communities have adapted over generations, and there's a special rhythm to monsoon life that visitors find enchanting.
+
+The monsoon season reminds everyone why the hills are called a paradise - it's when nature displays its full glory and the mountains reveal their true character.`,
+            author: 'Nature Writer',
+            authorImage: 'https://images.pexels.com/photos/1222271/pexels-photo-1222271.jpeg?auto=compress&cs=tinysrgb&w=800',
+            authorBio: 'Nature writer and photographer documenting the seasonal beauty of the Eastern Himalayas.',
+            category: 'places',
+            featuredImage: 'https://images.pexels.com/photos/1640777/pexels-photo-1640777.jpeg?auto=compress&cs=tinysrgb&w=800',
+            publishedAt: '2024-07-05',
+            readTime: '5 min read',
+            featured: false,
+            tags: ['monsoon', 'darjeeling-weather', 'tea-season', 'mountain-beauty']
+          },
+          {
+            id: '7',
+            title: 'The Ancient Art of Bamboo Weaving in Kalimpong',
+            excerpt: 'In the quiet lanes of Kalimpong, master weavers continue the centuries-old tradition of bamboo craftsmanship, creating everything from baskets to furniture using techniques passed down through generations.',
+            content: `In the narrow lanes of Kalimpong, the rhythmic sound of bamboo being split and woven has echoed for centuries. This ancient craft, brought by Lepcha and Bhutia communities, continues to thrive in the hands of skilled artisans who have inherited techniques from their ancestors.
+
+## The Bamboo Forests
+
+Kalimpong's surrounding hills are rich with different varieties of bamboo, each suited for specific purposes. The craftsmen know exactly which bamboo to harvest, when to cut it, and how to prepare it for different types of weaving.
+
+## Traditional Techniques
+
+The process begins with selecting mature bamboo during the right season. The bamboo is then seasoned, split into precise strips, and treated using natural methods that prevent insect damage and increase durability.
+
+Master weavers can create intricate patterns that are both beautiful and functional. From simple storage baskets to elaborate furniture pieces, each item showcases the versatility of bamboo and the skill of the craftsperson.
+
+## Sustainable Craft
+
+Bamboo weaving is inherently sustainable - bamboo grows quickly, requires no pesticides, and the harvesting actually helps the bamboo groves remain healthy. This makes it an ideal craft for environmentally conscious consumers.
+
+## Modern Applications
+
+Today's bamboo artisans are adapting traditional techniques to create modern products - laptop stands, decorative items, and eco-friendly packaging solutions that appeal to urban customers while maintaining traditional quality.
+
+## Preserving Skills
+
+Several master weavers in Kalimpong are now teaching their skills to younger people, ensuring that this beautiful craft continues to evolve while maintaining its traditional roots.`,
+            author: 'Craft Heritage Writer',
+            authorImage: 'https://images.pexels.com/photos/1181263/pexels-photo-1181263.jpeg?auto=compress&cs=tinysrgb&w=800',
+            authorBio: 'Documenting traditional crafts and artisan skills across the Himalayan region.',
+            category: 'traditions',
+            featuredImage: 'https://images.pexels.com/photos/4198015/pexels-photo-4198015.jpeg?auto=compress&cs=tinysrgb&w=800',
+            publishedAt: '2024-06-12',
+            readTime: '4 min read',
+            featured: false,
+            tags: ['bamboo-weaving', 'kalimpong-crafts', 'traditional-skills', 'sustainable-crafts']
+          },
+          {
+            id: '8',
+            title: 'Young Entrepreneurs Reviving Hill Economy',
+            excerpt: 'A new generation of young entrepreneurs in Darjeeling and Kalimpong are creating innovative businesses that blend traditional products with modern marketing, bringing fresh energy to the hill economy.',
+            content: `Across the hills of Darjeeling and Kalimpong, a quiet revolution is taking place. Young entrepreneurs, many of whom returned home after studying in cities, are creating innovative businesses that honor traditional products while embracing modern business practices.
+
+## The New Generation
+
+Meet Priya Tamang, who left her corporate job in Bangalore to start an organic tea brand that works directly with small tea gardens. Or Tenzin Bhutia, who created an online platform connecting hill artisans with urban customers. These young entrepreneurs are proving that you don't have to leave the hills to build successful businesses.
+
+## Blending Old and New
+
+What sets these entrepreneurs apart is their deep respect for traditional products combined with modern marketing savvy. They understand both the authentic stories behind hill products and how to tell these stories to contemporary consumers.
+
+## Digital Bridges
+
+Using social media, e-commerce platforms, and digital marketing, they're building bridges between hill producers and customers across India and beyond. A pickle maker in a remote village can now reach customers in Mumbai or Delhi through these digital platforms.
+
+## Community Impact
+
+These businesses are creating employment opportunities for local youth, providing new income streams for traditional artisans, and helping preserve cultural practices by making them economically viable.
+
+## Success Stories
+
+Several of these ventures have achieved remarkable success - from tea brands that export globally to craft cooperatives that employ dozens of local artisans. Their success is inspiring more young people to consider entrepreneurship as a viable option in the hills.
+
+## Future of the Hills
+
+This entrepreneurial movement represents hope for the economic future of hill communities. By combining traditional knowledge with modern business practices, these young leaders are creating sustainable prosperity while preserving cultural heritage.`,
+            author: 'Business Reporter',
+            authorImage: 'https://images.pexels.com/photos/1181690/pexels-photo-1181690.jpeg?auto=compress&cs=tinysrgb&w=800',
+            authorBio: 'Business journalist covering entrepreneurship and economic development in hill regions.',
+            category: 'people',
+            featuredImage: 'https://images.pexels.com/photos/1640777/pexels-photo-1640777.jpeg?auto=compress&cs=tinysrgb&w=800',
+            publishedAt: '2024-05-20',
+            readTime: '6 min read',
+            featured: false,
+            tags: ['young-entrepreneurs', 'hill-economy', 'modern-business', 'traditional-products']
           }
         ];
         setStories(demoStories);
@@ -294,14 +393,13 @@ The festival organizers are already planning next year's event, with hopes to in
   const categories = [
     { id: 'all', label: 'All Stories' },
     { id: 'events', label: 'Events & Festivals' },
+    { id: 'people', label: 'People & Profiles' },
+    { id: 'places', label: 'Places & Destinations' },
+    { id: 'traditions', label: 'Traditions & Culture' },
     { id: 'artisan-story', label: 'Artisan Stories' },
-    { id: 'news', label: 'News & Updates' },
-    { id: 'food-culture', label: 'Food Culture' },
-    { id: 'community', label: 'Community Stories' },
-    { id: 'seasonal', label: 'Seasonal Updates' },
-    { id: 'sustainability', label: 'Sustainability' },
-    { id: 'heritage', label: 'Cultural Heritage' },
-    { id: 'recipes', label: 'Traditional Recipes' }
+    { id: 'food-culture', label: 'Food & Recipes' },
+    { id: 'community', label: 'Community Impact' },
+    { id: 'sustainability', label: 'Environment' }
   ];
 
   // Filter and sort stories
