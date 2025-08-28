@@ -46,74 +46,38 @@ export default function Login() {
     setLoading(true);
     
     try {
-      // Check if Firebase is configured
-      if (!import.meta.env.VITE_FIREBASE_API_KEY || import.meta.env.VITE_FIREBASE_API_KEY.includes('placeholder')) {
-        // Demo mode - simulate successful login
-        console.log('Demo mode: Simulating login for', email);
-        
-        // Create demo user session
-        const demoUser = {
-          uid: 'demo-user-123',
-          email: email,
-          displayName: email.split('@')[0]
-        };
-        
-        // Set demo auth state
-        useAuthStore.setState({
-          currentUser: demoUser,
-          userProfile: {
-            uid: demoUser.uid,
-            email: demoUser.email,
-            displayName: demoUser.displayName,
-            role: email.includes('admin') ? 'admin' : 'customer',
-            createdAt: new Date().toISOString()
-          },
-          loading: false
-        });
-        
-        // Navigate to appropriate page
-        const savedRedirectPath = getAndClearRedirectPath();
-        const redirectPath = email.includes('admin') ? '/admin' : (savedRedirectPath || '/');
-        navigate(redirectPath, { replace: true });
-        
-      } else {
-        // Real Firebase login
-        await login(email, password);
-        
-        // Navigate after auth state stabilizes
-        setTimeout(() => {
-          const { userProfile } = useAuthStore.getState();
-          const savedRedirectPath = getAndClearRedirectPath();
-          const redirectPath = determineRedirectPath(userProfile, savedRedirectPath);
-          navigate(redirectPath, { replace: true });
-        }, 100);
-      }
+      // Use auth store login method (handles both Firebase and demo mode)
+      await login(email, password);
+      
+      // Navigate after successful login
+      const { userProfile } = useAuthStore.getState();
+      const savedRedirectPath = getAndClearRedirectPath();
+      const redirectPath = determineRedirectPath(userProfile, savedRedirectPath);
+      navigate(redirectPath, { replace: true });
       
     } catch (error) {
-      console.error("Login error:", error);
-      
-      // Provide user-friendly error messages
-      let errorMessage = "Login failed. Please try again.";
-      
-      if (error.message && error.message.includes('Firebase not configured')) {
-        errorMessage = "Authentication service not configured. Please contact support.";
-      } else if (error.code === 'auth/user-not-found') {
-        errorMessage = "No account found with this email address.";
-      } else if (error.code === 'auth/wrong-password') {
-        errorMessage = "Incorrect password. Please try again.";
-      } else if (error.code === 'auth/invalid-email') {
-        errorMessage = "Please enter a valid email address.";
-      } else if (error.code === 'auth/user-disabled') {
-        errorMessage = "This account has been disabled. Please contact support.";
-      } else if (error.code === 'auth/too-many-requests') {
-        errorMessage = "Too many failed attempts. Please try again later.";
-      } else if (error.message) {
-        errorMessage = error.message;
-      }
-      
-      setError(errorMessage);
+      // Get user-friendly error from auth store
+      const { error: authError } = useAuthStore.getState();
+      setError(authError || "Login failed. Please try again.");
     } finally {
       setLoading(false);
+    }
+  };
+
+  // Clear error when user starts typing
+  const handleEmailChange = (e) => {
+    setEmail(e.target.value);
+    if (error) setError("");
+    if (validationErrors.email) {
+      setValidationErrors(prev => ({ ...prev, email: "" }));
+    }
+  };
+
+  const handlePasswordChange = (e) => {
+    setPassword(e.target.value);
+    if (error) setError("");
+    if (validationErrors.password) {
+      setValidationErrors(prev => ({ ...prev, password: "" }));
     }
   };
 
@@ -147,7 +111,7 @@ export default function Login() {
               aria-invalid={validationErrors.email ? 'true' : 'false'}
               aria-describedby={validationErrors.email ? 'email-error' : undefined}
               value={email}
-              onChange={e => setEmail(e.target.value)}
+              onChange={handleEmailChange}
               className={`w-full border rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-himalaya transition-colors ${
                 validationErrors.email ? 'border-red-500 bg-red-50' : 'border-gray-300'
               }`}
@@ -171,7 +135,7 @@ export default function Login() {
               aria-invalid={validationErrors.password ? 'true' : 'false'}
               aria-describedby={validationErrors.password ? 'password-error' : undefined}
               value={password}
-              onChange={e => setPassword(e.target.value)}
+              onChange={handlePasswordChange}
               className={`w-full border rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-himalaya transition-colors ${
                 validationErrors.password ? 'border-red-500 bg-red-50' : 'border-gray-300'
               }`}

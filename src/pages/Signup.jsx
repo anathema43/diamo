@@ -58,74 +58,37 @@ export default function Signup() {
     setLoading(true);
     
     try {
-      // Check if Firebase is configured
-      if (!import.meta.env.VITE_FIREBASE_API_KEY || import.meta.env.VITE_FIREBASE_API_KEY.includes('placeholder')) {
-        // Demo mode - simulate successful signup
-        console.log('Demo mode: Simulating signup for', email);
-        
-        // Create demo user session
-        const demoUser = {
-          uid: 'demo-user-' + Date.now(),
-          email: email,
-          displayName: name
-        };
-        
-        // Set demo auth state
-        useAuthStore.setState({
-          currentUser: demoUser,
-          userProfile: {
-            uid: demoUser.uid,
-            email: demoUser.email,
-            displayName: demoUser.displayName,
-            role: 'customer',
-            createdAt: new Date().toISOString()
-          },
-          loading: false
-        });
-        
-        // Navigate to appropriate page
-        const savedRedirectPath = getAndClearRedirectPath();
-        const redirectPath = savedRedirectPath || '/';
-        navigate(redirectPath, { replace: true });
-        
-      } else {
-        // Real Firebase signup
-        await signup(email, password, name);
-        
-        // Navigate after auth state stabilizes
-        setTimeout(() => {
-          const { userProfile } = useAuthStore.getState();
-          const savedRedirectPath = getAndClearRedirectPath();
-          const redirectPath = determineRedirectPath(userProfile, savedRedirectPath);
-          navigate(redirectPath, { replace: true });
-        }, 100);
-      }
+      // Use auth store signup method (handles both Firebase and demo mode)
+      await signup(email, password, name);
+      
+      // Navigate after successful signup
+      const { userProfile } = useAuthStore.getState();
+      const savedRedirectPath = getAndClearRedirectPath();
+      const redirectPath = determineRedirectPath(userProfile, savedRedirectPath);
+      navigate(redirectPath, { replace: true });
       
     } catch (error) {
-      console.error("Signup error:", error);
-      
-      // Provide user-friendly error messages
-      let errorMessage = "Signup failed. Please try again.";
-      
-      if (error.message && error.message.includes('Firebase not configured')) {
-        errorMessage = "Authentication service not configured. Please contact support.";
-      } else if (error.code === 'auth/email-already-in-use') {
-        errorMessage = "An account with this email already exists. Please try logging in instead.";
-      } else if (error.code === 'auth/invalid-email') {
-        errorMessage = "Please enter a valid email address.";
-      } else if (error.code === 'auth/weak-password') {
-        errorMessage = "Password should be at least 6 characters long.";
-      } else if (error.code === 'auth/operation-not-allowed') {
-        errorMessage = "Email/password accounts are not enabled. Please contact support.";
-      } else if (error.message) {
-        errorMessage = error.message;
-      }
-      
-      setError(errorMessage);
+      // Get user-friendly error from auth store
+      const { error: authError } = useAuthStore.getState();
+      setError(authError || "Signup failed. Please try again.");
     } finally {
       setLoading(false);
     }
   }
+
+  // Clear error when user starts typing
+  const handleInputChange = (field, value) => {
+    if (field === 'name') setName(value);
+    else if (field === 'email') setEmail(value);
+    else if (field === 'password') setPassword(value);
+    else if (field === 'confirmPassword') setConfirmPassword(value);
+    
+    // Clear errors when user starts typing
+    if (error) setError("");
+    if (validationErrors[field]) {
+      setValidationErrors(prev => ({ ...prev, [field]: "" }));
+    }
+  };
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-himalaya-light to-blue-200" role="main">
@@ -160,7 +123,7 @@ export default function Signup() {
                 validationErrors.name ? 'border-red-500 bg-red-50' : 'border-gray-300'
               }`}
               value={name} 
-              onChange={e => setName(e.target.value)} 
+              onChange={e => handleInputChange('name', e.target.value)}
               placeholder="Enter your full name"
               disabled={loading}
               data-cy="signup-name"
@@ -187,7 +150,7 @@ export default function Signup() {
                 validationErrors.email ? 'border-red-500 bg-red-50' : 'border-gray-300'
               }`}
               value={email} 
-              onChange={e => setEmail(e.target.value)} 
+              onChange={e => handleInputChange('email', e.target.value)}
               placeholder="Enter your email address"
               disabled={loading}
               data-cy="signup-email"
@@ -214,7 +177,7 @@ export default function Signup() {
                 validationErrors.password ? 'border-red-500 bg-red-50' : 'border-gray-300'
               }`}
               value={password} 
-              onChange={e => setPassword(e.target.value)} 
+              onChange={e => handleInputChange('password', e.target.value)}
               placeholder="Create a password"
               disabled={loading}
               data-cy="signup-password"
@@ -244,7 +207,7 @@ export default function Signup() {
                 validationErrors.confirmPassword ? 'border-red-500 bg-red-50' : 'border-gray-300'
               }`}
               value={confirmPassword} 
-              onChange={e => setConfirmPassword(e.target.value)} 
+              onChange={e => handleInputChange('confirmPassword', e.target.value)}
               placeholder="Confirm your password"
               disabled={loading}
               data-cy="signup-confirm-password"
