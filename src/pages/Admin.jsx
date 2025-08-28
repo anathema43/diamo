@@ -898,7 +898,6 @@ export default function Admin() {
                 )}
               </div>
             </div>
-          </div>
         )}
 
         {/* Pages Tab */}
