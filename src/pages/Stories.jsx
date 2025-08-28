@@ -23,9 +23,9 @@ export default function Stories() {
         const demoStories = [
           {
             id: '1',
-            title: 'Darjeeling Tea Festival 2024: Celebrating Heritage',
-            excerpt: 'This year\'s Darjeeling Tea Festival brought together over 50 local producers to showcase their finest teas and traditional food products.',
-            content: 'The annual Darjeeling Tea Festival has become more than just a celebration of tea - it\'s a vibrant showcase of the entire hill culture. This year, over 50 local producers participated, displaying everything from traditional pickles to wild honey...',
+            title: 'Darjeeling Tea Festival 2024: A Celebration of Hill Culture',
+            excerpt: 'The annual tea festival brought together over 50 local producers, showcasing the rich cultural heritage of our hills.',
+            content: `The annual Darjeeling Tea Festival has become more than just a celebration of tea - it's a vibrant showcase of the entire hill culture. This year, over 50 local producers participated, displaying everything from traditional pickles to wild honey.`,
             author: 'Editorial Team',
             authorImage: 'https://images.pexels.com/photos/1222271/pexels-photo-1222271.jpeg?auto=compress&cs=tinysrgb&w=800',
             category: 'events',
@@ -163,7 +163,7 @@ export default function Stories() {
                     {featuredStory.excerpt}
                   </p>
                   <Link 
-                Shop Our Products
+                    to={`/stories/${featuredStory.id}`}
                     className="inline-flex items-center gap-2 bg-organic-primary text-white font-semibold px-6 py-3 rounded-lg hover:opacity-90 transition-all"
                   >
                     Read Full Story
@@ -180,11 +180,11 @@ export default function Stories() {
       <section className="py-8 bg-white">
         <div className="max-w-7xl mx-auto px-6">
           <div className="flex flex-wrap gap-3 justify-center">
-              Stay Connected with Darjeeling Hills
+            {categories.map(category => (
               <button
                 key={category.id}
-              Follow our weekly stories and discover what's happening in our community
-                className={`px-4 py-2 rounded-full font-medium transition-all ${
+                onClick={() => setSelectedCategory(category.id)}
+                className={\`px-4 py-2 rounded-full font-medium transition-all ${
                   selectedCategory === category.id
                     ? 'bg-organic-primary text-white'
                     : 'bg-organic-background text-organic-text hover:bg-organic-primary hover:text-white'
