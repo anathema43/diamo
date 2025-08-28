@@ -25,6 +25,37 @@ export const useProductStore = create((set, get) => ({
   fetchProducts: async () => {
     set({ loading: true, error: null });
     try {
+      // Check if Firestore is available
+      if (!db) {
+        console.warn('Firestore not available, using demo products');
+        const demoProducts = [
+          {
+            id: '1',
+            name: 'Demo Himalayan Honey',
+            description: 'Pure organic honey from high-altitude forests (Demo)',
+            price: 499,
+            image: 'https://images.pexels.com/photos/1638280/pexels-photo-1638280.jpeg?auto=compress&cs=tinysrgb&w=800',
+            quantityAvailable: 10,
+            category: 'honey',
+            rating: 4.8,
+            featured: true
+          },
+          {
+            id: '2', 
+            name: 'Demo Darjeeling Pickle',
+            description: 'Authentic spicy pickle from the hills (Demo)',
+            price: 299,
+            image: 'https://images.pexels.com/photos/4198017/pexels-photo-4198017.jpeg?auto=compress&cs=tinysrgb&w=800',
+            quantityAvailable: 15,
+            category: 'pickle',
+            rating: 4.5,
+            featured: true
+          }
+        ];
+        set({ products: demoProducts, categories: ['honey', 'pickle'], loading: false });
+        return demoProducts;
+      }
+      
       const querySnapshot = await getDocs(collection(db, "products"));
       const products = querySnapshot.docs.map(doc => ({
         id: doc.id,

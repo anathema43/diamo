@@ -27,42 +27,48 @@ const isFirebaseConfigured = Object.values(firebaseConfig).every(value =>
 );
 
 if (!isFirebaseConfigured) {
-  console.error('🔥 Firebase Configuration Error');
-  console.error('====================================');
-  console.error('Firebase is not properly configured. Please follow these steps:');
-  console.error('');
-  console.error('1. Create a .env file in your project root (copy from .env.example)');
-  console.error('2. Go to Firebase Console: https://console.firebase.google.com');
-  console.error('3. Select your project → Project Settings → General');
-  console.error('4. Scroll down to "Your apps" and find your web app');
-  console.error('5. Copy the config values and update your .env file');
-  console.error('');
-  console.error('Current config status:');
+  console.warn('🔥 Firebase Configuration Warning');
+  console.warn('====================================');
+  console.warn('Firebase is not properly configured. The app will run in demo mode.');
+  console.warn('To enable full functionality, please set up your Firebase configuration.');
+  console.warn('');
+  console.warn('Current config status:');
   Object.entries(firebaseConfig).forEach(([key, value]) => {
     const status = value && value !== 'undefined' && !value.toString().includes('your_') ? '✅' : '❌';
-    console.error(`${status} ${key}: ${value ? 'Set' : 'Missing'}`);
+    console.warn(`${status} ${key}: ${value ? 'Set' : 'Missing'}`);
   });
-  console.error('');
-  
-  // In development, show warning but don't crash the app
-  if (import.meta.env.DEV) {
-    console.error('🔧 Development mode: Please configure Firebase to continue.');
-    // Don't initialize Firebase with invalid config
-    throw new Error('Firebase configuration required. Please set up your .env file with valid Firebase credentials.');
-  } else {
-    // Only throw error in production
-    throw new Error('Firebase configuration is required. Please set up your environment variables.');
-  }
+  console.warn('');
 }
 
-// Initialize Firebase
-const app = initializeApp(firebaseConfig);
+// Initialize Firebase only if properly configured
+let app, auth, db, storage, functions;
 
-// Initialize Firebase services
-export const auth = getAuth(app);
-export const db = getFirestore(app);
-export const storage = getStorage(app);
-export const functions = getFunctions(app);
+if (isFirebaseConfigured) {
+  try {
+    app = initializeApp(firebaseConfig);
+    auth = getAuth(app);
+    db = getFirestore(app);
+    storage = getStorage(app);
+    functions = getFunctions(app);
+    console.log('✅ Firebase initialized successfully');
+  } catch (error) {
+    console.error('❌ Firebase initialization failed:', error);
+    // Create mock services to prevent app crashes
+    auth = null;
+    db = null;
+    storage = null;
+    functions = null;
+  }
+} else {
+  // Create mock services for demo mode
+  console.warn('🔧 Running in demo mode without Firebase');
+  auth = null;
+  db = null;
+  storage = null;
+  functions = null;
+}
+
+export { auth, db, storage, functions };
 
 // Enable offline persistence for Firestore
 import { enableNetwork, disableNetwork } from "firebase/firestore";

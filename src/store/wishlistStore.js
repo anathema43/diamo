@@ -97,7 +97,7 @@ export const useWishlistStore = create(
 
       loadWishlist: async () => {
         const { currentUser } = useAuthStore.getState();
-        if (!currentUser) return;
+        if (!currentUser || !db) return;
         
         set({ loading: true });
         try {

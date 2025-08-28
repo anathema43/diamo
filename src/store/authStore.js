@@ -25,10 +25,23 @@ export const useAuthStore = create(
 
   fetchUser: () => {
     try {
+      // Check if Firebase auth is available
+      if (!auth) {
+        console.warn('Firebase auth not available, using demo mode');
+        set({ currentUser: null, userProfile: null, loading: false });
+        return () => {};
+      }
+      
       const unsubscribe = onAuthStateChanged(auth, async (user) => {
         if (user) {
           // CRITICAL: Always fetch fresh user profile from Firestore on auth state change
           try {
+            if (!db) {
+              console.warn('Firestore not available, using basic auth only');
+              set({ currentUser: user, userProfile: null, loading: false });
+              return;
+            }
+            
             const userDocRef = doc(db, "users", user.uid);
             const userDocSnap = await getDoc(userDocRef);
             const userProfile = userDocSnap.exists() ? userDocSnap.data() : null;
