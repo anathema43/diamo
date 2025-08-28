@@ -14,9 +14,7 @@ import Orders from "./pages/Orders";
 import Wishlist from "./pages/Wishlist";
 import Admin from "./pages/Admin";
 import About from "./pages/About";
-import DevelopmentRoadmap from "./pages/DevelopmentRoadmap";
 import ShippingPolicy from "./pages/ShippingPolicy";
-import RefundPolicy from "./pages/RefundPolicy";
 import PrivacyPolicy from "./pages/PrivacyPolicy";
 import TermsOfUse from "./pages/TermsOfUse";
 import Disclaimer from "./pages/Disclaimer";
@@ -52,7 +50,7 @@ function App() {
       
       return () => unsub && unsub();
     } catch (error) {
-      console.log("Auth not configured yet");
+      // Firebase not configured, running in demo mode
     }
   }, [fetchUser, loadCart, loadWishlist, subscribeToCart, subscribeToWishlist]);
 
@@ -78,6 +76,7 @@ function App() {
             {/* Static Pages */}
             <Route path="/about" element={<About />} />
             <Route path="/shipping-policy" element={<ShippingPolicy />} />
+              <Route path="/return-policy" element={<ShippingPolicy />} />
             <Route path="/refund-policy" element={<RefundPolicy />} />
             <Route path="/privacy-policy" element={<PrivacyPolicy />} />
             <Route path="/terms-of-use" element={<TermsOfUse />} />

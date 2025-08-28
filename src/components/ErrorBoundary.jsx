@@ -18,6 +18,14 @@ class ErrorBoundary extends React.Component {
     
     // Log error for debugging
     console.error('Error caught by boundary:', error, errorInfo);
+    
+    // Send to monitoring service if available
+    if (typeof gtag !== 'undefined') {
+      gtag('event', 'exception', {
+        description: error.toString(),
+        fatal: false
+      });
+    }
   }
 
   render() {

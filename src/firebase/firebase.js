@@ -27,17 +27,8 @@ const isFirebaseConfigured = Object.values(firebaseConfig).every(value =>
 );
 
 if (!isFirebaseConfigured) {
-  console.warn('🔥 Firebase Configuration Warning');
-  console.warn('====================================');
-  console.warn('Firebase is not properly configured. The app will run in demo mode.');
-  console.warn('To enable full functionality, please set up your Firebase configuration.');
-  console.warn('');
-  console.warn('Current config status:');
-  Object.entries(firebaseConfig).forEach(([key, value]) => {
-    const status = value && value !== 'undefined' && !value.toString().includes('your_') ? '✅' : '❌';
-    console.warn(`${status} ${key}: ${value ? 'Set' : 'Missing'}`);
-  });
-  console.warn('');
+  console.info('ℹ️ Firebase not configured yet. Running in demo mode.');
+  console.info('To enable full functionality, please configure Firebase in your .env file.');
 }
 
 // Initialize Firebase only if properly configured
@@ -50,7 +41,7 @@ if (isFirebaseConfigured) {
     db = getFirestore(app);
     storage = getStorage(app);
     functions = getFunctions(app);
-    console.log('✅ Firebase initialized successfully');
+    console.info('✅ Firebase initialized successfully');
   } catch (error) {
     console.error('❌ Firebase initialization failed:', error);
     // Create mock services to prevent app crashes
@@ -61,7 +52,7 @@ if (isFirebaseConfigured) {
   }
 } else {
   // Create mock services for demo mode
-  console.warn('🔧 Running in demo mode without Firebase');
+  console.info('🔧 Running in demo mode without Firebase');
   auth = null;
   db = null;
   storage = null;

@@ -27,7 +27,7 @@ export const useProductStore = create((set, get) => ({
     try {
       // Check if Firestore is available
       if (!db) {
-        console.warn('Firestore not available, using demo products');
+        console.info('Firestore not available, using demo products');
         const demoProducts = [
           {
             id: '1',
