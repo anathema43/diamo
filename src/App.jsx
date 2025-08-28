@@ -18,6 +18,7 @@ import ShippingPolicy from "./pages/ShippingPolicy";
 import PrivacyPolicy from "./pages/PrivacyPolicy";
 import TermsOfUse from "./pages/TermsOfUse";
 import Disclaimer from "./pages/Disclaimer";
+import RefundPolicy from "./pages/RefundPolicy";
 import FAQ from "./pages/FAQ";
 import Contact from "./pages/Contact";
 import ArtisansDirectory from "./pages/ArtisansDirectory";
