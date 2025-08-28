@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { CloudArrowUpIcon, Cog6ToothIcon, CheckCircleIcon, ExclamationTriangleIcon } from '@heroicons/react/24/outline';
 import { searchService } from '../services/searchService';
 import { useProductStore } from '../store/productStore';
+import { isAlgoliaConfigured } from '../config/algolia';
 
 export default function AdminAlgoliaSync() {
   const [isSyncing, setIsSyncing] = useState(false);
@@ -10,6 +11,19 @@ export default function AdminAlgoliaSync() {
   const [configResult, setConfigResult] = useState(null);
   const { products } = useProductStore();
 
+  // Hide Algolia sync if not configured
+  if (!isAlgoliaConfigured) {
+    return (
+      <div className="bg-blue-50 border border-blue-200 rounded-lg p-4 mb-6">
+        <h3 className="text-lg font-semibold text-blue-800 mb-2">
+          🔍 Algolia Search (Optional)
+        </h3>
+        <p className="text-blue-700 text-sm">
+          Algolia is not configured yet. Add VITE_ALGOLIA_* environment variables to enable advanced search features.
+        </p>
+      </div>
+    );
+  }
   const handleBulkSync = async () => {
     setIsSyncing(true);
     setSyncResult(null);

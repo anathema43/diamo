@@ -1,10 +1,16 @@
 import React, { useState } from 'react';
 import { seedArtisansToFirestore } from '../data/seedArtisans';
+import { useArtisanStore } from '../store/artisanStore';
 
 export default function ArtisanSeedButton() {
+  const { artisans } = useArtisanStore();
   const [isSeeding, setIsSeeding] = useState(false);
   const [message, setMessage] = useState('');
 
+  // Hide seed button if artisans already exist
+  if (artisans.length > 0) {
+    return null;
+  }
   const handleSeed = async () => {
     setIsSeeding(true);
     setMessage('');

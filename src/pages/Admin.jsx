@@ -337,12 +337,26 @@ export default function Admin() {
               </div>
             </div>
 
-            {/* Database Setup */}
-            <div className="space-y-6">
-              <AdminSeedButton />
-              <ArtisanSeedButton />
-              <AdminAlgoliaSync />
-            </div>
+            {/* Database Setup - Only show if needed */}
+            {(products.length === 0 || artisans.length === 0) && (
+              <div className="space-y-6">
+                <div className="bg-yellow-50 border border-yellow-200 rounded-lg p-6">
+                  <h3 className="text-lg font-semibold text-yellow-800 mb-2">
+                    🚀 Initial Setup Required
+                  </h3>
+                  <p className="text-yellow-700 mb-4 text-sm">
+                    Your database is empty. Use these buttons to populate it with initial data.
+                  </p>
+                  <div className="space-y-4">
+                    <AdminSeedButton />
+                    <ArtisanSeedButton />
+                  </div>
+                </div>
+              </div>
+            )}
+            
+            {/* Algolia Setup - Always show if configured */}
+            <AdminAlgoliaSync />
 
             {/* Analytics Dashboard */}
             <AnalyticsDashboard />

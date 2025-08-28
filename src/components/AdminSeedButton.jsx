@@ -1,10 +1,16 @@
 import React, { useState } from 'react';
 import { seedProductsToFirestore } from '../data/seedProducts';
+import { useProductStore } from '../store/productStore';
 
 export default function AdminSeedButton() {
+  const { products } = useProductStore();
   const [isSeeding, setIsSeeding] = useState(false);
   const [message, setMessage] = useState('');
 
+  // Hide seed button if products already exist
+  if (products.length > 0) {
+    return null;
+  }
   const handleSeed = async () => {
     setIsSeeding(true);
     setMessage('');
