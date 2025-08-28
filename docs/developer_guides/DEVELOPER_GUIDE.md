@@ -1,4 +1,4 @@
-# 🏔️ Complete Developer Setup Guide - Darjeeling Souls E-commerce
+# 🏔️ Complete Integration Guide - Darjeeling Souls E-commerce
 
 ## 🎯 **Quick Start Overview**
 
@@ -7,6 +7,12 @@ This is your complete guide to setting up the Darjeeling Souls e-commerce platfo
 **What You'll Build**: Enterprise-grade e-commerce platform with advanced search, cultural storytelling, secure payments, and real-time features.
 
 ---
+
+## 🚀 **New to Development?**
+
+**Start here first:** [Simple Setup Guide](SIMPLE_SETUP_GUIDE.md) - Gets you running in 15 minutes
+
+**This guide is for:** Complete production setup with all integrations
 
 ## 📋 **Prerequisites**
 
@@ -42,6 +48,18 @@ npm list --depth=0
 # Test build process
 npm run build
 ```
+
+### **⚠️ Important Security Note**
+
+**Public Keys (Safe for .env):**
+- `VITE_FIREBASE_API_KEY` ✅
+- `VITE_RAZORPAY_KEY_ID` ✅ 
+- `VITE_ALGOLIA_SEARCH_KEY` ✅
+
+**Secret Keys (NEVER in .env):**
+- Razorpay Key Secret ❌ (Use Firebase Functions config)
+- Firebase Admin SDK ❌ (Use Firebase Functions)
+- Email passwords ❌ (Use Firebase Functions config)
 
 ---
 
@@ -81,6 +99,21 @@ npm run build
 3. **Copy the firebaseConfig object** - you'll need this!
 
 ---
+
+## 🔐 **Step 2.5: Secure Backend Setup**
+
+### **Install Firebase CLI:**
+```bash
+npm install -g firebase-tools
+firebase login
+```
+
+### **Set Secret Keys (NOT in .env):**
+```bash
+firebase functions:config:set razorpay.key_secret="your_razorpay_secret"
+firebase functions:config:set email.user="your-gmail@gmail.com"
+firebase functions:config:set email.password="your-gmail-app-password"
+```
 
 ## 💳 **Step 3: Razorpay Setup**
 
