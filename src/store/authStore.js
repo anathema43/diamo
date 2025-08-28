@@ -28,7 +28,18 @@ export const useAuthStore = create(
       // Check if Firebase auth is available
       if (!auth) {
         console.warn('Firebase auth not available, using demo mode');
-        set({ currentUser: null, userProfile: null, loading: false });
+        // Check if we have a demo user in localStorage
+        const demoAuth = localStorage.getItem('demo-auth-storage');
+        if (demoAuth) {
+          try {
+            const { currentUser, userProfile } = JSON.parse(demoAuth);
+            set({ currentUser, userProfile, loading: false });
+          } catch (e) {
+            set({ currentUser: null, userProfile: null, loading: false });
+          }
+        } else {
+          set({ currentUser: null, userProfile: null, loading: false });
+        }
         return () => {};
       }
       

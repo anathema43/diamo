@@ -58,15 +58,48 @@ export default function Signup() {
     setLoading(true);
     
     try {
-      await signup(email, password, name);
-      
-      // Navigate after auth state stabilizes
-      setTimeout(() => {
-        const { userProfile } = useAuthStore.getState();
+      // Check if Firebase is configured
+      if (!import.meta.env.VITE_FIREBASE_API_KEY || import.meta.env.VITE_FIREBASE_API_KEY.includes('placeholder')) {
+        // Demo mode - simulate successful signup
+        console.log('Demo mode: Simulating signup for', email);
+        
+        // Create demo user session
+        const demoUser = {
+          uid: 'demo-user-' + Date.now(),
+          email: email,
+          displayName: name
+        };
+        
+        // Set demo auth state
+        useAuthStore.setState({
+          currentUser: demoUser,
+          userProfile: {
+            uid: demoUser.uid,
+            email: demoUser.email,
+            displayName: demoUser.displayName,
+            role: 'customer',
+            createdAt: new Date().toISOString()
+          },
+          loading: false
+        });
+        
+        // Navigate to appropriate page
         const savedRedirectPath = getAndClearRedirectPath();
-        const redirectPath = determineRedirectPath(userProfile, savedRedirectPath);
+        const redirectPath = savedRedirectPath || '/';
         navigate(redirectPath, { replace: true });
-      }, 100);
+        
+      } else {
+        // Real Firebase signup
+        await signup(email, password, name);
+        
+        // Navigate after auth state stabilizes
+        setTimeout(() => {
+          const { userProfile } = useAuthStore.getState();
+          const savedRedirectPath = getAndClearRedirectPath();
+          const redirectPath = determineRedirectPath(userProfile, savedRedirectPath);
+          navigate(redirectPath, { replace: true });
+        }, 100);
+      }
       
     } catch (error) {
       console.error("Signup error:", error);
@@ -74,7 +107,9 @@ export default function Signup() {
       // Provide user-friendly error messages
       let errorMessage = "Signup failed. Please try again.";
       
-      if (error.code === 'auth/email-already-in-use') {
+      if (error.message && error.message.includes('Firebase not configured')) {
+        errorMessage = "Authentication service not configured. Please contact support.";
+      } else if (error.code === 'auth/email-already-in-use') {
         errorMessage = "An account with this email already exists. Please try logging in instead.";
       } else if (error.code === 'auth/invalid-email') {
         errorMessage = "Please enter a valid email address.";

@@ -46,15 +46,48 @@ export default function Login() {
     setLoading(true);
     
     try {
-      await login(email, password);
-      
-      // Navigate after auth state stabilizes
-      setTimeout(() => {
-        const { userProfile } = useAuthStore.getState();
+      // Check if Firebase is configured
+      if (!import.meta.env.VITE_FIREBASE_API_KEY || import.meta.env.VITE_FIREBASE_API_KEY.includes('placeholder')) {
+        // Demo mode - simulate successful login
+        console.log('Demo mode: Simulating login for', email);
+        
+        // Create demo user session
+        const demoUser = {
+          uid: 'demo-user-123',
+          email: email,
+          displayName: email.split('@')[0]
+        };
+        
+        // Set demo auth state
+        useAuthStore.setState({
+          currentUser: demoUser,
+          userProfile: {
+            uid: demoUser.uid,
+            email: demoUser.email,
+            displayName: demoUser.displayName,
+            role: email.includes('admin') ? 'admin' : 'customer',
+            createdAt: new Date().toISOString()
+          },
+          loading: false
+        });
+        
+        // Navigate to appropriate page
         const savedRedirectPath = getAndClearRedirectPath();
-        const redirectPath = determineRedirectPath(userProfile, savedRedirectPath);
+        const redirectPath = email.includes('admin') ? '/admin' : (savedRedirectPath || '/');
         navigate(redirectPath, { replace: true });
-      }, 100);
+        
+      } else {
+        // Real Firebase login
+        await login(email, password);
+        
+        // Navigate after auth state stabilizes
+        setTimeout(() => {
+          const { userProfile } = useAuthStore.getState();
+          const savedRedirectPath = getAndClearRedirectPath();
+          const redirectPath = determineRedirectPath(userProfile, savedRedirectPath);
+          navigate(redirectPath, { replace: true });
+        }, 100);
+      }
       
     } catch (error) {
       console.error("Login error:", error);
@@ -62,7 +95,9 @@ export default function Login() {
       // Provide user-friendly error messages
       let errorMessage = "Login failed. Please try again.";
       
-      if (error.code === 'auth/user-not-found') {
+      if (error.message && error.message.includes('Firebase not configured')) {
+        errorMessage = "Authentication service not configured. Please contact support.";
+      } else if (error.code === 'auth/user-not-found') {
         errorMessage = "No account found with this email address.";
       } else if (error.code === 'auth/wrong-password') {
         errorMessage = "Incorrect password. Please try again.";
