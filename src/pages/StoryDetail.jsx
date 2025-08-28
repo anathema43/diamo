@@ -238,21 +238,6 @@ The monsoon season reminds everyone why the hills are called a paradise - it's w
             category: 'places',
             featuredImage: 'https://images.pexels.com/photos/1640777/pexels-photo-1640777.jpeg?auto=compress&cs=tinysrgb&w=800',
             publishedAt: '2024-07-05',
-            // Demo products for this artisan
-            const demoProducts = [
-              {
-                id: '1',
-                name: 'Darjeeling Pickle',
-                description: 'Authentic spicy pickle from the hills of Darjeeling',
-                price: 299,
-                image: 'https://res.cloudinary.com/dj4kdlwzo/image/upload/v1752940186/pickle_3_co88iu.jpg',
-                quantityAvailable: 10,
-                category: 'pickle',
-                rating: 4.5,
-                artisan: foundArtisan.name
-              }
-            ];
-            setArtisanProducts(foundArtisan.name === 'Deepak Sharma' ? demoProducts : []);
             featured: false,
             tags: ['monsoon', 'darjeeling-weather', 'tea-season', 'mountain-beauty']
           }
