@@ -7,10 +7,12 @@ import {
   signOut,
   onAuthStateChanged,
   updateProfile,
-  sendPasswordResetEmail,
+  sendPasswordResetEmail as firebaseSendPasswordResetEmail,
   updatePassword,
   EmailAuthProvider,
-  reauthenticateWithCredential
+  reauthenticateWithCredential,
+  verifyPasswordResetCode as firebaseVerifyPasswordResetCode,
+  confirmPasswordReset as firebaseConfirmPasswordReset
 } from "firebase/auth";
 import { doc, setDoc, getDoc } from "firebase/firestore";
 import { auth, db } from "./firebase";
@@ -122,6 +124,39 @@ export const changePassword = async (currentPassword, newPassword) => {
     await updatePassword(user, newPassword);
   } catch (error) {
     console.error("Error changing password:", error);
+    throw error;
+  }
+};
+
+// Send password reset email
+export const sendPasswordResetEmail = async (email) => {
+  try {
+    await firebaseSendPasswordResetEmail(auth, email);
+    return { success: true, message: "Password reset email sent successfully" };
+  } catch (error) {
+    console.error("Error sending password reset email:", error);
+    throw error;
+  }
+};
+
+// Verify password reset code
+export const verifyPasswordResetCode = async (code) => {
+  try {
+    const email = await firebaseVerifyPasswordResetCode(auth, code);
+    return { success: true, email };
+  } catch (error) {
+    console.error("Error verifying password reset code:", error);
+    throw error;
+  }
+};
+
+// Confirm password reset
+export const confirmPasswordReset = async (code, newPassword) => {
+  try {
+    await firebaseConfirmPasswordReset(auth, code, newPassword);
+    return { success: true, message: "Password reset successfully" };
+  } catch (error) {
+    console.error("Error confirming password reset:", error);
     throw error;
   }
 };

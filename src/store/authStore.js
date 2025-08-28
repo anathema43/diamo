@@ -8,7 +8,8 @@ import {
   onAuthStateChanged,
   updateProfile,
   GoogleAuthProvider,
-  signInWithPopup
+  signInWithPopup,
+  sendPasswordResetEmail as firebaseSendPasswordResetEmail
 } from "firebase/auth";
 import { doc, setDoc, getDoc } from "firebase/firestore";
 import { db } from "../firebase/firebase";
@@ -151,13 +152,15 @@ export const useAuthStore = create(
       if (error.code === 'auth/user-not-found') {
         errorMessage = "No account found with this email address.";
       } else if (error.code === 'auth/wrong-password') {
-        errorMessage = "Incorrect password. Please try again.";
+        errorMessage = "Incorrect password. You can reset your password using the 'Forgot Password' link.";
       } else if (error.code === 'auth/invalid-email') {
         errorMessage = "Please enter a valid email address.";
       } else if (error.code === 'auth/user-disabled') {
         errorMessage = "This account has been disabled. Please contact support.";
       } else if (error.code === 'auth/too-many-requests') {
         errorMessage = "Too many failed attempts. Please try again later.";
+      } else if (error.code === 'auth/invalid-credential') {
+        errorMessage = "Invalid email or password. Please check your credentials or reset your password.";
       }
       
       set({ error: errorMessage, loading: false });

@@ -216,6 +216,30 @@ describe('Authentication Flow', () => {
       
       cy.get('[data-cy="success-message"]').should('contain', 'Password reset email sent');
     });
+    
+    it('should validate email before sending reset', () => {
+      cy.get('[data-cy="nav-login"]').click();
+      cy.get('[data-cy="forgot-password-link"]').click();
+      
+      // Test empty email
+      cy.get('[data-cy="reset-submit"]').click();
+      cy.contains('Please enter your email address').should('be.visible');
+      
+      // Test invalid email
+      cy.get('[data-cy="reset-email"]').type('invalid-email');
+      cy.get('[data-cy="reset-submit"]').click();
+      cy.contains('Please enter a valid email address').should('be.visible');
+    });
+    
+    it('should handle non-existent email gracefully', () => {
+      cy.get('[data-cy="nav-login"]').click();
+      cy.get('[data-cy="forgot-password-link"]').click();
+      
+      cy.get('[data-cy="reset-email"]').type('nonexistent@example.com');
+      cy.get('[data-cy="reset-submit"]').click();
+      
+      cy.contains('No account found with this email address').should('be.visible');
+    });
   });
 
   describe('Session Management', () => {

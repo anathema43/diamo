@@ -162,6 +162,18 @@ export default function Login() {
             </p>
           )}
         </form>
+        
+        {/* Forgot Password Link */}
+        <div className="mt-4 text-center">
+          <button
+            onClick={() => setShowForgotPassword(true)}
+            className="text-organic-primary hover:text-organic-text text-sm underline focus:outline-none focus:ring-2 focus:ring-organic-primary focus:ring-offset-2 rounded"
+            data-cy="forgot-password-link"
+          >
+            Forgot your password?
+          </button>
+        </div>
+        
         <div className="mt-4 text-center text-himalaya-dark">
           New here?{" "}
           <Link to="/signup" className="underline hover:text-himalaya-dark focus:outline-none focus:ring-2 focus:ring-himalaya focus:ring-offset-2 rounded">
@@ -169,6 +181,80 @@ export default function Login() {
           </Link>
         </div>
       </div>
+      
+      {/* Forgot Password Modal */}
+      {showForgotPassword && (
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
+          <div className="bg-white rounded-lg shadow-xl w-full max-w-md p-6">
+            <div className="flex items-center justify-between mb-4">
+              <h2 className="text-xl font-semibold text-organic-text">Reset Password</h2>
+              <button
+                onClick={() => {
+                  setShowForgotPassword(false);
+                  setResetMessage("");
+                  setResetEmail("");
+                }}
+                className="text-gray-400 hover:text-gray-600"
+              >
+                ×
+              </button>
+            </div>
+            
+            <p className="text-gray-600 mb-4 text-sm">
+              Enter your email address and we'll send you a link to reset your password.
+            </p>
+            
+            <form onSubmit={handleForgotPassword} className="space-y-4">
+              <div>
+                <label htmlFor="reset-email" className="block text-organic-text font-medium mb-2">
+                  Email Address
+                </label>
+                <input
+                  id="reset-email"
+                  type="email"
+                  value={resetEmail}
+                  onChange={(e) => setResetEmail(e.target.value)}
+                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-organic-primary focus:border-transparent"
+                  placeholder="Enter your email"
+                  data-cy="reset-email"
+                />
+              </div>
+              
+              {resetMessage && (
+                <div className={`p-3 rounded-lg text-sm ${
+                  resetMessage.includes('✅') 
+                    ? 'bg-green-100 text-green-700' 
+                    : 'bg-red-100 text-red-700'
+                }`}>
+                  {resetMessage}
+                </div>
+              )}
+              
+              <div className="flex gap-3">
+                <button
+                  type="submit"
+                  disabled={resetLoading}
+                  className="flex-1 bg-organic-primary text-white py-2 px-4 rounded-lg hover:opacity-90 disabled:opacity-50 disabled:cursor-not-allowed"
+                  data-cy="reset-submit"
+                >
+                  {resetLoading ? "Sending..." : "Send Reset Email"}
+                </button>
+                <button
+                  type="button"
+                  onClick={() => {
+                    setShowForgotPassword(false);
+                    setResetMessage("");
+                    setResetEmail("");
+                  }}
+                  className="px-4 py-2 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50"
+                >
+                  Cancel
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
