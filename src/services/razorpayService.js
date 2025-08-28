@@ -37,7 +37,9 @@ class RazorpayService {
       });
 
       return result.data;
-      }
+    } catch (error) {
+      throw error;
+    }
   }
 
   async processPayment(orderData, onSuccess, onError) {
@@ -114,8 +116,11 @@ class RazorpayService {
       const result = await verifyPayment(paymentData);
       
       return result.data;
+    } catch (error) {
+      throw error;
     }
   }
+
   async processRefund(paymentId, amount, reason = 'Customer request') {
     try {
       const { getFunctions, httpsCallable } = await import('firebase/functions');
@@ -129,11 +134,9 @@ class RazorpayService {
       });
       
       return result.data;
+    } catch (error) {
+      throw error;
     }
-    return new Intl.NumberFormat('en-IN', {
-      style: 'currency',
-      currency: 'INR'
-    }).format(amount);
   }
 }
 
