@@ -802,52 +802,98 @@ export default function Admin() {
                   <p>• <strong>Seasonal Updates:</strong> "Spring Harvest: Fresh Vegetables for Traditional Pickles"</p>
                   <p>• <strong>Cultural Context:</strong> "The Role of Pickles in Darjeeling Family Traditions"</p>
                   <p>• <strong>Community Impact:</strong> "How Your Purchase Supports 8 Families in Darjeeling"</p>
+                   <p>• <strong>Events & News:</strong> "Darjeeling Tea Festival 2024: Celebrating Heritage"</p>
+                   <p>• <strong>Behind the Scenes:</strong> "A Day in the Life of a Honey Collector"</p>
+                   <p>• <strong>Quality Stories:</strong> "Why Our Organic Certification Matters"</p>
                 </div>
               </div>
 
-              {/* Demo Stories List */}
+              {/* Stories Management */}
               <div className="space-y-4">
-                <div className="border rounded-lg p-4">
-                  <div className="flex items-start justify-between">
-                    <div className="flex-1">
-                      <h3 className="font-medium text-organic-text">Darjeeling Tea Festival 2024: Celebrating Heritage</h3>
-                      <p className="text-sm text-gray-600 mt-1">By Editorial Team • Events • 4 min read</p>
-                      <p className="text-sm text-gray-700 mt-2">This year's festival brought together 50+ local producers showcasing traditional foods...</p>
-                    </div>
-                    <div className="flex gap-2 ml-4">
-                      <button className="text-organic-primary hover:text-organic-text text-sm">Edit</button>
-                      <button className="text-blue-600 hover:text-blue-800 text-sm">View</button>
-                    </div>
+                <div className="flex items-center justify-between mb-4">
+                  <h3 className="text-lg font-semibold text-organic-text">Published Stories</h3>
+                  <div className="flex items-center gap-3">
+                    <select className="px-3 py-2 border border-gray-300 rounded-lg text-sm">
+                      <option value="all">All Categories</option>
+                      <option value="events">Events</option>
+                      <option value="artisan-story">Artisan Stories</option>
+                      <option value="food-culture">Food Culture</option>
+                      <option value="news">News</option>
+                    </select>
+                    <Link 
+                      to="/stories"
+                      target="_blank"
+                      className="text-blue-600 hover:text-blue-800 text-sm font-medium"
+                    >
+                      View Live Stories Page →
+                    </Link>
                   </div>
                 </div>
                 
-                <div className="border rounded-lg p-4">
-                  <div className="flex items-start justify-between">
-                    <div className="flex-1">
-                      <h3 className="font-medium text-organic-text">Winter Harvest: How Cold Weather Makes Better Pickles</h3>
-                      <p className="text-sm text-gray-600 mt-1">By Food Editor • Food Culture • 6 min read</p>
-                      <p className="text-sm text-gray-700 mt-2">Winter months create perfect conditions for pickle making in Darjeeling...</p>
-                    </div>
-                    <div className="flex gap-2 ml-4">
-                      <button className="text-organic-primary hover:text-organic-text text-sm">Edit</button>
-                      <button className="text-blue-600 hover:text-blue-800 text-sm">View</button>
+                {/* Stories List */}
+                {stories.length === 0 ? (
+                  <div className="text-center py-8 border-2 border-dashed border-gray-300 rounded-lg">
+                    <svg className="w-12 h-12 text-gray-400 mx-auto mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.746 0 3.332.477 4.5 1.253v13C19.832 18.477 18.246 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
+                    </svg>
+                    <h3 className="text-lg font-semibold text-gray-600 mb-2">No Stories Yet</h3>
+                    <p className="text-gray-500 mb-4">Create your first story to engage customers with authentic content</p>
+                    <button
+                      onClick={handleAddStory}
+                      className="bg-organic-primary text-white px-6 py-3 rounded-lg hover:opacity-90"
+                    >
+                      Create First Story
+                    </button>
+                  </div>
+                ) : (
+                  <div className="space-y-4">
+                    {stories.slice(0, 10).map((story) => (
+                      <div key={story.id} className="border rounded-lg p-4 hover:bg-gray-50">
+                        <div className="flex items-start justify-between">
+                          <div className="flex-1">
+                            <div className="flex items-center gap-2 mb-2">
+                              <h3 className="font-medium text-organic-text">{story.title}</h3>
+                              {story.featured && (
+                                <span className="bg-purple-100 text-purple-800 text-xs px-2 py-1 rounded-full">
+                                  Featured
+                                </span>
+                              )}
+                            </div>
+                            <p className="text-sm text-gray-600 mt-1">
+                              By {story.author} • {(story.category || '').replace('-', ' ')} • {story.readTime}
+                            </p>
+                            <p className="text-sm text-gray-700 mt-2 line-clamp-2">{story.excerpt}</p>
+                            <p className="text-xs text-gray-500 mt-2">
+                              Published: {new Date(story.publishedAt).toLocaleDateString()}
+                            </p>
+                          </div>
+                          <div className="flex gap-2 ml-4">
+                            <button
+                              onClick={() => handleEditStory(story)}
+                              className="text-organic-primary hover:text-organic-text text-sm font-medium"
+                            >
+                              Edit
+                            </button>
+                            <Link 
+                              to={`/stories/${story.id}`}
+                              target="_blank"
+                              className="text-blue-600 hover:text-blue-800 text-sm font-medium"
+                            >
+                              View
+                            </Link>
+                            <button
+                              onClick={() => handleDeleteStory(story.id)}
+                              className="text-red-600 hover:text-red-800 text-sm font-medium"
+                            >
+                              Delete
+                            </button>
+                          </div>
+                        </div>
+                      </div>
+                    ))}
                     </div>
                   </div>
-                </div>
-                
-                <div className="border rounded-lg p-4">
-                  <div className="flex items-start justify-between">
-                    <div className="flex-1">
-                      <h3 className="font-medium text-organic-text">New Organic Certification for Hill Farmers</h3>
-                      <p className="text-sm text-gray-600 mt-1">By News Team • News • 3 min read</p>
-                      <p className="text-sm text-gray-700 mt-2">Five more farmers received organic certification, expanding our network...</p>
-                    </div>
-                    <div className="flex gap-2 ml-4">
-                      <button className="text-organic-primary hover:text-organic-text text-sm">Edit</button>
-                      <button className="text-blue-600 hover:text-blue-800 text-sm">View</button>
-                    </div>
-                  </div>
-                </div>
+                )}
               </div>
             </div>
           </div>

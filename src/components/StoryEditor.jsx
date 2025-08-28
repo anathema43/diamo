@@ -53,7 +53,10 @@ export default function StoryEditor({ story, onClose, onSave }) {
     }
 
     if (!db) {
-      setMessage('Demo mode - story not saved');
+      setMessage('✅ Demo mode - story would be saved in production');
+      setTimeout(() => {
+        if (onSave) onSave();
+      }, 1000);
       return;
     }
 
@@ -224,15 +227,27 @@ export default function StoryEditor({ story, onClose, onSave }) {
             <textarea
               value={formData.content}
               onChange={(e) => handleInputChange('content', e.target.value)}
-              rows={15}
-              className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-organic-primary font-mono text-sm"
-              placeholder="Write your story here... Use ## for headings, double line breaks for paragraphs"
+              rows={20}
+              className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-organic-primary focus:border-transparent font-mono text-sm"
+              placeholder="Write your story here...
+
+Example:
+In the early morning mist of Darjeeling, when the hills are shrouded in clouds...
+
+## The Traditional Method
+
+Deepak begins each day by selecting the finest vegetables...
+
+## Community Impact
+
+Every jar sold supports 8 local families..."
             />
             <div className="text-xs text-gray-500 mt-2">
               <p><strong>Formatting tips:</strong></p>
               <p>• Use "## Heading" for section headings</p>
               <p>• Use double line breaks for new paragraphs</p>
-              <p>• Use "- **Bold text** description" for bullet points</p>
+              <p>• Write naturally - like telling a friend about the artisan</p>
+              <p>• Include personal details, traditional methods, and community impact</p>
             </div>
           </div>
 

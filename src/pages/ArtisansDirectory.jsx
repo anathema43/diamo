@@ -15,15 +15,98 @@ export default function ArtisansDirectory() {
     fetchFeaturedArtisans();
   }, [fetchArtisans, fetchFeaturedArtisans]);
 
+  // Demo artisans for when Firebase isn't configured
+  const demoArtisans = [
+    {
+      id: 'deepak-sharma-001',
+      name: 'Deepak Sharma',
+      title: 'Master Pickle Maker',
+      location: 'Darjeeling, West Bengal',
+      region: 'West Bengal',
+      experience: 25,
+      profileImage: 'https://images.pexels.com/photos/1222271/pexels-photo-1222271.jpeg?auto=compress&cs=tinysrgb&w=800',
+      shortBio: 'Third-generation pickle maker specializing in traditional Darjeeling recipes passed down through his family.',
+      specialties: ['Traditional Pickles', 'Fermentation', 'Spice Blending'],
+      rating: 4.8,
+      reviewCount: 24,
+      featured: true,
+      productCount: 3
+    },
+    {
+      id: 'laxmi-devi-001',
+      name: 'Laxmi Devi',
+      title: 'Wild Honey Collector',
+      location: 'Manali, Himachal Pradesh',
+      region: 'Himachal Pradesh',
+      experience: 18,
+      profileImage: 'https://images.pexels.com/photos/1181690/pexels-photo-1181690.jpeg?auto=compress&cs=tinysrgb&w=800',
+      shortBio: 'Expert honey collector who harvests wild honey from high-altitude forests using traditional sustainable methods.',
+      specialties: ['Wild Honey Collection', 'Sustainable Harvesting', 'High-Altitude Foraging'],
+      rating: 4.9,
+      reviewCount: 18,
+      featured: true,
+      productCount: 2
+    },
+    {
+      id: 'ashok-singh-001',
+      name: 'Ashok Singh',
+      title: 'Organic Rice Farmer',
+      location: 'Uttarakhand Hills',
+      region: 'Uttarakhand',
+      experience: 22,
+      profileImage: 'https://images.pexels.com/photos/1181467/pexels-photo-1181467.jpeg?auto=compress&cs=tinysrgb&w=800',
+      shortBio: 'Dedicated organic farmer growing ancient varieties of red rice in terraced fields using traditional methods.',
+      specialties: ['Organic Farming', 'Heritage Rice Varieties', 'Terraced Agriculture'],
+      rating: 4.7,
+      reviewCount: 31,
+      featured: true,
+      productCount: 2
+    },
+    {
+      id: 'fatima-khan-001',
+      name: 'Fatima Khan',
+      title: 'Spice Master',
+      location: 'Kashmir Valley',
+      region: 'Kashmir',
+      experience: 30,
+      profileImage: 'https://images.pexels.com/photos/1181677/pexels-photo-1181677.jpeg?auto=compress&cs=tinysrgb&w=800',
+      shortBio: 'Master spice blender creating traditional Kashmiri spice mixes using recipes perfected over three decades.',
+      specialties: ['Spice Blending', 'Kashmiri Cuisine', 'Traditional Recipes'],
+      rating: 4.8,
+      reviewCount: 27,
+      featured: false,
+      productCount: 3
+    },
+    {
+      id: 'ram-prasad-001',
+      name: 'Ram Prasad',
+      title: 'Forest Honey Guardian',
+      location: 'Garhwal Himalayas',
+      region: 'Uttarakhand',
+      experience: 20,
+      profileImage: 'https://images.pexels.com/photos/1181562/pexels-photo-1181562.jpeg?auto=compress&cs=tinysrgb&w=800',
+      shortBio: 'Forest guardian and honey collector protecting wild bee colonies while sustainably harvesting forest honey.',
+      specialties: ['Forest Conservation', 'Wild Honey', 'Ecosystem Protection'],
+      rating: 4.9,
+      reviewCount: 15,
+      featured: false,
+      productCount: 1
+    }
+  ];
+
+  // Use demo data if Firebase isn't configured or no data
+  const displayArtisans = artisans.length > 0 ? artisans : demoArtisans;
+  const displayFeaturedArtisans = featuredArtisans.length > 0 ? featuredArtisans : demoArtisans.filter(a => a.featured);
+
   // Get unique regions from artisans
   const regions = React.useMemo(() => {
-    const allRegions = artisans.map(a => a.region || a.location?.split(',')[1]?.trim()).filter(Boolean);
+    const allRegions = displayArtisans.map(a => a.region || a.location?.split(',')[1]?.trim()).filter(Boolean);
     return [...new Set(allRegions)];
-  }, [artisans]);
+  }, [displayArtisans]);
 
   // Filter artisans based on search and region
   const filteredArtisans = React.useMemo(() => {
-    return artisans.filter(artisan => {
+    return displayArtisans.filter(artisan => {
       const matchesSearch = !searchTerm || 
         artisan.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
         artisan.location.toLowerCase().includes(searchTerm.toLowerCase()) ||
@@ -37,7 +120,7 @@ export default function ArtisansDirectory() {
       
       return matchesSearch && matchesRegion;
     });
-  }, [artisans, searchTerm, selectedRegion]);
+  }, [displayArtisans, searchTerm, selectedRegion]);
 
   if (loading) {
     return <LoadingSpinner />;
@@ -60,14 +143,14 @@ export default function ArtisansDirectory() {
       </section>
 
       {/* Featured Artisans */}
-      {featuredArtisans.length > 0 && (
+      {displayFeaturedArtisans.length > 0 && (
         <section className="py-16">
           <div className="max-w-7xl mx-auto px-6">
             <h2 className="font-display text-3xl font-bold text-organic-text mb-8 text-center">
               Featured Master Artisans
             </h2>
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-              {featuredArtisans.slice(0, 3).map((artisan) => (
+              {displayFeaturedArtisans.slice(0, 3).map((artisan) => (
                 <Link 
                   key={artisan.id} 
                   to={`/artisans/${artisan.id}`}
