@@ -256,3 +256,23 @@ firebase deploy      # Deploy backend
 ```
 
 **This guide gets you from zero to working e-commerce store in about 2-3 hours!** 🏔️
+
+---
+
+## 📝 **Content Management (No Coding Required!)**
+
+### **Edit Any Page Content:**
+1. **Login as admin**
+2. **Visit any page** (About, Contact, Policies)
+3. **Look for pencil icon** in top-right corner
+4. **Click and edit** in simple form
+5. **Save changes** - goes live immediately!
+
+### **Create Weekly Stories:**
+1. **Go to Admin Panel** (`/admin`)
+2. **Click "Stories" tab**
+3. **Click "Create New Story"**
+4. **Write about your artisans** and their food-making process
+5. **Upload images** and publish
+
+**Perfect for showcasing your food artisans and building customer trust!** 📖

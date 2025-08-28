@@ -23,6 +23,10 @@ import FAQ from "./pages/FAQ";
 import Contact from "./pages/Contact";
 import ArtisansDirectory from "./pages/ArtisansDirectory";
 import ArtisanProfile from "./pages/ArtisanProfile";
+import Stories from "./pages/Stories";
+import StoryDetail from "./pages/StoryDetail";
+import Stories from "./pages/Stories";
+import StoryDetail from "./pages/StoryDetail";
 import DevelopmentRoadmap from "./pages/DevelopmentRoadmap";
 import ProtectedRoute from "./components/ProtectedRoute";
 import AdminRoute from "./components/AdminRoute";
@@ -89,6 +93,14 @@ function App() {
             {/* Artisan Routes */}
             <Route path="/artisans" element={<ArtisansDirectory />} />
             <Route path="/artisans/:id" element={<ArtisanProfile />} />
+            
+            {/* Stories Routes */}
+            <Route path="/stories" element={<Stories />} />
+            <Route path="/stories/:id" element={<StoryDetail />} />
+            
+            {/* Stories Routes */}
+            <Route path="/stories" element={<Stories />} />
+            <Route path="/stories/:id" element={<StoryDetail />} />
             
             {/* Development Roadmap */}
             <Route path="/roadmap" element={<DevelopmentRoadmap />} />
