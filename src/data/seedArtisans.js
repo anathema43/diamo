@@ -303,6 +303,87 @@ Through her work, Dolma supports 5 families in her village, helping them maintai
   }
 ];
 
+// Additional artisans for more variety
+const additionalArtisans = [
+  {
+    name: "Karma Lama",
+    title: "Traditional Tea Master",
+    location: "Darjeeling Tea Gardens",
+    region: "West Bengal",
+    experience: 35,
+    profileImage: "https://images.pexels.com/photos/1181467/pexels-photo-1181467.jpeg?auto=compress&cs=tinysrgb&w=800",
+    shortBio: "Fourth-generation tea master overseeing traditional Darjeeling tea production with expertise in orthodox tea processing.",
+    story: `Karma Lama represents the fourth generation of his family to work in the Darjeeling tea gardens. His great-grandfather started as a tea plucker in the British era, and the family has been involved in tea production ever since.
+
+Working at the historic Makaibari Tea Estate, Karma oversees the traditional orthodox tea processing that gives Darjeeling tea its distinctive muscatel flavor. He understands the subtle art of withering, rolling, oxidation, and firing that transforms fresh tea leaves into the world-renowned Darjeeling tea.
+
+His expertise extends beyond processing to understanding the terroir - how altitude, soil, weather, and timing affect the final cup. He can identify the flush (harvest season) and even the specific garden of a tea just by tasting.
+
+Karma trains young tea workers in traditional methods while adapting to organic and biodynamic practices that are increasingly important for premium tea markets. His work ensures that Darjeeling tea maintains its reputation as the "Champagne of Teas."`,
+    specialties: ["Orthodox Tea Processing", "Tea Tasting", "Garden Management"],
+    techniques: [
+      "Traditional withering methods",
+      "Hand-rolling techniques", 
+      "Oxidation control",
+      "Firing and drying expertise"
+    ],
+    values: [
+      "Tea quality excellence",
+      "Traditional processing methods",
+      "Sustainable tea farming",
+      "Knowledge transfer to youth"
+    ],
+    culturalHeritage: "Darjeeling tea garden traditions",
+    familyMembers: 8,
+    rating: 4.9,
+    reviewCount: 45,
+    featured: false,
+    productCount: 4,
+    createdAt: new Date().toISOString(),
+    updatedAt: new Date().toISOString()
+  },
+  {
+    name: "Pemba Sherpa",
+    title: "Himalayan Herb Collector",
+    location: "Everest Region, Nepal",
+    region: "Nepal",
+    experience: 12,
+    profileImage: "https://images.pexels.com/photos/1181690/pexels-photo-1181690.jpeg?auto=compress&cs=tinysrgb&w=800",
+    shortBio: "High-altitude herb collector specializing in medicinal plants found only in the Everest region above 4000 meters.",
+    story: `Pemba Sherpa combines his mountaineering skills with traditional knowledge of Himalayan medicinal plants. Growing up in the Everest region, he learned from village elders about the healing properties of high-altitude herbs.
+
+At altitudes where few plants can survive, Pemba collects rare herbs like Cordyceps, Himalayan Rhubarb, and Snow Lotus that have been used in traditional medicine for centuries. His collection work requires both physical endurance and deep botanical knowledge.
+
+Each herb is collected at the optimal time - some during specific moon phases, others at particular times of day when their medicinal properties are strongest. Pemba follows strict sustainable practices, never over-harvesting and always leaving enough for natural regeneration.
+
+His work provides income for his family while preserving traditional knowledge about Himalayan medicinal plants. He has documented over 50 different herbs and their traditional uses, creating a valuable resource for future generations.`,
+    specialties: ["Medicinal Herb Collection", "High-Altitude Botany", "Traditional Medicine"],
+    techniques: [
+      "Sustainable wild harvesting",
+      "Optimal timing collection",
+      "Traditional drying methods",
+      "Medicinal preparation techniques"
+    ],
+    values: [
+      "Traditional medicine preservation",
+      "Sustainable harvesting",
+      "Knowledge documentation",
+      "Community health support"
+    ],
+    culturalHeritage: "Sherpa traditional medicine practices",
+    familyMembers: 6,
+    rating: 4.7,
+    reviewCount: 19,
+    featured: false,
+    productCount: 2,
+    createdAt: new Date().toISOString(),
+    updatedAt: new Date().toISOString()
+  }
+];
+
+// Combine all artisans
+const allSeedArtisans = [...seedArtisans, ...additionalArtisans];
+
 export const seedArtisansToFirestore = async () => {
   try {
     console.log("Starting artisan seeding...");
@@ -314,7 +395,7 @@ export const seedArtisansToFirestore = async () => {
     console.log("Cleared existing artisans");
 
     // Add seed artisans
-    const addPromises = seedArtisans.map(artisan => 
+    const addPromises = allSeedArtisans.map(artisan => 
       addDoc(collection(db, "artisans"), artisan)
     );
     
@@ -327,5 +408,3 @@ export const seedArtisansToFirestore = async () => {
     throw error;
   }
 };
-
-export default seedArtisans;

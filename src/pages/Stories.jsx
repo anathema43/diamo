@@ -212,7 +212,8 @@ The festival organizers are already planning next year's event, with hopes to in
             publishedAt: '2024-01-20',
             readTime: '3 min read',
             featured: false,
-            tags: ['food-festival', 'community-event', 'cultural-celebration']
+            tags: ['food-festival', 'community-event', 'cultural-celebration'],
+            relatedProducts: ['1', '2'] // Link to products
           }
         ];
         setStories(demoStories);
