@@ -32,12 +32,17 @@ export const useAuthStore = create(
         return () => {};
       }
       
+      if (!auth.onAuthStateChanged) {
+        console.warn('Firebase auth not properly initialized, using demo mode');
+        set({ currentUser: null, userProfile: null, loading: false });
+        return () => {};
+      }
+      
       const unsubscribe = onAuthStateChanged(auth, async (user) => {
         if (user) {
           // CRITICAL: Always fetch fresh user profile from Firestore on auth state change
           try {
             if (!db) {
-              console.warn('Firestore not available, using basic auth only');
               set({ currentUser: user, userProfile: null, loading: false });
               return;
             }
@@ -46,14 +51,12 @@ export const useAuthStore = create(
             const userDocSnap = await getDoc(userDocRef);
             const userProfile = userDocSnap.exists() ? userDocSnap.data() : null;
             
-            console.log('Auth state changed - user profile:', userProfile); // Debug log
             set({ currentUser: user, userProfile, loading: false });
           } catch (error) {
             console.error("Error fetching user profile:", error);
             set({ currentUser: user, userProfile: null, loading: false });
           }
         } else {
-          console.log('Auth state changed - user logged out'); // Debug log
           set({ currentUser: null, userProfile: null, loading: false });
         }
       });
@@ -66,27 +69,43 @@ export const useAuthStore = create(
   },
 
   signup: async (email, password, name) => {
+    if (!auth || !auth.createUserWithEmailAndPassword) {
+      throw new Error('Firebase not configured. Please set up Firebase to enable authentication.');
+    }
+    
     set({ error: null, loading: true });
     try {
       const userCredential = await createUserWithEmailAndPassword(auth, email, password);
       await updateProfile(userCredential.user, { displayName: name });
       
       // Create user profile in Firestore
-      const userProfile = {
-        uid: userCredential.user.uid,
-        email: userCredential.user.email,
-        displayName: name,
-        role: 'customer',
-        createdAt: new Date().toISOString(),
-        addresses: [],
-        preferences: {
-          currency: 'USD',
-          language: 'en'
+      if (db) {
+        const userProfile = {
+          uid: userCredential.user.uid,
+          email: userCredential.user.email,
+          displayName: name,
+          role: 'customer',
+          createdAt: new Date().toISOString(),
+          addresses: [],
+          preferences: {
+            currency: 'INR',
+            language: 'en'
+          }
+        };
+        
+        await setDoc(doc(db, "users", userCredential.user.uid), userProfile);
+        set({ currentUser: userCredential.user, userProfile, loading: false });
+      } else {
+        // Demo mode - create mock profile
+        const mockProfile = {
+          uid: userCredential.user.uid,
+          email: userCredential.user.email,
+          displayName: name,
+          role: 'customer',
+          createdAt: new Date().toISOString()
+        };
+        set({ currentUser: userCredential.user, userProfile: mockProfile, loading: false });
         }
-      };
-      
-      await setDoc(doc(db, "users", userCredential.user.uid), userProfile);
-      set({ currentUser: userCredential.user, userProfile, loading: false });
     } catch (error) {
       set({ error: error.message, loading: false });
       throw error;
@@ -94,23 +113,38 @@ export const useAuthStore = create(
   },
 
   login: async (email, password) => {
+    if (!auth || !auth.signInWithEmailAndPassword) {
+      throw new Error('Firebase not configured. Please set up Firebase to enable authentication.');
+    }
+    
     set({ error: null, loading: true });
     try {
       const userCredential = await signInWithEmailAndPassword(auth, email, password);
       
       // CRITICAL: Fetch user profile from Firestore to get role information
-      const userDocRef = doc(db, "users", userCredential.user.uid);
-      const userDocSnap = await getDoc(userDocRef);
-      
-      let userProfile = null;
-      if (userDocSnap.exists()) {
-        userProfile = userDocSnap.data();
-        console.log('User profile fetched on login:', userProfile); // Debug log
+      if (db) {
+        const userDocRef = doc(db, "users", userCredential.user.uid);
+        const userDocSnap = await getDoc(userDocRef);
+        
+        let userProfile = null;
+        if (userDocSnap.exists()) {
+          userProfile = userDocSnap.data();
+        } else {
+          console.warn('User document not found in Firestore for UID:', userCredential.user.uid);
+        }
+        
+        set({ currentUser: userCredential.user, userProfile, loading: false });
       } else {
-        console.warn('User document not found in Firestore for UID:', userCredential.user.uid);
+        // Demo mode - create mock profile
+        const mockProfile = {
+          uid: userCredential.user.uid,
+          email: userCredential.user.email,
+          displayName: userCredential.user.displayName,
+          role: 'customer',
+          createdAt: new Date().toISOString()
+        };
+        set({ currentUser: userCredential.user, userProfile: mockProfile, loading: false });
       }
-      
-      set({ currentUser: userCredential.user, userProfile, loading: false });
     } catch (error) {
       set({ error: error.message, loading: false });
       throw error;
@@ -144,10 +178,8 @@ export const useAuthStore = create(
           }
         };
         await setDoc(userDocRef, userProfile);
-        console.log('Created new user profile for Google OAuth:', userProfile);
       } else {
         userProfile = userDocSnap.data();
-        console.log('Existing user profile fetched for Google OAuth:', userProfile);
       }
       
       set({ currentUser: user, userProfile, loading: false });

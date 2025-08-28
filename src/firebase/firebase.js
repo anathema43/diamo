@@ -45,7 +45,16 @@ if (isFirebaseConfigured) {
   } catch (error) {
     console.error('❌ Firebase initialization failed:', error);
     // Create mock services to prevent app crashes
-    auth = null;
+    auth = {
+      currentUser: null,
+      onAuthStateChanged: (callback) => {
+        callback(null);
+        return () => {};
+      },
+      signInWithEmailAndPassword: () => Promise.reject(new Error('Firebase not configured')),
+      createUserWithEmailAndPassword: () => Promise.reject(new Error('Firebase not configured')),
+      signOut: () => Promise.resolve()
+    };
     db = null;
     storage = null;
     functions = null;
@@ -53,7 +62,16 @@ if (isFirebaseConfigured) {
 } else {
   // Create mock services for demo mode
   console.info('🔧 Running in demo mode without Firebase');
-  auth = null;
+  auth = {
+    currentUser: null,
+    onAuthStateChanged: (callback) => {
+      callback(null);
+      return () => {};
+    },
+    signInWithEmailAndPassword: () => Promise.reject(new Error('Firebase not configured')),
+    createUserWithEmailAndPassword: () => Promise.reject(new Error('Firebase not configured')),
+    signOut: () => Promise.resolve()
+  };
   db = null;
   storage = null;
   functions = null;
