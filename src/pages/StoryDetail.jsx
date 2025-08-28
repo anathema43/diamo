@@ -433,13 +433,15 @@ The monsoon season reminds everyone why the hills are called a paradise - it's w
               <div>
                 <h3 className="font-semibold text-organic-text mb-2">About {story.author}</h3>
                 <p className="text-organic-text opacity-75">{story.authorBio}</p>
-                <Link 
-                  to={`/artisans/${story.authorId || story.author.toLowerCase().replace(' ', '-')}`}
-                  className="inline-flex items-center gap-2 text-organic-primary hover:text-organic-text font-medium mt-2"
-                >
-                  View Artisan Profile
-                  <ArrowRightIcon className="w-4 h-4" />
-                </Link>
+                {story.authorId && (
+                  <Link 
+                    to={`/artisans/${story.authorId}`}
+                    className="inline-flex items-center gap-2 text-organic-primary hover:text-organic-text font-medium mt-2"
+                  >
+                    View Artisan Profile
+                    <ArrowRightIcon className="w-4 h-4" />
+                  </Link>
+                )}
               </div>
             </div>
           </div>

@@ -59,7 +59,8 @@ Today, Deepak employs 8 local women in his workshop, providing them with steady 
             publishedAt: '2024-01-15',
             readTime: '6 min read',
             featured: true,
-            tags: ['traditional-recipes', 'family-heritage', 'pickle-making']
+            tags: ['traditional-recipes', 'family-heritage', 'pickle-making'],
+            authorId: 'deepak-sharma-001' // Link to artisan profile
           },
           {
             id: '2',
