@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useParams, Link } from "react-router-dom";
 import { useArtisanStore } from "../store/artisanStore";
 import { useProductStore } from "../store/productStore";
+import { db } from "../firebase/firebase";
 import ProductCard from "../components/ProductCard";
 import ResponsiveImage from "../components/ResponsiveImage";
 import LoadingSpinner from "../components/LoadingSpinner";
@@ -19,7 +20,7 @@ export default function ArtisanProfile() {
     const fetchArtisanData = async () => {
       setLoading(true);
       try {
-        if (!db || true) { // Always use demo data for now
+        if (!db) {
           // Demo artisan data when Firebase isn't configured
           const demoArtisans = [
             {

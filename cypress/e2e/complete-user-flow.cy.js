@@ -190,7 +190,7 @@ describe('Complete User Flow - Darjeeling Souls E-commerce', () => {
   describe('Content Navigation', () => {
     it('should navigate between all content types', () => {
       // Test stories navigation
-      cy.get('a[href="#/stories"]').click();
+      cy.get('a[href="/stories"]').click();
       cy.url().should('include', '/stories');
       cy.get('article').should('have.length.greaterThan', 0);
       
@@ -206,7 +206,7 @@ describe('Complete User Flow - Darjeeling Souls E-commerce', () => {
       cy.url().should('include', '/stories');
       
       // Test artisans navigation
-      cy.get('a[href="#/artisans"]').click();
+      cy.get('a[href="/artisans"]').click();
       cy.url().should('include', '/artisans');
       cy.get('[data-cy="artisan-card"]').should('have.length.greaterThan', 0);
       
