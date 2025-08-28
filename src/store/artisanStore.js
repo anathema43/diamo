@@ -20,6 +20,12 @@ export const useArtisanStore = create((set, get) => ({
   error: null,
 
   fetchArtisans: async () => {
+    if (!db) {
+      console.warn('Firebase not configured, using demo mode');
+      set({ artisans: [], loading: false });
+      return [];
+    }
+    
     set({ loading: true, error: null });
     try {
       const querySnapshot = await getDocs(collection(db, "artisans"));
@@ -37,6 +43,12 @@ export const useArtisanStore = create((set, get) => ({
   },
 
   fetchFeaturedArtisans: async () => {
+    if (!db) {
+      console.warn('Firebase not configured, using demo mode');
+      set({ featuredArtisans: [] });
+      return [];
+    }
+    
     set({ error: null });
     try {
       const q = query(
@@ -59,6 +71,11 @@ export const useArtisanStore = create((set, get) => ({
   },
 
   getArtisanById: async (id) => {
+    if (!db) {
+      console.warn('Firebase not configured, using demo mode');
+      return null;
+    }
+    
     try {
       const docRef = doc(db, "artisans", id);
       const docSnap = await getDoc(docRef);
@@ -75,6 +92,12 @@ export const useArtisanStore = create((set, get) => ({
   },
 
   addArtisan: async (newArtisan) => {
+    if (!db) {
+      console.warn('Firebase not configured, using demo mode');
+      set({ error: 'Firebase not configured' });
+      throw new Error('Firebase not configured');
+    }
+    
     set({ error: null });
     try {
       const artisanData = {
@@ -95,6 +118,12 @@ export const useArtisanStore = create((set, get) => ({
   },
 
   updateArtisan: async (id, updatedFields) => {
+    if (!db) {
+      console.warn('Firebase not configured, using demo mode');
+      set({ error: 'Firebase not configured' });
+      throw new Error('Firebase not configured');
+    }
+    
     set({ error: null });
     try {
       const ref = doc(db, "artisans", id);
@@ -114,6 +143,12 @@ export const useArtisanStore = create((set, get) => ({
   },
 
   deleteArtisan: async (id) => {
+    if (!db) {
+      console.warn('Firebase not configured, using demo mode');
+      set({ error: 'Firebase not configured' });
+      throw new Error('Firebase not configured');
+    }
+    
     set({ error: null });
     try {
       await deleteDoc(doc(db, "artisans", id));
@@ -127,6 +162,11 @@ export const useArtisanStore = create((set, get) => ({
   },
 
   getArtisanProducts: async (artisanId) => {
+    if (!db) {
+      console.warn('Firebase not configured, using demo mode');
+      return [];
+    }
+    
     try {
       const q = query(
         collection(db, "products"),
