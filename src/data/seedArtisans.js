@@ -16,14 +16,7 @@ const seedArtisans = [
 His family has been making pickles for over 75 years, and Deepak has perfected the recipes while maintaining the traditional methods. He sources all his ingredients from local farmers in the Darjeeling hills, ensuring that every jar tells the story of the mountains.
 
 Today, Deepak employs 8 local women in his small workshop, providing them with steady income while preserving the traditional knowledge of pickle making. His pickles are made in small batches, ensuring quality and authenticity in every jar.`,
-    specialties: ["Traditional Pickles", "Fermentation", "Spice Blending"],
-    techniques: [
-      "Traditional fermentation methods",
       "Hand-grinding of spices",
-      "Solar drying techniques",
-      "Clay pot aging"
-    ],
-    values: [
       "Preserving family recipes",
       "Supporting local farmers",
       "Sustainable practices",
@@ -89,7 +82,21 @@ He grows several heritage varieties of red rice that are native to the Himalayan
 
 Ashok's rice is grown at altitudes between 1500-2000 meters, where the cool mountain air and pure water from glacial streams create ideal growing conditions. The rice is harvested by hand and processed using traditional methods that preserve its nutritional value.
 
-Through his work, Ashok supports 12 farming families in his village, teaching them organic methods and helping them transition away from chemical farming. His cooperative has become a model for sustainable agriculture in the region.`,
+Through his work, Ashok supports 12 farming families in his village, teaching them organic methods and helping them transition away from chemical farming. His cooperative has become a model for sustainable agriculture in the region.
+
+**Products Made by Ashok:**
+- Organic Red Rice - 1kg (₹450)
+- Heritage Black Rice - 500g (₹380)
+- Mixed Ancient Grains - 1kg (₹520)
+
+**Farming Methods:**
+- Terraced field cultivation at 1500-2000m altitude
+- Natural pest management using companion planting
+- Traditional seed preservation techniques
+- Hand harvesting and stone grinding
+
+**Community Impact:**
+Ashok's cooperative supports 12 farming families and has helped transition 50 acres from chemical to organic farming, improving soil health and farmer income.`,
     specialties: ["Organic Farming", "Heritage Rice Varieties", "Terraced Agriculture"],
     techniques: [
       "Terraced field cultivation",

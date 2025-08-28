@@ -23,45 +23,45 @@ export default function Stories() {
         const demoStories = [
           {
             id: '1',
-            title: 'The Ancient Art of Darjeeling Pickle Making',
-            excerpt: 'Discover how Deepak Sharma preserves his grandmother\'s 75-year-old pickle recipes in the misty hills of Darjeeling.',
-            content: 'In the early morning mist of Darjeeling, when the hills are shrouded in clouds and the air carries the scent of tea gardens, Deepak Sharma begins his day as his grandmother taught him 25 years ago...',
-            author: 'Deepak Sharma',
+            title: 'Darjeeling Tea Festival 2024: Celebrating Heritage',
+            excerpt: 'This year\'s Darjeeling Tea Festival brought together over 50 local producers to showcase their finest teas and traditional food products.',
+            content: 'The annual Darjeeling Tea Festival has become more than just a celebration of tea - it\'s a vibrant showcase of the entire hill culture. This year, over 50 local producers participated, displaying everything from traditional pickles to wild honey...',
+            author: 'Editorial Team',
             authorImage: 'https://images.pexels.com/photos/1222271/pexels-photo-1222271.jpeg?auto=compress&cs=tinysrgb&w=800',
-            category: 'artisan-story',
-            featuredImage: 'https://res.cloudinary.com/dj4kdlwzo/image/upload/v1752940186/pickle_3_co88iu.jpg',
+            category: 'events',
+            featuredImage: 'https://images.pexels.com/photos/1638280/pexels-photo-1638280.jpeg?auto=compress&cs=tinysrgb&w=800',
             publishedAt: '2024-01-15',
-            readTime: '5 min read',
+            readTime: '4 min read',
             featured: true,
-            tags: ['traditional-recipes', 'family-heritage', 'pickle-making']
+            tags: ['festival', 'community', 'tea-culture']
           },
           {
             id: '2',
-            title: 'Wild Honey Collection at 3000 Meters',
-            excerpt: 'Follow Laxmi Devi as she sustainably harvests wild honey from the high-altitude forests of Himachal Pradesh.',
-            content: 'At dawn, when the mountain air is crisp and the wild bees are just beginning their daily work, Laxmi Devi prepares for her journey into the high-altitude forests...',
-            author: 'Laxmi Devi',
+            title: 'Winter Harvest: How Cold Weather Makes Better Pickles',
+            excerpt: 'The winter months in Darjeeling create perfect conditions for pickle making. Local producers explain why cold weather pickles taste better.',
+            content: 'As winter settles over the Darjeeling hills, something magical happens in the small workshops where traditional pickles are made. The cold, dry air creates perfect conditions for fermentation...',
+            author: 'Food Editor',
             authorImage: 'https://images.pexels.com/photos/1181690/pexels-photo-1181690.jpeg?auto=compress&cs=tinysrgb&w=800',
-            category: 'sustainability',
-            featuredImage: 'https://images.pexels.com/photos/1638280/pexels-photo-1638280.jpeg?auto=compress&cs=tinysrgb&w=800',
+            category: 'food-culture',
+            featuredImage: 'https://res.cloudinary.com/dj4kdlwzo/image/upload/v1752940186/pickle_3_co88iu.jpg',
             publishedAt: '2024-01-10',
-            readTime: '7 min read',
+            readTime: '6 min read',
             featured: false,
-            tags: ['wild-honey', 'sustainable-harvesting', 'high-altitude']
+            tags: ['winter-harvest', 'pickle-making', 'seasonal-food']
           },
           {
             id: '3',
-            title: 'Preserving Ancient Rice Varieties in Terraced Fields',
-            excerpt: 'How Ashok Singh maintains traditional farming methods to grow heritage red rice in the Uttarakhand hills.',
-            content: 'The terraced fields carved into the Uttarakhand mountainside tell a story of generations of farmers who understood the land...',
-            author: 'Ashok Singh',
+            title: 'New Organic Certification for Hill Farmers',
+            excerpt: 'Five more Darjeeling farmers received organic certification this month, expanding our network of certified organic producers.',
+            content: 'Great news for organic food lovers! Five more farmers from the Darjeeling region have successfully completed their organic certification process. This brings our total network of certified organic producers to 25...',
+            author: 'News Team',
             authorImage: 'https://images.pexels.com/photos/1181467/pexels-photo-1181467.jpeg?auto=compress&cs=tinysrgb&w=800',
-            category: 'farming',
+            category: 'news',
             featuredImage: 'https://images.pexels.com/photos/33239/wheat-field-wheat-cereals-grain.jpg?auto=compress&cs=tinysrgb&w=800',
             publishedAt: '2024-01-05',
-            readTime: '6 min read',
+            readTime: '3 min read',
             featured: false,
-            tags: ['organic-farming', 'heritage-rice', 'terraced-agriculture']
+            tags: ['organic-certification', 'farmers', 'quality-assurance']
           }
         ];
         setStories(demoStories);
@@ -93,11 +93,11 @@ export default function Stories() {
 
   const categories = [
     { id: 'all', label: 'All Stories' },
-    { id: 'artisan-story', label: 'Artisan Stories' },
-    { id: 'sustainability', label: 'Sustainability' },
-    { id: 'farming', label: 'Traditional Farming' },
-    { id: 'community', label: 'Community Impact' },
-    { id: 'heritage', label: 'Cultural Heritage' }
+    { id: 'events', label: 'Events & Festivals' },
+    { id: 'news', label: 'News & Updates' },
+    { id: 'food-culture', label: 'Food Culture' },
+    { id: 'community', label: 'Community Stories' },
+    { id: 'seasonal', label: 'Seasonal Updates' }
   ];
 
   const filteredStories = selectedCategory === 'all' 
@@ -115,11 +115,11 @@ export default function Stories() {
         <div className="absolute inset-0 bg-mountain-pattern opacity-10"></div>
         <div className="relative z-10 max-w-6xl mx-auto px-6 text-center">
           <h1 className="font-display text-4xl md:text-6xl font-bold mb-6">
-            Stories from the Hills
+            Darjeeling Stories & News
           </h1>
           <p className="text-xl md:text-2xl leading-relaxed max-w-3xl mx-auto">
-            Discover the rich traditions, sustainable practices, and heartwarming stories 
-            behind every authentic Darjeeling product
+            Weekly updates, events, and interesting stories from the Darjeeling hills. 
+            Stay connected with our community and discover what's happening in our region.
           </p>
         </div>
       </section>
@@ -163,7 +163,7 @@ export default function Stories() {
                     {featuredStory.excerpt}
                   </p>
                   <Link 
-                    to={`/stories/${featuredStory.id}`}
+                Shop Our Products
                     className="inline-flex items-center gap-2 bg-organic-primary text-white font-semibold px-6 py-3 rounded-lg hover:opacity-90 transition-all"
                   >
                     Read Full Story
@@ -180,10 +180,10 @@ export default function Stories() {
       <section className="py-8 bg-white">
         <div className="max-w-7xl mx-auto px-6">
           <div className="flex flex-wrap gap-3 justify-center">
-            {categories.map(category => (
+              Stay Connected with Darjeeling Hills
               <button
                 key={category.id}
-                onClick={() => setSelectedCategory(category.id)}
+              Follow our weekly stories and discover what's happening in our community
                 className={`px-4 py-2 rounded-full font-medium transition-all ${
                   selectedCategory === category.id
                     ? 'bg-organic-primary text-white'

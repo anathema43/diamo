@@ -810,9 +810,9 @@ export default function Admin() {
                 <div className="border rounded-lg p-4">
                   <div className="flex items-start justify-between">
                     <div className="flex-1">
-                      <h3 className="font-medium text-organic-text">The Ancient Art of Darjeeling Pickle Making</h3>
-                      <p className="text-sm text-gray-600 mt-1">By Deepak Sharma • Artisan Story • 5 min read</p>
-                      <p className="text-sm text-gray-700 mt-2">Discover how Deepak preserves his grandmother's 75-year-old pickle recipes...</p>
+                      <h3 className="font-medium text-organic-text">Darjeeling Tea Festival 2024: Celebrating Heritage</h3>
+                      <p className="text-sm text-gray-600 mt-1">By Editorial Team • Events • 4 min read</p>
+                      <p className="text-sm text-gray-700 mt-2">This year's festival brought together 50+ local producers showcasing traditional foods...</p>
                     </div>
                     <div className="flex gap-2 ml-4">
                       <button className="text-organic-primary hover:text-organic-text text-sm">Edit</button>
@@ -824,9 +824,23 @@ export default function Admin() {
                 <div className="border rounded-lg p-4">
                   <div className="flex items-start justify-between">
                     <div className="flex-1">
-                      <h3 className="font-medium text-organic-text">Wild Honey Collection at 3000 Meters</h3>
-                      <p className="text-sm text-gray-600 mt-1">By Laxmi Devi • Sustainability • 7 min read</p>
-                      <p className="text-sm text-gray-700 mt-2">Follow Laxmi as she sustainably harvests wild honey from high-altitude forests...</p>
+                      <h3 className="font-medium text-organic-text">Winter Harvest: How Cold Weather Makes Better Pickles</h3>
+                      <p className="text-sm text-gray-600 mt-1">By Food Editor • Food Culture • 6 min read</p>
+                      <p className="text-sm text-gray-700 mt-2">Winter months create perfect conditions for pickle making in Darjeeling...</p>
+                    </div>
+                    <div className="flex gap-2 ml-4">
+                      <button className="text-organic-primary hover:text-organic-text text-sm">Edit</button>
+                      <button className="text-blue-600 hover:text-blue-800 text-sm">View</button>
+                    </div>
+                  </div>
+                </div>
+                
+                <div className="border rounded-lg p-4">
+                  <div className="flex items-start justify-between">
+                    <div className="flex-1">
+                      <h3 className="font-medium text-organic-text">New Organic Certification for Hill Farmers</h3>
+                      <p className="text-sm text-gray-600 mt-1">By News Team • News • 3 min read</p>
+                      <p className="text-sm text-gray-700 mt-2">Five more farmers received organic certification, expanding our network...</p>
                     </div>
                     <div className="flex gap-2 ml-4">
                       <button className="text-organic-primary hover:text-organic-text text-sm">Edit</button>
