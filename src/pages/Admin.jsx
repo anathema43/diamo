@@ -14,6 +14,7 @@ import AdminSeedButton from "../components/AdminSeedButton";
 import StoryEditor from "../components/StoryEditor";
 import ContentEditor from "../components/ContentEditor";
 import AnalyticsDashboard from "../components/AnalyticsDashboard";
+import { Link } from "react-router-dom";
 import { 
   TrashIcon, 
   PencilIcon, 
@@ -29,7 +30,8 @@ import {
   CurrencyDollarIcon,
   ClockIcon,
   TruckIcon,
-  EnvelopeIcon
+  EnvelopeIcon,
+  DocumentTextIcon
 } from "@heroicons/react/24/outline";
 
 export default function Admin() {
@@ -128,6 +130,10 @@ export default function Admin() {
   const handleEditStory = (story) => {
     setEditingStory(story);
     setShowStoryModal(true);
+  };
+
+  const handleDeleteStory = (storyId) => {
+    // Add delete story logic here
   };
 
   const handleCloseModals = () => {
@@ -851,23 +857,21 @@ export default function Admin() {
                       <div key={story.id} className="border rounded-lg p-4 hover:bg-gray-50">
                         <div className="flex items-start justify-between">
                           <div className="flex-1">
-                            <>
-                              <div className="flex items-center gap-2 mb-2">
-                                <h3 className="font-medium text-organic-text">{story.title}</h3>
-                                {story.featured && (
-                                  <span className="bg-purple-100 text-purple-800 text-xs px-2 py-1 rounded-full">
-                                    Featured
-                                  </span>
-                                )}
-                              </div>
-                              <p className="text-sm text-gray-600 mt-1">
-                                By {story.author} • {(story.category || '').replace('-', ' ')} • {story.readTime}
-                              </p>
-                              <p className="text-sm text-gray-700 mt-2 line-clamp-2">{story.excerpt}</p>
-                              <p className="text-xs text-gray-500 mt-2">
-                                Published: {new Date(story.publishedAt).toLocaleDateString()}
-                              </p>
-                            </>
+                            <div className="flex items-center gap-2 mb-2">
+                              <h3 className="font-medium text-organic-text">{story.title}</h3>
+                              {story.featured && (
+                                <span className="bg-purple-100 text-purple-800 text-xs px-2 py-1 rounded-full">
+                                  Featured
+                                </span>
+                              )}
+                            </div>
+                            <p className="text-sm text-gray-600 mt-1">
+                              By {story.author} • {(story.category || '').replace('-', ' ')} • {story.readTime}
+                            </p>
+                            <p className="text-sm text-gray-700 mt-2 line-clamp-2">{story.excerpt}</p>
+                            <p className="text-xs text-gray-500 mt-2">
+                              Published: {new Date(story.publishedAt).toLocaleDateString()}
+                            </p>
                           </div>
                           <div className="flex gap-2 ml-4">
                             <button
@@ -893,11 +897,11 @@ export default function Admin() {
                         </div>
                       </div>
                     ))}
-                    </div>
                   </div>
                 )}
               </div>
             </div>
+          </div>
         )}
 
         {/* Pages Tab */}
