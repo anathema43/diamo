@@ -64,6 +64,7 @@ VITE_FIREBASE_PROJECT_ID=your-project-id
 VITE_FIREBASE_STORAGE_BUCKET=your-project.appspot.com
 VITE_FIREBASE_MESSAGING_SENDER_ID=your_sender_id
 VITE_FIREBASE_APP_ID=your_app_id
+FIREBASE_TOKEN=your_firebase_ci_token
 ```
 
 #### **Third-Party Service Secrets**:
@@ -74,6 +75,11 @@ VITE_ALGOLIA_SEARCH_KEY=your_search_only_key
 VITE_CLOUDINARY_CLOUD_NAME=your_cloud_name
 VITE_CLOUDINARY_API_KEY=your_api_key
 VITE_CLOUDINARY_UPLOAD_PRESET=your_upload_preset
+
+# Backend secrets (for Firebase Functions)
+RAZORPAY_KEY_SECRET=your_razorpay_secret
+RAZORPAY_WEBHOOK_SECRET=your_webhook_secret
+EMAIL_PASSWORD=your_email_app_password
 ```
 
 #### **Deployment Secrets**:
