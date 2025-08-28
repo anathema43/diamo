@@ -69,27 +69,8 @@ export default function Admin() {
 
   const fetchCustomers = async () => {
     if (!db) {
-      // Demo customers
-      setCustomers([
-        {
-          id: 'demo-customer-1',
-          email: 'customer1@example.com',
-          displayName: 'John Doe',
-          role: 'customer',
-          createdAt: '2024-01-15',
-          orderCount: 3,
-          totalSpent: 1299
-        },
-        {
-          id: 'demo-customer-2',
-          email: 'customer2@example.com',
-          displayName: 'Jane Smith',
-          role: 'customer',
-          createdAt: '2024-01-20',
-          orderCount: 1,
-          totalSpent: 499
-        }
-      ]);
+      console.warn('Firestore not available - cannot load customers');
+      setCustomers([]);
       return;
     }
 
@@ -112,27 +93,8 @@ export default function Admin() {
 
   const fetchStories = async () => {
     if (!db) {
-      // Demo stories
-      setStories([
-        {
-          id: '1',
-          title: 'The Ancient Art of Darjeeling Pickle Making',
-          author: 'Editorial Team',
-          category: 'artisan-story',
-          publishedAt: '2024-01-15',
-          featured: true,
-          status: 'published'
-        },
-        {
-          id: '2',
-          title: 'Darjeeling Winter Festival 2024',
-          author: 'Festival Reporter',
-          category: 'events',
-          publishedAt: '2024-12-15',
-          featured: true,
-          status: 'published'
-        }
-      ]);
+      console.warn('Firestore not available - cannot load stories');
+      setStories([]);
       return;
     }
 

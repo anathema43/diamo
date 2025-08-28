@@ -22,13 +22,11 @@ const isFirebaseConfigured = Object.values(firebaseConfig).every(value =>
   value !== 'undefined' && 
   value !== '' && 
   !value.toString().includes('placeholder') && 
-  !value.toString().includes('your_') &&
-  !value.toString().includes('null')
+  !value.toString().includes('your_')
 );
 
 if (!isFirebaseConfigured) {
-  console.info('ℹ️ Firebase not configured yet. Running in demo mode.');
-  console.info('To enable full functionality, please configure Firebase in your .env file.');
+  console.warn('⚠️ Firebase configuration incomplete. Check your .env file.');
 }
 
 // Initialize Firebase only if properly configured
@@ -41,40 +39,12 @@ if (isFirebaseConfigured) {
     db = getFirestore(app);
     storage = getStorage(app);
     functions = getFunctions(app);
-    console.info('✅ Firebase initialized successfully');
+    console.info('✅ Firebase connected successfully');
   } catch (error) {
     console.error('❌ Firebase initialization failed:', error);
-    // Create mock services to prevent app crashes
-    auth = {
-      currentUser: null,
-      onAuthStateChanged: (callback) => {
-        callback(null);
-        return () => {};
-      },
-      signInWithEmailAndPassword: () => Promise.reject(new Error('Firebase not configured')),
-      createUserWithEmailAndPassword: () => Promise.reject(new Error('Firebase not configured')),
-      signOut: () => Promise.resolve()
-    };
-    db = null;
-    storage = null;
-    functions = null;
   }
 } else {
-  // Create mock services for demo mode
-  console.info('🔧 Running in demo mode without Firebase');
-  auth = {
-    currentUser: null,
-    onAuthStateChanged: (callback) => {
-      callback(null);
-      return () => {};
-    },
-    signInWithEmailAndPassword: () => Promise.reject(new Error('Firebase not configured')),
-    createUserWithEmailAndPassword: () => Promise.reject(new Error('Firebase not configured')),
-    signOut: () => Promise.resolve()
-  };
-  db = null;
-  storage = null;
-  functions = null;
+  console.warn('🔧 Firebase not configured - some features may not work');
 }
 
 export { auth, db, storage, functions };

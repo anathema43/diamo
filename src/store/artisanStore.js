@@ -21,8 +21,8 @@ export const useArtisanStore = create((set, get) => ({
 
   fetchArtisans: async () => {
     if (!db) {
-      console.warn('Firebase not configured, using demo mode');
-      set({ artisans: [], loading: false });
+      console.warn('Firestore not available - cannot load artisans');
+      set({ artisans: [], loading: false, error: 'Firestore not configured' });
       return [];
     }
     
@@ -44,8 +44,8 @@ export const useArtisanStore = create((set, get) => ({
 
   fetchFeaturedArtisans: async () => {
     if (!db) {
-      console.warn('Firebase not configured, using demo mode');
-      set({ featuredArtisans: [] });
+      console.warn('Firestore not available - cannot load featured artisans');
+      set({ featuredArtisans: [], error: 'Firestore not configured' });
       return [];
     }
     

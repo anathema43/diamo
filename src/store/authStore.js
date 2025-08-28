@@ -27,24 +27,13 @@ export const useAuthStore = create(
     try {
       // Check if Firebase auth is available
       if (!auth) {
-        console.warn('Firebase auth not available, using demo mode');
-        // Check if we have a demo user in localStorage
-        const demoAuth = localStorage.getItem('demo-auth-storage');
-        if (demoAuth) {
-          try {
-            const { currentUser, userProfile } = JSON.parse(demoAuth);
-            set({ currentUser, userProfile, loading: false });
-          } catch (e) {
-            set({ currentUser: null, userProfile: null, loading: false });
-          }
-        } else {
-          set({ currentUser: null, userProfile: null, loading: false });
-        }
+        console.warn('Firebase auth not available');
+        set({ currentUser: null, userProfile: null, loading: false });
         return () => {};
       }
       
       if (!auth.onAuthStateChanged) {
-        console.warn('Firebase auth not properly initialized, using demo mode');
+        console.warn('Firebase auth not properly initialized');
         set({ currentUser: null, userProfile: null, loading: false });
         return () => {};
       }
@@ -82,31 +71,8 @@ export const useAuthStore = create(
   signup: async (email, password, name) => {
     set({ error: null, loading: true });
     try {
-      // Check if Firebase is configured
-      if (!auth || !import.meta.env.VITE_FIREBASE_API_KEY || import.meta.env.VITE_FIREBASE_API_KEY.includes('placeholder')) {
-        // Demo mode - simulate successful signup
-        const demoUser = {
-          uid: 'demo-user-' + Date.now(),
-          email: email,
-          displayName: name
-        };
-        
-        const demoProfile = {
-          uid: demoUser.uid,
-          email: demoUser.email,
-          displayName: name,
-          role: email.includes('admin') ? 'admin' : 'customer',
-          createdAt: new Date().toISOString()
-        };
-        
-        // Save to localStorage for demo persistence
-        localStorage.setItem('demo-auth-storage', JSON.stringify({
-          currentUser: demoUser,
-          userProfile: demoProfile
-        }));
-        
-        set({ currentUser: demoUser, userProfile: demoProfile, loading: false });
-        return;
+      if (!auth) {
+        throw new Error('Authentication service not available. Please check your Firebase configuration.');
       }
       
       const userCredential = await createUserWithEmailAndPassword(auth, email, password);
@@ -130,16 +96,9 @@ export const useAuthStore = create(
         await setDoc(doc(db, "users", userCredential.user.uid), userProfile);
         set({ currentUser: userCredential.user, userProfile, loading: false });
       } else {
-        // Demo mode - create mock profile
-        const mockProfile = {
-          uid: userCredential.user.uid,
-          email: userCredential.user.email,
-          displayName: name,
-          role: 'customer',
-          createdAt: new Date().toISOString()
-        };
-        set({ currentUser: userCredential.user, userProfile: mockProfile, loading: false });
-        }
+        console.warn('Firestore not available - user profile not saved');
+        set({ currentUser: userCredential.user, userProfile: null, loading: false });
+      }
     } catch (error) {
       // Provide user-friendly error messages
       let errorMessage = "Account creation failed. Please try again.";
@@ -162,31 +121,8 @@ export const useAuthStore = create(
   login: async (email, password) => {
     set({ error: null, loading: true });
     try {
-      // Check if Firebase is configured
-      if (!auth || !import.meta.env.VITE_FIREBASE_API_KEY || import.meta.env.VITE_FIREBASE_API_KEY.includes('placeholder')) {
-        // Demo mode - simulate successful login
-        const demoUser = {
-          uid: 'demo-user-123',
-          email: email,
-          displayName: email.split('@')[0]
-        };
-        
-        const demoProfile = {
-          uid: demoUser.uid,
-          email: demoUser.email,
-          displayName: demoUser.displayName,
-          role: email.includes('admin') ? 'admin' : 'customer',
-          createdAt: new Date().toISOString()
-        };
-        
-        // Save to localStorage for demo persistence
-        localStorage.setItem('demo-auth-storage', JSON.stringify({
-          currentUser: demoUser,
-          userProfile: demoProfile
-        }));
-        
-        set({ currentUser: demoUser, userProfile: demoProfile, loading: false });
-        return;
+      if (!auth) {
+        throw new Error('Authentication service not available. Please check your Firebase configuration.');
       }
       
       const userCredential = await signInWithEmailAndPassword(auth, email, password);
@@ -205,15 +141,8 @@ export const useAuthStore = create(
         
         set({ currentUser: userCredential.user, userProfile, loading: false });
       } else {
-        // Demo mode - create mock profile
-        const mockProfile = {
-          uid: userCredential.user.uid,
-          email: userCredential.user.email,
-          displayName: userCredential.user.displayName,
-          role: 'customer',
-          createdAt: new Date().toISOString()
-        };
-        set({ currentUser: userCredential.user, userProfile: mockProfile, loading: false });
+        console.warn('Firestore not available - user profile not loaded');
+        set({ currentUser: userCredential.user, userProfile: null, loading: false });
       }
     } catch (error) {
       // Provide user-friendly error messages
