@@ -19,11 +19,12 @@ export default function StoryDetail() {
   const fetchStory = async () => {
     try {
       if (!db) {
-        // Demo story for when Firebase isn't configured
-        const demoStory = {
-          id: '1',
-          title: 'The Ancient Art of Darjeeling Pickle Making',
-          content: `In the early morning mist of Darjeeling, when the hills are shrouded in clouds and the air carries the scent of tea gardens, Deepak Sharma begins his day as his grandmother taught him 25 years ago.
+        // Demo stories for when Firebase isn't configured
+        const demoStories = {
+          '1': {
+            id: '1',
+            title: 'The Ancient Art of Darjeeling Pickle Making',
+            content: `In the early morning mist of Darjeeling, when the hills are shrouded in clouds and the air carries the scent of tea gardens, Deepak Sharma begins his day as his grandmother taught him 25 years ago.
 
 The small workshop behind his house comes alive with the sounds of grinding spices and chopping vegetables. This is where three generations of pickle-making knowledge converge into jars of authentic Darjeeling flavor.
 
@@ -63,17 +64,84 @@ As younger generations move to cities for education and employment, Deepak worri
 "Now, a young person living in Mumbai or Delhi can taste the same pickle their grandmother made, and they can know the story behind it. This connection keeps our culture alive."
 
 Every jar of Deepak's pickle carries with it the mist of Darjeeling mornings, the wisdom of three generations, and the hope that traditional knowledge will continue to nourish families across India.`,
-          author: 'Deepak Sharma',
-          authorImage: 'https://images.pexels.com/photos/1222271/pexels-photo-1222271.jpeg?auto=compress&cs=tinysrgb&w=800',
-          authorBio: 'Third-generation pickle maker from Darjeeling, preserving family recipes for over 25 years.',
-          category: 'artisan-story',
-          featuredImage: 'https://res.cloudinary.com/dj4kdlwzo/image/upload/v1752940186/pickle_3_co88iu.jpg',
-          publishedAt: '2024-01-15',
-          readTime: '5 min read',
-          tags: ['traditional-recipes', 'family-heritage', 'pickle-making'],
-          relatedProducts: ['1'] // Product IDs
+            author: 'Deepak Sharma',
+            authorImage: 'https://images.pexels.com/photos/1222271/pexels-photo-1222271.jpeg?auto=compress&cs=tinysrgb&w=800',
+            authorBio: 'Third-generation pickle maker from Darjeeling, preserving family recipes for over 25 years.',
+            category: 'artisan-story',
+            featuredImage: 'https://res.cloudinary.com/dj4kdlwzo/image/upload/v1752940186/pickle_3_co88iu.jpg',
+            publishedAt: '2024-01-15',
+            readTime: '5 min read',
+            tags: ['traditional-recipes', 'family-heritage', 'pickle-making'],
+            relatedProducts: ['1']
+          },
+          '2': {
+            id: '2',
+            title: 'Darjeeling Winter Festival 2024: A Magical Celebration in the Clouds',
+            content: `The inaugural Darjeeling Winter Festival brought together thousands of visitors to celebrate hill culture, local cuisine, and traditional crafts in a spectacular three-day event that showcased the best of Darjeeling's heritage.
+
+## A Festival Born from Community Spirit
+
+The idea for the Winter Festival came from local tourism operators and cultural groups who wanted to create a unique event that would highlight Darjeeling's rich cultural diversity during the quieter winter months. Unlike summer festivals that focus on tea, this celebration embraced the full spectrum of hill culture.
+
+## Three Days of Cultural Immersion
+
+The festival featured traditional dance performances by local groups, including Nepali folk dances, Tibetan cultural shows, and Bengali musical performances. Food stalls offered everything from traditional momos and thukpa to Darjeeling pickles and locally made sweets.
+
+## Artisan Showcase
+
+Local artisans displayed their crafts - from bamboo weaving to traditional textile work. Visitors could watch pickle-making demonstrations, learn about tea processing, and even try their hand at traditional crafts under expert guidance.
+
+## Community Impact
+
+The festival provided a significant economic boost to local businesses, with hotels reporting full occupancy and restaurants seeing record sales. More importantly, it gave young people a platform to showcase their talents and connect with their cultural roots.
+
+## Looking Forward
+
+The success of the 2024 Winter Festival has inspired plans for an annual celebration that will become a signature event for Darjeeling, attracting visitors from across India and beyond while celebrating the unique culture of the hills.`,
+            author: 'Festival Reporter',
+            authorImage: 'https://images.pexels.com/photos/1181690/pexels-photo-1181690.jpeg?auto=compress&cs=tinysrgb&w=800',
+            authorBio: 'Local journalist covering cultural events and community celebrations in the Darjeeling region.',
+            category: 'events',
+            featuredImage: 'https://images.pexels.com/photos/1638280/pexels-photo-1638280.jpeg?auto=compress&cs=tinysrgb&w=800',
+            publishedAt: '2024-12-15',
+            readTime: '6 min read',
+            featured: true,
+            tags: ['winter-festival', 'darjeeling-events', 'cultural-celebration', 'community-festival']
+          },
+          '3': {
+            id: '3',
+            title: 'The Sacred Groves of Kalimpong: Where Nature Meets Spirituality',
+            content: `Hidden in the forests around Kalimpong are sacred groves that have been protected by local communities for centuries, preserving both biodiversity and spiritual traditions.
+
+## Ancient Protection System
+
+The sacred groves represent one of the world's oldest conservation systems. Local communities designated these forest areas as sacred, making them off-limits for hunting, logging, or any form of exploitation.
+
+## Biodiversity Hotspots
+
+These groves harbor rare medicinal plants, ancient trees, and wildlife that have vanished from other parts of the region. Botanists have identified over 200 plant species in just one grove.
+
+## Spiritual Significance
+
+Each grove is dedicated to local deities and serves as a place for community prayers and festivals. The annual grove festivals bring together people from multiple villages.`,
+            author: 'Environmental Writer',
+            authorImage: 'https://images.pexels.com/photos/1181467/pexels-photo-1181467.jpeg?auto=compress&cs=tinysrgb&w=800',
+            authorBio: 'Environmental journalist documenting traditional conservation practices.',
+            category: 'places',
+            featuredImage: 'https://images.pexels.com/photos/33239/wheat-field-wheat-cereals-grain.jpg?auto=compress&cs=tinysrgb&w=800',
+            publishedAt: '2024-09-20',
+            readTime: '4 min read',
+            featured: false,
+            tags: ['sacred-groves', 'kalimpong', 'conservation']
+          }
         };
-        setStory(demoStory);
+        
+        const foundStory = demoStories[id];
+        if (foundStory) {
+          setStory(foundStory);
+        } else {
+          setError("Story not found");
+        }
         setLoading(false);
         return;
       }

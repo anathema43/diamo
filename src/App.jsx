@@ -94,11 +94,6 @@ function App() {
             
             {/* Stories Routes */}
             <Route path="/stories" element={<Stories />} />
-            <Route path="/stories/:id" element={<StoryDetail />} />
-            
-            {/* Stories Routes */}
-            <Route path="/stories" element={<Stories />} />
-            <Route path="/stories/:id" element={<StoryDetail />} />
             
             {/* Development Roadmap */}
             <Route path="/roadmap" element={<DevelopmentRoadmap />} />

@@ -19,13 +19,126 @@ export default function ArtisanProfile() {
     const fetchArtisanData = async () => {
       setLoading(true);
       try {
-        const artisanData = await getArtisanById(id);
-        if (artisanData) {
-          setArtisan(artisanData);
-          const products = await getArtisanProducts(id);
-          setArtisanProducts(products);
+        if (!db) {
+          // Demo artisan data when Firebase isn't configured
+          const demoArtisans = [
+            {
+              id: 'deepak-sharma',
+              name: 'Deepak Sharma',
+              title: 'Master Pickle Maker',
+              location: 'Darjeeling, West Bengal',
+              experience: 25,
+              profileImage: 'https://images.pexels.com/photos/1222271/pexels-photo-1222271.jpeg?auto=compress&cs=tinysrgb&w=800',
+              shortBio: 'Third-generation pickle maker specializing in traditional Darjeeling recipes passed down through his family.',
+              story: `Deepak Sharma learned the art of pickle making from his grandmother, who taught him the secret blend of spices that makes Darjeeling pickles unique. Growing up in the misty hills of Darjeeling, he witnessed how each season brought different vegetables and fruits that could be preserved using ancient techniques.
+
+His family has been making pickles for over 75 years, and Deepak has perfected the recipes while maintaining the traditional methods. He sources all his ingredients from local farmers in the Darjeeling hills, ensuring that every jar tells the story of the mountains.
+
+Today, Deepak employs 8 local women in his small workshop, providing them with steady income while preserving the traditional knowledge of pickle making. His pickles are made in small batches, ensuring quality and authenticity in every jar.`,
+              specialties: ["Traditional Pickle Making", "Darjeeling Recipes", "Spice Blending"],
+              techniques: [
+                "Hand-grinding of spices",
+                "Preserving family recipes", 
+                "Supporting local farmers",
+                "Sustainable practices",
+                "Quality over quantity"
+              ],
+              values: [
+                "Traditional methods",
+                "Family recipes",
+                "Local sourcing",
+                "Women empowerment",
+                "Quality craftsmanship"
+              ],
+              culturalHeritage: "Darjeeling pickle making tradition",
+              familyMembers: 6,
+              rating: 4.8,
+              reviewCount: 24,
+              featured: true,
+              productCount: 3
+            },
+            {
+              id: 'laxmi-devi',
+              name: 'Laxmi Devi',
+              title: 'Wild Honey Collector',
+              location: 'Manali, Himachal Pradesh',
+              experience: 18,
+              profileImage: 'https://images.pexels.com/photos/1181690/pexels-photo-1181690.jpeg?auto=compress&cs=tinysrgb&w=800',
+              shortBio: 'Expert honey collector who harvests wild honey from high-altitude forests using traditional sustainable methods.',
+              story: `Laxmi Devi comes from a family of traditional honey collectors in the high mountains of Himachal Pradesh. She learned the ancient art of wild honey collection from her father, who taught her to read the mountains and understand the behavior of wild bees.
+
+At altitudes of over 3000 meters, Laxmi carefully harvests honey from wild bee colonies, using smoke and traditional tools that have been used for centuries. She follows strict sustainable practices, never taking more than the bees can spare, ensuring the colonies remain healthy.
+
+Her honey is completely raw and unprocessed, containing all the natural enzymes and nutrients that make Himalayan honey so special. Each batch reflects the unique flora of the high-altitude forests where the bees collect nectar.`,
+              specialties: ["Wild Honey Collection", "Sustainable Harvesting", "High-Altitude Foraging"],
+              techniques: [
+                "Traditional smoking methods",
+                "Sustainable harvesting practices",
+                "Natural comb extraction", 
+                "Raw honey preservation"
+              ],
+              values: [
+                "Environmental conservation",
+                "Sustainable harvesting",
+                "Community cooperation",
+                "Natural purity"
+              ],
+              culturalHeritage: "Himalayan honey collection traditions",
+              familyMembers: 4,
+              rating: 4.9,
+              reviewCount: 18,
+              featured: true,
+              productCount: 2
+            },
+            {
+              id: 'ashok-singh',
+              name: 'Ashok Singh', 
+              title: 'Organic Rice Farmer',
+              location: 'Uttarakhand Hills',
+              experience: 22,
+              profileImage: 'https://images.pexels.com/photos/1181467/pexels-photo-1181467.jpeg?auto=compress&cs=tinysrgb&w=800',
+              shortBio: 'Dedicated organic farmer growing ancient varieties of red rice in terraced fields using traditional methods.',
+              story: `Ashok Singh is a passionate advocate for organic farming and the preservation of ancient rice varieties. His family has been farming in the terraced fields of Uttarakhand for generations, and he has dedicated his life to maintaining these traditional practices.
+
+He grows several heritage varieties of red rice that are native to the Himalayan region. These varieties are naturally resistant to pests and diseases, requiring no chemical inputs. The terraced fields, carved into the mountainside by his ancestors, use an ingenious water management system that has sustained agriculture for centuries.`,
+              specialties: ["Organic Farming", "Heritage Rice Varieties", "Terraced Agriculture"],
+              techniques: [
+                "Terraced field cultivation",
+                "Natural pest management",
+                "Traditional seed preservation",
+                "Hand harvesting methods"
+              ],
+              values: [
+                "Organic farming principles",
+                "Biodiversity conservation", 
+                "Soil health preservation",
+                "Community education"
+              ],
+              culturalHeritage: "Himalayan terraced farming traditions",
+              familyMembers: 5,
+              rating: 4.7,
+              reviewCount: 31,
+              featured: true,
+              productCount: 2
+            }
+          ];
+          
+          const foundArtisan = demoArtisans.find(a => a.id === id);
+          if (foundArtisan) {
+            setArtisan(foundArtisan);
+            setArtisanProducts([]); // Demo mode - no products linked yet
+          } else {
+            setError("Artisan not found");
+          }
         } else {
-          setError("Artisan not found");
+          const artisanData = await getArtisanById(id);
+          if (artisanData) {
+            setArtisan(artisanData);
+            const products = await getArtisanProducts(id);
+            setArtisanProducts(products);
+          } else {
+            setError("Artisan not found");
+          }
         }
       } catch (err) {
         setError(err.message);
