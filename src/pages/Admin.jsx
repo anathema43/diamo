@@ -15,6 +15,8 @@ import StoryEditor from "../components/StoryEditor";
 import ContentEditor from "../components/ContentEditor";
 import AnalyticsDashboard from "../components/AnalyticsDashboard";
 import { Link } from "react-router-dom";
+import { collection, getDocs, deleteDoc, doc } from "firebase/firestore";
+import { db } from "../firebase/firebase";
 import { 
   TrashIcon, 
   PencilIcon, 
@@ -77,7 +79,63 @@ export default function Admin() {
     fetchOrders();
     fetchArtisans();
     fetchLowStockProducts();
+    fetchStories();
   }, [fetchProducts, fetchOrders, fetchArtisans, fetchLowStockProducts]);
+
+  const fetchStories = async () => {
+    try {
+      if (!db) {
+        // Demo stories for when Firebase isn't configured
+        const demoStories = [
+          {
+            id: '1',
+            title: 'Darjeeling Tea Festival 2024: Celebrating Heritage',
+            excerpt: 'This year\'s Darjeeling Tea Festival brought together over 50 local producers to showcase their finest teas and traditional food products.',
+            author: 'Editorial Team',
+            category: 'events',
+            publishedAt: '2024-01-15',
+            readTime: '4 min read',
+            featured: true
+          },
+          {
+            id: '2',
+            title: 'Winter Harvest: Traditional Pickle Making Season',
+            excerpt: 'As winter approaches, local families begin their annual tradition of making pickles from seasonal vegetables and fruits.',
+            author: 'Food Editor',
+            category: 'food-culture',
+            publishedAt: '2024-01-10',
+            readTime: '5 min read',
+            featured: false
+          }
+        ];
+        setStories(demoStories);
+        return;
+      }
+
+      const querySnapshot = await getDocs(collection(db, "stories"));
+      const storiesData = querySnapshot.docs.map(doc => ({
+        id: doc.id,
+        ...doc.data(),
+      }));
+      setStories(storiesData);
+    } catch (error) {
+      console.error('Error fetching stories:', error);
+    }
+  };
+
+  const handleDeleteStory = async (storyId) => {
+    if (!window.confirm('Are you sure you want to delete this story?')) return;
+    
+    try {
+      if (db) {
+        await deleteDoc(doc(db, "stories", storyId));
+      }
+      setStories(stories.filter(s => s.id !== storyId));
+    } catch (error) {
+      console.error('Error deleting story:', error);
+      alert('Error deleting story: ' + error.message);
+    }
+  };
 
   const stats = getOrderStats();
   
@@ -130,10 +188,6 @@ export default function Admin() {
   const handleEditStory = (story) => {
     setEditingStory(story);
     setShowStoryModal(true);
-  };
-
-  const handleDeleteStory = (storyId) => {
-    // Add delete story logic here
   };
 
   const handleCloseModals = () => {
@@ -808,9 +862,9 @@ export default function Admin() {
                   <p>• <strong>Seasonal Updates:</strong> "Spring Harvest: Fresh Vegetables for Traditional Pickles"</p>
                   <p>• <strong>Cultural Context:</strong> "The Role of Pickles in Darjeeling Family Traditions"</p>
                   <p>• <strong>Community Impact:</strong> "How Your Purchase Supports 8 Families in Darjeeling"</p>
-                   <p>• <strong>Events & News:</strong> "Darjeeling Tea Festival 2024: Celebrating Heritage"</p>
-                   <p>• <strong>Behind the Scenes:</strong> "A Day in the Life of a Honey Collector"</p>
-                   <p>• <strong>Quality Stories:</strong> "Why Our Organic Certification Matters"</p>
+                  <p>• <strong>Events & News:</strong> "Darjeeling Tea Festival 2024: Celebrating Heritage"</p>
+                  <p>• <strong>Behind the Scenes:</strong> "A Day in the Life of a Honey Collector"</p>
+                  <p>• <strong>Quality Stories:</strong> "Why Our Organic Certification Matters"</p>
                 </div>
               </div>
 
@@ -1061,7 +1115,7 @@ export default function Admin() {
           onClose={handleCloseModals}
           onSave={() => {
             handleCloseModals();
-            // Refresh stories list
+            fetchStories();
           }}
         />
       )}
