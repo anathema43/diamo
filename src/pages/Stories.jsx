@@ -221,7 +221,7 @@ The hillsides explode with wildflowers - rhododendrons, primulas, orchids, and c
 
 ## Life in the Clouds
 
-Living in the monsoon means embracing the mist and clouds that often shroud the hills. Locals joke that they live "inside the clouds," and indeed, walking through Darjeeling during monsoon often feels like moving through a dream.
+Living in the monsoon means embracing the mist and clouds that often shroud the hills. Locals joke that they live "inside the clouds," and indeed, walking through Darjeeling during Monsoon often feels like moving through a dream.
 
 ## Challenges and Beauty
 
@@ -237,82 +237,6 @@ The monsoon season reminds everyone why the hills are called a paradise - it's w
             readTime: '5 min read',
             featured: false,
             tags: ['monsoon', 'darjeeling-weather', 'tea-season', 'mountain-beauty']
-          },
-          {
-            id: '7',
-            title: 'The Ancient Art of Bamboo Weaving in Kalimpong',
-            excerpt: 'In the quiet lanes of Kalimpong, master weavers continue the centuries-old tradition of bamboo craftsmanship, creating everything from baskets to furniture using techniques passed down through generations.',
-            content: `In the narrow lanes of Kalimpong, the rhythmic sound of bamboo being split and woven has echoed for centuries. This ancient craft, brought by Lepcha and Bhutia communities, continues to thrive in the hands of skilled artisans who have inherited techniques from their ancestors.
-
-## The Bamboo Forests
-
-Kalimpong's surrounding hills are rich with different varieties of bamboo, each suited for specific purposes. The craftsmen know exactly which bamboo to harvest, when to cut it, and how to prepare it for different types of weaving.
-
-## Traditional Techniques
-
-The process begins with selecting mature bamboo during the right season. The bamboo is then seasoned, split into precise strips, and treated using natural methods that prevent insect damage and increase durability.
-
-Master weavers can create intricate patterns that are both beautiful and functional. From simple storage baskets to elaborate furniture pieces, each item showcases the versatility of bamboo and the skill of the craftsperson.
-
-## Sustainable Craft
-
-Bamboo weaving is inherently sustainable - bamboo grows quickly, requires no pesticides, and the harvesting actually helps the bamboo groves remain healthy. This makes it an ideal craft for environmentally conscious consumers.
-
-## Modern Applications
-
-Today's bamboo artisans are adapting traditional techniques to create modern products - laptop stands, decorative items, and eco-friendly packaging solutions that appeal to urban customers while maintaining traditional quality.
-
-## Preserving Skills
-
-Several master weavers in Kalimpong are now teaching their skills to younger people, ensuring that this beautiful craft continues to evolve while maintaining its traditional roots.`,
-            author: 'Craft Heritage Writer',
-            authorImage: 'https://images.pexels.com/photos/1181263/pexels-photo-1181263.jpeg?auto=compress&cs=tinysrgb&w=800',
-            authorBio: 'Documenting traditional crafts and artisan skills across the Himalayan region.',
-            category: 'traditions',
-            featuredImage: 'https://images.pexels.com/photos/4198015/pexels-photo-4198015.jpeg?auto=compress&cs=tinysrgb&w=800',
-            publishedAt: '2024-06-12',
-            readTime: '4 min read',
-            featured: false,
-            tags: ['bamboo-weaving', 'kalimpong-crafts', 'traditional-skills', 'sustainable-crafts']
-          },
-          {
-            id: '8',
-            title: 'Young Entrepreneurs Reviving Hill Economy',
-            excerpt: 'A new generation of young entrepreneurs in Darjeeling and Kalimpong are creating innovative businesses that blend traditional products with modern marketing, bringing fresh energy to the hill economy.',
-            content: `Across the hills of Darjeeling and Kalimpong, a quiet revolution is taking place. Young entrepreneurs, many of whom returned home after studying in cities, are creating innovative businesses that honor traditional products while embracing modern business practices.
-
-## The New Generation
-
-Meet Priya Tamang, who left her corporate job in Bangalore to start an organic tea brand that works directly with small tea gardens. Or Tenzin Bhutia, who created an online platform connecting hill artisans with urban customers. These young entrepreneurs are proving that you don't have to leave the hills to build successful businesses.
-
-## Blending Old and New
-
-What sets these entrepreneurs apart is their deep respect for traditional products combined with modern marketing savvy. They understand both the authentic stories behind hill products and how to tell these stories to contemporary consumers.
-
-## Digital Bridges
-
-Using social media, e-commerce platforms, and digital marketing, they're building bridges between hill producers and customers across India and beyond. A pickle maker in a remote village can now reach customers in Mumbai or Delhi through these digital platforms.
-
-## Community Impact
-
-These businesses are creating employment opportunities for local youth, providing new income streams for traditional artisans, and helping preserve cultural practices by making them economically viable.
-
-## Success Stories
-
-Several of these ventures have achieved remarkable success - from tea brands that export globally to craft cooperatives that employ dozens of local artisans. Their success is inspiring more young people to consider entrepreneurship as a viable option in the hills.
-
-## Future of the Hills
-
-This entrepreneurial movement represents hope for the economic future of hill communities. By combining traditional knowledge with modern business practices, these young leaders are creating sustainable prosperity while preserving cultural heritage.`,
-            author: 'Business Reporter',
-            authorImage: 'https://images.pexels.com/photos/1181690/pexels-photo-1181690.jpeg?auto=compress&cs=tinysrgb&w=800',
-            authorBio: 'Business journalist covering entrepreneurship and economic development in hill regions.',
-            category: 'people',
-            featuredImage: 'https://images.pexels.com/photos/1640777/pexels-photo-1640777.jpeg?auto=compress&cs=tinysrgb&w=800',
-            publishedAt: '2024-05-20',
-            readTime: '6 min read',
-            featured: false,
-            tags: ['young-entrepreneurs', 'hill-economy', 'modern-business', 'traditional-products']
           }
         ];
         setStories(demoStories);
@@ -404,8 +328,8 @@ This entrepreneurial movement represents hope for the economic future of hill co
 
   // Filter and sort stories
   let filteredStories = selectedCategory === 'all' 
-    ? stories.filter(story => !story.featured) // Exclude featured story from main list
-    : stories.filter(story => story.category === selectedCategory && !story.featured);
+    ? stories.filter(story => !story.featured && story.content && story.content.length > 100) // Only show stories with substantial content
+    : stories.filter(story => story.category === selectedCategory && !story.featured && story.content && story.content.length > 100);
 
   // Sort stories
   filteredStories = filteredStories.sort((a, b) => {

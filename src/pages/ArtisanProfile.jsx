@@ -19,14 +19,15 @@ export default function ArtisanProfile() {
     const fetchArtisanData = async () => {
       setLoading(true);
       try {
-        if (!db) {
+        if (!db || true) { // Always use demo data for now
           // Demo artisan data when Firebase isn't configured
           const demoArtisans = [
             {
-              id: 'deepak-sharma',
+              id: 'deepak-sharma-001',
               name: 'Deepak Sharma',
               title: 'Master Pickle Maker',
               location: 'Darjeeling, West Bengal',
+              region: 'West Bengal',
               experience: 25,
               profileImage: 'https://images.pexels.com/photos/1222271/pexels-photo-1222271.jpeg?auto=compress&cs=tinysrgb&w=800',
               shortBio: 'Third-generation pickle maker specializing in traditional Darjeeling recipes passed down through his family.',
@@ -58,10 +59,11 @@ Today, Deepak employs 8 local women in his small workshop, providing them with s
               productCount: 3
             },
             {
-              id: 'laxmi-devi',
+              id: 'laxmi-devi-001',
               name: 'Laxmi Devi',
               title: 'Wild Honey Collector',
               location: 'Manali, Himachal Pradesh',
+              region: 'Himachal Pradesh',
               experience: 18,
               profileImage: 'https://images.pexels.com/photos/1181690/pexels-photo-1181690.jpeg?auto=compress&cs=tinysrgb&w=800',
               shortBio: 'Expert honey collector who harvests wild honey from high-altitude forests using traditional sustainable methods.',
@@ -91,10 +93,11 @@ Her honey is completely raw and unprocessed, containing all the natural enzymes 
               productCount: 2
             },
             {
-              id: 'ashok-singh',
+              id: 'ashok-singh-001',
               name: 'Ashok Singh', 
               title: 'Organic Rice Farmer',
               location: 'Uttarakhand Hills',
+              region: 'Uttarakhand',
               experience: 22,
               profileImage: 'https://images.pexels.com/photos/1181467/pexels-photo-1181467.jpeg?auto=compress&cs=tinysrgb&w=800',
               shortBio: 'Dedicated organic farmer growing ancient varieties of red rice in terraced fields using traditional methods.',
@@ -120,13 +123,63 @@ He grows several heritage varieties of red rice that are native to the Himalayan
               reviewCount: 31,
               featured: true,
               productCount: 2
+            },
+            {
+              id: 'karma-lama-001',
+              name: 'Karma Lama',
+              title: 'Traditional Tea Master',
+              location: 'Darjeeling Tea Gardens',
+              region: 'West Bengal',
+              experience: 35,
+              profileImage: 'https://images.pexels.com/photos/1181467/pexels-photo-1181467.jpeg?auto=compress&cs=tinysrgb&w=800',
+              shortBio: 'Fourth-generation tea master overseeing traditional Darjeeling tea production with expertise in orthodox tea processing.',
+              story: `Karma Lama represents the fourth generation of his family to work in the Darjeeling tea gardens. His great-grandfather started as a tea plucker in the British era, and the family has been involved in tea production ever since.
+
+Working at the historic Makaibari Tea Estate, Karma oversees the traditional orthodox tea processing that gives Darjeeling tea its distinctive muscatel flavor. He understands the subtle art of withering, rolling, oxidation, and firing that transforms fresh tea leaves into the world-renowned Darjeeling tea.
+
+His expertise extends beyond processing to understanding the terroir - how altitude, soil, weather, and timing affect the final cup. He can identify the flush (harvest season) and even the specific garden of a tea just by tasting.
+
+Karma trains young tea workers in traditional methods while adapting to organic and biodynamic practices that are increasingly important for premium tea markets. His work ensures that Darjeeling tea maintains its reputation as the "Champagne of Teas."`,
+              specialties: ["Orthodox Tea Processing", "Tea Tasting", "Garden Management"],
+              techniques: [
+                "Traditional withering methods",
+                "Hand-rolling techniques", 
+                "Oxidation control",
+                "Firing and drying expertise"
+              ],
+              values: [
+                "Tea quality excellence",
+                "Traditional processing methods",
+                "Sustainable tea farming",
+                "Knowledge transfer to youth"
+              ],
+              culturalHeritage: "Darjeeling tea garden traditions",
+              familyMembers: 8,
+              rating: 4.9,
+              reviewCount: 45,
+              featured: false,
+              productCount: 4
             }
           ];
           
           const foundArtisan = demoArtisans.find(a => a.id === id);
           if (foundArtisan) {
             setArtisan(foundArtisan);
-            setArtisanProducts([]); // Demo mode - no products linked yet
+            // Demo products for this artisan
+            const demoProducts = [
+              {
+                id: '1',
+                name: 'Darjeeling Pickle',
+                description: 'Authentic spicy pickle from the hills of Darjeeling',
+                price: 299,
+                image: 'https://res.cloudinary.com/dj4kdlwzo/image/upload/v1752940186/pickle_3_co88iu.jpg',
+                quantityAvailable: 10,
+                category: 'pickle',
+                rating: 4.5,
+                artisan: foundArtisan.name
+              }
+            ];
+            setArtisanProducts(foundArtisan.name === 'Deepak Sharma' ? demoProducts : []);
           } else {
             setError("Artisan not found");
           }

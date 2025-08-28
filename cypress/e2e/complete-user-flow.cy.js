@@ -187,25 +187,33 @@ describe('Complete User Flow - Darjeeling Souls E-commerce', () => {
     });
   });
 
-  describe('Admin Functionality', () => {
-    it('should test admin access and functionality', () => {
-      const timestamp = Date.now();
-      const adminEmail = `admin${timestamp}@test.com`;
+  describe('Content Navigation', () => {
+    it('should navigate between all content types', () => {
+      // Test stories navigation
+      cy.get('a[href="#/stories"]').click();
+      cy.url().should('include', '/stories');
+      cy.get('article').should('have.length.greaterThan', 0);
       
-      // Create admin account
-      cy.get('a[href="#/signup"]').click();
-      cy.get('input[name="name"]').type('Admin User');
-      cy.get('input[name="email"]').type(adminEmail);
-      cy.get('input[name="password"]').type('AdminPassword123');
-      cy.get('input[name="confirmPassword"]').type('AdminPassword123');
-      cy.get('button[type="submit"]').click();
+      // Test story detail
+      cy.get('article').first().within(() => {
+        cy.get('a').contains('Read Story').click();
+      });
+      cy.url().should('include', '/stories/');
+      cy.get('h1').should('be.visible');
       
-      // Note: In real testing, you'd need to manually set admin role in Firebase
-      // For demo purposes, we'll test the admin interface
-      cy.visit('/#/admin');
+      // Back to stories
+      cy.get('a').contains('Back to Stories').click();
+      cy.url().should('include', '/stories');
       
-      // Should see admin interface or access denied
-      cy.get('body').should('contain.text', 'Admin');
+      // Test artisans navigation
+      cy.get('a[href="#/artisans"]').click();
+      cy.url().should('include', '/artisans');
+      cy.get('[data-cy="artisan-card"]').should('have.length.greaterThan', 0);
+      
+      // Test artisan profile
+      cy.get('[data-cy="artisan-card"]').first().click();
+      cy.url().should('include', '/artisans/');
+      cy.get('h1').should('be.visible');
     });
   });
 

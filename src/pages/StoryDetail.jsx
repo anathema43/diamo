@@ -24,6 +24,7 @@ export default function StoryDetail() {
           '1': {
             id: '1',
             title: 'The Ancient Art of Darjeeling Pickle Making',
+            excerpt: 'In the early morning mist of Darjeeling, when the hills are shrouded in clouds and the air carries the scent of tea gardens, Deepak Sharma begins his day as his grandmother taught him 25 years ago.',
             content: `In the early morning mist of Darjeeling, when the hills are shrouded in clouds and the air carries the scent of tea gardens, Deepak Sharma begins his day as his grandmother taught him 25 years ago.
 
 The small workshop behind his house comes alive with the sounds of grinding spices and chopping vegetables. This is where three generations of pickle-making knowledge converge into jars of authentic Darjeeling flavor.
@@ -77,6 +78,7 @@ Every jar of Deepak's pickle carries with it the mist of Darjeeling mornings, th
           '2': {
             id: '2',
             title: 'Darjeeling Winter Festival 2024: A Magical Celebration in the Clouds',
+            excerpt: 'The inaugural Darjeeling Winter Festival brought together thousands of visitors to celebrate hill culture, local cuisine, and traditional crafts in a spectacular three-day event.',
             content: `The inaugural Darjeeling Winter Festival brought together thousands of visitors to celebrate hill culture, local cuisine, and traditional crafts in a spectacular three-day event that showcased the best of Darjeeling's heritage.
 
 ## A Festival Born from Community Spirit
@@ -111,6 +113,7 @@ The success of the 2024 Winter Festival has inspired plans for an annual celebra
           '3': {
             id: '3',
             title: 'The Sacred Groves of Kalimpong: Where Nature Meets Spirituality',
+            excerpt: 'Hidden in the forests around Kalimpong are sacred groves that have been protected by local communities for centuries, preserving both biodiversity and spiritual traditions.',
             content: `Hidden in the forests around Kalimpong are sacred groves that have been protected by local communities for centuries, preserving both biodiversity and spiritual traditions.
 
 ## Ancient Protection System
@@ -133,6 +136,125 @@ Each grove is dedicated to local deities and serves as a place for community pra
             readTime: '4 min read',
             featured: false,
             tags: ['sacred-groves', 'kalimpong', 'conservation']
+          },
+          '4': {
+            id: '4',
+            title: 'Losar: Tibetan New Year Celebrations in the Hills',
+            excerpt: 'The Tibetan New Year brings colorful celebrations to hill communities, featuring traditional dances, special foods, and ancient rituals that welcome prosperity and good fortune.',
+            content: `As February arrives in the Himalayan foothills, Tibetan communities prepare for Losar, their most important celebration of the year. The festival marks not just the new year, but a time of renewal, family reunions, and cultural pride.
+
+## Preparations Begin
+
+Weeks before Losar, families begin preparing traditional foods like khapse (deep-fried cookies), guthuk (special soup), and chang (barley beer). Homes are cleaned thoroughly, new clothes are prepared, and prayer flags are hung to welcome good fortune.
+
+## The Three Days of Celebration
+
+Losar is celebrated over three days, each with its own significance. The first day is for family, the second for friends, and the third for the community. Monasteries hold special prayers, and traditional cham dances are performed to drive away evil spirits.
+
+## Cultural Preservation
+
+In places like Darjeeling, Kalimpong, and Gangtok, Losar celebrations help preserve Tibetan culture among younger generations who may be more connected to modern life than traditional practices.
+
+## Food and Fellowship
+
+The festival foods are not just delicious but carry deep meaning. Khapse cookies are shaped into auspicious symbols, and the ingredients for guthuk soup are chosen for their symbolic significance in bringing good luck.
+
+## Modern Adaptations
+
+While maintaining traditional elements, modern Losar celebrations in hill towns also include cultural programs, exhibitions of Tibetan art, and community gatherings that welcome people from all backgrounds to learn about Tibetan culture.`,
+            author: 'Cultural Reporter',
+            authorImage: 'https://images.pexels.com/photos/1181677/pexels-photo-1181677.jpeg?auto=compress&cs=tinysrgb&w=800',
+            authorBio: 'Journalist specializing in Himalayan cultural traditions and festival celebrations.',
+            category: 'traditions',
+            featuredImage: 'https://images.pexels.com/photos/4198017/pexels-photo-4198017.jpeg?auto=compress&cs=tinysrgb&w=800',
+            publishedAt: '2024-02-10',
+            readTime: '5 min read',
+            featured: false,
+            tags: ['losar', 'tibetan-new-year', 'cultural-festivals', 'traditional-celebrations']
+          },
+          '5': {
+            id: '5',
+            title: 'The Toy Train Journey: A Century of Mountain Magic',
+            excerpt: 'The Darjeeling Himalayan Railway, affectionately known as the Toy Train, continues to enchant travelers with its century-old journey through the misty hills and tea gardens.',
+            content: `The whistle of the Darjeeling Himalayan Railway echoes through the mountains as it has for over 150 years. This narrow-gauge railway, lovingly called the "Toy Train," is more than just transportation - it's a journey through time and a testament to human ingenuity.
+
+## Engineering Marvel
+
+Built between 1879 and 1881, the railway climbs from sea level to over 2000 meters using ingenious loops and zigzags. The engineering feat required no tunnels, instead following the natural contours of the mountains through 88 curves and over 900 bridges.
+
+## Living Heritage
+
+Today, the Toy Train is a UNESCO World Heritage Site, but it remains a working railway serving local communities. School children use it to reach their schools, vendors sell tea and snacks at stations, and tourists from around the world experience the magic of slow travel.
+
+## The Journey Experience
+
+The 8-hour journey from New Jalpaiguri to Darjeeling passes through changing landscapes - from tropical plains to temperate forests to alpine meadows. Passengers witness the gradual transformation of culture, architecture, and vegetation as the train climbs higher.
+
+## Preserving the Magic
+
+Local communities and railway enthusiasts work together to maintain this heritage railway. Recent restoration efforts have ensured that future generations can continue to experience the wonder of this mountain railway.
+
+The Toy Train represents the spirit of Darjeeling - a blend of history, culture, and natural beauty that continues to inspire and delight all who experience its magic.`,
+            author: 'Heritage Writer',
+            authorImage: 'https://images.pexels.com/photos/1181562/pexels-photo-1181562.jpeg?auto=compress&cs=tinysrgb&w=800',
+            authorBio: 'Travel and heritage writer documenting the cultural landmarks of the Eastern Himalayas.',
+            category: 'places',
+            featuredImage: 'https://images.pexels.com/photos/1638280/pexels-photo-1638280.jpeg?auto=compress&cs=tinysrgb&w=800',
+            publishedAt: '2024-08-15',
+            readTime: '6 min read',
+            featured: false,
+            tags: ['toy-train', 'darjeeling-railway', 'unesco-heritage', 'mountain-travel']
+          },
+          '6': {
+            id: '6',
+            title: 'Monsoon Magic: When the Hills Turn Emerald Green',
+            excerpt: 'The monsoon season transforms the Darjeeling hills into a lush paradise, bringing life to tea gardens and filling the air with the fragrance of mountain flowers.',
+            content: `When the monsoon clouds roll in from the Bay of Bengal, the Darjeeling hills undergo a magical transformation. The landscape that was golden and dry in the pre-monsoon heat suddenly bursts into every shade of green imaginable.
+
+## The Arrival of Rains
+
+The first monsoon showers usually arrive in June, announced by dramatic clouds that engulf the mountains. The temperature drops, the air becomes fresh and clean, and the entire hill station seems to breathe a sigh of relief.
+
+## Tea Gardens Come Alive
+
+For the tea gardens, monsoon is the most crucial season. The combination of warmth and moisture creates ideal conditions for tea bushes to produce the tender leaves that make the finest Darjeeling tea. The second flush, harvested during monsoon, produces teas with the distinctive muscatel flavor that Darjeeling is famous for.
+
+## Mountain Flowers Bloom
+
+The hillsides explode with wildflowers - rhododendrons, primulas, orchids, and countless other species paint the landscape in brilliant colors. The air fills with fragrances that seem to change with every turn in the mountain paths.
+
+## Life in the Clouds
+
+Living in the monsoon means embracing the mist and clouds that often shroud the hills. Locals joke that they live "inside the clouds," and indeed, walking through Darjeeling during monsoon often feels like moving through a dream.
+
+## Challenges and Beauty
+
+While monsoon brings beauty, it also brings challenges - landslides, power cuts, and transportation difficulties. But hill communities have adapted over generations, and there's a special rhythm to monsoon life that visitors find enchanting.
+
+The monsoon season reminds everyone why the hills are called a paradise - it's when nature displays its full glory and the mountains reveal their true character.`,
+            author: 'Nature Writer',
+            authorImage: 'https://images.pexels.com/photos/1222271/pexels-photo-1222271.jpeg?auto=compress&cs=tinysrgb&w=800',
+            authorBio: 'Nature writer and photographer documenting the seasonal beauty of the Eastern Himalayas.',
+            category: 'places',
+            featuredImage: 'https://images.pexels.com/photos/1640777/pexels-photo-1640777.jpeg?auto=compress&cs=tinysrgb&w=800',
+            publishedAt: '2024-07-05',
+            // Demo products for this artisan
+            const demoProducts = [
+              {
+                id: '1',
+                name: 'Darjeeling Pickle',
+                description: 'Authentic spicy pickle from the hills of Darjeeling',
+                price: 299,
+                image: 'https://res.cloudinary.com/dj4kdlwzo/image/upload/v1752940186/pickle_3_co88iu.jpg',
+                quantityAvailable: 10,
+                category: 'pickle',
+                rating: 4.5,
+                artisan: foundArtisan.name
+              }
+            ];
+            setArtisanProducts(foundArtisan.name === 'Deepak Sharma' ? demoProducts : []);
+            featured: false,
+            tags: ['monsoon', 'darjeeling-weather', 'tea-season', 'mountain-beauty']
           }
         };
         
