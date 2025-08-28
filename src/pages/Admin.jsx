@@ -73,6 +73,12 @@ export default function Admin() {
   const [editingArtisan, setEditingArtisan] = useState(null);
   const [editingStory, setEditingStory] = useState(null);
   const [stories, setStories] = useState([]);
+  const [storyStats, setStoryStats] = useState({
+    total: 0,
+    published: 0,
+    featured: 0,
+    byCategory: {}
+  });
 
   useEffect(() => {
     fetchProducts();
@@ -80,7 +86,28 @@ export default function Admin() {
     fetchArtisans();
     fetchLowStockProducts();
     fetchStories();
+    calculateStoryStats();
   }, [fetchProducts, fetchOrders, fetchArtisans, fetchLowStockProducts]);
+
+  const calculateStoryStats = () => {
+    const stats = {
+      total: stories.length,
+      published: stories.filter(s => s.status === 'published' || !s.status).length,
+      featured: stories.filter(s => s.featured).length,
+      byCategory: {}
+    };
+    
+    stories.forEach(story => {
+      const category = story.category || 'uncategorized';
+      stats.byCategory[category] = (stats.byCategory[category] || 0) + 1;
+    });
+    
+    setStoryStats(stats);
+  };
+
+  useEffect(() => {
+    calculateStoryStats();
+  }, [stories]);
 
   const fetchStories = async () => {
     try {
@@ -871,7 +898,25 @@ export default function Admin() {
               {/* Stories Management */}
               <div className="space-y-4">
                 <div className="flex items-center justify-between mb-4">
-                  <h3 className="text-lg font-semibold text-organic-text">Published Stories</h3>
+                  <h3 className="text-lg font-semibold text-organic-text">📖 Story Management</h3>
+                  <div className="grid md:grid-cols-4 gap-4 mb-4">
+                    <div className="text-center">
+                      <div className="text-2xl font-bold text-blue-600">{storyStats.total}</div>
+                      <div className="text-sm text-gray-600">Total Stories</div>
+                    </div>
+                    <div className="text-center">
+                      <div className="text-2xl font-bold text-green-600">{storyStats.featured}</div>
+                      <div className="text-sm text-gray-600">Featured</div>
+                    </div>
+                    <div className="text-center">
+                      <div className="text-2xl font-bold text-purple-600">{storyStats.byCategory.events || 0}</div>
+                      <div className="text-sm text-gray-600">Events</div>
+                    </div>
+                    <div className="text-center">
+                      <div className="text-2xl font-bold text-orange-600">{storyStats.byCategory.traditions || 0}</div>
+                      <div className="text-sm text-gray-600">Traditions</div>
+                    </div>
+                  </div>
                   <div className="flex items-center gap-3">
                     <select className="px-3 py-2 border border-gray-300 rounded-lg text-sm">
                       <option value="all">All Categories</option>
