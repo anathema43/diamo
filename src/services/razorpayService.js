@@ -37,13 +37,7 @@ class RazorpayService {
       });
 
       return result.data;
-    } catch (error) {
-      console.error('Error creating Razorpay order:', error);
-      if (error.name === 'TypeError' && error.message.includes('fetch')) {
-        throw new Error('Network error: Please check your internet connection');
       }
-      throw error;
-    }
   }
 
   async processPayment(orderData, onSuccess, onError) {
@@ -120,12 +114,8 @@ class RazorpayService {
       const result = await verifyPayment(paymentData);
       
       return result.data;
-    } catch (error) {
-      console.error('Error verifying payment:', error);
-      throw error;
     }
   }
-
   async processRefund(paymentId, amount, reason = 'Customer request') {
     try {
       const { getFunctions, httpsCallable } = await import('firebase/functions');
@@ -139,14 +129,7 @@ class RazorpayService {
       });
       
       return result.data;
-    } catch (error) {
-      console.error('Error processing refund:', error);
-      throw error;
     }
-  }
-
-  // Utility method to format amount for display
-  formatAmount(amount) {
     return new Intl.NumberFormat('en-IN', {
       style: 'currency',
       currency: 'INR'
