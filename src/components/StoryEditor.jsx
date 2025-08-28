@@ -29,7 +29,9 @@ export default function StoryEditor({ story, onClose, onSave }) {
     { value: 'artisan-story', label: 'Artisan Stories' },
     { value: 'food-culture', label: 'Food & Recipes' },
     { value: 'community', label: 'Community Impact' },
-    { value: 'sustainability', label: 'Environment & Nature' }
+    { value: 'sustainability', label: 'Environment & Nature' },
+    { value: 'news', label: 'News & Updates' },
+    { value: 'business', label: 'Business & Economy' }
   ];
 
   const handleInputChange = (field, value) => {

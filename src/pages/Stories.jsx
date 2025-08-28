@@ -63,8 +63,8 @@ Today, Deepak employs 8 local women in his workshop, providing them with steady 
           },
           {
             id: '2',
-            title: 'Darjeeling Durga Puja 2024: Hills Come Alive with Celebration',
-            excerpt: 'The annual Durga Puja festival transforms Darjeeling into a vibrant celebration of Bengali culture, bringing together communities from across the hills in joyous festivities.',
+            title: 'Darjeeling Winter Festival 2024: A Magical Celebration in the Clouds',
+            excerpt: 'The inaugural Darjeeling Winter Festival brought together thousands of visitors to celebrate hill culture, local cuisine, and traditional crafts in a spectacular three-day event.',
             content: `Every October, the hill station of Darjeeling transforms into a spectacular celebration as the Bengali community comes together for Durga Puja. The cool mountain air fills with the sound of dhak drums, the aroma of traditional sweets, and the joyous chatter of families reuniting for the festival.
 
 ## A Festival in the Clouds
@@ -95,7 +95,7 @@ For many Bengali families who have made Darjeeling their home over generations, 
             featuredImage: 'https://images.pexels.com/photos/1638280/pexels-photo-1638280.jpeg?auto=compress&cs=tinysrgb&w=800',
             publishedAt: '2024-10-15',
             readTime: '5 min read',
-            featured: false,
+            featured: true,
             tags: ['durga-puja', 'bengali-culture', 'darjeeling-festivals', 'community-celebration']
           },
           {
