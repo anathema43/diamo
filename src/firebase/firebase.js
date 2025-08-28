@@ -17,13 +17,19 @@ const firebaseConfig = {
 };
 
 // Check if Firebase is properly configured
-const isFirebaseConfigured = Object.values(firebaseConfig).every(value => 
-  value && 
-  value !== 'undefined' && 
-  value !== '' && 
-  !value.toString().includes('placeholder') && 
-  !value.toString().includes('your_')
-);
+const isFirebaseConfigured = 
+  firebaseConfig.apiKey && 
+  firebaseConfig.authDomain && 
+  firebaseConfig.projectId && 
+  firebaseConfig.storageBucket && 
+  firebaseConfig.appId &&
+  !firebaseConfig.apiKey.includes('placeholder') && 
+  !firebaseConfig.apiKey.includes('your_') &&
+  !firebaseConfig.authDomain.includes('placeholder') && 
+  !firebaseConfig.authDomain.includes('your_') &&
+  !firebaseConfig.projectId.includes('placeholder') && 
+  !firebaseConfig.projectId.includes('your_');
+
 
 if (!isFirebaseConfigured) {
   console.warn('⚠️ Firebase configuration incomplete. Check your .env file.');
