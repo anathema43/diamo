@@ -213,7 +213,7 @@ export default function Stories() {
                   />
                   <div className="absolute top-4 left-4">
                     <span className="bg-organic-highlight text-white px-2 py-1 rounded-full text-xs font-semibold capitalize">
-                      {story.category.replace('-', ' ')}
+                      {(story.category || '').replace('-', ' ')}
                     </span>
                   </div>
                 </div>
