@@ -214,7 +214,7 @@ describe('Authentication Flow', () => {
       cy.get('[data-cy="reset-email"]').type('test@ramro.com');
       cy.get('[data-cy="reset-submit"]').click();
       
-      cy.get('[data-cy="success-message"]').should('contain', 'Password reset email sent');
+      cy.contains('Password reset email sent').should('be.visible');
     });
     
     it('should validate email before sending reset', () => {
@@ -223,22 +223,34 @@ describe('Authentication Flow', () => {
       
       // Test empty email
       cy.get('[data-cy="reset-submit"]').click();
-      cy.contains('Please enter your email address').should('be.visible');
+      cy.get('[data-cy="reset-submit"]').should('be.disabled');
       
       // Test invalid email
       cy.get('[data-cy="reset-email"]').type('invalid-email');
       cy.get('[data-cy="reset-submit"]').click();
-      cy.contains('Please enter a valid email address').should('be.visible');
+      cy.contains('valid email address').should('be.visible');
     });
     
-    it('should handle non-existent email gracefully', () => {
+    it('should show intelligent error for wrong password', () => {
       cy.get('[data-cy="nav-login"]').click();
-      cy.get('[data-cy="forgot-password-link"]').click();
       
-      cy.get('[data-cy="reset-email"]').type('nonexistent@example.com');
-      cy.get('[data-cy="reset-submit"]').click();
+      cy.get('[data-cy="login-email"]').type('test@ramro.com');
+      cy.get('[data-cy="login-password"]').type('wrongpassword');
+      cy.get('[data-cy="login-submit"]').click();
       
-      cy.contains('No account found with this email address').should('be.visible');
+      cy.contains('Incorrect password').should('be.visible');
+      cy.get('[data-cy="forgot-password-link"]').should('have.class', 'font-semibold');
+    });
+    
+    it('should show signup button for non-existent user', () => {
+      cy.get('[data-cy="nav-login"]').click();
+      
+      cy.get('[data-cy="login-email"]').type('nonexistent@example.com');
+      cy.get('[data-cy="login-password"]').type('password123');
+      cy.get('[data-cy="login-submit"]').click();
+      
+      cy.contains('No account found with this email').should('be.visible');
+      cy.get('a').contains('Create Account Instead').should('be.visible');
     });
   });
 

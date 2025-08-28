@@ -3,6 +3,7 @@ import { collection, addDoc, doc, updateDoc } from 'firebase/firestore';
 import { db } from '../firebase/firebase';
 import { PlusIcon, PhotoIcon, CheckIcon, XMarkIcon } from '@heroicons/react/24/outline';
 import ImageUpload from './ImageUpload';
+import LoadingButton from './LoadingButton';
 
 export default function StoryEditor({ story, onClose, onSave }) {
   const [loading, setLoading] = useState(false);
@@ -252,8 +253,6 @@ Every jar sold supports 8 local families..."
               <p>• Use double line breaks for new paragraphs</p>
               <p>• Write naturally - like telling a friend about the artisan</p>
               <p>• Include personal details, traditional methods, and community impact</p>
-              <p>• Use **bold text** for emphasis and *italic text* for quotes</p>
-              <p>• Add bullet points with "• " at the start of lines</p>
             </div>
           </div>
 
@@ -285,14 +284,15 @@ Every jar sold supports 8 local families..."
           </div>
 
           <div className="flex gap-4 pt-4">
-            <button
+            <LoadingButton
               onClick={handleSave}
-              disabled={loading}
+              loading={loading}
               className="flex items-center gap-2 bg-organic-primary text-white px-6 py-3 rounded-lg hover:opacity-90 disabled:opacity-50"
+              loadingText="Saving..."
             >
               <CheckIcon className="w-4 h-4" />
-              {loading ? 'Saving...' : (story ? 'Update Story' : 'Create Story')}
-            </button>
+              {story ? 'Update Story' : 'Create Story'}
+            </LoadingButton>
             <button
               onClick={onClose}
               className="px-6 py-3 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50"
