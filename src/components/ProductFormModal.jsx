@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { XMarkIcon } from '@heroicons/react/24/outline';
 import { useProductStore } from '../store/productStore';
 import ImageUpload from './ImageUpload';
+import LoadingButton from './LoadingButton';
 
 export default function ProductFormModal({ product, artisans, onClose, onSave }) {
   const { addProduct, updateProduct } = useProductStore();
@@ -265,13 +266,14 @@ export default function ProductFormModal({ product, artisans, onClose, onSave })
           </div>
 
           <div className="flex gap-4 pt-4">
-            <button
+            <LoadingButton
               type="submit"
-              disabled={loading}
+              loading={loading}
               className="flex-1 bg-organic-primary text-white py-3 px-6 rounded-lg hover:opacity-90 disabled:opacity-50 disabled:cursor-not-allowed font-semibold"
+              loadingText="Saving..."
             >
-              {loading ? 'Saving...' : (product ? 'Update Product' : 'Create Product')}
-            </button>
+              {product ? 'Update Product' : 'Create Product'}
+            </LoadingButton>
             <button
               type="button"
               onClick={onClose}

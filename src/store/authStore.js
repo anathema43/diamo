@@ -146,24 +146,48 @@ export const useAuthStore = create(
         set({ currentUser: userCredential.user, userProfile: null, loading: false });
       }
     } catch (error) {
-      // Provide user-friendly error messages
-      let errorMessage = "Login failed. Please check your credentials.";
+      // Set specific error codes for intelligent UI handling
+      let errorCode = "generic-error";
       
       if (error.code === 'auth/user-not-found') {
-        errorMessage = "No account found with this email address.";
-      } else if (error.code === 'auth/wrong-password') {
-        errorMessage = "Incorrect password. You can reset your password using the 'Forgot Password' link.";
+        errorCode = "user-not-found";
+      } else if (error.code === 'auth/wrong-password' || error.code === 'auth/invalid-credential') {
+        errorCode = "wrong-password";
       } else if (error.code === 'auth/invalid-email') {
-        errorMessage = "Please enter a valid email address.";
+        errorCode = "invalid-email";
       } else if (error.code === 'auth/user-disabled') {
-        errorMessage = "This account has been disabled. Please contact support.";
+        errorCode = "user-disabled";
       } else if (error.code === 'auth/too-many-requests') {
-        errorMessage = "Too many failed attempts. Please try again later.";
-      } else if (error.code === 'auth/invalid-credential') {
-        errorMessage = "Invalid email or password. Please check your credentials or reset your password.";
+        errorCode = "too-many-requests";
       }
       
-      set({ error: errorMessage, loading: false });
+      set({ error: errorCode, loading: false });
+      throw error;
+    }
+  },
+
+  sendPasswordResetEmail: async (email) => {
+    set({ error: null, loading: true });
+    try {
+      if (!auth) {
+        throw new Error('Authentication service not available');
+      }
+      
+      await firebaseSendPasswordResetEmail(auth, email);
+      set({ error: "password-reset-sent", loading: false });
+      return { success: true, message: "Password reset email sent successfully" };
+    } catch (error) {
+      let errorCode = "password-reset-error";
+      
+      if (error.code === 'auth/user-not-found') {
+        errorCode = "reset-user-not-found";
+      } else if (error.code === 'auth/invalid-email') {
+        errorCode = "reset-invalid-email";
+      } else if (error.code === 'auth/too-many-requests') {
+        errorCode = "reset-too-many-requests";
+      }
+      
+      set({ error: errorCode, loading: false });
       throw error;
     }
   },

@@ -252,6 +252,8 @@ Every jar sold supports 8 local families..."
               <p>• Use double line breaks for new paragraphs</p>
               <p>• Write naturally - like telling a friend about the artisan</p>
               <p>• Include personal details, traditional methods, and community impact</p>
+              <p>• Use **bold text** for emphasis and *italic text* for quotes</p>
+              <p>• Add bullet points with "• " at the start of lines</p>
             </div>
           </div>
 

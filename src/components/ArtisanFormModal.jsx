@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { XMarkIcon } from '@heroicons/react/24/outline';
 import { useArtisanStore } from '../store/artisanStore';
 import ImageUpload from './ImageUpload';
+import LoadingButton from './LoadingButton';
 
 export default function ArtisanFormModal({ artisan, onClose, onSave }) {
   const { addArtisan, updateArtisan } = useArtisanStore();
@@ -324,13 +325,14 @@ export default function ArtisanFormModal({ artisan, onClose, onSave }) {
           </div>
 
           <div className="flex gap-4 pt-4">
-            <button
+            <LoadingButton
               type="submit"
-              disabled={loading}
+              loading={loading}
               className="flex-1 bg-organic-primary text-white py-3 px-6 rounded-lg hover:opacity-90 disabled:opacity-50 disabled:cursor-not-allowed font-semibold"
+              loadingText="Saving..."
             >
-              {loading ? 'Saving...' : (artisan ? 'Update Artisan' : 'Create Artisan')}
-            </button>
+              {artisan ? 'Update Artisan' : 'Create Artisan'}
+            </LoadingButton>
             <button
               type="button"
               onClick={onClose}
