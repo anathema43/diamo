@@ -18,15 +18,37 @@ const firebaseConfig = {
 
 // Check if Firebase is properly configured
 const isFirebaseConfigured = Object.values(firebaseConfig).every(value => 
-  value && value !== 'undefined' && value !== '' && !value.includes('placeholder') && !value.includes('your_')
+  value && 
+  value !== 'undefined' && 
+  value !== '' && 
+  !value.toString().includes('placeholder') && 
+  !value.toString().includes('your_') &&
+  !value.toString().includes('null')
 );
 
 if (!isFirebaseConfigured) {
-  console.warn('⚠️ Firebase configuration is incomplete. Please check your .env file and ensure all VITE_FIREBASE_* variables are set.');
+  console.error('🔥 Firebase Configuration Error');
+  console.error('====================================');
+  console.error('Firebase is not properly configured. Please follow these steps:');
+  console.error('');
+  console.error('1. Create a .env file in your project root (copy from .env.example)');
+  console.error('2. Go to Firebase Console: https://console.firebase.google.com');
+  console.error('3. Select your project → Project Settings → General');
+  console.error('4. Scroll down to "Your apps" and find your web app');
+  console.error('5. Copy the config values and update your .env file');
+  console.error('');
+  console.error('Current config status:');
+  Object.entries(firebaseConfig).forEach(([key, value]) => {
+    const status = value && value !== 'undefined' && !value.toString().includes('your_') ? '✅' : '❌';
+    console.error(`${status} ${key}: ${value ? 'Set' : 'Missing'}`);
+  });
+  console.error('');
   
   // In development, show warning but don't crash the app
   if (import.meta.env.DEV) {
-    console.warn('🔧 Development mode: Firebase not configured yet. Some features will be limited.');
+    console.error('🔧 Development mode: Please configure Firebase to continue.');
+    // Don't initialize Firebase with invalid config
+    throw new Error('Firebase configuration required. Please set up your .env file with valid Firebase credentials.');
   } else {
     // Only throw error in production
     throw new Error('Firebase configuration is required. Please set up your environment variables.');
